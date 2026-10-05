@@ -974,7 +974,7 @@ consolidated secrets file — named outright in one commit SUBJECT — and the o
 the same edge. Publishing the existing repo publishes all of it.
 
 So the mechanism changed from what Moses approved ("full repo, MIT"): a public repo with a **fresh
-single-commit history containing the whole application**, with `Object-ions/studio` staying private
+single-commit history containing the whole application**, with `switchcasestudio/studio` staying private
 as the ops record. Same give-away, none of the map. Staged and verified at `~/Desktop/studio-oss`
 (MIT LICENSE, a stranger-facing README, genericised env example, web app still builds). **Not
 pushed** — creating the public repo is Moses's call since the mechanism differs from what he okayed.
@@ -1063,8 +1063,8 @@ Two diagnostic notes worth keeping:
   free action — prefer waiting for the natural retry unless there is a reason to hurry.
 
 ### Action-plan item A CLOSED — Studio is open source (2026-08-06)
-Live at **https://github.com/Object-ions/scs-studio** — public, MIT, default branch `main`,
-28 files, ONE commit. `Object-ions/studio` stays PRIVATE as the ops record (verified 404
+Live at **https://github.com/switchcasestudio/scs-studio** — public, MIT, default branch `main`,
+28 files, ONE commit. `switchcasestudio/studio` stays PRIVATE as the ops record (verified 404
 unauthenticated).
 
 Owner chose the clean-history mechanism over flipping the existing repo once the exposure was
@@ -1224,7 +1224,7 @@ amber for AFTER, right-aligned capture meta); cover tile rendered as the client'
 Archivo 500 — the face the rebuilt site actually uses — white on black at 1034×1446 with its
 256/512 srcset siblings. Total new assets 1.2MB WebP.
 
-**Client-repo safety cleared before linking.** `Object-ions/florida-green-improvements` is public and
+**Client-repo safety cleared before linking.** `switchcasestudio/florida-green-improvements` is public and
 linked as "View the code". Swept all 29 commits before linking: no `.env` ever committed, `internal/`
 (the audit workspace, Lighthouse runs, baseline crawl) gitignored and never tracked, and no
 credential pattern in any diff. This is build source, not an engagement workspace — the zahav-audit
@@ -2046,8 +2046,8 @@ Owner-directed layout session, one commit per change, each built and measured he
 - **Pinned services block top-heavy on tall screens.** Desktop pan layout centres heading + card row as one group (`justify-content: center`, `#services` no longer `flex: 1`). Cards cap at 680px, so the spare height used to sit under the row. Measured: 1800×1860 now splits the space about evenly above and below (~436px below); 1280×800, 1440×900 and 1920×1080 unchanged, card bottom = clip bottom.
 
 ## UNHURRIED THEMES, SHOP, OFFICE HOURS, SCHEDULED POSTS — 2026-09-25, on `main` (through 3a77061)
-Full system handoff (how every piece connects, secrets, release routine): private repo `Object-ions/unhurried-pro` → `HANDOFF.md`. Summary:
-- **Products.** Unhurried (free WordPress block theme, public repo `Object-ions/unhurried`, v1.0.1, submitted to WordPress.org ticket #292908, v1.0.0 in review) and Unhurried Pro ($49 child theme, private repo `Object-ions/unhurried-pro`, v1.2.0: WooCommerce templates, Coming soon page, Shop shelf, lead-story pattern, licence-key auto-updates). Author credit "Switch Case Studio"; canonical name **Moses Atia Poston** everywhere.
+Full system handoff (how every piece connects, secrets, release routine): private repo `switchcasestudio/unhurried-pro` → `HANDOFF.md`. Summary:
+- **Products.** Unhurried (free WordPress block theme, public repo `switchcasestudio/unhurried`, v1.0.1, submitted to WordPress.org ticket #292908, v1.0.0 in review) and Unhurried Pro ($49 child theme, private repo `switchcasestudio/unhurried-pro`, v1.2.0: WooCommerce templates, Coming soon page, Shop shelf, lead-story pattern, licence-key auto-updates). Author credit "Switch Case Studio"; canonical name **Moses Atia Poston** everywhere.
 - **Pages.** `/unhurried-pro/` (static sales page, self-hosted fonts because CSP is `font-src 'self'`), `/unhurried-pro/thanks/` (noindex; shows licence key), `/unhurried-pro/update.json` (WordPress update check), `/shop` (React route, data in `src/data/shop.json`; Shop is in header + mobile menu).
 - **Payments.** Stripe Payment Links: Pro $49 `buy.stripe.com/7sYcN57oi4EM9gb1et33W03` → thanks page with `?session_id=`; Office hour $95 `buy.stripe.com/cNifZh9wq7QYboj2ix33W04` → Google Calendar "Office Hour" booking page. Student Hour (free, Wed + Fri 18:00–19:00 PT) books directly. Oregon: no sales tax.
 - **Paid download.** `netlify/functions/unhurried-pro-download.mjs` checks the Checkout Session is paid via the Pro payment link, then streams the zip from the private GitHub release. **This repo is PUBLIC, so the zip never lives here.** Netlify env: `STRIPE_SECRET_KEY` (restricted, Checkout Sessions: Read), `GITHUB_TOKEN` (fine-grained, unhurried-pro, Contents: Read).
@@ -2058,7 +2058,7 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 
 ## UNHURRIED CASE STUDY — 2026-09-26, on `main`
 
-- `/projects/unhurried` added as the FIRST entry in `projects.json` (id 12, `studioProject: true`, `featured: true`, no `clientLogo` so it stays out of "Trusted by"). Free theme + Pro in one page; CTA `/shop`, link `/unhurried-pro/`, repo `Object-ions/unhurried` (verified public, unauthenticated 200).
+- `/projects/unhurried` added as the FIRST entry in `projects.json` (id 12, `studioProject: true`, `featured: true`, no `clientLogo` so it stays out of "Trusted by"). Free theme + Pro in one page; CTA `/shop`, link `/unhurried-pro/`, repo `switchcasestudio/unhurried` (verified public, unauthenticated 200).
 - Images in `public/projects/unhurried/`: long/hero captured from the free theme's Playground demo (`dev/serve.sh free`), preview/gallery cut from the Pro sales mockups, monochrome cover tile + `-256`/`-512`.
 - Metrics sourced from the theme repos only; no sales figures (no purchase yet; the owner's test buy is 2026-09-28).
 - `CaseStudyIndex.js` GROUPS: `WordPress Theme` → Products + experiments (it had fallen into a lone "More work" column). Prodani Miami `type` E-Commerce → Rebuild + SEO (owner request).

@@ -33,7 +33,7 @@ Moses asked for four blog posts about new studio products, published on a schedu
 
 ## Facts you can use (verified 2026-09-25)
 
-- **Unhurried** is a free WordPress block theme by Switch Case Studio. Download: https://github.com/Object-ions/unhurried/releases/latest/download/unhurried.zip . Submitted to WordPress.org (review pending, ticket 292908). Do not say it is "in the directory" until Moses confirms approval.
+- **Unhurried** is a free WordPress block theme by Switch Case Studio. Download: https://github.com/switchcasestudio/unhurried/releases/latest/download/unhurried.zip . Submitted to WordPress.org (review pending, ticket 292908). Do not say it is "in the directory" until Moses confirms approval.
 - **Unhurried Pro** costs **$49, one payment**: https://switchcasestudio.com/unhurried-pro/ . Adds WooCommerce shop, product, cart and checkout pages, a Coming soon page, a Shop shelf pattern and a lead-story blog layout. Installs on top of the free theme.
 - **Office hour**: **$95**, one hour, one to one, over Google Meet, on SEO, design, code or WordPress. Pay first, then book. A recap follows by email.
 - **Student hour**: **free**, Wednesday and Friday, 18:00 to 19:00 Pacific time. Students give their school or course and their question when booking.

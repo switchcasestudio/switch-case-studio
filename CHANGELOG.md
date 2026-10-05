@@ -35,9 +35,9 @@ User-facing changes only; process detail lives in `.audit/summary.md`. Newest fi
 
 ## 2026-09-25 · Unhurried Pro sales page and paid download
 
-- **New page `/unhurried-pro/`**: static sales page for Unhurried Pro (a $49 WooCommerce child theme for the free Unhurried WordPress theme). Buy buttons go to the Stripe Payment Link `buy.stripe.com/7sYcN57oi4EM9gb1et33W03`. Self-hosted fonts (the CSP allows `font-src 'self'` only), WebP/AVIF mockups with `<picture>`, SVG icons. Source and build script live in the private `Object-ions/unhurried-pro` repo (`marketing/build/site.py`).
+- **New page `/unhurried-pro/`**: static sales page for Unhurried Pro (a $49 WooCommerce child theme for the free Unhurried WordPress theme). Buy buttons go to the Stripe Payment Link `buy.stripe.com/7sYcN57oi4EM9gb1et33W03`. Self-hosted fonts (the CSP allows `font-src 'self'` only), WebP/AVIF mockups with `<picture>`, SVG icons. Source and build script live in the private `switchcasestudio/unhurried-pro` repo (`marketing/build/site.py`).
 - **Thank-you page `/unhurried-pro/thanks/`** (noindex): Stripe redirects there with `?session_id=`. Its Download button calls **`/unhurried-pro/download`**, a Netlify function (`netlify/functions/unhurried-pro-download.mjs`) that confirms the Checkout Session is paid through that payment link, then streams the zip from the private GitHub release. The zip is never committed to this public repo.
-- **Needs two Netlify env vars before it can serve files**: `STRIPE_SECRET_KEY` (restricted, Checkout Sessions: Read) and `GITHUB_TOKEN` (fine-grained, `Object-ions/unhurried-pro`, Contents: Read). Without them the function answers 503 with a "write to hello@" message.
+- **Needs two Netlify env vars before it can serve files**: `STRIPE_SECRET_KEY` (restricted, Checkout Sessions: Read) and `GITHUB_TOKEN` (fine-grained, `switchcasestudio/unhurried-pro`, Contents: Read). Without them the function answers 503 with a "write to hello@" message.
 
 ## 2026-07-05 — Contact section relayout
 

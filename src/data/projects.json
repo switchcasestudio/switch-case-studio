@@ -50,7 +50,7 @@
     "ctaLabel": "Get it in the Shop",
     "ctaUrl": "/shop",
     "links": [{ "label": "See Unhurried Pro", "url": "/unhurried-pro/" }],
-    "repos": [{ "label": "Free theme", "url": "https://github.com/Object-ions/unhurried" }]
+    "repos": [{ "label": "Free theme", "url": "https://github.com/switchcasestudio/unhurried" }]
   },
   {
     "id": 11,
@@ -277,7 +277,7 @@
     "ctaLabel": "View Live",
     "ctaUrl": "https://www.floridagreenimprovements.com",
     "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/florida-green-improvements" }
+      { "label": "Source", "url": "https://github.com/switchcasestudio/florida-green-improvements" }
     ]
   },
   {
@@ -470,7 +470,7 @@
     "ctaLabel": "View Live",
     "ctaUrl": "https://jomarketing11.com/",
     "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/jo-marketing-11" }
+      { "label": "Source", "url": "https://github.com/switchcasestudio/jo-marketing-11" }
     ]
   },
   {
@@ -657,7 +657,7 @@
     "ctaLabel": "View Live",
     "ctaUrl": "https://sha-design.com/",
     "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/sha-design-studio" }
+      { "label": "Source", "url": "https://github.com/switchcasestudio/sha-design-studio" }
     ]
   },
   {
@@ -732,9 +732,9 @@
       { "label": "Live API docs", "url": "https://jellybellywikiapi.onrender.com/" }
     ],
     "repos": [
-      { "label": "Scraper (Python)", "url": "https://github.com/Object-ions/Jelly-Belly-Wiki-API-Data-Collection" },
-      { "label": "API (C# / .NET)", "url": "https://github.com/Object-ions/Jelly-Belly-Wiki-API" },
-      { "label": "Front end (React)", "url": "https://github.com/Object-ions/Jelly_Belly_Wiki_Client" }
+      { "label": "Scraper (Python)", "url": "https://github.com/switchcasestudio/Jelly-Belly-Wiki-API-Data-Collection" },
+      { "label": "API (C# / .NET)", "url": "https://github.com/switchcasestudio/Jelly-Belly-Wiki-API" },
+      { "label": "Front end (React)", "url": "https://github.com/switchcasestudio/Jelly_Belly_Wiki_Client" }
     ]
   },
   {
@@ -794,7 +794,7 @@
     "ctaLabel": "View Live",
     "ctaUrl": "https://birth-of-venus.netlify.app/",
     "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/birth-of-venus" }
+      { "label": "Source", "url": "https://github.com/switchcasestudio/birth-of-venus" }
     ]
   },
   {
@@ -854,7 +854,7 @@
     "ctaLabel": "View Live",
     "ctaUrl": "https://floridaenergyassistance.com/",
     "repos": [
-      { "label": "Source", "url": "https://github.com/Object-ions/fl-energy-savings-assistance-program" }
+      { "label": "Source", "url": "https://github.com/switchcasestudio/fl-energy-savings-assistance-program" }
     ]
   }
 ]

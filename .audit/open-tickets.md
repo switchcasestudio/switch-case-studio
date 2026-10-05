@@ -4,7 +4,7 @@ Live list. Close a ticket by deleting its block and logging the outcome in `summ
 Last reviewed: 2026-09-25.
 
 ## LAUNCH-UNHURRIED — themes, shop and office hours follow-through
-**Logged 2026-09-25.** Everything below is live; these are the checks and waits that remain. System handoff: `Object-ions/unhurried-pro` → `HANDOFF.md`.
+**Logged 2026-09-25.** Everything below is live; these are the checks and waits that remain. System handoff: `switchcasestudio/unhurried-pro` → `HANDOFF.md`.
 
 **Owner:**
 1. **Mon 2026-09-28 10:00 PT: end-to-end purchase test** (Google Calendar reminder). Buy Pro ($49): thank-you page loads, Download returns `unhurried-pro-1.2.0.zip`, copy the licence key into a WordPress site (Appearance > Unhurried Pro) and confirm it saves. Buy an office hour ($95): lands on the Office Hour booking page, book then cancel. Refund both in Stripe. No real purchase has happened yet, so this is the only end-to-end proof.

@@ -1,12 +1,12 @@
 // Unhurried Pro download: verifies a paid Stripe Checkout session, then streams
-// the zip from the PRIVATE Object-ions/unhurried-pro GitHub release.
+// the zip from the PRIVATE switchcasestudio/unhurried-pro GitHub release.
 // The zip is never committed to this (public) repo.
 //
 // Netlify environment variables (set in the Netlify UI, never in git):
 //   STRIPE_SECRET_KEY  restricted key, permission: Checkout Sessions = Read
-//   GITHUB_TOKEN       fine-grained token, repo Object-ions/unhurried-pro, Contents = Read
+//   GITHUB_TOKEN       fine-grained token, repo switchcasestudio/unhurried-pro, Contents = Read
 const PAYMENT_LINK = 'plink_1UJTLbI7JsbjSmdg8ssdGIN3';
-const REPO = 'Object-ions/unhurried-pro';
+const REPO = 'switchcasestudio/unhurried-pro';
 const TAG = 'v1.2.0';
 const ASSET = 'unhurried-pro-1.2.0.zip';
 
