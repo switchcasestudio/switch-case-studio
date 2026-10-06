@@ -166,6 +166,39 @@ Remaining hits of `CaseStudyTiles|HoverPeek|useBento|_projects-tiles|_projects-b
 
 Gate: `npm run build` green; every `build/assets` file name identical to a HEAD build (comments are minifier-stripped); HTML 52; entry marker in `build/assets/app-B1E2DJeN.js` (new entry hash vs F5 comes from F6's `projects.json` edit, same as HEAD).
 
+### F8 — Task 8: final verification
+
+Clean run on HEAD `6cc63e4`: `rm -rf build node_modules && npm ci && npm run build`, green.
+
+| Check | Result |
+|---|---|
+| HTML files (`find build -name '*.html'`) | 52, PASS |
+| Entry marker | only in `build/assets/app-B1E2DJeN.js`, no lazy chunk, PASS |
+| Em dash in build | 1 hit, `CaseStudyPage-*.js` (`clampAtWord`); baseline 1, same chunk, PASS |
+| `SCS Display` in CSS | 1 file, `app-bQ3CgukU.css`, PASS |
+| Hydration, 51 routes (all but 404), headless Chrome over CDP, 4 s per route: exceptions, `console.error`, log errors | 0 errors on all 51, one `h1` each, PASS. Checker proven on a page that throws. No baseline comparison needed. |
+| Phone `scrollWidth` at 390 (`/`, `/about`, `/projects`, `/pricing`, `/blog`) | 390 each, PASS |
+
+Routes were served with `npx serve` (clean URLs), not `vite preview`, which answers any path with the fallback shell.
+
+Before / after (main `5bbe6ac` vs HEAD):
+
+| Measure | Before | After | Delta |
+|---|---|---|---|
+| `src/**/*.js` files | 103 | 98 | −5 |
+| `src/**/*.js` lines | 15,689 | 14,936 | −753 |
+| SCSS files | 56 | 52 | −4 |
+| `public/` tracked files | 270 | 244 | −26 |
+| `public/` tracked bytes | 26,873,267 | 26,784,285 | −88,982 |
+| `build/` files | 418 | 392 | −26 (the removed cover-tile siblings) |
+| `build/` apparent size (`du -skA`) | 32,699 KB | 32,596 KB | −103 KB |
+| dependencies + devDependencies | 17 + 2 | 16 + 2 | −1 |
+| lockfile `packages` entries | 288 | 265 | −23 |
+
+The baseline's "38M, 317 files" for `build/` is not reproduced by `find build -type f` on the baseline build (418 files); the table counts both sides the same way. `du -sh` reads 33M vs 37M only because the two trees sit on different volumes; apparent size is the fair figure.
+
+Whole-branch review: removed imports (`ScrollTrigger` in `AboutHeading.js`, registered globally in `src/index.js`; `REVEAL_SAFETY_DELAY` in `AboutText.js`; `SupportArt`; default `React`) have no remaining uses. The 35 class names gone from compiled CSS have no class string, `classList` or selector in `src`, `public/unhurried-pro` or `index.html`. `panelClass`, `backLabel`, `productName`: no reader in `src`, `scripts`, `content`, `public`. The 26 deleted assets (all `-256`/`-512` cover-tile siblings) are named nowhere. No VPS specifics in added lines of `CLAUDE.md` or `.audit/`.
+
 ## REVIEW: owner decides
 
 | # | Item | Why it looks dead | Why it might not be | Owner decision |
