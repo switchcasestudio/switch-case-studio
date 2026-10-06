@@ -1,5 +1,5 @@
 import { SANS, MONO, Chip, Lines, Sheet, Spark, gridPath } from "./artKit";
-import { HostingArt, SupportArt, MonitoringArt, ReportsArt, AppsArt } from "./webDevelopment";
+import { HostingArt, MonitoringArt, ReportsArt, AppsArt } from "./webDevelopment";
 
 /* AI & Automation package board (2026-09-26): two sections, the three
    one-time projects and the two monthly plans. These tiers are not a
