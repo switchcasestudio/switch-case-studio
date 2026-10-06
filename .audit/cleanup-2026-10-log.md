@@ -118,6 +118,23 @@ REVIEW from F4: rows 5–8, 10 files, 0.65 MB (left in place).
 
 For Task 7 (docs now stale): CLAUDE.md "Adding a project" rule (2) says `coverTile` needs its `-256`/`-512` siblings and the Renewed Bodyworks logo rule says to greyscale them; `scripts/cut-preview-thumbs.py:8` cites "the coverTile -256/-512 siblings" trap. `coverTile` itself is no longer rendered anywhere (only the logo script reads it).
 
+### F5 — Task 5: dependencies
+
+Import-site census of every `package.json` entry (`src`, `scripts`, `vite.config.js`, `index.html`) plus knip (`--include dependencies,unlisted`): no unlisted runtime imports. Only one dependency had zero import sites.
+
+| Removed | Why |
+|---|---|
+| `@radix-ui/react-hover-card` | Sole importer (`HoverPeek.js`) went in Task 1 |
+| `postinstall` script | Wrote a stub `@mediapipe/tasks-vision` source map. Nothing in src, scripts or config names mediapipe and it is not in the lockfile (transitive of a removed dependency); `npm ls` listed the folder as `extraneous`, i.e. the stub itself |
+
+Kept on evidence: `react-router-hash-link` (`Hero.js`), `prop-types` (`ScrollingShot.js`), `@emailjs/browser` (2 sites), `@fortawesome/free-solid-svg-icons` (3 sites), `sass` (Vite compiles `.scss`, no import site by design), `three` and `@react-three/fiber` (knip false positive: `lazy(() => import('../ui/DepthImage'))`).
+
+Lockfile: 384 lines out, 1 in (package.json comma). 23 `node_modules/` entries left: the hover-card, its 15 `@radix-ui/*` dependencies and `@radix-ui/rect`, and 4 `@floating-ui/*` (via `react-popper`). Nothing added. `rm -rf node_modules && npm ci`: clean, 203 packages, no ERESOLVE or peer errors; `npm ls` has no missing/invalid/extraneous.
+
+Gate: `normhash5` before vs after the change: IDENTICAL (390 files). HTML 52; entry marker in `build/assets/app-Cv4s0_Cm.js`.
+
+Noted, not fixed (told not to): `@fortawesome` is mixed, `fontawesome-svg-core` and `free-brands-svg-icons` at ^7 but `free-solid-svg-icons` at ^6.
+
 ## REVIEW: owner decides
 
 | # | Item | Why it looks dead | Why it might not be | Owner decision |
@@ -130,3 +147,4 @@ For Task 7 (docs now stale): CLAUDE.md "Adding a project" rule (2) says `coverTi
 | 6 | `public/brand/`: `switch-case-studio-star-mark.svg` (10 KB), `switch-case-studio-logo-square-lilac.png` (429 KB) | Nothing in src, content, scripts or build names either; the site uses the `.svg` wordmark (`artKit.js`) | Brand files exported on purpose (star mark from `SCSLogo.js` paths); public URLs may be handed to partners or press | |
 | 7 | `public/social/search-console-portrait.jpg` (121 KB) | No reference in src, content or build | 4:5 promo image for the Search Console post; the other portraits are named by `content/` promo files and this one may be used by hand or in a scheduled post | |
 | 8 | `public/unhurried-pro/img/`: `cart.avif`, `cart.webp`, `free.avif`, `icon-cart.svg`, `og.avif`, `og.webp` (6 files, 95 KB) | Neither Unhurried Pro page nor any data file names them (pages use `og.jpg`, the shop uses `free.webp`) | Product-page assets; a theme listing, readme or email may link them directly, and the cart section may be planned | |
+| 9 | `@fortawesome/free-solid-svg-icons` ^6 next to `fontawesome-svg-core` / `free-brands-svg-icons` ^7 | Looks like a missed upgrade | All three are imported and the build is identical; upgrading changes icon data, so it is a version change outside this cleanup | |
