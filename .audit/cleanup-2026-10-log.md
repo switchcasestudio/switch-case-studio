@@ -77,6 +77,47 @@ Gate:
 - Class sets: `comm -13 new old` = exactly the 35 names above (`bento-global-spotlight bento-particle blog-post blog-post__author blog-post__author-role blog-post__back blog-post__body blog-post__byline blog-post__byline-meta blog-post__cover blog-post__header blog-post__lede blog-post__next blog-post__next-label blog-post__next-link blog-post__next-title blog-post__tag blog-post__tags blog-post__topbar gradient-overlay has-peek is-loaded lpp__kicker panel-excerpt projects-viewall projects-viewall__link row-tiles squares-bg tile tile-badge tile-bento-glow tile-image tile-media tile-peek-image tile-title`). `comm -23 new old` = empty.
 - Screenshots (headless probe, `--reduced-motion`, baseline on :5051 vs new on :5052): `/blog`, `/pricing`, `/projects` desktop + phone and `/` phone pixel-identical. `/` desktop (5 px) and `/about` desktop + phone differ; baseline vs baseline differs in the same regions on reruns (`/about` polaroid/depth-image area, home hero), and a second new-build home shot matched baseline exactly. Non-deterministic pages, not the change.
 
+### F4 — Task 4: unused assets
+
+Method (`assets.mjs`): 277 files inventoried (270 in `public/`, 7 in `src/assets/`). Corpus: `src/**` (js, scss, json), `index.html`, `netlify.toml`, `content/**`, `scripts/**`, `.github/**`, text files in `public/**`, and the built `build/**` (html, js, css, json). A file counts as REFERENCED when its served path (or URL-encoded form) appears anywhere but in its own copy; DERIVED when a sibling rule maps it to a referenced parent (`-256`/`-512`/`-600.webp`, `Inter-#{$w}`, `/polaroids/${p.name}`, `/stickers/${...}`). A second pass (`refwhere.mjs`) listed every public file with no hit in `build/`.
+
+| Class | Files | Size |
+|---|---|---|
+| REFERENCED | 236 | 26.05 MB |
+| DERIVED | 26 | 0.08 MB |
+| BASENAME-ONLY | 9 | 0.51 MB |
+| UNREFERENCED | 6 | 0.17 MB |
+
+DERIVED was the 26 cover-tile siblings, and their rule no longer holds: the only code that built `${coverTile}-256.webp 256w, …-512.webp 512w` was `CaseStudyTiles.js` (line 93), already unimported on main and deleted in Task 1. No file in `src/`, `scripts/` or `build/` names or builds a `-256`/`-512` path now. The base `*-cover-tile.webp` files stay: `projects.json` names them and `scripts/cut-client-logos.py` reads them.
+
+BASENAME-ONLY, checked by hand: `robots.txt`, `.well-known/security.txt` keep (protocol files). `unhurried-pro/index.html`, `thanks/index.html` keep (static routes). `unhurried-pro/update.json` keep (the theme's update check fetches it from outside the site). `brand/…-logo-square-lilac.png`, `unhurried-pro/img/cart.{avif,webp}`, `free.avif`: no real reference (the hits were the stems "cart", "free" in prose; `artKit.js` names the `.svg` logo, `shop.json` names `free.webp`), so REVIEW below.
+
+Deleted (26 files, 88,982 bytes, all certain: consumer component gone):
+
+| File (`public/projects/<slug>/`) | Bytes |
+|---|---|
+| `birth-of-venus/birth-of-venus-cover-tile-256.webp`, `-512.webp` | 1,582 + 3,040 |
+| `crimson/crimson-cover-tile-256.webp`, `-512.webp` | 1,792 + 4,040 |
+| `florida-energy-assistance/florida-energy-assistance-cover-tile-256.webp`, `-512.webp` | 1,104 + 3,030 |
+| `florida-green/florida-green-cover-tile-256.webp`, `-512.webp` | 1,778 + 3,302 |
+| `jelly-belly-wiki/jelly-belly-wiki-cover-tile-256.webp`, `-512.webp` | 2,696 + 5,874 |
+| `jo-marketing-11/jo-marketing-11-cover-tile-256.webp`, `-512.webp` | 1,618 + 3,168 |
+| `my-challah-dealer/my-challah-dealer-cover-tile-256.webp`, `-512.webp` | 4,614 + 12,562 |
+| `prodani/prodani-cover-tile-256.webp`, `-512.webp` | 1,872 + 3,792 |
+| `renewed-bodyworks/renewed-bodyworks-cover-tile-256.webp`, `-512.webp` | 3,992 + 10,110 |
+| `scout/scout-cover-tile-256.webp`, `-512.webp` | 1,226 + 2,784 |
+| `sha-design-studio/sha-design-studio-cover-tile-256.webp`, `-512.webp` | 998 + 1,822 |
+| `unhurried/unhurried-cover-tile-256.webp`, `-512.webp` | 2,444 + 4,658 |
+| `zahav/zahav-cover-tile-256.webp`, `-512.webp` | 1,518 + 3,566 |
+
+Totals: 0.08 MB freed. `public/` 270 → 244 files, 26,824 → 26,688 KB on disk (`du -sk`; still 26M). The bulk of `public/` is referenced media; this task found little dead weight.
+
+Gate: control build with the 26 files restored vs build without them, both normalised (`normhash5.mjs`: asset hashes plus the per-build id read from the manifest name). The only difference is the 26 files leaving `build/` (416 → 390 lines); every HTML, JS, CSS and JSON file identical. `grep -rlF <basename> build/` empty for all 26. HTML 52; entry marker in `build/assets/app-Cv4s0_Cm.js`.
+
+REVIEW from F4: rows 5–8, 10 files, 0.65 MB (left in place).
+
+For Task 7 (docs now stale): CLAUDE.md "Adding a project" rule (2) says `coverTile` needs its `-256`/`-512` siblings and the Renewed Bodyworks logo rule says to greyscale them; `scripts/cut-preview-thumbs.py:8` cites "the coverTile -256/-512 siblings" trap. `coverTile` itself is no longer rendered anywhere (only the logo script reads it).
+
 ## REVIEW: owner decides
 
 | # | Item | Why it looks dead | Why it might not be | Owner decision |
@@ -85,3 +126,7 @@ Gate:
 | 2 | `DUR_FAST`, `EASE_BRAND`, `src/animation/motionTokens.js` | 0 JS uses | Header says the file mirrors the SCSS token set (`--dur-fast`, `--ease-brand` are live in CSS); deleting breaks the mirror | |
 | 3 | `sp-bg-pink`, `sp-s-pink`, `sp-s-terra` (`servicePoster.scss` palette `@each`) | no poster or end card uses these colour/role pairs | One loop emits every palette × role; trimming means special-casing the map, and a future poster may pick pink | |
 | 4 | 68 `fa-*` utilities + `svg-inline--fa` (`@fortawesome/fontawesome-svg-core/styles.css`, imported in `src/index.js`) | almost none appear in src | Library stylesheet: `FontAwesomeIcon` adds `svg-inline--fa`/`fa-*` at runtime; trimming means `autoAddCss` off plus a hand-cut subset | |
+| 5 | `public/ident/ident-1x1-poster.webp` (8 KB) | No code has ever named it (`git log -S` empty); `Hero.js` uses the 16x9 poster and swaps to 9x16 below 4/5 aspect | The 1x1 cut it belongs to is live (`<source media="(max-width: 768px)">`); phones between 4/5 and 768px show the 16x9 poster over a 1x1 video. It may be the missing poster rather than dead | |
+| 6 | `public/brand/`: `switch-case-studio-star-mark.svg` (10 KB), `switch-case-studio-logo-square-lilac.png` (429 KB) | Nothing in src, content, scripts or build names either; the site uses the `.svg` wordmark (`artKit.js`) | Brand files exported on purpose (star mark from `SCSLogo.js` paths); public URLs may be handed to partners or press | |
+| 7 | `public/social/search-console-portrait.jpg` (121 KB) | No reference in src, content or build | 4:5 promo image for the Search Console post; the other portraits are named by `content/` promo files and this one may be used by hand or in a scheduled post | |
+| 8 | `public/unhurried-pro/img/`: `cart.avif`, `cart.webp`, `free.avif`, `icon-cart.svg`, `og.avif`, `og.webp` (6 files, 95 KB) | Neither Unhurried Pro page nor any data file names them (pages use `og.jpg`, the shop uses `free.webp`) | Product-page assets; a theme listing, readme or email may link them directly, and the cart section may be planned | |
