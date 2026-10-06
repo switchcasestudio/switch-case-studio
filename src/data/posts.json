@@ -9,7 +9,7 @@
     "authorRole": "Founder",
     "date": "2026-10-02",
     "readingTime": "2 min read",
-    "coverImage": "/social/office-hours-og.jpg",
+    "coverImage": "/images/journal/office-hours-and-free-student-hours.jpg",
     "imageAlt": "Office hours with Switch Case Studio: one-to-one hours for 95 dollars, free for students",
     "tags": [
       "Office Hours",
@@ -97,8 +97,8 @@
     "authorRole": "Founder",
     "date": "2026-10-01",
     "readingTime": "5 min read",
-    "coverImage": "",
-    "imageAlt": "",
+    "coverImage": "/images/journal/website-redesign-seo-keep-what-works.jpg",
+    "imageAlt": "Hand-drawn website wireframe sketches in pale blue lines on a dark blueprint",
     "tags": [
       "Website Redesign",
       "SEO",
@@ -212,7 +212,7 @@
     "authorRole": "Founder",
     "date": "2026-09-29",
     "readingTime": "3 min read",
-    "coverImage": "/unhurried-pro/img/og.jpg",
+    "coverImage": "/images/journal/unhurried-free-wordpress-theme.jpg",
     "imageAlt": "Unhurried Pro WordPress theme: a product page with a large photo and a floating summary panel",
     "tags": [
       "WordPress",
