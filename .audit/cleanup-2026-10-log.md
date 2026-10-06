@@ -44,6 +44,17 @@ Follow-ups for later tasks: `src/styles/components/hoverPeek.scss` is now orphan
 
 Gate: `npm run build` then `diffbuild.sh` → `IDENTICAL to baseline`, html 52, entry marker in `build/assets/app-CAKgkGpB.js` (same entry hash as baseline). The prebuild sitemap regeneration (lastmod dates only) was not committed.
 
+### F2 — Task 2: orphan SCSS
+
+Walker (`scss-orphans.mjs`): every SCSS import in `src/**/*.js` and `index.html`, every `@import`/`@use`/`@forward` in `src/**/*.scss`, transitive reachability. No `#{}` interpolation inside any import line. Two orphans, both with zero importers:
+
+| File | Lines | Evidence |
+|---|---|---|
+| `src/styles/components/cursorWave.scss` | 23 | `.cursor-wave` hero field; `CursorWave` removed 2026-09-09 with the video hero; no `cursorWave` or `cursor-wave` reference left in src |
+| `src/styles/components/hoverPeek.scss` | 72 | only `HoverPeek.js` imported it (deleted in Task 1); one comment mention in `_projects-tiles.scss`, no code |
+
+Gate: `npm run build`, `diffbuild.sh` gives `IDENTICAL to baseline`, html 52, entry `build/assets/app-CAKgkGpB.js`.
+
 ## REVIEW: owner decides
 
 | # | Item | Why it looks dead | Why it might not be | Owner decision |
