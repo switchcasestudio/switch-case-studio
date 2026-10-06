@@ -149,6 +149,23 @@ Text edits only: 40 lines out, 1 in (Scout's `kicker` lost the comma its trailin
 
 Gate: `normhash5` vs the HEAD build: every HTML (52) and every `static-loader-data` file IDENTICAL; one asset differs, `app.js`, which bundles `projects.json`. Against a control build of HEAD the size delta is 1,074 bytes, exactly the 39 removed `,"key":"value"` strings, and the two chunks are equal once those are stripped and minified identifiers normalised (esbuild re-mangles when string content shifts). Entry marker present.
 
+### F7 — Task 7: docs
+
+Docs and comments now describe the current code. No behaviour change.
+
+CLAUDE.md:
+- New rule at the top of "Review fixes → rules": normalised build gates, knip's blind spots, orphans one hop away.
+- Marked "(Historical since 2026-10-06 …)": remainder-1 home grid; breakpoint decorations (dead `_projects-tiles.scss` path dropped); scroll-reveal rule (now points at `LandingPageProof.js`); "Adding a project" constraints (1) and (2) (`panelClass` sentence replaced; (2) now names the live `preview-600.webp` case).
+- Rewritten in place: client-logo rule (no `-256`/`-512` to greyscale); `React.lazy` rule (slot now loads `DepthImage`); `once:true` rule ("the tile-reveal rule below"); data-driven tiles (`CaseStudyPage.js`, not `ProjectPage`); dep batch (React 19 + Vite 8 + R3F 9, no Drei); mobile-static note (tile particle/spotlight effects gone); route baseline 52.
+
+`.audit/summary.md`: the 2026-09-09 "CaseStudyTiles stays for LandingPageProof" line annotated as wrong; a CLEANUP 2026-10-06 section appended. Other dated entries left as history.
+
+Comments: `About.js` (moon → DepthImage, no drei/990KB claim), `CaseStudies.js` (false LandingPageProof claim), `LandingPageProof.js`, `CaseStudyPage.js` (rule name), `routes.js`, `DecorativeBoundary.js`, `journal.scss`, `scripts/cut-preview-thumbs.py`, `scripts/headless-probe.mjs`.
+
+Remaining hits of `CaseStudyTiles|HoverPeek|useBento|_projects-tiles|_projects-bento|panelClass|backLabel|productName|mediapipe` (all intentional): `src/` and `scripts/` 0. CLAUDE.md 60 (new rule), 78, 101, 104, 127 (historical rules). `.audit/summary.md` 357, 828, 841–862, 1319, 1380, 1392, 1501, 1505, 1577, 1601, 1623, 1626, 1707 (dated entries) and the new cleanup section.
+
+Gate: `npm run build` green; every `build/assets` file name identical to a HEAD build (comments are minifier-stripped); HTML 52; entry marker in `build/assets/app-B1E2DJeN.js` (new entry hash vs F5 comes from F6's `projects.json` edit, same as HEAD).
+
 ## REVIEW: owner decides
 
 | # | Item | Why it looks dead | Why it might not be | Owner decision |

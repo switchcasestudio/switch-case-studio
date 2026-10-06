@@ -81,8 +81,9 @@ const CaseStudies = () => {
       </h2>
 
       {/* Typed index (owner's CV-style reference) replaced the tile grid on
-          2026-09-09; CaseStudyTiles still serves LandingPageProof. The
-          "View all" link moved into the index's intro column. */}
+          2026-09-09 (the tile component was deleted in the 2026-10
+          cleanup). The "View all" link moved into the index's intro
+          column. */}
       <CaseStudyIndex />
     </section>
   );

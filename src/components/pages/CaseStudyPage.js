@@ -610,7 +610,7 @@ const CaseStudyPage = () => {
                 >
                   {/* `srcSmall` (1200w) is optional and explicit, never a
                       derived filename: a guessed sibling that 404s inside a
-                      srcSet fails silently (CLAUDE.md, coverTile rule). */}
+                      srcSet fails silently (CLAUDE.md, "Adding a project" rule). */}
                   <img
                     src={board.src}
                     srcSet={

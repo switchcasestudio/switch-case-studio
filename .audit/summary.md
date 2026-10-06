@@ -1704,7 +1704,7 @@ project's `imageSrc` (the 1150×1000 house-frame site screenshot), starting on t
 (first in `projects.json`); all ten previews are stacked in the DOM and crossfade on CSS opacity.
 Unmapped types fall into a trailing "More work" column rather than vanishing. Phones drop the slot
 (no hover) and stack the columns. The "CASE STUDIES" TextPressure heading is untouched;
-`CaseStudyTiles` stays for LandingPageProof. Verified headless at 1440 / 1024 / 390: 10 entries,
+`CaseStudyTiles` stays for LandingPageProof (wrong at the time: LandingPageProof never imported it; the file was deleted in the 2026-10 cleanup). Verified headless at 1440 / 1024 / 390: 10 entries,
 hover swaps the active preview, gutters 36 / 26 / 24, no horizontal overflow.
 
 Follow-up on the owner's note: the preview moved into the intro column under the "View all" pill,
@@ -2101,3 +2101,8 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Local `main` rebased onto the scheduler's 2026-09-29 commit (Unhurried theme post, `scs-scheduler`); no conflicts, the local star-mark SVG commit sits on top. Route baseline 48 → 49.
 - The two posts the scheduler shipped without a cover (09-17 brand guidelines, 09-24 Search Console) now carry 1600×900 Unsplash covers (an illuminated tachometer by Chris Liverani; Pantone chips on dry grass by Taylor Heery) plus `imageAlt`. Verified on the build: `<img>` in `.journal__cover`, `og:image` + `og:image:alt`, BlogPosting `image`; headless screenshots at 1440 and 390, no horizontal overflow; em-dash gate 1 (the known regex), entry-chunk marker present, SCS Display in the app bundle only. No post is without a cover now.
 - Session close (2026-09-30): pushed `main` (star-mark SVG + the two covers + regenerated sitemap). Route baseline 49. Open: `/pricing` overview posters as thin strips; `/about` h1→h3 scan note; tier-page head spacing; "Seen in" gaps (AI Assistant, AI Partner, Simple Website).
+
+## CLEANUP — 2026-10-06
+
+- Branch `chore/cleanup-2026-10` (log: `.audit/cleanup-2026-10-log.md`). Removed unreachable JS (`CaseStudyTiles.js`, `HoverPeek.js`, `useBentoParticles.js`, `useBentoSpotlight.js`, `bentoEffects.js`), orphan SCSS (`cursorWave.scss`, `hoverPeek.scss`, `_projects-tiles.scss`, `_projects-bento.scss`) and dead selectors, the 26 cover-tile `-256`/`-512` siblings, `@radix-ui/react-hover-card` and the mediapipe `postinstall`, and the unread `panelClass` / `backLabel` / `productName` fields. Every step gated on a normalised build diff (see the CLAUDE.md rule).
+- Entries above that cite these files describe the site at their date; they are not current. Route baseline 52 HTML files. Open: the REVIEW table in the log (owner decides).

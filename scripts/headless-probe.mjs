@@ -5,7 +5,7 @@
 //
 //   node scripts/headless-probe.mjs <url> '<js expression, may be an async IIFE>' [--phone | --size WxH] [--reduced-motion] [--chrome-flags "..."] [--shot out.png]
 //
-// WebGL runs on SwiftShader so the About moon (Three.js) can mount; with --disable-gpu its
+// WebGL runs on SwiftShader so About's DepthImage (Three.js) can mount; with --disable-gpu its
 // context creation threw and the route error boundary replaced the whole page mid-probe.
 // --phone emulates 390×844 @2x (Chrome refuses windows narrower than ~500px, so
 // --window-size cannot do this). The expression is evaluated with awaitPromise and
