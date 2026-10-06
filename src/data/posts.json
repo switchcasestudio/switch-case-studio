@@ -1,5 +1,94 @@
 [
   {
+    "slug": "selling-a-wordpress-theme-with-a-stripe-payment-link",
+    "title": "How We Sell a WordPress Theme With a Stripe Payment Link",
+    "excerpt": "No store plugin and no licence server: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip.",
+    "kicker": "Web Development",
+    "category": "Web Development",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-06",
+    "readingTime": "2 min read",
+    "coverImage": "/social/selling-a-theme-og.jpg",
+    "imageAlt": "Selling a WordPress theme with one Stripe payment link and one serverless function",
+    "tags": [
+      "Stripe",
+      "Netlify Functions",
+      "WordPress",
+      "Digital Products"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "When we released Unhurried Pro, the paid version of our free WordPress theme, we needed a way to sell one zip file. The usual answers were heavier than the job: a WooCommerce store just to sell a WooCommerce theme, a digital-downloads plugin, or a marketplace that takes a large cut. We wanted something small, cheap to run and easy to reason about."
+      },
+      {
+        "type": "paragraph",
+        "text": "Here is the setup we ended up with, and the one mistake it was designed to avoid."
+      },
+      {
+        "type": "heading",
+        "text": "The pieces"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A Stripe Payment Link for the product. Stripe hosts the checkout page, takes the card, calculates sales tax and emails the receipt.",
+          "A static thank-you page on our site. After payment, Stripe redirects there and adds the checkout session ID to the address.",
+          "One serverless function on Netlify. The Download button calls it with that session ID.",
+          "A private GitHub release that holds the zip."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What the function does"
+      },
+      {
+        "type": "paragraph",
+        "text": "The function takes the session ID and asks Stripe about it. It checks two things: that the payment status is paid, and that the session came from our Unhurried Pro payment link, not from some other product. Only then does it fetch the zip from the private GitHub release and stream it back as a download. Anything else gets a plain message asking the buyer to email us with their receipt number."
+      },
+      {
+        "type": "paragraph",
+        "text": "The Stripe key it uses is a restricted key that can only read checkout sessions. It cannot create charges, issue refunds or see customers. The GitHub token can only read one private repository. Both live as secret environment variables in Netlify, never in the code."
+      },
+      {
+        "type": "heading",
+        "text": "The mistake it avoids"
+      },
+      {
+        "type": "paragraph",
+        "text": "The first version of the plan was simpler: put the zip in the site's public folder at a hard-to-guess address and redirect buyers there. Then we noticed that our site's code lives in a public GitHub repository. Anything committed there is readable by anyone, including a paid zip at a secret path. The file would have been free to anyone who looked."
+      },
+      {
+        "type": "paragraph",
+        "text": "So the zip never touches the public repository. The public repo holds only the function's code, which is harmless to read, and the file itself stays in a private release."
+      },
+      {
+        "type": "heading",
+        "text": "What it costs"
+      },
+      {
+        "type": "paragraph",
+        "text": "Stripe's normal card fees, plus a small fee for its automatic tax calculation. There is no plugin licence, no store subscription and no server to maintain; the function runs only when someone clicks Download."
+      },
+      {
+        "type": "heading",
+        "text": "When this setup is not enough"
+      },
+      {
+        "type": "paragraph",
+        "text": "If you sell many products, need licence keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function."
+      },
+      {
+        "type": "link",
+        "url": "/unhurried-pro/",
+        "label": "See Unhurried Pro",
+        "note": "The theme this setup sells"
+      }
+    ]
+  },
+  {
     "slug": "office-hours-and-free-student-hours",
     "title": "Office Hours With the Studio, and Free Hours for Students",
     "excerpt": "You can now book one-to-one time with Switch Case Studio for questions on SEO, design, code or WordPress. Students get free hours every week.",
