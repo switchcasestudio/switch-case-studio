@@ -135,6 +135,20 @@ Gate: `normhash5` before vs after the change: IDENTICAL (390 files). HTML 52; en
 
 Noted, not fixed (told not to): `@fortawesome` is mixed, `fontawesome-svg-core` and `free-brands-svg-icons` at ^7 but `free-solid-svg-icons` at ^6.
 
+### F6 — Task 6: data fields
+
+Key-path census of every `src/data/*.json` (nested paths included) against `src`, `scripts`, `public/unhurried-pro`, `index.html` and `vite.config.js`: dot, optional-chain, bracket, quoted and destructuring (with defaults) access. 7 key paths had no reader; `brandKit` and `comparisons` were false alarms (destructured with defaults in `CaseStudyPage.js`). The match is by key NAME, so a dead field sharing a common name (`title`, `slug`) would read as used; only zero-hit keys were judged.
+
+| Removed (projects.json) | Count | Last consumer |
+|---|---|---|
+| `panelClass` | 13 | `CaseStudyTiles.js` (Task 1); already documented as read by nothing |
+| `backLabel` (all "Back to Projects") | 13 | old ProjectPage back link, removed in `df57f04` |
+| `productName` (all "Our Work") | 13 | ProjectPage CTA, removed in `2543898` |
+
+Text edits only: 40 lines out, 1 in (Scout's `kicker` lost the comma its trailing `productName` needed). `posts.json` untouched: every key has a reader (contract kept). `shop.json` `_note` is a hand-written comment for editors, kept.
+
+Gate: `normhash5` vs the HEAD build: every HTML (52) and every `static-loader-data` file IDENTICAL; one asset differs, `app.js`, which bundles `projects.json`. Against a control build of HEAD the size delta is 1,074 bytes, exactly the 39 removed `,"key":"value"` strings, and the two chunks are equal once those are stripped and minified identifiers normalised (esbuild re-mangles when string content shifts). Entry marker present.
+
 ## REVIEW: owner decides
 
 | # | Item | Why it looks dead | Why it might not be | Owner decision |
@@ -148,3 +162,4 @@ Noted, not fixed (told not to): `@fortawesome` is mixed, `fontawesome-svg-core` 
 | 7 | `public/social/search-console-portrait.jpg` (121 KB) | No reference in src, content or build | 4:5 promo image for the Search Console post; the other portraits are named by `content/` promo files and this one may be used by hand or in a scheduled post | |
 | 8 | `public/unhurried-pro/img/`: `cart.avif`, `cart.webp`, `free.avif`, `icon-cart.svg`, `og.avif`, `og.webp` (6 files, 95 KB) | Neither Unhurried Pro page nor any data file names them (pages use `og.jpg`, the shop uses `free.webp`) | Product-page assets; a theme listing, readme or email may link them directly, and the cart section may be planned | |
 | 9 | `@fortawesome/free-solid-svg-icons` ^6 next to `fontawesome-svg-core` / `free-brands-svg-icons` ^7 | Looks like a missed upgrade | All three are imported and the build is identical; upgrading changes icon data, so it is a version change outside this cleanup | |
+| 10 | `tileVersion`, `src/data/projects.json` (13 projects) | No reader since the home tile grid (`CaseStudyTiles.js`, `HoverPeek.js`) went in Task 1 | Per-project short copy (a one-to-two-line tile excerpt), written by hand; a future index or card may want it | |
