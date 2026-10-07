@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
 /**
- * Error boundary for DECORATIVE subtrees (the About moon, 2026-09-10).
+ * Error boundary for DECORATIVE subtrees (the About moon at 2026-09-10, DepthImage since 2026-09-12).
  * A decorative failure must stay decorative: without this, a Three.js
  * context failure (WebGL blocked, GPU blacklisted, context lost) bubbled to
  * the route error boundary and replaced the ENTIRE home page with

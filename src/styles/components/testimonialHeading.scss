@@ -17,16 +17,5 @@
 
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-
-
-    // Border overlay is unused here (showBorder=false) but defined for
-    // completeness in case the component is reused with a border later.
-    .gradient-overlay {
-      position: absolute;
-      inset: 0;
-      border-radius: inherit;
-      z-index: 0;
-      pointer-events: none;
-    }
   }
 }

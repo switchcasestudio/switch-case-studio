@@ -46,4 +46,5 @@ Moses asked for four blog posts about new studio products, published on a schedu
 - Unhurried: https://switchcasestudio.com/unhurried-pro/img/hero.webp (landscape), https://switchcasestudio.com/social/unhurried-portrait.jpg (4:5)
 - Office hours: https://switchcasestudio.com/social/office-hours-og.jpg (landscape), https://switchcasestudio.com/social/office-hours-portrait.jpg (4:5)
 - Selling a theme: https://switchcasestudio.com/social/selling-a-theme-og.jpg , https://switchcasestudio.com/social/selling-a-theme-portrait.jpg
+- Search Console post: https://switchcasestudio.com/images/journal/how-to-read-google-search-console-without-chasing-noise.jpg (landscape), https://switchcasestudio.com/social/search-console-portrait.jpg (4:5)
 - WordPress.org post: https://switchcasestudio.com/unhurried-pro/img/og.jpg

@@ -8,7 +8,6 @@ import {
   DUR_SLOW,
   EASE_OUT_SOFT,
   REVEAL_Y,
-  REVEAL_SAFETY_DELAY,
 } from "../../animation/motionTokens";
 
 const AboutText = () => {

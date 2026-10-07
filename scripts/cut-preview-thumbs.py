@@ -5,7 +5,7 @@
 under 1024px, as a thumbnail on the row. The thumbnail is `preview-600.webp`,
 derived from the `preview` path by string replacement in CaseStudiesPage.js, so
 a project whose sibling is missing renders an EMPTY thumbnail on phones while
-looking perfect on a desktop (same trap as the coverTile -256/-512 siblings).
+looking perfect on a desktop (the trap the retired coverTile -256/-512 srcset had).
 
 Run after adding a project:  .venv/bin/python scripts/cut-preview-thumbs.py
 Existing siblings are left alone unless --force is given.

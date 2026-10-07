@@ -21,17 +21,18 @@ const JUMPS = [
   { label: 'Measured, sourced, linked', to: '/about#ap-proof', x: '66%', y: '5%', d: '-4.5s' },
 ];
 
-// The Three.js stack (three + fiber + drei + Draco ≈ 990KB chunk) must not
-// touch the initial load. React.lazy alone is NOT enough: rendering <Moon/>
-// at hydration fires the import immediately — PSI showed the chunk fetching+
+// The Three.js stack (three + fiber) must not touch the initial load; the
+// slot is named for the 3D moon (three + fiber + drei + Draco, ≈ 990KB) it
+// held until 2026-09-12. React.lazy alone is NOT enough: rendering the lazy
+// component at hydration fires the import immediately — PSI showed the chunk fetching+
 // parsing during the hero's LCP window with no scroll. The import itself is
-// gated behind an IntersectionObserver: nothing downloads until the moon's
+// gated behind an IntersectionObserver: nothing downloads until the
 // slot scrolls within ~200px of the viewport.
 // Since 2026-09-12 the slot holds DepthImage (a relit photo, three + fiber,
 // no drei, no model); the gate and its reasoning are unchanged.
 const DepthImage = lazy(() => import('../ui/DepthImage'));
 
-// Can this browser create a WebGL context at all? If not, the 990KB Three.js
+// Can this browser create a WebGL context at all? If not, the Three.js
 // chunk is never fetched and the slot stays an empty, correctly-sized box.
 const hasWebGL = () => {
   try {
@@ -49,7 +50,7 @@ const MoonSlot = () => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (!hasWebGL()) return; // decorative: no WebGL, no moon, no error
+    if (!hasWebGL()) return; // decorative: no WebGL, no canvas, no error
     if (typeof IntersectionObserver === 'undefined') {
       setNear(true); // ancient browser: load it, same as before
       return;
@@ -68,7 +69,7 @@ const MoonSlot = () => {
   }, []);
 
   // SSR + first client render are both `near = false` (empty slot, same
-  // dimensions) — no hydration divergence; the moon mounts on approach.
+  // dimensions) — no hydration divergence; DepthImage mounts on approach.
   return (
     <div ref={ref} className="work-moon">
       {near && (

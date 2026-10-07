@@ -7,14 +7,6 @@
   position: relative;
   z-index: 1;
 
-  // ─── Animated Squares background layer ───
-  .squares-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: auto;
-  }
-
   // ─── Inline highlighted keywords ───
   .highlight-block {
     display: inline-block;

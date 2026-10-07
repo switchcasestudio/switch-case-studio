@@ -9,7 +9,6 @@
     "@fortawesome/free-brands-svg-icons": "^7.3.1",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^3.5.0",
-    "@radix-ui/react-hover-card": "^1.1.15",
     "@react-three/fiber": "^8.18.0",
     "gsap": "^3.15.0",
     "motion": "^13.2.0",
@@ -32,8 +31,7 @@
     "check:sameas": "node scripts/check-sameas.mjs",
     "prebuild": "node scripts/check-sameas.mjs && node scripts/generate-sitemap.mjs",
     "build": "vite-react-ssg build",
-    "preview": "vite preview",
-    "postinstall": "node -e \"const fs=require('fs'),p='node_modules/@mediapipe/tasks-vision/vision_bundle_mjs.js.map'; if(!fs.existsSync(p)){fs.mkdirSync(require('path').dirname(p),{recursive:true}); fs.writeFileSync(p,'{\\\"version\\\":3,\\\"sources\\\":[],\\\"names\\\":[],\\\"mappings\\\":\\\"\\\"}');}\""
+    "preview": "vite preview"
   },
   "overrides": {
     "form-data": "^4.0.6"

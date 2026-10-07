@@ -98,7 +98,7 @@ const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
  * (useLocation), so they live here now that the router is owned by
  * vite-react-ssg instead of an app-level <BrowserRouter>.
  *
- * Suspense stays for any nested lazy component (e.g. the Moon); page-level
+ * Suspense stays for any nested lazy component (e.g. About's DepthImage); page-level
  * code-splitting moved to route-record `lazy`, which React Router resolves
  * before rendering the route. The keyed wrapper re-mounts per route to
  * replay the opacity-only fade (resting opacity is 1, so content can never

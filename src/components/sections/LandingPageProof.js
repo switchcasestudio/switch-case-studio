@@ -19,7 +19,7 @@ const LandingPageProof = () => {
 
       // House safe-reveal (DESIGN_AUDIT P1-7): the old fromTo+once carried
       // the immediateRender trap (a ScrollTrigger.refresh() during load
-      // re-applies the hidden from-state — the CaseStudyTiles bug class),
+      // re-applies the hidden from-state: the old home tiles' bug class),
       // and an already-past `once` trigger never fires onEnter. set →
       // onEnter → in-view fallback → safety net.
       gsap.set(targets, { autoAlpha: 0, y: 28 });
