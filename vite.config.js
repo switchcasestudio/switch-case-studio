@@ -1,14 +1,42 @@
-import { defineConfig } from "vite";
+import { defineConfig, transformWithOxc } from "vite";
 import react from "@vitejs/plugin-react";
 
 // This project MIGRATED from Create React App to Vite + vite-react-ssg
 // (2026-06; CRA is gone — react-scripts removed, no CRA config remains).
 // One CRA-era convention was kept on purpose: JSX lives inside `.js` files
-// (not `.jsx`), which esbuild does not treat as JSX by default. The esbuild
-// loader override (for source) + optimizeDeps loader (for any dep shipping
-// JSX in .js) handle that without renaming every component file.
+// (not `.jsx`). The jsInSrcIsJsx plugin (for source) + the optimizeDeps
+// moduleTypes entry (for any dep shipping JSX in .js) handle that without
+// renaming every component file.
+
+// Since Vite 8 (Rolldown + Oxc) the built-in transform picks its parser from
+// the file EXTENSION and has no esbuild-style loader override, so it rejects
+// JSX in .js. This plugin compiles the JSX in src/**/*.js itself, with Vite's
+// own Oxc, before the built-in transform runs (which then sees plain JS).
+const SRC_JS = /\/src\/.*\.js$/;
+function jsInSrcIsJsx() {
+  let dev = false;
+  return {
+    name: "scs:js-in-src-is-jsx",
+    enforce: "pre",
+    configResolved(config) {
+      dev = config.command === "serve";
+    },
+    async transform(code, id) {
+      if (!SRC_JS.test(id.split("?")[0])) return null;
+      // Fast Refresh only in the dev CLIENT; the SSR render has no refresh
+      // runtime ($RefreshSig$ is not defined), same rule as Vite's own Oxc.
+      const refresh = dev && this.environment?.config.consumer === "client";
+      const out = await transformWithOxc(code, id, {
+        lang: "jsx",
+        jsx: { runtime: "automatic", development: dev, refresh },
+      });
+      return { code: out.code, map: out.map };
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react({ include: /\.(js|jsx)$/ })],
+  plugins: [jsInSrcIsJsx(), react({ include: /\.(js|jsx)$/ })],
   server: {
     port: 3000,
     open: true,
@@ -36,14 +64,9 @@ export default defineConfig({
     // CJS). Bundling it through Vite's SSR transform fixes the interop.
     noExternal: ["gsap"],
   },
-  esbuild: {
-    loader: "jsx",
-    include: /src\/.*\.js$/,
-    exclude: [],
-  },
   optimizeDeps: {
-    esbuildOptions: {
-      loader: { ".js": "jsx" },
+    rolldownOptions: {
+      moduleTypes: { ".js": "jsx" },
     },
   },
 });
