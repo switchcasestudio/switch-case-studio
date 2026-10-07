@@ -66,6 +66,17 @@
 # img-src (the GA4 lesson: allowlist every transport variant, and remember a
 # "clean" pre-consent run proves nothing — the pixel only fires POST-consent,
 # so exercise Accept + a conversion when verifying this policy).
+# Google Ads (2026-10-07): the GA4 property is Ads-linked, and on /contact gtag
+# sends an Ads conversion ping to pagead2.googlesyndication.com, which this
+# policy blocked (seen on the live site in the React 19 deploy check; it predates
+# that upgrade). Added Google's documented Google Ads host set
+# (developers.google.com/tag-platform/security/guides/csp): googleadservices,
+# www.google.com (script-src); googleadservices, googleads.g.doubleclick.net,
+# pagead2.googlesyndication.com, www.google.com (img-src and connect-src, plus
+# ad.doubleclick.net in connect-src); www.googletagmanager.com in frame-src (the
+# tag's service-worker iframe, listed for GA4 and Ads alike). Deploy previews run
+# without the GA ID, so this can only be verified on production: Accept, then
+# load /contact, and expect zero securitypolicyviolation events.
 [[headers]]
   for = "/*"
   [headers.values]
@@ -73,7 +84,7 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.facebook.com; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://www.googleadservices.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://ad.doubleclick.net; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com https://www.googletagmanager.com; frame-ancestors 'none'"
 
 # /partners ships a real (crawlable) static file, so enforce noindex at the
 # HTTP layer — authoritative for crawlers regardless of the HTML or whether JS
