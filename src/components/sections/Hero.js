@@ -113,9 +113,12 @@ const Hero = () => {
     const video = identRef.current?.querySelector("video");
     if (!video) return undefined;
     video.muted = true;
-    // The poster attribute can't vary by media query; match the portrait cut.
+    // The poster attribute can't vary by media query; match the cut the
+    // <source> list picks (same queries, same order).
     if (window.matchMedia("(max-aspect-ratio: 4/5)").matches) {
       video.poster = "/ident/ident-9x16-poster.webp";
+    } else if (window.matchMedia("(max-width: 768px)").matches) {
+      video.poster = "/ident/ident-1x1-poster.webp";
     }
     if (reducedMotion) {
       // No motion: park on the end card (the wordmark) instead of playing.
