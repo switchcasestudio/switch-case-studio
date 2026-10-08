@@ -1,5 +1,122 @@
 [
   {
+    "slug": "how-to-choose-fonts-for-a-small-business-website",
+    "title": "How to Choose Fonts for a Small Business Website",
+    "excerpt": "The right website typography is not the trendiest font pairing. It is a small, durable system that makes your business easier to read, recognize, and trust.",
+    "kicker": "Brand Identity",
+    "category": "Brand Identity",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-08",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Typography",
+      "Web Design",
+      "Brand Identity",
+      "Accessibility"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Choosing website fonts often turns into a tour of whatever looks fashionable this month. That is backwards. A small business does not need a clever type collection. It needs a type system that helps people understand the offer, find the next step, and recognize the business again later."
+      },
+      {
+        "type": "paragraph",
+        "text": "The font matters, but it is only one part of the decision. Size, weight, line length, spacing, contrast, and loading behavior all affect whether the words feel clear or exhausting. A plain typeface used well will outperform an expressive typeface used without discipline."
+      },
+      {
+        "type": "heading",
+        "text": "Start with the job, not the font library"
+      },
+      {
+        "type": "paragraph",
+        "text": "List the kinds of text the site must handle before opening a font catalog. Most service-business sites need a display style for major headings, a dependable body style, clear labels for navigation and forms, and readable numbers for prices or statistics. An editorial site may need captions and long-form reading styles. A restaurant may need a menu that remains legible on a phone."
+      },
+      {
+        "type": "paragraph",
+        "text": "This inventory exposes practical requirements. Does the family include a real bold weight? Does it support italics, currency symbols, and every language the business uses? Are the lowercase letters distinct at small sizes? Can someone tell 1, I, and l apart in a booking code or email address? These questions are less glamorous than choosing between geometric and humanist, but customers encounter them."
+      },
+      {
+        "type": "heading",
+        "text": "Use one family well before adding a second"
+      },
+      {
+        "type": "paragraph",
+        "text": "One versatile family is enough for many small-business websites. Hierarchy can come from size, weight, spacing, and placement. That keeps the site coherent and reduces the number of font files the browser must fetch. A second family can add useful contrast, especially when a brand needs a more expressive heading voice, but it should have a defined role."
+      },
+      {
+        "type": "paragraph",
+        "text": "If two fonts are almost alike, the pairing usually looks accidental. If they are wildly different, the page can feel like two brands arguing. Look for contrast in structure with compatibility in mood. A characterful serif heading can work with a restrained sans serif body. Two decorative faces fighting across every section rarely improve the message."
+      },
+      {
+        "type": "quote",
+        "text": "Typography earns trust when the reader notices the message before noticing the type system.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Build the reading conditions"
+      },
+      {
+        "type": "paragraph",
+        "text": "Do not approve typography from a large desktop mockup alone. Test real paragraphs, form labels, buttons, prices, and error messages on a narrow phone. Body text needs enough size and line height to breathe. Long lines slow the return from one line to the next, while very short lines make the eye jump constantly. A comfortable reading column is a design decision, not leftover space."
+      },
+      {
+        "type": "paragraph",
+        "text": "Avoid fully justified body copy on the web. It can create uneven gaps between words. Keep contrast strong, and do not depend on an ultra-light weight to make the site feel premium. Thin gray text often looks refined only on the designer's display. On an older phone in daylight, it simply disappears."
+      },
+      {
+        "type": "paragraph",
+        "text": "Accessibility also means allowing the reader to change the presentation. WCAG 2.2 success criterion 1.4.12 does not require every site to use one prescribed spacing recipe. It requires content and controls to survive when a reader increases line, paragraph, letter, and word spacing. Test that headings wrap, buttons grow, and cards do not clip their contents."
+      },
+      {
+        "type": "heading",
+        "text": "Make hierarchy repeatable"
+      },
+      {
+        "type": "paragraph",
+        "text": "A type system should tell the team what to do next. Define a small scale for the page title, section headings, body copy, supporting text, and interface labels. Give each style a purpose instead of naming it only by appearance. “Service section heading” is easier to apply consistently than “large semibold.”"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Use the largest style for the page's main idea, not for every sentence someone wants noticed.",
+          "Keep body copy consistent across service pages, articles, forms, and policy pages.",
+          "Use bold selectively so emphasis still means something.",
+          "Treat buttons and navigation as interface text, with clear labels and enough room to wrap or resize.",
+          "Test the system with the longest real heading and label, not tidy placeholder copy."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Check the license and the load"
+      },
+      {
+        "type": "paragraph",
+        "text": "A font found online is not automatically licensed for commercial web use. Record where it came from, what the license permits, and whether the files may be self-hosted. This avoids rebuilding the identity when a client, platform, or vendor asks a basic ownership question."
+      },
+      {
+        "type": "paragraph",
+        "text": "Then ship only what the site uses. Loading several families, every available weight, and multiple character sets creates cost without improving the design. Modern compressed formats and careful subsetting can help, but they do not excuse an undisciplined system. If the font arrives late, the layout should remain usable while it loads."
+      },
+      {
+        "type": "heading",
+        "text": "A practical approval test"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before approving the type system, open a real service page on a phone. Can you understand the business by scanning the headings? Can you read two paragraphs without zooming? Are the price, phone number, form labels, and primary action obvious? Increase the browser's text size and spacing. Does the layout adapt, or do words vanish behind fixed boxes?"
+      },
+      {
+        "type": "paragraph",
+        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the brand job. The rest is usability. Good website typography handles both without making the customer work for either."
+      }
+    ]
+  },
+  {
     "slug": "selling-a-wordpress-theme-with-a-stripe-payment-link",
     "title": "How We Sell a WordPress Theme With a Stripe Payment Link",
     "excerpt": "No store plugin and no licence server: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip.",
