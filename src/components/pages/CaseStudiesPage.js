@@ -4,6 +4,7 @@ import Seo from '../util/Seo';
 import projectsData from '../../data/projects.json';
 import { groupProjects } from '../../data/projectGroups';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
+import { ORG_REF, SITE, WEBSITE_REF } from '../../utils/schemaIds';
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/projectsPage.scss';
 
@@ -16,6 +17,27 @@ import '../../styles/components/projectsPage.scss';
  * projectGroups.js (shared with the home index), three across. Static HTML
  * is complete; hover is CSS. */
 const grouped = groupProjects(projectsData);
+
+/* CollectionPage + ItemList in the page's own order (SEO audit fix 9). */
+const collectionJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Case Studies',
+  url: `${SITE}/projects`,
+  isPartOf: WEBSITE_REF,
+  publisher: ORG_REF,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: grouped
+      .flatMap((g) => g.projects)
+      .map((p, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: p.title,
+        url: `${SITE}/projects/${p.slug}`,
+      })),
+  },
+};
 
 // The 600w sibling serves tiles up to ~2x of their width; the 1200w covers
 // wide single-column phones.
@@ -51,6 +73,7 @@ const CaseStudiesPage = () => {
         title="Case Studies | Switch Case Studio"
         description="Browse Switch Case Studio's portfolio: landing pages, websites, e-commerce stores, and apps built for clients across the US."
         path="/projects"
+        jsonLd={collectionJsonLd}
       />
 
       <article className="projects-page" aria-label="Case studies" ref={rootRef}>

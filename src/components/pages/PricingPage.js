@@ -2,6 +2,7 @@ import { Link, Navigate, useParams } from 'react-router-dom';
 import pricingData from '../../data/pricingData.json';
 import servicesData from '../../data/services.json';
 import Seo from '../util/Seo';
+import { ORG_REF } from '../../utils/schemaIds';
 import { PricingGuide } from './PricingGuide';
 
 const slugToServiceId = {
@@ -75,11 +76,7 @@ function PricingPage() {
               ? { description: service.description }
               : {}),
             url: `https://switchcasestudio.com/pricing/${serviceSlug}`,
-            provider: {
-              '@type': 'Organization',
-              name: 'Switch Case Studio',
-              url: 'https://switchcasestudio.com',
-            },
+            provider: ORG_REF,
           },
           {
             '@context': 'https://schema.org',

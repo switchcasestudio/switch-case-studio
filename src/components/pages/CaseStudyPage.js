@@ -24,29 +24,10 @@ import MotionReel from '../ui/MotionReel';
 
 import '../../styles/components/projectPage.scss';
 
-/* ── Meta-description clamp ──
-   A blind .slice() cut every case study mid-word ("…Jelly Belly site; the "),
-   which is what ships to SERPs and social cards. Cut on a word boundary
-   instead, trim trailing punctuation, and mark the elision. */
-const TRAILING_STOPWORDS =
-  /\s+(a|an|the|and|or|but|of|to|in|on|for|with|from|that|this|its|it|as|at|by|is|are|was|were)$/i;
-
-const clampAtWord = (text, max) => {
-  if (!text || text.length <= max) return text;
-  const cut = text.slice(0, max);
-
-  // Prefer a clause break — it reads as a finished thought, not a severed one.
-  const clause = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('; '));
-  // Otherwise fall back to the last word boundary, if it isn't so early it
-  // guts the sentence.
-  const space = cut.lastIndexOf(' ');
-  const at = clause > max * 0.5 ? clause : space > max * 0.6 ? space : max;
-
-  let body = cut.slice(0, at);
-  // A cut landing on "…site; the" leaves a dangling article. Drop it.
-  while (TRAILING_STOPWORDS.test(body)) body = body.replace(TRAILING_STOPWORDS, '');
-  return `${body.replace(/[\s,;:.—–-]+$/, '')}…`;
-};
+// Meta-description clamp and brand-aware title, shared with the blog and
+// scripts/add-post.mjs (src/utils/seoText.js).
+import { brandTitle, clampAtWord } from '../../utils/seoText';
+import { ORG_REF } from '../../utils/schemaIds';
 
 /* ── Image preload (returns true when image loads, false on error) ── */
 /* ── Media gate: render first, remove on failure ──
@@ -321,7 +302,7 @@ const CaseStudyPage = () => {
   return (
     <>
       <Seo
-        title={`${title} | Switch Case Studio`}
+        title={brandTitle(title)}
         description={metaDescription}
         path={`/projects/${slug}`}
         ogType="article"
@@ -334,11 +315,7 @@ const CaseStudyPage = () => {
             name: title,
             url: `https://switchcasestudio.com/projects/${slug}`,
             description: metaDescription,
-            creator: {
-              '@type': 'Organization',
-              name: 'Switch Case Studio',
-              url: 'https://switchcasestudio.com',
-            },
+            creator: ORG_REF,
             ...(year ? { dateCreated: String(year) } : {}),
             ...(publicImageSrc
               ? { image: `https://switchcasestudio.com${publicImageSrc}` }
