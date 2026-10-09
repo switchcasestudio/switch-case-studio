@@ -25,6 +25,7 @@
       { "value": "320–1440", "label": "px tested with no sideways scroll" }
     ],
     "description": "Unhurried is a calm, editorial WordPress block theme for studios, spas, clinics and makers, made for the web-builder community. The free theme has full-page patterns, a blog and three style variations, all edited in the Site Editor. It is GPL and submitted to WordPress.org. Unhurried Pro is a $49 child theme on top of it that styles the WooCommerce shop, from shelf to checkout. Buyers pay through Stripe, download through a verified link and get updates with a licence key.",
+    "servicePages": ["web-development"],
     "services": [
       { "label": "#Theme Design" },
       { "label": "#WordPress Block Theme (Site Editor)" },
@@ -87,6 +88,7 @@
       { "value": "18", "label": "requests to load the whole homepage, analytics included" }
     ],
     "description": "My Challah Dealer is a one-person home bakery in Portland that sells one thing: challah for Shabbat, picked up on Fridays. We designed the brand and built the business around it. The identity is a full logo system: badge, braid mark, two lockups, wordmark, die-cut sticker, a bread-clip secondary mark and a six-shape sticker set, with print files for a clip-shaped business card and a bag stamp. The website is one React page set in that identity, with a three-step order form. Every order lands in a Google Sheet and sends two emails: a confirmation to the customer and an alert to the owner. Live on mychallahdealer.com since September 2026.",
+    "servicePages": ["design-branding", "web-development"],
     "services": [
       { "label": "#Brand Identity" },
       { "label": "#Logo Design" },
@@ -144,6 +146,7 @@
       { "value": "0 → 9", "label": "pages Google is allowed to index, and pages in a sitemap" }
     ],
     "description": "A licensed massage therapist's Wix Studio site that Google was never allowed to read, rebuilt as a static Next.js site: 79% less homepage weight on mobile, 62% faster paint, SEO 61 to 100. Every page served meta robots noindex, the sitemap returned 404, and a site: search returned nothing. No page carried an h1, a meta description, a price or a set of opening hours. The served HTML of every page still advertised a fitness template's leftover copy at zero by zero pixels, invisible on screen and fully readable by crawlers. The rebuild publishes the eight services with their prices, both studios' hours, a page for each city, and redirects every old Wix slug to the page that replaced it. Live on renewedbodyworks.com since September 2026.",
+    "servicePages": ["web-development", "marketing-ads"],
     "services": [
       { "label": "#Technical SEO Audit" },
       { "label": "#Design Direction" },
@@ -219,6 +222,7 @@
       { "value": "0 → 10", "label": "pages carrying structured data, and pages carrying analytics" }
     ],
     "description": "A licensed Florida contractor's WordPress site rebuilt as ten static Next.js routes: 94% less homepage weight, 70% faster mobile paint, SEO 77 to 100. The crawl found four systemic zeroes: no page had a meta description, structured data, a share image or any analytics. The homepage carried 29MB, painted in 11.6 seconds, and rendered 435px wide inside a 390px phone. The rebuild holds the whole business in one TypeScript file that routing, the sitemap, the JSON-LD and the contact form all read from. Live since August 2026: noindex lifted, all ten routes serving, share image shipped.",
+    "servicePages": ["web-development", "marketing-ads"],
     "services": [
       { "label": "#Technical SEO Audit" },
       { "label": "#Design Direction" },
@@ -284,10 +288,11 @@
     "metrics": [
       { "value": "13.2 → 7.0", "label": "homepage's average Google position, page two to page one (Search Console, 28 days)" },
       { "value": "+37%", "label": "calls from the Google Business Profile, June → August 2026" },
-      { "value": "100/100", "label": "Google SEO score" },
+      { "value": "100/100", "label": "Lighthouse SEO score" },
       { "value": "1 in 13", "label": "visits end in a book-appointment click (GA4, Jul–Aug 2026)" }
     ],
-    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then measured the result with Google's own tools. Google scores the site 100/100 on SEO and best practices and 99/100 on desktop performance. On mobile the homepage's main image went from 13.5 seconds to 4.1, and the page from 4.2 MB to 1.2. Twenty-five pages carried no H1 and thirty-five images had no alt text; both are now zero. Then Google responded. Across two 28-day Search Console windows, before and after the work, impressions rose 15% and the homepage moved from position 13.2 to 7.0, page two to page one. The practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\", and calls from its Google Business Profile rose from 57 in June to 78 in August, nearly triple August 2025's 27. One figure comes from the site's own analytics and is labelled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
+    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then measured the result with Google's own tools. Lighthouse scores the site 100/100 on SEO and best practices and 99/100 on desktop performance. On mobile the homepage's main image went from 13.5 seconds to 4.1, and the page from 4.2 MB to 1.2. Twenty-five pages carried no H1 and thirty-five images had no alt text; both are now zero. Then Google responded. Across two 28-day Search Console windows, before and after the work, impressions rose 15% and the homepage moved from position 13.2 to 7.0, page two to page one. The practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\", and calls from its Google Business Profile rose from 57 in June to 78 in August, nearly triple August 2025's 27. One figure comes from the site's own analytics and is labelled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
+    "servicePages": ["design-branding", "web-development", "marketing-ads"],
     "services": [
       { "label": "#Brand Design" },
       { "label": "#Brand Strategy" },
@@ -352,6 +357,7 @@
       { "value": "10", "label": "pipeline stages from first look to signed lease" }
     ],
     "description": "Scout is a Switch Case Studio product: commercial-real-estate scouting sold as a monthly retainer. It watches the broker sites and listing feeds a tenant would otherwise check by hand, pulls every matching lease listing into one board, and scores each against the client's own profile: geography, size, use type, demographics, co-tenancy, competition. The client gets a private pipeline where every listing explains its score in plain English, and works it from first look to signed lease. The retainer runs until they find their location.",
+    "servicePages": ["ai-development", "web-development"],
     "services": [
       { "label": "#Product Design & Build" },
       { "label": "#Data Aggregation (multi-source)" },
@@ -411,6 +417,7 @@
       { "value": "Website + LP", "label": "marketing site and campaign page delivered together" }
     ],
     "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer (stop paying for leads, start paying for appointments) into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
+    "servicePages": ["design-branding", "web-development"],
     "services": [
       { "label": "#Branding" },
       { "label": "#Website Design" },
@@ -463,10 +470,10 @@
     "outcome": "",
     "year": "",
     "metrics": [
-      { "value": "< 7 days", "label": "concept to live" },
-      { "value": "Top 3", "label": "Google ranking for core search terms" }
+      { "value": "< 7 days", "label": "concept to live" }
     ],
     "description": "Switch Case Studio partnered with Crimson Equities to design and build a professional, investor-ready website for a New York–based real estate investment firm focused on distressed and value-add properties.",
+    "servicePages": ["web-development"],
     "services": [
       { "label": "#Website Design" },
       { "label": "#Front-End Development" },
@@ -528,6 +535,7 @@
       { "value": "−66%", "label": "server response across four pages, 151ms to 51ms" }
     ],
     "description": "Prodani Miami sells high-protein desserts on Shopify. We rebuilt the storefront as a bespoke theme on Dawn 16, then measured it against the old one. Both versions went through the same instrument at the same viewport (five interleaved runs per page, cache disabled, headless Chrome driven over the DevTools protocol), so every figure here is measured, not estimated. The homepage lost three quarters of its weight, most of that a 5.6MB hero video re-encoded to 375KB. Alongside the rebuild we shaped the brand direction, packaging, and trade show presence.",
+    "servicePages": ["web-development", "design-branding"],
     "services": [
       { "label": "#Brand Direction" },
       { "label": "#Shopify Theme Development" },
@@ -586,6 +594,7 @@
     "year": "2026",
     "metrics": [],
     "description": "Sha Design Studio is a branding, design, and website project for Shiran Hayon, a senior toy designer who opened her own studio. The website presents her work, services, and playful design style in a clear and colorful way.",
+    "servicePages": ["design-branding", "web-development"],
     "services": [
       { "label": "#Branding" },
       { "label": "#Website Design" },
@@ -643,6 +652,7 @@
       { "value": "Solo", "label": "scraper, database, API and front end by one developer" }
     ],
     "description": "Jelly Belly Wiki is a data pipeline, not a website. A Python scraper pulls flavor, recipe, fact and milestone data from the official Jelly Belly site; the cleaned JSON seeds a MySQL database through Entity Framework Core migrations; a C# / ASP.NET Core API serves it over ten documented endpoints with filtering, search and pagination; and a React front end consumes that same public API, the identical one any other developer can call. Three languages, three deployment targets, one developer, and every stage still running today.",
+    "servicePages": ["web-development"],
     "services": [
       { "label": "#Data Collection (Python, Selenium, BeautifulSoup)" },
       { "label": "#Database Design (MySQL / EF Core)" },
@@ -711,6 +721,7 @@
     "year": "2023",
     "metrics": [],
     "description": "Birth of Venus is a self-initiated interactive website built around Sandro Botticelli’s iconic Renaissance painting. Inspired by old History of Art notes from my undergraduate design studies, the project explores how educational content, visual storytelling, and front-end interaction can make a classic artwork feel more accessible and engaging online.",
+    "servicePages": ["web-development"],
     "services": [
       { "label": "#Frontend Development" },
       { "label": "#React" },
@@ -772,6 +783,7 @@
       { "value": "< 2 weeks", "label": "design to live" }
     ],
     "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns: structured for quality score, designed for conversion.",
+    "servicePages": ["web-development", "marketing-ads"],
     "services": [
       { "label": "#Landing Page Design" },
       { "label": "#Frontend Development" },
