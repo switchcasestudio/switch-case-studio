@@ -409,6 +409,16 @@
   }
 
   /* ---------- Consent ---------- */
+  /* Honeypot: in the DOM for bots, never seen or tabbed to by people. */
+  &__hp {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
   &__consent {
     display: flex;
     align-items: flex-start;

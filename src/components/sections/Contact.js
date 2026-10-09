@@ -1,6 +1,5 @@
 import { useRef, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import emailjs from '@emailjs/browser';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import armSafetyNet from '../../animation/armSafetyNet';
@@ -14,14 +13,9 @@ import useReducedMotion from '../../hooks/useReducedMotion';
 import playMuted from '../../utils/playMuted';
 import BookCallCta from '../ui/BookCallCta';
 import { trackEvent } from '../../analytics/ga';
+import sendContact from '../../utils/sendContact';
+import { CONSENT_TEXT } from '../../data/legal';
 import '../../styles/components/contact.scss';
-
-
-const {
-  VITE_EMAILJS_SERVICE_ID,
-  VITE_EMAILJS_TEMPLATE_ID,
-  VITE_EMAILJS_USER_ID,
-} = import.meta.env;
 
 /* ------------------------------------------------------------------ *
  * Social links (left column)
@@ -54,8 +48,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const [consentError, setConsentError] = useState('');
 
   /* ------------------------------------------------------------------ *
-   * Submit handler — EmailJS using existing template fields:
-   *   first_name, email, phone, message
+   * Submit handler — posts to /api/contact (netlify/functions/contact.mjs),
+   * which records IP, browser, time and consent, then emails via EmailJS
+   * with the existing template fields: first_name, email, phone, message
    * (last_name dropped in the 2026-07 refresh, DESIGN_AUDIT P0-3 — the
    * shared template already tolerates absent fields: the promo form sends
    * no last_name to the same template.)
@@ -67,7 +62,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     // Consent gates SUBMISSION, not the button — a disabled-looking primary
     // suppressed attempts (DESIGN_AUDIT P0-3). Explain + focus instead.
     if (!agreed) {
-      setConsentError('Please tick the privacy box first, then send.');
+      setConsentError('Please tick the agreement box first, then send.');
       consentRef.current?.focus();
       return;
     }
@@ -99,13 +94,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
       page_path: window.location.pathname,
     });
 
-    emailjs
-      .sendForm(
-        VITE_EMAILJS_SERVICE_ID,
-        VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        VITE_EMAILJS_USER_ID,
-      )
+    sendContact(formRef.current, { source: 'contact', consent: agreed })
       .then(
         () => {
           setStatus('success');
@@ -271,6 +260,19 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
               className="contact-form contact-animate"
               noValidate
             >
+              {/* Honeypot: off screen and off the tab order. A person leaves it
+                  empty; the function records a filled one and emails nothing. */}
+              <div className="contact-form__hp" aria-hidden="true">
+                <label htmlFor="contact-company">Company</label>
+                <input
+                  type="text"
+                  id="contact-company"
+                  name="company"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
               {/* Visible persistent labels (placeholder-only labels vanish on
                   focus and doubled as the only affordance — P0-3). Field name
                   stays `first_name` for EmailJS-template compatibility; it now
@@ -352,7 +354,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   className={`contact-form__checkbox ${
                     agreed ? 'contact-form__checkbox--checked' : ''
                   }`}
-                  aria-label="Agree to privacy statement"
+                  aria-label={CONSENT_TEXT}
                   aria-pressed={agreed}
                   aria-describedby={consentError ? 'consent-error' : undefined}
                 >
@@ -377,14 +379,16 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                 <label
                   className="contact-form__consent-label"
                   onClick={(e) => {
-                    // Let the privacy link navigate; toggle on any other click.
+                    // Let the links navigate; toggle on any other click.
                     if (e.target.closest('a')) return;
                     setAgreed((prev) => !prev);
                     setConsentError('');
                   }}
                 >
-                  I have read and understood the{' '}
-                  <Link to="/privacy">privacy statement</Link>
+                  {/* Words must stay equal to CONSENT_TEXT (src/data/legal.js):
+                      that string is what every submission record stores. */}
+                  I agree to the <Link to="/terms">Terms of Use</Link> and
+                  the <Link to="/privacy">Privacy Policy</Link>
                 </label>
               </div>
               {consentError && (

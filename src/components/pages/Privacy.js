@@ -1,4 +1,5 @@
 import Seo from '../util/Seo';
+import { PRIVACY_UPDATED } from '../../data/legal';
 import '../../styles/components/legal.scss';
 
 const Privacy = () => {
@@ -10,7 +11,7 @@ const Privacy = () => {
         path="/privacy"
       />
       <h1>Privacy Policy</h1>
-      <span className="last-updated">Last Updated: August 29, 2026</span>
+      <span className="last-updated">Last Updated: {PRIVACY_UPDATED}</span>
 
       <p>
         Switch Case LLC, doing business as <strong>Switch Case Studio</strong>{' '}
@@ -34,6 +35,14 @@ const Privacy = () => {
         <li>
           <strong>Project Details:</strong> Information regarding your business
           needs provided during inquiries.
+        </li>
+        <li>
+          <strong>Submission Records:</strong> When you send one of our
+          contact forms, our server records the time, your IP address and the
+          approximate location it indicates (country, region, city), your
+          browser’s user-agent string, the page you sent it from, and your
+          agreement to our Terms of Use and this Privacy Policy, including the
+          version of each you agreed to.
         </li>
       </ul>
       <p>
@@ -63,6 +72,10 @@ const Privacy = () => {
       <ul>
         <li>Respond to your inquiries and consultation requests.</li>
         <li>Schedule meetings via our booking integrations.</li>
+        <li>
+          Keep a record of each contact-form submission and the consent given
+          with it, and protect against spam, fraud and impersonation.
+        </li>
         <li>Provide services as agreed upon in separate client contracts.</li>
       </ul>
 
@@ -83,6 +96,11 @@ const Privacy = () => {
         personal information. However, please be aware that no method of
         transmission over the Internet or method of electronic storage is 100%
         secure.
+      </p>
+      <p>
+        Contact-form submission records are stored privately with our hosting
+        provider, Netlify, and deleted automatically after 24 months. Your
+        message reaches our inbox through EmailJS, an email delivery service.
       </p>
 
       <h2>5. Contact Us</h2>

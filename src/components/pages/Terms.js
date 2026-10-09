@@ -1,4 +1,5 @@
 import Seo from '../util/Seo';
+import { TERMS_UPDATED } from '../../data/legal';
 import '../../styles/components/legal.scss';
 
 const Terms = () => {
@@ -10,7 +11,7 @@ const Terms = () => {
         path="/terms"
       />
       <h1>Terms of Use</h1>
-      <span className="last-updated">Last Updated: January 8, 2026</span>
+      <span className="last-updated">Last Updated: {TERMS_UPDATED}</span>
 
       <p>
         Welcome to Switch Case Studio. These Terms of Use ("Terms") govern your
