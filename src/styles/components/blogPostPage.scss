@@ -45,6 +45,22 @@
     margin: 0 0 1.5rem;
   }
 
+  // Inline link in a paragraph or list item ([label](url) in posts.json,
+  // 2026-10-09): underlined in the text colour, lavender on hover, like the
+  // open-post mark in the journal list.
+  &__a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.18em;
+    transition: color $dur-fast $ease-out;
+
+    &:hover,
+    &:focus-visible {
+      color: $g6;
+    }
+  }
+
   &__list {
     margin: 0 0 1.5rem;
     padding-left: 1.25rem;

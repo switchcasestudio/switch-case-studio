@@ -1,4 +1,4 @@
-import { Suspense, useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import MainLayout from './components/layout/MainLayout';
 
@@ -98,11 +98,18 @@ const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
  * (useLocation), so they live here now that the router is owned by
  * vite-react-ssg instead of an app-level <BrowserRouter>.
  *
- * Suspense stays for any nested lazy component (e.g. About's DepthImage); page-level
- * code-splitting moved to route-record `lazy`, which React Router resolves
- * before rendering the route. The keyed wrapper re-mounts per route to
- * replay the opacity-only fade (resting opacity is 1, so content can never
- * get stuck invisible).
+ * No Suspense around the Outlet (2026-10-09). Page-level code-splitting is the
+ * route records' `lazy`, which React Router resolves before it renders the
+ * route, so nothing here ever suspends; the nested lazy pieces (About's
+ * DepthImage, PartnersGate's offer) carry their own boundaries. A boundary
+ * here was worse than useless under React 19: once the streamed HTML passes
+ * progressiveChunkSize (12.8KB) the server "outlines" every completed
+ * Suspense boundary, i.e. ships <main> holding only the fallback and the real
+ * page in a <div hidden id="S:0"> after the footer, moved into place by an
+ * inline $RC script. Google runs JS; non-JS crawlers and text extractors do
+ * not, and they saw an empty <main> on all 53 pages for two days. The keyed
+ * wrapper re-mounts per route to replay the opacity-only fade (resting
+ * opacity is 1, so content can never get stuck invisible).
  */
 const Layout = () => {
   const { pathname } = useLocation();
@@ -126,13 +133,9 @@ const Layout = () => {
       <RouteAnalytics />
       <ConsentBanner />
       <div className={`route-backdrop ${theme}`}>
-        <Suspense
-          fallback={<div className="route-fallback" aria-hidden="true" />}
-        >
-          <div key={pathname} className={isInitial ? undefined : 'page-fade'}>
-            <Outlet />
-          </div>
-        </Suspense>
+        <div key={pathname} className={isInitial ? undefined : 'page-fade'}>
+          <Outlet />
+        </div>
       </div>
     </MainLayout>
   );

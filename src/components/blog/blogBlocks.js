@@ -7,7 +7,28 @@
    The block styles are imported HERE, not by a page: /blog is its own route
    chunk, and when only BlogPostPage imported them, /blog rendered unstyled,
    run-together paragraphs. */
+import { Fragment } from 'react';
+import { tokenize } from './inlineLinks';
 import '../../styles/components/blogPostPage.scss';
+
+/* Paragraph and list text may carry inline links, [label](url), since
+   2026-10-09 (see inlineLinks.js): root-absolute urls stay on the site, https
+   urls open in a new tab, like the `link` block. Everything else is text. */
+export const Inline = ({ text }) =>
+  tokenize(text).map((t, i) =>
+    t.type === 'link' ? (
+      <a
+        key={i}
+        href={t.url}
+        className="blog-post__a"
+        {...(t.url.startsWith('https://') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
+        {t.label}
+      </a>
+    ) : (
+      <Fragment key={i}>{t.value}</Fragment>
+    ),
+  );
 
 export const formatDate = (iso) => {
   if (!iso) return '';
@@ -59,12 +80,18 @@ export const Block = ({ block }) => {
       );
     }
     case 'paragraph':
-      return <p className="blog-post__p">{block.text}</p>;
+      return (
+        <p className="blog-post__p">
+          <Inline text={block.text} />
+        </p>
+      );
     case 'list':
       return (
         <ul className="blog-post__list">
           {(block.items || []).map((item, i) => (
-            <li key={i}>{item}</li>
+            <li key={i}>
+              <Inline text={item} />
+            </li>
           ))}
         </ul>
       );
