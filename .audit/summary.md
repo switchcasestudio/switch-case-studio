@@ -2116,3 +2116,39 @@ Full system handoff (how every piece connects, secrets, release routine): privat
   4. Case-study media tiles render statically and drop out only on image error (`useImageFailed`). Zahav CLS 0.194/0.135 (desktop/phone, live) → 0.003/0.001 (3 Lighthouse runs each, local build); LCP element unchanged (the band image, before and after). All 13 case studies carry the band in HTML.
   5. `netlify.toml`: `/assets/*` → `Cache-Control: public, max-age=31536000, immutable` (bundles re-validated on every repeat visit before). Verify on prod after deploy with `curl -sI`.
 - Standing gates: 53 HTML files, em-dash gate 1 (the regex), entry-chunk marker in `app-*.js` only, SCS Display in the app CSS only, home index 3 headings. Not pushed; owner merges.
+
+## SESSION HANDOFF — 2026-10-09 (SEO audit + fixes 1–5)
+
+**State:** branch `fix/seo-audit-2026-10`, commit `cdb4efd` on top of `main` `561da2d`, NOT pushed, working tree clean. `main` untouched this session. Scheduler may push to main at 14:00 UTC: fetch and rebase before touching `posts.json`.
+
+**Done this session**
+- Full `/seo audit` (9 subagents, lab-only: no Search Console / CrUX / PSI, the claude-seo runtime is not set up and keyless PSI returned quota 0). Health ~66/100.
+- Fixes 1–5 (entry above): page bodies back in `<main>` (React 19 outlining), blog inline links `[label](url)`, fonts-post cover, case-study CLS 0.19/0.13 → 0.003/0.001, `/assets/*` immutable cache. Rules in CLAUDE.md.
+
+**Left from the audit (code work, in order)**
+6. Unsourced claims: Crimson "Top 3 Google ranking" (`projects.json`), "The data is brutal and consistent" / "Fast sites rank higher" (why-fast-sites-win-more-clients), "Research-backed" (contact-forms post). Delete or link the source (now possible inline). Relabel "100/100 Google SEO score" (Zahav) and "Google performance score 99/100" (CWV post) as Lighthouse.
+7. Internal links: each post gets one service link + one case-study link in the text; each case study links its service page; case-study "Back" goes to `/projects`, not `/#projects`. CWV post says "Each of those has a case study on this site" and links none.
+8. Titles > 60 chars on 14 URLs (worst 84/78/77, all blog), descriptions > 160 on 15 (up to 200; home 177). Reuse `clampAtWord` for posts, trim at the data.
+9. Schema: WebSite `@id: #website`; every page-level `publisher`/`provider`/`creator` → `{"@id": "…/#org"}`; founder "Moses Atia Poston" everywhere with one `@id`; drop Eno (the dog) from Person markup; BlogPosting `author.url`; `ContactPage` on /contact, `CollectionPage` on /projects. No Review/AggregateRating (self-serving).
+10. Cost guides, one per service (price searches rank long cost guides, not package tables; our prices sit under the quoted ranges). Sourced market ranges only.
+11. Phone: body text 13px on /about and most pages (floor 16px), menu/footer links 37px tall (44px), cookie banner 166px (20% of the fold) with 33px buttons, /blog h1 at y≈5,800 on phone, home lede below the first phone screen.
+12. /about phone LCP 8.6s and 3.9MB (one lab run; confirm with 3 runs, then lazy-load the Polaroid media). Case-study LCP element is the `long.webp` band image (782KB on Zahav, lazy): size/compress or serve a smaller first frame.
+13. `/llms.txt` 404 while `/pricing/marketing-ads` sells it. Also sitemap `lastmod` is per-file-group, not per page (`generate-sitemap.mjs`); 404 page carries a canonical to `/404`; `index.html` comment contains the text `<title>`.
+14. Blog hygiene: posts under 1,500 words (what-a-brand 256, why-fast-sites 275, CWV 409); two speed posts compete (merge + 301); categories overlap (Automation / Automation & Systems / AI & Automation; UX & Web Design / Web Design); no `updated` field in posts.json (CWV post rewritten 09-02, dateModified still 08-13).
+
+**Owner decisions pending (not code)**
+- Bluesky `switchcasestudio.bsky.social` says "Development and marketing agency · Phoenix based" (created 2026-07-14, 8 posts, not in `social.js`). Ours? → bio to Portland + add to sameAs; not ours → someone is using the name.
+- Name collision: `switchcasestudios.com` (SwitchCase Studios, software/product engineering) is live; brand search returns Nintendo cases. Clutch + Crunchbase + Wikidata profiles and a one-line definition on home/About would separate the entities.
+- Portland local page: only if local clients are wanted (most case-study clients are FL/NY/AZ).
+- Beau's post pipeline must learn the inline-link form (`[label](url)`) so new posts cite sources; `add-post.mjs` rejects bad urls.
+
+**Next session, first 20 minutes**
+1. `git fetch`; if main moved, rebase the branch. Owner pushes + opens PR (`! git push -u origin fix/seo-audit-2026-10`), merges.
+2. On the deploy preview, then prod: `curl -s <url>/about | grep -c 'id="S:'` = 0; `curl -sI <url>/assets/<app chunk>` → `max-age=31536000, immutable`; fonts post `og:image` = the jpg; Zahav page body in `<main>`.
+3. Then start fix 6 + 7 together (same files, now unblocked by fix 2), then 8, then 9.
+4. Optional: `/seo setup` + a PageSpeed API key for field data; `/seo drift baseline https://switchcasestudio.com` so the next audit diffs instead of re-reading.
+
+**Gotchas from this session**
+- Local Lighthouse mobile LCP doubles under machine contention (probes running in parallel); CLS is stable. Compare LCP elements with a buffered `PerformanceObserver`, not Lighthouse 13.5's element audit (empty).
+- `uniq -w` does not exist on macOS; `grep --include='*.js'` needs quotes in zsh.
+- Route baseline unchanged: 53 HTML files.
