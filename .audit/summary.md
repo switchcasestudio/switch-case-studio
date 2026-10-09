@@ -2106,3 +2106,13 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 
 - Branch `chore/cleanup-2026-10` (log: `.audit/cleanup-2026-10-log.md`). Removed unreachable JS (`CaseStudyTiles.js`, `HoverPeek.js`, `useBentoParticles.js`, `useBentoSpotlight.js`, `bentoEffects.js`), orphan SCSS (`cursorWave.scss`, `hoverPeek.scss`, `_projects-tiles.scss`, `_projects-bento.scss`) and dead selectors, the 26 cover-tile `-256`/`-512` siblings, `@radix-ui/react-hover-card` and the mediapipe `postinstall`, and the unread `panelClass` / `backLabel` / `productName` fields. Every step gated on a normalised build diff (see the CLAUDE.md rule).
 - Entries above that cite these files describe the site at their date; they are not current. Route baseline 52 HTML files. Open: the REVIEW table in the log (owner decides).
+
+## SEO AUDIT FIXES 1–5 — 2026-10-09
+
+- Full `/seo audit` (9 subagents, no GSC/PSI data: the claude-seo runtime is not set up). Health ~66/100. The findings and the rest of the fix list live in the session memory (`seo-audit-2026-10-09`); fixes 1–5 landed on `fix/seo-audit-2026-10`:
+  1. React 19 + the route-level Suspense shipped every page body in `<div hidden id="S:0">` after the footer since the 10-07 upgrade (non-JS crawlers and extractors saw an empty `<main>`). Suspense removed from `routes.js`. 0 hidden divs on 53 pages, h1 inside `<main>` everywhere, hydration console clean on six routes, four client navigations clean.
+  2. Blog paragraphs and list items take inline links `[label](url)` (`inlineLinks.js`, rendered by `blogBlocks.js`, validated by `add-post.mjs`, word counts strip the url). Parser unit-tested in node; markup proven through Vite SSR. No existing post changed.
+  3. The 10-08 fonts post had no cover (lavender plate, generic og:image). In-house type-specimen cover at `public/images/journal/how-to-choose-fonts-for-a-small-business-website.jpg` (1600×900, 148KB) + `imageAlt`; og:image, og:image:alt and BlogPosting `image` carry it. No post is without a cover.
+  4. Case-study media tiles render statically and drop out only on image error (`useImageFailed`). Zahav CLS 0.194/0.135 (desktop/phone, live) → 0.003/0.001 (3 Lighthouse runs each, local build); LCP element unchanged (the band image, before and after). All 13 case studies carry the band in HTML.
+  5. `netlify.toml`: `/assets/*` → `Cache-Control: public, max-age=31536000, immutable` (bundles re-validated on every repeat visit before). Verify on prod after deploy with `curl -sI`.
+- Standing gates: 53 HTML files, em-dash gate 1 (the regex), entry-chunk marker in `app-*.js` only, SCS Display in the app CSS only, home index 3 headings. Not pushed; owner merges.

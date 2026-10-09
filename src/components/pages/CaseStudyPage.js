@@ -48,19 +48,28 @@ const clampAtWord = (text, max) => {
 };
 
 /* ── Image preload (returns true when image loads, false on error) ── */
-const useImagePreload = (src) => {
-  const [loaded, setLoaded] = useState(false);
+/* ── Media gate: render first, remove on failure ──
+   Media tiles are in the static HTML from the first byte. They used to wait
+   for a client-side preload (`useImagePreload`), which meant the live band
+   mounted AFTER hydration, between the hero and the summary, and pushed the
+   whole page down: the Zahav page measured CLS 0.19 desktop / 0.13 phone with
+   the summary section as the shifted element (2026-10-09 SEO audit; the band
+   has a fixed height, so once it is in the HTML nothing moves). The gate now
+   only REMOVES a tile whose file fails to load, so a dead path in
+   projects.json renders nothing rather than a broken image. */
+const useImageFailed = (src) => {
+  const [failed, setFailed] = useState(false);
   useEffect(() => {
-    if (!src) {
-      setLoaded(false);
-      return;
-    }
+    setFailed(false);
+    if (!src) return undefined;
     const img = new Image();
+    img.onerror = () => setFailed(true);
     img.src = src;
-    img.onload = () => setLoaded(true);
-    img.onerror = () => setLoaded(false);
+    return () => {
+      img.onerror = null;
+    };
   }, [src]);
-  return loaded;
+  return failed;
 };
 
 const CaseStudyPage = () => {
@@ -84,8 +93,8 @@ const CaseStudyPage = () => {
   const publicLongWeb = project?.longWeb ? project.longWeb : null;
   const publicImageSrc = project?.imageSrc ? project.imageSrc : null;
 
-  const mockupOK = useImagePreload(publicLongWeb);
-  const detailImageOK = useImagePreload(publicImageSrc);
+  const mockupOK = !useImageFailed(publicLongWeb);
+  const detailImageOK = !useImageFailed(publicImageSrc);
 
   /* ── Entrance animation. GSAP owns start + end state.
      Hero (first viewport) reveals on MOUNT — the first-viewport law. Every

@@ -86,6 +86,19 @@
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
     Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://www.googleadservices.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com; font-src 'self'; connect-src 'self' blob: https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://ad.doubleclick.net; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com https://www.googletagmanager.com; frame-ancestors 'none'"
 
+# Vite writes every bundled asset under /assets/ with a content hash in its
+# name (app-CJ9aAbaV.js, the CSS, imported images), so a URL there never
+# changes meaning: cache it for a year. Everything else keeps Netlify's default
+# (max-age=0, must-revalidate), which is right for the HTML and for public/,
+# whose file names are hand-written and keep their name when the bytes change.
+# Found by the 2026-10-09 SEO audit: every repeat visit re-validated every
+# bundle. Verify after deploy: `curl -sI https://switchcasestudio.com/assets/<app
+# chunk>` must say max-age=31536000, immutable.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
 # /partners ships a real (crawlable) static file, so enforce noindex at the
 # HTTP layer — authoritative for crawlers regardless of the HTML or whether JS
 # runs. Belt-and-suspenders on top of the page's own <Seo robots="noindex,

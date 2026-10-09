@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import postsData from '../../data/posts.json';
 import BookCallCta from '../ui/BookCallCta';
 import { Block, formatDate } from './blogBlocks';
+import { plainText } from './inlineLinks';
 import useJournalMotion from './useJournalMotion';
 import '../../styles/components/journal.scss';
 
@@ -41,7 +42,9 @@ const pageCount = Math.ceil(sortedPosts.length / PAGE_SIZE);
      own pattern and SSR and hydration agree;
    - never three sections in a row in the same mode. */
 const words = (b) =>
-  (b.text || (b.items || []).join(' ') || '').split(/\s+/).filter(Boolean).length;
+  plainText(b.text || (b.items || []).join(' ') || '')
+    .split(/\s+/)
+    .filter(Boolean).length;
 const hash = (s) => [...s].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
 
 const sectionize = (body, slug) => {

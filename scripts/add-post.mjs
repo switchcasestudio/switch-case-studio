@@ -19,9 +19,12 @@
  *   excerpt      string, ~1-2 sentences             (required)
  *   category     string  e.g. "Web Development"     (required)
  *   body         array of blocks                    (required, >=1)
- *                 { type: 'paragraph', text }
+ *                 { type: 'paragraph', text }   text may carry inline links: [label](url)
  *                 { type: 'heading',   text }
- *                 { type: 'list',      items: [] }
+ *                 { type: 'list',      items: [] } items may carry inline links too
+ *                 (url = root-absolute path or https; anything else is rejected.
+ *                 Since 2026-10-09; a statistic or a quoted fact links its source
+ *                 this way: "[Google says](https://developers.google.com/...)".)
  *                 { type: 'quote',     text, cite? }
  *                 { type: 'video',     url, caption?/title? }
  *                 { type: 'download',  url, label, note? }
@@ -39,6 +42,8 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+// The renderer's own link parser, so the gate and the page agree.
+import { badLinks, plainText } from '../src/components/blog/inlineLinks.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS = resolve(root, 'src/data/posts.json');
@@ -67,7 +72,7 @@ const todayPT = () =>
 /* ── reading time from the body text (~200 wpm) ── */
 const readingTimeFrom = (body) => {
   const words = body
-    .map((b) => b.text || (b.items || []).join(' ') || '')
+    .map((b) => plainText(b.text || (b.items || []).join(' ') || ''))
     .join(' ')
     .trim()
     .split(/\s+/)
@@ -84,6 +89,13 @@ const validateBlock = (b, i) => {
   if (b.type === 'list') {
     if (!Array.isArray(b.items) || b.items.length === 0)
       return `body[${i}] (list) needs a non-empty items array`;
+    const bad = b.items.flatMap((item) => badLinks(item));
+    if (bad.length) return `body[${i}] (list) has an inline link whose url is not root-absolute or https: ${bad[0]}`;
+  } else if (b.type === 'paragraph') {
+    if (typeof b.text !== 'string' || !b.text.trim())
+      return `body[${i}] (paragraph) needs non-empty text`;
+    const bad = badLinks(b.text);
+    if (bad.length) return `body[${i}] (paragraph) has an inline link whose url is not root-absolute or https: ${bad[0]}`;
   } else if (b.type === 'video') {
     if (typeof b.url !== 'string' || !b.url.trim())
       return `body[${i}] (video) needs a url`;
