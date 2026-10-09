@@ -119,6 +119,9 @@ const PromoPage = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
+          // Pre-hydration native submit: POST keeps fields out of the URL.
+          method="post"
+          action="/api/contact"
           className="promo-form"
           noValidate
         >

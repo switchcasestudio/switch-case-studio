@@ -257,6 +257,10 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
             <form
               ref={formRef}
               onSubmit={handleSubmit}
+              // Before hydration the browser submits natively: POST keeps the
+              // fields out of the URL; the function sends the visitor back.
+              method="post"
+              action="/api/contact"
               className="contact-form contact-animate"
               noValidate
             >

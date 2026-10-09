@@ -102,6 +102,16 @@ export default async (req, context) => {
   const host = new URL(req.url).host;
   if (origin && originHost(origin) !== host) return json(403, { error: 'Forbidden' });
 
+  // A form submitted before hydration arrives as a native urlencoded POST
+  // (the forms carry method="post" so their fields never land in a GET URL,
+  // server logs or GA's page_location). React never ran, so there is no
+  // consent tick to record: send the visitor back to the page to try again.
+  if (!(req.headers.get('content-type') || '').includes('application/json')) {
+    const referer = req.headers.get('referer') || '';
+    const path = originHost(referer) === host ? new URL(referer).pathname : '/contact';
+    return new Response(null, { status: 303, headers: { location: `${path}#contact`, 'cache-control': 'no-store' } });
+  }
+
   const text = await req.text();
   if (text.length > MAX_BODY) return json(413, { error: 'Message too long' });
   let body;
