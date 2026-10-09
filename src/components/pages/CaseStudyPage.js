@@ -14,6 +14,7 @@ import {
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import projectsData from '../../data/projects.json';
+import servicesData from '../../data/services.json';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
 import ScrollingShot from '../ui/ScrollingShot';
@@ -172,6 +173,10 @@ const CaseStudyPage = () => {
     year,
     description,
     services = [],
+    // Slugs of the service pages (services.json) this work was sold under.
+    // Rendered as links in the top bar so every case study points at the
+    // offer it proves (SEO audit 2026-10-09, fix 7). Absent → no links.
+    servicePages = [],
     highlights = [],
     metrics = [],
     result,
@@ -268,6 +273,12 @@ const CaseStudyPage = () => {
   ].filter(Boolean);
 
   const hasResults = metrics.length > 0 || detailTiles.length > 0;
+
+  // Service pages this case study links to, resolved against services.json so
+  // a renamed service updates every case study; an unknown slug renders nothing.
+  const servicePageLinks = servicePages
+    .map((s) => servicesData.find((x) => x.slug === s))
+    .filter(Boolean);
   const hasSummary = !!description || highlights.length > 0 || hasResults;
 
   /* ── Reusable image tile (optionally click-to-zoom) ── */
@@ -362,13 +373,29 @@ const CaseStudyPage = () => {
         {/* ── Top bar ── */}
         <nav className="project-page__topbar" aria-label="Project navigation">
           <Link
-            to="/#projects"
+            to="/projects"
             className="project-page__back"
-            aria-label="Back to selected work"
+            aria-label="Back to all case studies"
           >
             <FontAwesomeIcon icon={faArrowLeft} aria-hidden="true" />
-            <span>Back to Selected Work</span>
+            <span>All case studies</span>
           </Link>
+          {servicePageLinks.length > 0 && (
+            <p className="project-page__services">
+              <span className="project-page__services-label">
+                {servicePageLinks.length > 1 ? 'Services' : 'Service'}
+              </span>
+              {servicePageLinks.map((s) => (
+                <Link
+                  key={s.slug}
+                  to={`/pricing/${s.slug}`}
+                  className="project-page__service-link"
+                >
+                  {s.title}
+                </Link>
+              ))}
+            </p>
+          )}
         </nav>
 
         {/* ── Hero ── */}

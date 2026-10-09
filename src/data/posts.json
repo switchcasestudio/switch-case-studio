@@ -112,7 +112,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the brand job. The rest is usability. Good website typography handles both without making the customer work for either."
+        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the [brand job](/pricing/design-branding). The rest is usability. Good website typography handles both without making the customer work for either. For an identity and site designed as one system, see [My Challah Dealer](/projects/my-challah-dealer)."
       }
     ]
   },
@@ -138,7 +138,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "When we released Unhurried Pro, the paid version of our free WordPress theme, we needed a way to sell one zip file. The usual answers were heavier than the job: a WooCommerce store just to sell a WooCommerce theme, a digital-downloads plugin, or a marketplace that takes a large cut. We wanted something small, cheap to run and easy to reason about."
+        "text": "When we released Unhurried Pro, the paid version of [our free WordPress theme](/projects/unhurried), we needed a way to sell one zip file. The usual answers were heavier than the job: a WooCommerce store just to sell a WooCommerce theme, a digital-downloads plugin, or a marketplace that takes a large cut. We wanted something small, cheap to run and easy to reason about."
       },
       {
         "type": "paragraph",
@@ -195,7 +195,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If you sell many products, need licence keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function."
+        "text": "If you sell many products, need licence keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function. The same setup for your own product is a small [web development](/pricing/web-development) job."
       },
       {
         "type": "link",
@@ -228,7 +228,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "A lot of the questions we get are not project requests. Someone has built their own site and cannot work out why Google ignores it. A designer wants a second opinion on a layout. A developer is stuck on a WordPress theme. None of those need a full engagement. They need an hour with someone who has done it before."
+        "text": "A lot of the questions we get are not project requests. Someone has built their own site and cannot work out [why Google ignores it](/projects/renewed-bodyworks). A designer wants a second opinion on a layout. A developer is stuck on a WordPress theme. None of those need a full engagement. They need an hour with someone who has done it before."
       },
       {
         "type": "paragraph",
@@ -245,9 +245,9 @@
       {
         "type": "list",
         "items": [
-          "SEO: search visibility, Search Console, site structure, local pages.",
-          "Design: layout, type, hierarchy, a second pair of eyes on something you made.",
-          "Code: front end, WordPress themes and blocks, small automations.",
+          "[SEO](/pricing/marketing-ads): search visibility, Search Console, site structure, local pages.",
+          "[Design](/pricing/design-branding): layout, type, hierarchy, a second pair of eyes on something you made.",
+          "[Code](/pricing/web-development): front end, WordPress themes and blocks, small automations.",
           "WordPress: setup, themes, WooCommerce, and what is worth a plugin."
         ]
       },
@@ -380,7 +380,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This is also the moment to check link language. “Learn more” repeated across a page reveals little about the destination. A descriptive link such as “review our web development services” makes the next step easier to predict. Clarity helps people first, which is a good standard for the architecture as a whole."
+        "text": "This is also the moment to check link language. “Learn more” repeated across a page reveals little about the destination. A descriptive link such as “[review our web development services](/pricing/web-development)” makes the next step easier to predict. Clarity helps people first, which is a good standard for the architecture as a whole."
       },
       {
         "type": "heading",
@@ -388,7 +388,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Development sites are often protected with a password, blocked in robots.txt, or marked noindex. Those controls are useful while the site is private and costly when they reach production by mistake. Add crawl and indexing checks to the launch list. Confirm that public pages return successful status codes, canonical tags use the live domain, and the production robots rules do not block sections that should appear in search."
+        "text": "Development sites are often protected with a password, blocked in robots.txt, or marked noindex. Those controls are useful while the site is private and costly when they reach production by mistake: [Renewed Bodyworks](/projects/renewed-bodyworks) arrived with noindex on every page and a site: search that returned nothing. Add crawl and indexing checks to the launch list. Confirm that public pages return successful status codes, canonical tags use the live domain, and the production robots rules do not block sections that should appear in search."
       },
       {
         "type": "paragraph",
@@ -434,7 +434,7 @@
       },
       {
         "type": "paragraph",
-        "text": "So we built a theme for them and released it for free. It is called Unhurried."
+        "text": "So we built a theme for them and released it for free. It is called [Unhurried](/projects/unhurried)."
       },
       {
         "type": "heading",
@@ -519,7 +519,7 @@
       },
       {
         "type": "paragraph",
-        "text": "We build custom sites for clients, and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colours, we can do that for you."
+        "text": "[We build custom sites for clients](/pricing/web-development), and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colours, we can do that for you."
       },
       {
         "type": "link",
@@ -578,7 +578,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Small sites often have modest search volume. A handful of searches can make a daily percentage look dramatic, while weekends, seasonality, news, and local demand can change the mix without anything being wrong. Start with a longer range, such as the last three months, then compare it with the preceding period or the same season when that comparison is meaningful."
+        "text": "Small sites often have modest search volume. A handful of searches can make a daily percentage look dramatic, while weekends, seasonality, news, and local demand can change the mix without anything being wrong. Start with a longer range, such as the last three months, then compare it with the preceding period or the same season when that comparison is meaningful. That is how [Zahav Medspa](/projects/zahav-medspa)'s move from page two to page one was read: two 28-day windows, before and after the work."
       },
       {
         "type": "paragraph",
@@ -624,7 +624,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A monthly review is enough for many small businesses. Record the date range, the few changes that matter, and the action each one supports. One page may need a clearer title. Another may need better service details, internal links, or a stronger contact path. A third may simply need more time. Avoid changing ten variables at once, because you will lose the ability to learn from the result."
+        "text": "A [monthly review](/pricing/marketing-ads) is enough for many small businesses. Record the date range, the few changes that matter, and the action each one supports. One page may need a clearer title. Another may need better service details, internal links, or a stronger contact path. A third may simply need more time. Avoid changing ten variables at once, because you will lose the ability to learn from the result."
       },
       {
         "type": "paragraph",
@@ -657,7 +657,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
+        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. [Ours run from one page to fifteen](/pricing/design-branding), depending on what the team will open. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
       },
       {
         "type": "heading",
@@ -726,7 +726,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A palette, font list, and logo page describe ingredients. They do not show how those ingredients work together. Include a few common applications such as a homepage section, social graphic, proposal cover, email banner, or storefront sign. These examples expose missing rules and make the system faster to use."
+        "text": "A palette, font list, and logo page describe ingredients. They do not show how those ingredients work together. Include a few common applications such as a homepage section, social graphic, proposal cover, email banner, or storefront sign. For [My Challah Dealer](/projects/my-challah-dealer) that meant a bag stamp, a clip-shaped business card and the order page, drawn from one kit. These examples expose missing rules and make the system faster to use."
       },
       {
         "type": "paragraph",
@@ -801,7 +801,7 @@
         "type": "list",
         "items": [
           "Prefer “Services” over a branded umbrella term that requires explanation.",
-          "Prefer “Case Studies” or “Work” over a vague label such as “Explore.”",
+          "Prefer “[Case Studies](/projects)” or “Work” over a vague label such as “Explore.”",
           "Prefer “About” over labels that describe a mood but not a destination.",
           "Use a specific service name when it is a major reason people visit the site."
         ]
@@ -833,7 +833,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Google gives similar advice for links: anchor text should be descriptive, reasonably concise, and relevant to the destination. “View our Portland web design services” carries more meaning than “Learn more,” especially when the link is read away from the surrounding paragraph. This is not permission to stuff keywords into every menu item. It is a reason to make link text specific enough to stand on its own."
+        "text": "Google gives similar advice for links: anchor text should be descriptive, reasonably concise, and relevant to the destination. “[View our Portland web design services](/pricing/web-development)” carries more meaning than “Learn more,” especially when the link is read away from the surrounding paragraph. This is not permission to stuff keywords into every menu item. It is a reason to make link text specific enough to stand on its own."
       },
       {
         "type": "heading",
@@ -898,7 +898,7 @@
       },
       {
         "type": "paragraph",
-        "text": "That last option feels safer than it is. When a buyer cannot find any pricing context, they still make a judgment. They assume it is expensive, unclear, improvised, or not worth the awkward email. Sometimes they leave. Sometimes they inquire anyway and waste everyone's time. Neither outcome is great."
+        "text": "That last option feels safer than it is. When a buyer cannot find any pricing context, they still make a judgment. They assume it is expensive, unclear, improvised, or not worth the awkward email. Sometimes they leave. Sometimes they inquire anyway and waste everyone's time. Neither outcome is great. [Renewed Bodyworks](/projects/renewed-bodyworks)' old site listed eight services and not one price; the rebuild publishes all eight with theirs."
       },
       {
         "type": "paragraph",
@@ -1026,7 +1026,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Read the pricing page after the homepage and one service page. Can a qualified buyer understand whether the offer fits their situation, budget, and timeline? Can an unqualified buyer opt out without needing a call? Can the business explain why the price range exists?"
+        "text": "Read the pricing page after the homepage and one service page ([here is ours](/pricing)). Can a qualified buyer understand whether the offer fits their situation, budget, and timeline? Can an unqualified buyer opt out without needing a call? Can the business explain why the price range exists?"
       },
       {
         "type": "paragraph",
@@ -1138,7 +1138,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This work is not glamorous, which is probably why it gets skipped. But it is exactly the kind of detail that makes a small business feel more legitimate. Good accessibility usually looks like less friction, clearer language, more predictable structure, and fewer clever surprises."
+        "text": "This work is not glamorous, which is probably why it gets skipped. But it is exactly the kind of detail that makes a small business feel more legitimate. Good accessibility usually looks like less friction, clearer language, more predictable structure, and fewer clever surprises. [My Challah Dealer](/projects/my-challah-dealer) scores 100 for Lighthouse accessibility on every run, phone and desktop; the scanner is the floor, not the proof."
       },
       {
         "type": "heading",
@@ -1162,7 +1162,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If the answer is no, the fix is not a floating button. The fix is better design, cleaner code, clearer content, and a team willing to test the thing people actually use."
+        "text": "If the answer is no, the fix is not a floating button. The fix is better design, [cleaner code](/pricing/web-development), clearer content, and a team willing to test the thing people actually use."
       }
     ]
   },
@@ -1194,19 +1194,19 @@
       },
       {
         "type": "paragraph",
-        "text": "We measure every rebuild with the same instrument on the same day, before and after. So instead of industry averages, here is what the metrics did on three of our own projects."
+        "text": "We measure every [rebuild](/pricing/web-development) with the same instrument on the same day, before and after. So instead of industry averages, here is what the metrics did on three of our own projects."
       },
       {
         "type": "list",
         "items": [
-          "Florida Green Improvements: homepage largest contentful paint on mobile from 11.62s to 3.46s, homepage weight from 29,834 KiB to 1,839 KiB, mobile performance score 59 to 90.",
-          "Prodani Miami: largest contentful paint from 768ms to 352ms and product-page layout shift from 0.075 to 0.012, over five interleaved runs per page with the cache disabled.",
-          "Zahav Medspa: a Google performance score of 99/100 on desktop with a layout shift of zero, re-runnable by anyone against zahavmedspa.com."
+          "[Florida Green Improvements](/projects/florida-green-improvements): homepage largest contentful paint on mobile from 11.62s to 3.46s, homepage weight from 29,834 KiB to 1,839 KiB, mobile performance score 59 to 90.",
+          "[Prodani Miami](/projects/prodani-miami): largest contentful paint from 768ms to 352ms and product-page layout shift from 0.075 to 0.012, over five interleaved runs per page with the cache disabled.",
+          "[Zahav Medspa](/projects/zahav-medspa): a Lighthouse performance score of 99/100 on desktop with a layout shift of zero, re-runnable by anyone against zahavmedspa.com."
         ]
       },
       {
         "type": "paragraph",
-        "text": "Each of those has a case study on this site with the method written down, including the figures that moved the wrong way."
+        "text": "Each case study has the method written down, including the figures that moved the wrong way."
       },
       {
         "type": "heading",
@@ -1323,7 +1323,7 @@
       },
       {
         "type": "paragraph",
-        "text": "That list is not glamorous. It is also the work many small businesses skip while asking why search feels unpredictable."
+        "text": "That list is not glamorous. It is also the work many small businesses skip while asking why search feels unpredictable. It is the work behind [Zahav Medspa](/projects/zahav-medspa)'s move from page two to page one."
       },
       {
         "type": "heading",
@@ -1331,7 +1331,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful AI-era SEO audit starts with a blunt question: if a machine had to explain this business in four sentences, what would it get wrong?"
+        "text": "A useful AI-era [SEO audit](/pricing/marketing-ads) starts with a blunt question: if a machine had to explain this business in four sentences, what would it get wrong?"
       },
       {
         "type": "paragraph",
@@ -1399,7 +1399,7 @@
       },
       {
         "type": "paragraph",
-        "text": "That surprises people, given what we sell. So this post explains the reasoning, and then gives you the workflow. It is a JSON file. Import it into any n8n instance, edit two nodes, and it runs."
+        "text": "That surprises people, given [what we sell](/pricing/ai-development). So this post explains the reasoning, and then gives you the workflow. It is a JSON file. Import it into any n8n instance, edit two nodes, and it runs."
       },
       {
         "type": "download",
@@ -1413,7 +1413,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A language model is the right tool when you need something you cannot specify in advance. Social posts about your own business are the opposite of that. You know what you think. You know the eight or ten arguments you make to every prospect. The bottleneck was never invention; it was the twenty minutes of reformatting, hashtag selection and scheduling that stood between having the thought and posting it."
+        "text": "A language model is the right tool when you need something you cannot specify in advance. [Scout](/projects/scout), our listing scorer, is the opposite kind of job: it mixes code and AI factors because the input is different every time. Social posts about your own business are the opposite of that. You know what you think. You know the eight or ten arguments you make to every prospect. The bottleneck was never invention; it was the twenty minutes of reformatting, hashtag selection and scheduling that stood between having the thought and posting it."
       },
       {
         "type": "paragraph",
@@ -1545,7 +1545,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Those workflows usually have separate jobs that do not all need the same context. A lead-intake system might read the form submission, classify the service, enrich the record from the CRM, draft a reply, check for missing details, and create a follow-up task. That is a graph whether or not anyone gives it a dramatic name."
+        "text": "Those workflows usually have separate jobs that do not all need the same context. A lead-intake system might read the form submission, classify the service, enrich the record from the CRM, draft a reply, check for missing details, and create a follow-up task. That is a graph whether or not anyone gives it a dramatic name. [Scout](/projects/scout) is one: six listing sources polled four times a day, each listing scored against the client's profile with the evidence attached, then a human works it through ten pipeline stages."
       },
       {
         "type": "list",
@@ -1598,7 +1598,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If you are considering AI automation, draw the workflow as it works today. Not the aspirational version. The real one. Include the inboxes, spreadsheets, sticky notes, forgotten callbacks, and the person everyone pings when the process gets weird."
+        "text": "If you are considering [AI automation](/pricing/ai-development), draw the workflow as it works today. Not the aspirational version. The real one. Include the inboxes, spreadsheets, sticky notes, forgotten callbacks, and the person everyone pings when the process gets weird."
       },
       {
         "type": "paragraph",
@@ -1706,7 +1706,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Form friction is not only about length. Research-backed checkout guidance has been saying for years that unnecessary fields and poor validation create avoidable usability problems. Contact forms are lower stakes than checkout, but the behavior is familiar: people weigh effort against trust."
+        "text": "Form friction is not only about length. [Baymard Institute's checkout research](https://baymard.com/research/checkout-usability) has been saying for years that unnecessary fields and poor validation create avoidable usability problems. Contact forms are lower stakes than checkout, but the behavior is familiar: people weigh effort against trust."
       },
       {
         "type": "paragraph",
@@ -1739,7 +1739,7 @@
       },
       {
         "type": "paragraph",
-        "text": "The internal side matters too. A form that sends a bare email with no structure is easy to miss and hard to track. Better intake creates a clean subject line, includes the source page, preserves the visitor's answers, routes to the right person, and gives the team a consistent next action. That can be as simple as a CRM entry, a Slack alert, or a tagged inbox rule. The sophistication should match the business."
+        "text": "The internal side matters too. A form that sends a bare email with no structure is easy to miss and hard to track. Better intake creates a clean subject line, includes the source page, preserves the visitor's answers, routes to the right person, and gives the team a consistent next action. That can be as simple as a CRM entry, a Slack alert, or a tagged inbox rule, the smallest kind of [automation](/pricing/ai-development) we build. [My Challah Dealer](/projects/my-challah-dealer)'s order form does it with a Google Sheet and two emails per order: a confirmation to the customer, an alert to the owner. The sophistication should match the business."
       },
       {
         "type": "heading",
@@ -1853,7 +1853,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful AI build begins with a boring sentence: when this happens, we need this to happen next. New inquiry comes in, qualify it, route it, create the record, send the right response, and flag anything that needs a human. New review appears, classify it, draft a response, notify the owner if it is negative. New project starts, create the folder, checklist, kickoff note, and internal summary."
+        "text": "A useful [AI build](/pricing/ai-development) begins with a boring sentence: when this happens, we need this to happen next. New inquiry comes in, qualify it, route it, create the record, send the right response, and flag anything that needs a human. New review appears, classify it, draft a response, notify the owner if it is negative. New project starts, create the folder, checklist, kickoff note, and internal summary."
       },
       {
         "type": "paragraph",
@@ -1917,7 +1917,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful automation usually has a few signs. It removes a task that repeats often. It reduces a real mistake, not just a mild annoyance. It fits into tools the business already uses. It has a human review point where judgment matters. It is simple enough that someone can explain it without opening a diagram."
+        "text": "A useful automation usually has a few signs. It removes a task that repeats often. It reduces a real mistake, not just a mild annoyance. It fits into tools the business already uses. It has a human review point where judgment matters. It is simple enough that someone can explain it without opening a diagram. [Scout](/projects/scout) passes that list: it replaces the daily check of six broker sites, and a person still decides which listings to pursue."
       },
       {
         "type": "paragraph",
@@ -1971,7 +1971,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Google's own Search guidance keeps pointing in the same direction: make pages for people first, keep content helpful, and do the technical basics well. That is not glamorous advice. It is also where most local websites still fall apart."
+        "text": "[Google's own Search guidance](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) keeps pointing in the same direction: make pages for people first, keep content helpful, and do the technical basics well. That is not glamorous advice. It is also where most local websites still fall apart."
       },
       {
         "type": "heading",
@@ -2010,7 +2010,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If you cannot make the page meaningfully different, you probably do not need the page yet. Build the main service page properly first. One strong page will usually do more for trust than twelve thin ones."
+        "text": "If you cannot make the page meaningfully different, you probably do not need the page yet. Build the main service page properly first. One strong page will usually do more for trust than twelve thin ones. [Renewed Bodyworks](/projects/renewed-bodyworks) runs two studios, so it got one page per city with that studio's hours, not one for every suburb in between."
       },
       {
         "type": "heading",
@@ -2054,7 +2054,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This is where restraint helps. Good local SEO is not about sounding like a directory listing. It is about giving a specific buyer enough useful information to make the next decision."
+        "text": "This is where restraint helps. Good [local SEO](/pricing/marketing-ads) is not about sounding like a directory listing. It is about giving a specific buyer enough useful information to make the next decision."
       },
       {
         "type": "heading",
@@ -2179,11 +2179,11 @@
       },
       {
         "type": "paragraph",
-        "text": "For small businesses, this does not mean everyone needs a dedicated AI keyboard. Most do not. It means the tooling layer around AI is maturing. The useful work is moving from, can the model do this, to, can a human safely direct, inspect, approve, and repeat this work without babysitting every step."
+        "text": "For small businesses, this does not mean everyone needs a dedicated AI keyboard. Most do not. It means the tooling layer around AI is maturing. The useful work is moving from, can the model do this, to, can a human safely direct, inspect, approve, and repeat this work without babysitting every step. That is the bar we hold our own [AI and automation](/pricing/ai-development) builds to."
       },
       {
         "type": "paragraph",
-        "text": "That is where the real value is. Clear controls. Clear state. Clear responsibility. Agents are more useful when the interface makes their work legible. Codex Micro is a niche product, but the idea behind it is broad: if AI is becoming part of the operating layer, it needs operating controls. Preferably ones that do not require another browser tab, six buried settings, and a prayer."
+        "text": "That is where the real value is. Clear controls. Clear state. Clear responsibility. Agents are more useful when the interface makes their work legible. It is why [Scout](/projects/scout) shows the evidence behind every score rather than a number alone. Codex Micro is a niche product, but the idea behind it is broad: if AI is becoming part of the operating layer, it needs operating controls. Preferably ones that do not require another browser tab, six buried settings, and a prayer."
       }
     ]
   },
@@ -2208,7 +2208,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The data is brutal and consistent: bounce rates climb sharply after the two-second mark, and mobile users are the least patient of all. A fast site isn't a nice-to-have; it's the price of being taken seriously."
+        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The figures we publish are our own, measured before and after each rebuild: [Florida Green Improvements](/projects/florida-green-improvements)' homepage painted in 11.62 seconds on a phone before the work and 3.46 after. A fast site isn't a nice-to-have; it's the price of being taken seriously."
       },
       {
         "type": "heading",
@@ -2224,7 +2224,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Core Web Vitals are a ranking factor, not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in."
+        "text": "Core Web Vitals are a [ranking factor](https://developers.google.com/search/docs/appearance/page-experience), not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in."
       },
       {
         "type": "list",
@@ -2246,7 +2246,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Fast sites rank higher, convert better, and cost less to run. When we build from scratch, performance isn't a phase we bolt on at the end; it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
+        "text": "When we [build from scratch](/pricing/web-development), performance isn't a phase we bolt on at the end; it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
       }
     ]
   },
@@ -2304,7 +2304,7 @@
       },
       {
         "type": "paragraph",
-        "text": "When we build a brand identity, we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true."
+        "text": "When we [build a brand identity](/pricing/design-branding), we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark."
       }
     ]
   }
