@@ -45,7 +45,7 @@
 # Content-Security-Policy-Report-Only to instantly revert to non-blocking
 # (reports only, same policy string) — no other change needed.
 # Allowlist derived from runtime recon: gtag.js (googletagmanager) + GA4 collect
-# endpoints, EmailJS XHR (api.emailjs.com), self-hosted fonts/images/video/HDRI,
+# endpoints, self-hosted fonts/images/video/HDRI,
 # NOTE (2026-08-03): the original recon MISSED the apex host analytics.google.com
 # — `https://*.analytics.google.com` does NOT match it (a wildcard covers
 # subdomains only). Once consent is GRANTED and the property is Ads-linked, gtag
@@ -84,7 +84,7 @@
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=(), interest-cohort=()"
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://www.googleadservices.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com; font-src 'self'; connect-src 'self' blob: https://api.emailjs.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://ad.doubleclick.net; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com https://www.googletagmanager.com; frame-ancestors 'none'"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'wasm-unsafe-eval' https://www.googletagmanager.com https://connect.facebook.net https://www.googleadservices.com https://www.google.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com; font-src 'self'; connect-src 'self' blob: https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://stats.g.doubleclick.net https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://www.google.com https://ad.doubleclick.net; media-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-src https://www.youtube-nocookie.com https://www.googletagmanager.com; frame-ancestors 'none'"
 
 # /partners ships a real (crawlable) static file, so enforce noindex at the
 # HTTP layer — authoritative for crawlers regardless of the HTML or whether JS

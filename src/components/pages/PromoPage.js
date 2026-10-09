@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import { trackEvent } from '../../analytics/ga';
+import sendContact from '../../utils/sendContact';
+import { CONSENT_TEXT } from '../../data/legal';
 import ModuleGrid from '../promo/ModuleGrid';
 import '../../styles/components/promoPage.scss';
 
@@ -13,17 +15,11 @@ export const PROMO_INDEXABLE = false;
 // Sale end date, surfaced in the body copy. Edit this one line to change it.
 export const DEADLINE = 'June 30, 2026';
 
-// Tags this lead's origin in EmailJS (hidden field) and in GA generate_lead.
+// Tags this lead's origin in the submission record, the email and GA generate_lead.
 const SOURCE = '30-off-promo';
 // Reuse the studio's existing booking calendar — the delegated GA listener
 // (initInteractionTracking) auto-fires book_call_click on this href.
 const BOOKING_URL = 'https://calendar.app.google/nSyFwz22pSVgMAhK8';
-
-const {
-  VITE_EMAILJS_SERVICE_ID,
-  VITE_EMAILJS_TEMPLATE_ID,
-  VITE_EMAILJS_USER_ID,
-} = import.meta.env;
 
 const PROJECT_TYPES = [
   'Website',
@@ -38,17 +34,15 @@ const PromoPage = () => {
   const formRef = useRef(null);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [phoneError, setPhoneError] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const [consentError, setConsentError] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (status === 'sending') return;
 
-    // Honeypot: a real person leaves it empty. If it's filled, a bot did —
-    // report success to it and send nothing.
-    if (formRef.current?.elements?.company?.value) {
-      setStatus('success');
-      return;
-    }
+    // Honeypot: no client-side check any more. The function records a filled
+    // one, reports success to the bot and emails nothing.
 
     // Phone is required. Lenient format: allow + spaces dashes parens dots,
     // need ~7+ actual digits. Form has noValidate, so this gate (not the
@@ -63,25 +57,26 @@ const PromoPage = () => {
     }
     setPhoneError('');
 
+    if (!agreed) {
+      setConsentError('Please tick the agreement box first, then send.');
+      formRef.current?.elements?.consent?.focus();
+      return;
+    }
+
     setStatus('sending');
     // Fire synchronously in the submit gesture stack (like book_call_click),
-    // not inside the async EmailJS .then — an event fired after the network
+    // not inside the async send's .then — an event fired after the network
     // round-trip was being lost. Counts a valid submit (passed validation, not
     // the honeypot). trackEvent is consent-safe: Consent Mode v2 still sends a
     // cookieless ping when denied.
     trackEvent('generate_lead', { source: SOURCE });
 
-    emailjs
-      .sendForm(
-        VITE_EMAILJS_SERVICE_ID,
-        VITE_EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        VITE_EMAILJS_USER_ID,
-      )
+    sendContact(formRef.current, { source: SOURCE, consent: agreed })
       .then(
         () => {
           setStatus('success');
           formRef.current?.reset();
+          setAgreed(false);
         },
         () => setStatus('error'),
       );
@@ -138,9 +133,6 @@ const PromoPage = () => {
               autoComplete="off"
             />
           </div>
-
-          {/* Origin tag for EmailJS — add {{source}} to the template to surface */}
-          <input type="hidden" name="source" value={SOURCE} readOnly />
 
           <p className="promo-form__legend">
             <span aria-hidden="true">*</span> Required
@@ -225,6 +217,32 @@ const PromoPage = () => {
               required
             />
           </div>
+
+          {/* Words must stay equal to CONSENT_TEXT (src/data/legal.js): that
+              string is what every submission record stores. */}
+          <div className="promo-form__consent">
+            <input
+              type="checkbox"
+              id="promo-consent"
+              name="consent"
+              checked={agreed}
+              onChange={(e) => {
+                setAgreed(e.target.checked);
+                setConsentError('');
+              }}
+              aria-label={CONSENT_TEXT}
+              aria-describedby={consentError ? 'promo-consent-error' : undefined}
+            />
+            <label htmlFor="promo-consent">
+              I agree to the <Link to="/terms">Terms of Use</Link> and the{' '}
+              <Link to="/privacy">Privacy Policy</Link>
+            </label>
+          </div>
+          {consentError && (
+            <p id="promo-consent-error" className="promo-form__error" role="alert">
+              {consentError}
+            </p>
+          )}
 
           <button
             type="submit"

@@ -229,6 +229,30 @@
     }
   }
 
+  /* Terms + privacy agreement; native checkbox, 24px hit area. */
+  &__consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-family: $font-text;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: $promo-ink;
+
+    input {
+      flex: none;
+      width: 1.25rem;
+      height: 1.25rem;
+      margin: 0;
+      accent-color: $promo-ink;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
   /* Inline validation message (interface voice). */
   &__error {
     margin: 0;
