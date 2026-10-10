@@ -287,8 +287,22 @@
   }
 
   // ── Phone: the matrix stays a matrix, everything one notch smaller ──
+  // Floors (SEO audit fix 11, 2026-10-09): cell notes ran at 8.8–9.6px and
+  // the text rows at 10.9px, so most of a pricing page's text sat under
+  // 12px on a phone (Lighthouse's legible-font check wants 60% at 12px or
+  // more). Anything read in a cell is now 12px (0.75rem), the uppercase
+  // micro-labels 10px (0.625rem). Long words hyphenate (hyphens: auto, the
+  // page is lang="en"); overflow-wrap: break-word is deliberately absent,
+  // because it split words with no hyphen where hyphenation found no point
+  // ("Unlimite / d"). A few cells still run into their own padding, as they
+  // did before at the smaller sizes; none collides with a neighbour.
   @media (max-width: 720px) {
     padding: 1rem 0.75rem;
+
+    td,
+    th {
+      hyphens: auto;
+    }
 
     &__corner {
       width: 40%;
@@ -315,14 +329,17 @@
     &__price-note {
       display: block;
       margin: 0.2rem 0 0;
-      font-size: 0.55rem;
-      letter-spacing: 0.05em;
+      font-size: 0.625rem;
+      letter-spacing: 0.04em;
       white-space: nowrap;
     }
 
+    // Tighter tracking and padding pay for the 10px floor: "POPULAR" has to
+    // fit a 58px column on the four-package board.
     &__badge {
-      font-size: 0.52rem;
-      padding: 0.2rem 0.4rem;
+      font-size: 0.625rem;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.3rem;
     }
 
     &__for {
@@ -342,13 +359,17 @@
     }
 
     &__note {
-      font-size: 0.6rem;
+      font-size: 0.75rem;
     }
 
     &__row--text th,
     &__row--text td {
-      font-size: 0.68rem;
+      font-size: 0.75rem;
       padding: 0.7rem 0.3rem;
+    }
+
+    &__item--text {
+      font-size: 0.625rem;
     }
   }
 }
@@ -377,15 +398,21 @@
     }
 
     .pb__thumb {
-      width: 42px;
+      width: 36px;
     }
 
     .pb__item {
-      font-size: 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    // The 12px floor made single long words ("Analytics") wider than the
+    // label column; a smaller thumb and gap give the text that room back.
+    .pb__item-inner {
+      gap: 0.4rem;
     }
 
     .pb__name {
-      font-size: 0.66rem;
+      font-size: 0.75rem;
     }
 
     .pb__price {
@@ -393,7 +420,7 @@
     }
 
     .pb__note {
-      font-size: 0.55rem;
+      font-size: 0.75rem;
     }
 
     thead th,

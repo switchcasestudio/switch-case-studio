@@ -219,21 +219,13 @@ video {
   height: auto;
 }
 
-// Responsive typography scaling
-// NOTE: Audit §04 flags <16px on mobile inputs as an iOS auto-zoom trigger.
-// This body shrink affects every rem-based component on small screens — keep
-// in mind when sizing form inputs (ContactForm pass).
-@media (max-width: 1024px) and (min-width: 769px) {
-  body {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 768px) {
-  body {
-    font-size: 13px;
-  }
-}
+// No body-size shrink on small screens (SEO audit fix 11, 2026-10-09).
+// body was 14px at 769–1024 and 13px at ≤768. rem sizes never followed it
+// (rem is the html size, 16px), so the shrink only hit text that INHERITS:
+// the Shop product copy, the journal's closing line, the footer tagline,
+// anything without its own size. That inherited text read at 13px on every
+// phone. Text now inherits the browser's 16px; components that want smaller
+// text say so with their own rem size.
 
 /* ==================================================================
  * Lift effect — main scrolls over a sticky footer

@@ -73,7 +73,8 @@
   &__line {
     margin: 0;
     font-weight: 400;
-    font-size: clamp(0.9rem, 1.2vw, 1rem);
+    // Floor 1rem: the old 0.9rem floor was what every phone got (fix 11).
+    font-size: 1rem;
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.6);
   }

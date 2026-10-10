@@ -387,9 +387,17 @@
     padding: 80px 1.5em 1.5em 1.5em;
   }
 
+  // 44px touch targets (SEO audit fix 11, 2026-10-09): the top-level rows
+  // were 37px tall with a 0.35rem gap; min-height 44 with no gap keeps the
+  // row pitch within 2px of what it was.
   .sm-panel-item,
   .sm-accordion-trigger {
     font-size: clamp(28px, 8vw, 38px);
+    min-height: 44px;
+  }
+
+  .sm-panel-list {
+    gap: 0;
   }
 
   .sm-socials-list {

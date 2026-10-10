@@ -52,7 +52,7 @@
     }
 
     &-body {
-      font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+      font-size: clamp(1rem, 1.2vw, 1.1rem); // 1rem floor on phones (fix 11)
       color: rgba(255, 255, 255, 0.5);
       margin: 0 0 2.5rem;
     }
