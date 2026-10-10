@@ -33,8 +33,8 @@ const page = (loader) => () => loader().then((m) => ({ Component: m.default }));
 const HomeContent = () => (
   <>
     <Seo
-      title="Switch Case Studio | Web Design, Development, AI & Automation"
-      description="Websites, apps, and AI systems built from scratch: web design, development, chatbots, agents, and n8n automation from one engineer-led studio. White-label work for agencies too."
+      title="Switch Case Studio | Web Design, Development & AI Automation"
+      description="Websites, apps, and AI systems built from scratch: web design, development, chatbots, agents, and n8n automation. White-label work for agencies too."
       path="/"
     />
     <Hero />

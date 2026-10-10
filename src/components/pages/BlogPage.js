@@ -1,9 +1,12 @@
 import Seo from '../util/Seo';
 import JournalReader, { sortedPosts } from '../blog/JournalReader';
+import teamData from '../../data/team.json';
+import { ORG_REF, SITE, authorNode } from '../../utils/schemaIds';
 
 /* /blog opens the journal on the newest post (split reader). The Blog
    JSON-LD still lists every post for search engines. */
 const posts = sortedPosts;
+const TEAM_NAMES = teamData.map((p) => p.name);
 
 const BlogPage = () => (
   <>
@@ -14,21 +17,18 @@ const BlogPage = () => (
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'Blog',
+          '@id': `${SITE}/blog#blog`,
           name: 'Switch Case Studio Blog',
-          url: 'https://switchcasestudio.com/blog',
+          url: `${SITE}/blog`,
           description:
             'Field notes on web design, development, branding, and growth.',
-          publisher: {
-            '@type': 'Organization',
-            name: 'Switch Case Studio',
-            url: 'https://switchcasestudio.com',
-          },
+          publisher: ORG_REF,
           blogPost: posts.map((p) => ({
             '@type': 'BlogPosting',
             headline: p.title,
-            url: `https://switchcasestudio.com/blog/${p.slug}`,
+            url: `${SITE}/blog/${p.slug}`,
             datePublished: p.date,
-            author: { '@type': 'Person', name: p.author || 'Switch Case Studio' },
+            author: authorNode(p.author, TEAM_NAMES),
           })),
         }}
       />

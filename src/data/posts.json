@@ -119,7 +119,7 @@
   {
     "slug": "selling-a-wordpress-theme-with-a-stripe-payment-link",
     "title": "How We Sell a WordPress Theme With a Stripe Payment Link",
-    "excerpt": "No store plugin and no licence server: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip.",
+    "excerpt": "No store plugin: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip.",
     "kicker": "Web Development",
     "category": "Web Development",
     "author": "Moses Atia Poston",
@@ -296,7 +296,7 @@
   {
     "slug": "website-redesign-seo-keep-what-works",
     "title": "Website Redesign SEO: Keep What Already Works",
-    "excerpt": "A redesign should improve the site without erasing the search visibility it already earned. Preserve useful URLs, map necessary changes, and test the launch as carefully as the new design.",
+    "excerpt": "A redesign should improve the site without erasing the search visibility it earned. Keep useful URLs, map every change, and test the launch carefully.",
     "kicker": "SEO & Growth",
     "category": "SEO & Growth",
     "author": "Moses Atia Poston",
@@ -411,7 +411,8 @@
   {
     "slug": "unhurried-free-wordpress-theme",
     "title": "Unhurried: A Free WordPress Theme for Businesses That Sell Care",
-    "excerpt": "We released Unhurried, a free, calm, editorial block theme for studios, spas and makers, and Unhurried Pro, which adds a WooCommerce shop. Here is what is inside and how to install it.",
+    "seoTitle": "Unhurried: A Free WordPress Theme for Spas and Studios",
+    "excerpt": "Unhurried is a free, calm WordPress block theme for studios, spas and makers; Unhurried Pro adds a WooCommerce shop. What is inside and how to install it.",
     "kicker": "Web Design",
     "category": "Web Design",
     "author": "Moses Atia Poston",
@@ -531,7 +532,7 @@
   {
     "slug": "how-to-read-google-search-console-without-chasing-noise",
     "title": "How to Read Search Console Without Chasing Noise",
-    "excerpt": "Google Search Console can show where search demand meets your website, but only if you read the metrics in context. Here is a practical review process for small business sites.",
+    "excerpt": "Search Console shows where search demand meets your website, if you read the metrics in context. A practical review process for small business sites.",
     "kicker": "SEO & Growth",
     "category": "SEO & Growth",
     "author": "Moses Atia Poston",
@@ -635,7 +636,7 @@
   {
     "slug": "brand-guidelines-small-teams-actually-use",
     "title": "Brand Guidelines Small Teams Actually Use",
-    "excerpt": "A useful brand guide settles recurring decisions about logos, color, type, imagery, and voice. Small teams need a working reference, not a polished document nobody opens.",
+    "excerpt": "A useful brand guide settles recurring decisions about logos, color, type, imagery, and voice. Small teams need a reference they actually open.",
     "kicker": "Brand Identity",
     "category": "Brand Identity",
     "author": "Moses Atia Poston",
@@ -761,7 +762,7 @@
   {
     "slug": "website-navigation-labels-that-reduce-friction",
     "title": "Website Navigation Labels That Reduce Friction",
-    "excerpt": "Clever navigation labels make visitors decode your site before they can use it. Clear labels improve orientation, accessibility, and the path to a useful next step.",
+    "excerpt": "Clever navigation labels make visitors decode your site before using it. Clear labels improve orientation, accessibility, and the path to a next step.",
     "kicker": "Web Design",
     "category": "Web Design",
     "author": "Moses Atia Poston",
@@ -876,7 +877,7 @@
   {
     "slug": "pricing-pages-that-qualify-better-leads",
     "title": "Pricing Pages That Qualify Better Leads",
-    "excerpt": "A useful pricing page does more than show numbers. For service businesses, it sets expectations, explains scope, reduces bad-fit inquiries, and makes serious buyers more comfortable reaching out.",
+    "excerpt": "A useful pricing page sets expectations, explains scope, reduces bad-fit inquiries, and makes serious buyers more comfortable reaching out.",
     "kicker": "Web Design",
     "category": "Web Design",
     "author": "Moses Atia Poston",
@@ -1037,7 +1038,7 @@
   {
     "slug": "accessibility-overlays-are-not-a-strategy",
     "title": "Accessibility Overlays Are Not a Strategy",
-    "excerpt": "Accessibility widgets can look like progress, but they do not replace accessible structure, content, forms, and testing. The better move is quieter: fix the site itself.",
+    "excerpt": "Accessibility widgets look like progress, but they do not replace accessible structure, content, forms, and testing. The better move: fix the site itself.",
     "kicker": "Web Design",
     "category": "Web Design",
     "author": "Moses Atia Poston",
@@ -1242,7 +1243,7 @@
   {
     "slug": "ai-search-still-needs-a-real-website",
     "title": "AI Search Still Needs a Real Website",
-    "excerpt": "Google's AI results changed the search page, but they did not replace the work. Small businesses still need clear pages, accurate profiles, and real proof that machines can read without making a mess.",
+    "excerpt": "Google's AI results changed the search page. The work stays the same: clear pages, accurate profiles, and real proof that machines can read.",
     "kicker": "SEO & Growth",
     "category": "SEO & Growth",
     "author": "Moses Atia Poston",
@@ -1376,7 +1377,7 @@
   {
     "slug": "the-social-content-engine-we-run-has-no-ai-in-it",
     "title": "The Social Content Engine We Run Has No AI In It",
-    "excerpt": "We are an AI studio, and the workflow that drafts our own social posts every week does not call a language model once. Here is why we built it that way, and the workflow itself, free to download.",
+    "excerpt": "We are an AI studio, and the workflow that drafts our weekly social posts never calls a language model. Here is why, and the workflow, free to download.",
     "kicker": "AI & Automation",
     "category": "AI & Automation",
     "author": "Moses Atia Poston",
@@ -1486,7 +1487,7 @@
   {
     "slug": "graph-engineering-is-workflow-design",
     "title": "Graph Engineering Is Workflow Design",
-    "excerpt": "AI agent diagrams are having a moment. The useful part is not the diagram itself, it is the discipline of deciding which work should be split, checked, retried, and handed back to a human.",
+    "excerpt": "AI agent diagrams are having a moment. The useful part is deciding which work should be split, checked, retried, and handed back to a human.",
     "kicker": "Automation & Systems",
     "category": "Automation & Systems",
     "author": "Moses Atia Poston",
@@ -1639,7 +1640,7 @@
   {
     "slug": "contact-forms-that-dont-kill-good-leads",
     "title": "Contact Forms That Don't Kill Good Leads",
-    "excerpt": "A contact form is not just a box at the bottom of the page. For service businesses, it is often the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder.",
+    "excerpt": "For a service business, the contact form is the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder.",
     "kicker": "UX & Web Design",
     "category": "UX & Web Design",
     "author": "Moses Atia Poston",
@@ -1791,7 +1792,7 @@
   {
     "slug": "ai-builds-need-business-systems",
     "title": "AI Builds Need Business Systems",
-    "excerpt": "A quick Claude build can be useful. But small businesses get real value when the prototype becomes a reliable workflow, with clear inputs, guardrails, ownership, and a place in the business.",
+    "excerpt": "A quick Claude build can be useful. The value comes when the prototype becomes a reliable workflow with clear inputs, guardrails, and an owner.",
     "kicker": "Automation",
     "category": "Automation",
     "author": "Moses Atia Poston",
@@ -2089,7 +2090,7 @@
   {
     "slug": "openai-codex-micro-the-agent-interface-goes-physical",
     "title": "OpenAI's Codex Micro: The Agent Interface Goes Physical",
-    "excerpt": "OpenAI's Codex Micro is a small $230 macropad for controlling coding agents. The interesting part is not the hardware itself. It is what the hardware says about the next interface for agentic work.",
+    "excerpt": "OpenAI's Codex Micro is a $230 macropad for coding agents. The hardware matters less than what it says about the next interface for agentic work.",
     "kicker": "AI & Automation",
     "category": "AI & Automation",
     "author": "Moses Atia Poston",
@@ -2190,7 +2191,7 @@
   {
     "slug": "why-fast-sites-win-more-clients",
     "title": "Why Fast Sites Win More Clients",
-    "excerpt": "Speed isn't a vanity metric; it's the first impression, the SEO signal, and the conversion lever all at once. Here's how we build sites that load before your visitor blinks.",
+    "excerpt": "Speed is the first impression, a search signal, and a conversion lever at once. Here is how we build sites that load before your visitor blinks.",
     "kicker": "Performance",
     "category": "Web Development",
     "author": "Moses Atia Poston",
@@ -2253,7 +2254,7 @@
   {
     "slug": "what-a-brand-actually-is",
     "title": "What a Brand Actually Is (It's Not Your Logo)",
-    "excerpt": "Founders often think branding starts with a logo. It doesn't. A brand is the promise you keep before anyone reads a word, and it lives in every decision you make.",
+    "excerpt": "Founders often think branding starts with a logo. A brand is the promise you keep before anyone reads a word, and it lives in every decision you make.",
     "kicker": "Brand Identity",
     "category": "Brand Identity",
     "author": "Moses Atia Poston",

@@ -16,7 +16,10 @@
  * Contract for the incoming post object (matches BlogPostPage.js / posts.json):
  *   slug         string, kebab-case, unique         (required)
  *   title        string                             (required)
- *   excerpt      string, ~1-2 sentences             (required)
+ *   seoTitle     string, only when title > 60 chars (optional; the <title> tag,
+ *                 og:title and twitter:title use it; the h1 keeps `title`)
+ *   excerpt      string, 1-2 sentences, <= 160 chars (required; it is the
+ *                 page's lede AND its meta description, so keep it under 160)
  *   category     string  e.g. "Web Development"     (required)
  *   body         array of blocks                    (required, >=1)
  *                 { type: 'paragraph', text }   text may carry inline links: [label](url)
@@ -44,6 +47,8 @@ import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 // The renderer's own link parser, so the gate and the page agree.
 import { badLinks, plainText } from '../src/components/blog/inlineLinks.js';
+// The page's own title and description rules (SEO audit fix 8).
+import { brandTitle, DESC_MAX, TITLE_MAX } from '../src/utils/seoText.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS = resolve(root, 'src/data/posts.json');
@@ -137,6 +142,23 @@ for (let i = 0; i < post.body.length; i++) {
 }
 if (post.date && !/^\d{4}-\d{2}-\d{2}$/.test(post.date))
   die(`date "${post.date}" must be YYYY-MM-DD`);
+if (post.seoTitle !== undefined && (typeof post.seoTitle !== 'string' || !post.seoTitle.trim()))
+  die('seoTitle, when present, must be a non-empty string');
+
+/* ── search-result lengths: warn, never reject ──
+   The scheduler (.github/workflows/scheduled-posts.yml) runs this script
+   unattended, so a long title must not stop a publish. The page drops the
+   " | Switch Case Studio" suffix and clamps a long excerpt on its own; these
+   warnings say when that net fired, so the next post can be written to fit. */
+const shownTitle = brandTitle(post.seoTitle || post.title);
+if (shownTitle.length > TITLE_MAX)
+  console.warn(
+    `add-post: WARNING title is ${shownTitle.length} chars (budget ${TITLE_MAX}); search results will cut it. Add a shorter "seoTitle".`,
+  );
+if (post.excerpt.length > DESC_MAX)
+  console.warn(
+    `add-post: WARNING excerpt is ${post.excerpt.length} chars (budget ${DESC_MAX}); the meta description will be clamped. Shorten the excerpt.`,
+  );
 
 /* ── read existing posts ── */
 let posts;
@@ -153,6 +175,7 @@ if (posts.some((p) => p.slug === post.slug))
 const normalized = {
   slug: post.slug,
   title: post.title,
+  ...(post.seoTitle ? { seoTitle: post.seoTitle } : {}),
   excerpt: post.excerpt,
   kicker: post.kicker || post.category,
   category: post.category,

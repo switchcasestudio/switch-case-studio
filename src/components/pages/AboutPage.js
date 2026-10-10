@@ -11,6 +11,7 @@ import Polaroids from '../sections/Polaroids';
 import BookCallCta from '../ui/BookCallCta';
 import MagneticButton from '../ui/MagneticButton';
 import teamData from '../../data/team.json';
+import { ORG_ID, personId } from '../../utils/schemaIds';
 import posts from '../../data/posts.json';
 import projects from '../../data/projects.json';
 import '../../styles/components/aboutPage.scss';
@@ -95,14 +96,19 @@ const TIMINGS = ['crimson-equities', 'jo-marketing-11', 'florida-energy-assistan
 // Entries missing name or role are skipped.
 const TEAM = teamData.filter((p) => p.name && p.role);
 
-// Merges with the Organization in index.html via the shared @id.
-const teamJsonLd = TEAM.length
+// Merges with the Organization in index.html via the shared @id. Each person
+// gets a stable @id (the founder's matches index.html's `founder` and every
+// blog post's author). `structuredData: false` keeps a team entry on the page
+// but out of the Person markup: Eno is the studio dog (SEO audit fix 9).
+const SCHEMA_TEAM = TEAM.filter((p) => p.structuredData !== false);
+const teamJsonLd = SCHEMA_TEAM.length
   ? {
       '@context': 'https://schema.org',
       '@type': 'Organization',
-      '@id': 'https://switchcasestudio.com/#org',
-      member: TEAM.map((p) => ({
+      '@id': ORG_ID,
+      member: SCHEMA_TEAM.map((p) => ({
         '@type': 'Person',
+        '@id': personId(p.name),
         name: p.name,
         jobTitle: p.role,
         ...(p.bio ? { description: p.bio } : {}),
