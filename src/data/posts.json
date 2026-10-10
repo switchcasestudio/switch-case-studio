@@ -1756,14 +1756,15 @@
   },
   {
     "slug": "core-web-vitals-and-performance-optimization",
-    "title": "Core Web Vitals and Performance Optimization",
-    "excerpt": "What the three metrics measure, what they did on three of our own rebuilds, and where the load time usually goes.",
+    "title": "Core Web Vitals and Website Speed: What Moves the Numbers",
+    "excerpt": "What the three metrics measure, what they did on our own rebuilds, where the load time usually goes, and how to check your own site.",
     "kicker": "Web Development",
     "category": "Web Development",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-08-13",
-    "readingTime": "2 min read",
+    "updated": "2026-10-09",
+    "readingTime": "4 min read",
     "coverImage": "/images/journal/core-web-vitals-and-performance-optimization.jpg",
     "imageAlt": "Long-exposure light trails suggesting speed and performance",
     "tags": [
@@ -1774,27 +1775,48 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Google's Core Web Vitals are three measurements of how a page feels to use: how fast the main content paints (Largest Contentful Paint), how quickly the page responds to a tap or click (Interaction to Next Paint, which replaced First Input Delay in 2024), and how much the layout jumps while loading (Cumulative Layout Shift). They are a ranking signal, but the more useful way to read them is as a description of the first five seconds a visitor spends with you."
+        "text": "Before a visitor reads your headline or looks at your prices, they experience your load time. A page that appears at once reads as competent; a page that stutters reads as the opposite, and good copy rarely wins back a first impression spent watching a blank screen. Google measures that experience with three numbers it calls Core Web Vitals, and this post covers what they mean, what moved them on our own projects, and where the time usually goes."
       },
       {
         "type": "heading",
-        "text": "What the numbers look like on real sites"
+        "text": "The three numbers, and Google's targets"
       },
       {
         "type": "paragraph",
-        "text": "We measure every [rebuild](/pricing/web-development) with the same instrument on the same day, before and after. So instead of industry averages, here is what the metrics did on three of our own projects."
+        "text": "[Google's Core Web Vitals page](https://developers.google.com/search/docs/appearance/core-web-vitals) defines the three metrics and the targets for a good experience."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Largest Contentful Paint (LCP): how fast the main content appears. Google's target is within the first 2.5 seconds of the page starting to load.",
+          "Interaction to Next Paint (INP): how quickly the page responds to a tap or click. It replaced First Input Delay in 2024. The target is under 200 milliseconds.",
+          "Cumulative Layout Shift (CLS): how much the layout jumps while it loads. The target is a score under 0.1."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "They count for search too. Google says good Core Web Vitals, with the rest of [page experience](https://developers.google.com/search/docs/appearance/page-experience), align with what its core ranking systems seek to reward. They are one signal among many, and the more useful way to read them is as a description of the first few seconds a visitor spends with you."
+      },
+      {
+        "type": "heading",
+        "text": "What the numbers did on real sites"
+      },
+      {
+        "type": "paragraph",
+        "text": "We measure every [rebuild](/pricing/web-development) with the same instrument on the same day, before and after. So instead of industry averages, here is what moved on our own projects."
       },
       {
         "type": "list",
         "items": [
           "[Florida Green Improvements](/projects/florida-green-improvements): homepage largest contentful paint on mobile from 11.62s to 3.46s, homepage weight from 29,834 KiB to 1,839 KiB, mobile performance score 59 to 90.",
+          "[Renewed Bodyworks](/projects/renewed-bodyworks): homepage largest contentful paint on mobile from 8.48s to 3.19s, and 79% less homepage weight, 9,813 KiB to 2,029 KiB.",
           "[Prodani Miami](/projects/prodani-miami): largest contentful paint from 768ms to 352ms and product-page layout shift from 0.075 to 0.012, over five interleaved runs per page with the cache disabled.",
           "[Zahav Medspa](/projects/zahav-medspa): a Lighthouse performance score of 99/100 on desktop with a layout shift of zero, re-runnable by anyone against zahavmedspa.com."
         ]
       },
       {
         "type": "paragraph",
-        "text": "Each case study has the method written down, including the figures that moved the wrong way."
+        "text": "Each case study has the method written down, including the figures that moved the wrong way. We also run the same checks on this site. In October 2026 they found our About page weighing 3.7MB on a phone, almost all of it four team photos shipped at up to twenty times the size they were shown. Resized to the size on screen, the page dropped to 852KB."
       },
       {
         "type": "heading",
@@ -1807,10 +1829,29 @@
       {
         "type": "list",
         "items": [
-          "Media served at upload size. One 5.6MB hero video re-encoded to 375KB was three quarters of Prodani's homepage saving on its own.",
+          "Media served at upload size. One 5.6MB hero video re-encoded to 375KB was three quarters of Prodani's homepage saving on its own, and our own team photos were the same mistake.",
           "Scripts and stylesheets loading before the page can paint. Anything the first screen does not need belongs after it.",
           "Fonts fetched from a third party on the critical path. Self-hosted, subsetted files, with the hero face preloaded and nothing else.",
+          "The main image loading late. Lazy loading is right below the fold and wrong for the largest image on the first screen, which should load first.",
           "Nothing reserving space for content that arrives late, which is what layout shift measures. Fixed-size slots for images, video and anything that types itself in."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What we do on every build"
+      },
+      {
+        "type": "quote",
+        "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Ship less JavaScript: every kilobyte is parsed on the visitor's phone, not on our machines.",
+          "Serve modern image formats such as WebP and AVIF, sized for the screen that shows them, with a smaller file for phones.",
+          "Pre-render the pages, so the first paint does not wait on the network.",
+          "Load what sits below the fold lazily, and the first screen's main image eagerly.",
+          "Measure before and after with the same tool, three runs at least, and keep the numbers."
         ]
       },
       {
@@ -1819,11 +1860,11 @@
       },
       {
         "type": "paragraph",
-        "text": "Run PageSpeed Insights at least twice on a warmed-up page and treat a single run as noise. Mobile is where the problems show, because mobile is where the throttling is. If you have field data, read that first; the lab score is a proxy."
+        "text": "Run PageSpeed Insights at least twice on a warmed-up page and treat a single run as noise; one of our own measurements this month read 15 seconds on the first run and 5 on the next two. Mobile is where the problems show, because mobile is where the throttling is. If you have field data, read that first; the lab score is a proxy."
       },
       {
         "type": "paragraph",
-        "text": "If your site is slow, the fix is rarely one trick. It is measuring, cutting what the first screen does not need, then measuring again. That is also what the case studies above are."
+        "text": "If your site is slow, the fix is rarely one trick. It is measuring, cutting what the first screen does not need, then measuring again. That is also what the case studies above are, and what a [website rebuild](/pricing/web-development) with us includes."
       }
     ]
   },
@@ -2075,8 +2116,8 @@
     "slug": "graph-engineering-is-workflow-design",
     "title": "Graph Engineering Is Workflow Design",
     "excerpt": "AI agent diagrams are having a moment. The useful part is deciding which work should be split, checked, retried, and handed back to a human.",
-    "kicker": "Automation & Systems",
-    "category": "Automation & Systems",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-31",
@@ -2228,8 +2269,8 @@
     "slug": "contact-forms-that-dont-kill-good-leads",
     "title": "Contact Forms That Don't Kill Good Leads",
     "excerpt": "For a service business, the contact form is the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder.",
-    "kicker": "UX & Web Design",
-    "category": "UX & Web Design",
+    "kicker": "Web Design",
+    "category": "Web Design",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-30",
@@ -2380,8 +2421,8 @@
     "slug": "ai-builds-need-business-systems",
     "title": "AI Builds Need Business Systems",
     "excerpt": "A quick Claude build can be useful. The value comes when the prototype becomes a reliable workflow with clear inputs, guardrails, and an owner.",
-    "kicker": "Automation",
-    "category": "Automation",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-26",
@@ -2776,69 +2817,6 @@
     ]
   },
   {
-    "slug": "why-fast-sites-win-more-clients",
-    "title": "Why Fast Sites Win More Clients",
-    "excerpt": "Speed is the first impression, a search signal, and a conversion lever at once. Here is how we build sites that load before your visitor blinks.",
-    "kicker": "Performance",
-    "category": "Web Development",
-    "author": "Moses Atia Poston",
-    "authorRole": "Founder",
-    "date": "2026-07-16",
-    "readingTime": "5 min read",
-    "coverImage": "/images/journal/why-fast-sites-win-more-clients.jpg",
-    "imageAlt": "Blue and red light trails crossing a dark background",
-    "tags": [
-      "Performance",
-      "SEO",
-      "Conversion"
-    ],
-    "featured": true,
-    "body": [
-      {
-        "type": "paragraph",
-        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The figures we publish are our own, measured before and after each rebuild: [Florida Green Improvements](/projects/florida-green-improvements)' homepage painted in 11.62 seconds on a phone before the work and 3.46 after. A fast site isn't a nice-to-have; it's the price of being taken seriously."
-      },
-      {
-        "type": "heading",
-        "text": "Speed is your first impression"
-      },
-      {
-        "type": "paragraph",
-        "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite, and no amount of polished copy recovers a first impression spent watching a spinner."
-      },
-      {
-        "type": "heading",
-        "text": "Google is watching too"
-      },
-      {
-        "type": "paragraph",
-        "text": "Core Web Vitals are a [ranking factor](https://developers.google.com/search/docs/appearance/page-experience), not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in."
-      },
-      {
-        "type": "list",
-        "items": [
-          "Ship less JavaScript: every kilobyte is parsed on the user's device, not yours.",
-          "Serve modern image formats (AVIF, WebP) and size them for the viewport.",
-          "Pre-render static content so the first paint doesn't wait on the network.",
-          "Lazy-load anything below the fold: the hero should never wait on the footer."
-        ]
-      },
-      {
-        "type": "quote",
-        "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs.",
-        "cite": "Switch Case Studio"
-      },
-      {
-        "type": "heading",
-        "text": "The bottom line"
-      },
-      {
-        "type": "paragraph",
-        "text": "When we [build from scratch](/pricing/web-development), performance isn't a phase we bolt on at the end; it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
-      }
-    ]
-  },
-  {
     "slug": "what-a-brand-actually-is",
     "title": "What a Brand Actually Is (It's Not Your Logo)",
     "excerpt": "Founders often think branding starts with a logo. A brand is the promise you keep before anyone reads a word, and it lives in every decision you make.",
@@ -2847,7 +2825,8 @@
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-10",
-    "readingTime": "4 min read",
+    "updated": "2026-10-09",
+    "readingTime": "3 min read",
     "coverImage": "/images/journal/what-a-brand-actually-is.jpg",
     "imageAlt": "A person carrying coordinated coffee cups and shopping bags",
     "tags": [
@@ -2859,7 +2838,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters, but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
+        "text": "Ask a founder what their brand is and the answer is usually the logo. The logo is real, and it matters, but it is the smallest and last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
       },
       {
         "type": "heading",
@@ -2868,6 +2847,10 @@
       {
         "type": "paragraph",
         "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else (type, color, tone, motion) exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you."
+      },
+      {
+        "type": "paragraph",
+        "text": "Write it down in one sentence before anything is designed: for whom, what you do for them, and why they would pick you over the obvious alternative. If the team cannot agree on that sentence, a logo will not settle the argument. It will only decorate it."
       },
       {
         "type": "heading",
@@ -2891,8 +2874,51 @@
         "text": "A logo is what people recognize. A brand is why they come back."
       },
       {
+        "type": "heading",
+        "text": "Where a brand actually lives"
+      },
+      {
         "type": "paragraph",
-        "text": "When we [build a brand identity](/pricing/design-branding), we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark."
+        "text": "Most of a customer's experience of your brand happens in places nobody designed. Walk through them once with fresh eyes."
+      },
+      {
+        "type": "list",
+        "items": [
+          "The first reply to an inquiry: how fast it comes, what it says, and whether it sounds like the website.",
+          "The first screen of the website on a phone, which is where most people meet you now.",
+          "The invoice, the receipt and the contract. They are read closely, at a moment when trust matters.",
+          "The way the phone is answered, and what the voicemail says.",
+          "The packaging, the sign on the door, the follow-up after the job is done."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "If those places disagree with each other, customers notice the disagreement before they notice the logo. Our post on [brand guidelines small teams actually use](/blog/brand-guidelines-small-teams-actually-use) covers how to keep them consistent without a hundred-page manual."
+      },
+      {
+        "type": "heading",
+        "text": "Signs the problem is the brand, and the logo is fine"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Customers describe you differently from how you describe yourself.",
+          "Your flyer, your website and your social posts look like they came from three companies.",
+          "Staff cannot explain what you do in one sentence, or explain it three different ways.",
+          "You keep changing the logo, hoping the next one will fix how the business is seen."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "When a new logo is the right fix"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sometimes the mark really is the problem. A new logo earns its cost when the name changes, when the old mark falls apart at small sizes such as a favicon, a social avatar or embroidery, when it collides with someone else's trademark, or when the business has moved to a different customer and the old mark speaks to the old one. Even then, design it last: it is the easiest piece to get right once everything underneath it is true."
+      },
+      {
+        "type": "paragraph",
+        "text": "When we [build a brand identity](/pricing/design-branding), we start with the promise and work outward, and the logo is the last thing we design. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark. If you are pricing the work, our [guide to what a logo and brand identity cost](/blog/how-much-does-a-logo-and-brand-identity-cost) lays out the market and our packages."
       }
     ]
   }

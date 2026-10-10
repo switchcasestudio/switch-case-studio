@@ -28,6 +28,7 @@ const BlogPage = () => (
             headline: p.title,
             url: `${SITE}/blog/${p.slug}`,
             datePublished: p.date,
+            dateModified: p.updated || p.date,
             author: authorNode(p.author, TEAM_NAMES),
           })),
         }}

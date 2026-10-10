@@ -92,6 +92,7 @@ const JournalReader = ({ post, isIndex = false }) => {
     author,
     authorRole,
     date,
+    updated,
     readingTime,
     tags = [],
     body = [],
@@ -185,6 +186,13 @@ const JournalReader = ({ post, isIndex = false }) => {
             <div>
               <dt>Published</dt>
               <dd>{formatDate(date)}</dd>
+            </div>
+          )}
+          {/* Only for a substantial rewrite (posts.json `updated`, fix 14). */}
+          {updated && updated !== date && (
+            <div>
+              <dt>Updated</dt>
+              <dd>{formatDate(updated)}</dd>
             </div>
           )}
           {readingTime && (
