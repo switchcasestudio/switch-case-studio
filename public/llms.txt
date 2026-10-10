@@ -1,0 +1,66 @@
+# Switch Case Studio
+
+> An engineer-led design and development studio in Portland, Oregon. Websites, online stores, web apps and AI systems, designed, built and measured by the people you talk to.
+
+The studio offers 4 services, each with published package prices. Where a case study has a measured figure it is listed below; each case study page says how it was measured.
+
+## Services
+
+- [Brand Identity](https://switchcasestudio.com/pricing/design-branding): A visual system that makes your business unmistakable
+- [Web Development](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, and stores built to convert, then kept running
+- [AI & Automation](https://switchcasestudio.com/pricing/ai-development): Assistants, agents, and workflows that run your operations
+- [SEO & AI Search](https://switchcasestudio.com/pricing/marketing-ads): Found on Google and in AI answers, then turned into revenue
+
+## Case studies
+
+- [Unhurried](https://switchcasestudio.com/projects/unhurried): A free WordPress block theme for studios, spas and makers, and a $49 Pro add-on that styles the shop. Studio project. 27 block patterns in the free theme
+- [My Challah Dealer](https://switchcasestudio.com/projects/my-challah-dealer): Home Bakery · Portland, Oregon. 100 Lighthouse accessibility, best practices and SEO
+- [Renewed Bodyworks](https://switchcasestudio.com/projects/renewed-bodyworks): Massage Therapy · Eugene and Portland, Oregon. −79% homepage weight on mobile
+- [Florida Green Improvements](https://switchcasestudio.com/projects/florida-green-improvements): Licensed General Contractor · CGC1529180 · North Miami Beach, Florida. −94% homepage weight on mobile
+- [Zahav Medspa](https://switchcasestudio.com/projects/zahav-medspa): Medical Spa in North Scottsdale, Arizona. +37% Google Business Profile calls, Jun to Aug 2026
+- [Scout](https://switchcasestudio.com/projects/scout): Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location. Studio project. 6 listing sources polled four times a day
+- [Jo Marketing 11](https://switchcasestudio.com/projects/jo-marketing-11): Marketing Company Website. < 2 weeks design to live
+- [Crimson Equities](https://switchcasestudio.com/projects/crimson-equities): Distressed Real Estate Investment Firm. < 7 days concept to live
+- [Prodani Miami](https://switchcasestudio.com/projects/prodani-miami): High-Protein Dessert Brand, Miami, Florida. −74% homepage weight
+- [Sha Design Studio](https://switchcasestudio.com/projects/sha-design-studio): Toy Design Studio Website
+- [Jelly Belly Wiki](https://switchcasestudio.com/projects/jelly-belly-wiki): Python scraper → MySQL → C# / .NET API → React client. A four-stage data pipeline, built solo. Studio project. 317 records served across 5 resources
+- [Birth of Venus](https://switchcasestudio.com/projects/birth-of-venus): Interactive Art History Website. Studio project
+- [Florida Energy Assistance](https://switchcasestudio.com/projects/florida-energy-assistance): Landing Page for Florida Home Energy Programs. < 2 weeks design to live
+
+## Pages
+
+- [About](https://switchcasestudio.com/about): The team, how a project runs, and the stack
+- [Case studies](https://switchcasestudio.com/projects): Every project, grouped by type
+- [Services and pricing](https://switchcasestudio.com/pricing): All 4 services and their packages
+- [Client reviews](https://switchcasestudio.com/testimonials)
+- [Shop](https://switchcasestudio.com/shop): WordPress themes and one-to-one office hours
+- [Contact](https://switchcasestudio.com/contact): Book a strategy call or send a message
+
+## Journal
+
+- [How to Choose Fonts for a Small Business Website](https://switchcasestudio.com/blog/how-to-choose-fonts-for-a-small-business-website): The right website typography is not the trendiest font pairing. It is a small, durable system that makes your business easier to read, recognize, and trust
+- [How We Sell a WordPress Theme With a Stripe Payment Link](https://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link): No store plugin: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip
+- [Office Hours With the Studio, and Free Hours for Students](https://switchcasestudio.com/blog/office-hours-and-free-student-hours): You can now book one-to-one time with Switch Case Studio for questions on SEO, design, code or WordPress. Students get free hours every week
+- [Website Redesign SEO: Keep What Already Works](https://switchcasestudio.com/blog/website-redesign-seo-keep-what-works): A redesign should improve the site without erasing the search visibility it earned. Keep useful URLs, map every change, and test the launch carefully
+- [Unhurried: A Free WordPress Theme for Businesses That Sell Care](https://switchcasestudio.com/blog/unhurried-free-wordpress-theme): Unhurried is a free, calm WordPress block theme for studios, spas and makers; Unhurried Pro adds a WooCommerce shop. What is inside and how to install it
+- [How to Read Search Console Without Chasing Noise](https://switchcasestudio.com/blog/how-to-read-google-search-console-without-chasing-noise): Search Console shows where search demand meets your website, if you read the metrics in context. A practical review process for small business sites
+- [Brand Guidelines Small Teams Actually Use](https://switchcasestudio.com/blog/brand-guidelines-small-teams-actually-use): A useful brand guide settles recurring decisions about logos, color, type, imagery, and voice. Small teams need a reference they actually open
+- [Website Navigation Labels That Reduce Friction](https://switchcasestudio.com/blog/website-navigation-labels-that-reduce-friction): Clever navigation labels make visitors decode your site before using it. Clear labels improve orientation, accessibility, and the path to a next step
+- [Pricing Pages That Qualify Better Leads](https://switchcasestudio.com/blog/pricing-pages-that-qualify-better-leads): A useful pricing page sets expectations, explains scope, reduces bad-fit inquiries, and makes serious buyers more comfortable reaching out
+- [Accessibility Overlays Are Not a Strategy](https://switchcasestudio.com/blog/accessibility-overlays-are-not-a-strategy): Accessibility widgets look like progress, but they do not replace accessible structure, content, forms, and testing. The better move: fix the site itself
+- [Core Web Vitals and Performance Optimization](https://switchcasestudio.com/blog/core-web-vitals-and-performance-optimization): What the three metrics measure, what they did on three of our own rebuilds, and where the load time usually goes
+- [AI Search Still Needs a Real Website](https://switchcasestudio.com/blog/ai-search-still-needs-a-real-website): Google's AI results changed the search page. The work stays the same: clear pages, accurate profiles, and real proof that machines can read
+- [The Social Content Engine We Run Has No AI In It](https://switchcasestudio.com/blog/the-social-content-engine-we-run-has-no-ai-in-it): We are an AI studio, and the workflow that drafts our weekly social posts never calls a language model. Here is why, and the workflow, free to download
+- [Graph Engineering Is Workflow Design](https://switchcasestudio.com/blog/graph-engineering-is-workflow-design): AI agent diagrams are having a moment. The useful part is deciding which work should be split, checked, retried, and handed back to a human
+- [Contact Forms That Don't Kill Good Leads](https://switchcasestudio.com/blog/contact-forms-that-dont-kill-good-leads): For a service business, the contact form is the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder
+- [AI Builds Need Business Systems](https://switchcasestudio.com/blog/ai-builds-need-business-systems): A quick Claude build can be useful. The value comes when the prototype becomes a reliable workflow with clear inputs, guardrails, and an owner
+- [Service Area Pages That Earn Trust](https://switchcasestudio.com/blog/service-area-pages-that-earn-trust): Service-area pages can help local businesses get found, but only when they answer real buyer questions. Thin city-name swaps do the opposite
+- [OpenAI's Codex Micro: The Agent Interface Goes Physical](https://switchcasestudio.com/blog/openai-codex-micro-the-agent-interface-goes-physical): OpenAI's Codex Micro is a $230 macropad for coding agents. The hardware matters less than what it says about the next interface for agentic work
+- [Why Fast Sites Win More Clients](https://switchcasestudio.com/blog/why-fast-sites-win-more-clients): Speed is the first impression, a search signal, and a conversion lever at once. Here is how we build sites that load before your visitor blinks
+- [What a Brand Actually Is (It's Not Your Logo)](https://switchcasestudio.com/blog/what-a-brand-actually-is): Founders often think branding starts with a logo. A brand is the promise you keep before anyone reads a word, and it lives in every decision you make
+
+## Optional
+
+- [Privacy Policy](https://switchcasestudio.com/privacy)
+- [Terms of Use](https://switchcasestudio.com/terms)
+- [Accessibility Statement](https://switchcasestudio.com/accessibility)

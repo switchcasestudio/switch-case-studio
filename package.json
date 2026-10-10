@@ -30,7 +30,7 @@
     "start": "vite",
     "dev": "vite-react-ssg dev",
     "check:sameas": "node scripts/check-sameas.mjs",
-    "prebuild": "node scripts/check-sameas.mjs && node scripts/generate-sitemap.mjs",
+    "prebuild": "node scripts/check-sameas.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-llms.mjs",
     "build": "vite-react-ssg build",
     "preview": "vite preview"
   },
