@@ -13,6 +13,15 @@ import '../../styles/components/scrollingShot.scss';
  */
 const ScrollingShot = ({
   src,
+  srcSet,
+  sizes,
+  // The case-study band is on the first screen and is the page's LCP
+  // element: it must not wait for lazy loading (SEO audit fix 12).
+  priority = false,
+  // Called when the image the browser actually chose fails to load. The
+  // caller removes the band; a separate `new Image()` probe of `src` would
+  // download the full-size original on phones that never display it.
+  onFail,
   alt = '',
   speed = 38,
   hold = 0.8,
@@ -24,6 +33,8 @@ const ScrollingShot = ({
   const viewRef = useRef(null);
   const imgRef = useRef(null);
   const tlRef = useRef(null);
+  const onFailRef = useRef(onFail);
+  onFailRef.current = onFail;
   const distanceRef = useRef(0);
   const inViewRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -89,14 +100,21 @@ const ScrollingShot = ({
       }
     };
 
-    if (content.complete) onLoad();
+    // A failed image is also `complete`, with no natural size. It may have
+    // failed before hydration (the img is in the static HTML), so check now
+    // and listen for a later failure too.
+    const onError = () => onFailRef.current?.();
+    if (content.complete && content.naturalWidth === 0) onError();
+    else if (content.complete) onLoad();
     else content.addEventListener('load', onLoad, { once: true });
+    content.addEventListener('error', onError);
 
     const ro = new ResizeObserver(calc);
     ro.observe(viewportEl);
 
     return () => {
-      if (!content.complete) content.removeEventListener('load', onLoad);
+      content.removeEventListener('load', onLoad);
+      content.removeEventListener('error', onError);
       ro.disconnect();
       killTL();
     };
@@ -168,10 +186,13 @@ const ScrollingShot = ({
         <img
           ref={imgRef}
           src={src}
+          srcSet={srcSet}
+          sizes={srcSet ? sizes : undefined}
           alt={alt}
           className="scrolling-shot__img"
           draggable="false"
-          loading="lazy"
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
         />
       </div>
     </div>
@@ -180,6 +201,10 @@ const ScrollingShot = ({
 
 ScrollingShot.propTypes = {
   src: PropTypes.string.isRequired,
+  srcSet: PropTypes.string,
+  sizes: PropTypes.string,
+  priority: PropTypes.bool,
+  onFail: PropTypes.func,
   alt: PropTypes.string,
   speed: PropTypes.number,
   hold: PropTypes.number,

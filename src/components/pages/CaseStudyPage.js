@@ -73,9 +73,24 @@ const CaseStudyPage = () => {
   }, [slug]);
 
   const publicLongWeb = project?.longWeb ? project.longWeb : null;
+  // A 700px-wide sibling (`long-700.webp`) for phones (SEO audit fix 12): the
+  // band is 348px wide on a 390 phone, and the full 1150–1318px shot was the
+  // page's LCP (Zahav: 764KB, LCP 8.4s). Every longWeb needs the sibling on
+  // disk and tracked in git: srcset has no fallback, so a missing sibling is
+  // a broken image on phones, and the error gate below removes the band.
+  // The original is labelled 1150w, the narrowest original width, so DPR-3
+  // phones and every desktop still pick it.
+  const longWebSrcSet = publicLongWeb?.endsWith('/long.webp')
+    ? `${publicLongWeb.replace(/long\.webp$/, 'long-700.webp')} 700w, ${publicLongWeb} 1150w`
+    : undefined;
   const publicImageSrc = project?.imageSrc ? project.imageSrc : null;
 
-  const mockupOK = !useImageFailed(publicLongWeb);
+  // The band reports its own failure (ScrollingShot onFail): probing the
+  // original with `new Image()` downloaded all 764KB of Zahav's shot on
+  // phones that display the 124KB 700w sibling (fix 12).
+  const [bandFailed, setBandFailed] = useState(false);
+  useEffect(() => setBandFailed(false), [publicLongWeb]);
+  const mockupOK = !bandFailed;
   const detailImageOK = !useImageFailed(publicImageSrc);
 
   /* ── Entrance animation. GSAP owns start + end state.
@@ -493,6 +508,10 @@ const CaseStudyPage = () => {
               <ScrollingShot
                 key={slug}
                 src={publicLongWeb}
+                srcSet={longWebSrcSet}
+                sizes="(max-width: 768px) calc(100vw - 42px), 1150px"
+                priority
+                onFail={() => setBandFailed(true)}
                 alt={imageAlt || `${title}: landing page`}
               />
             </div>
