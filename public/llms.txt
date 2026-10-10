@@ -38,6 +38,10 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 ## Journal
 
+- [How Much Does SEO Cost for a Small Business in 2026?](https://switchcasestudio.com/blog/how-much-does-seo-cost-for-a-small-business): Monthly retainers, hourly rates and one-off projects, priced from a survey of 439 SEO providers, plus what moves the number and what we charge
+- [How Much Does an AI Chatbot or Automation Cost?](https://switchcasestudio.com/blog/how-much-does-an-ai-chatbot-or-automation-cost): Subscriptions, custom builds and the running costs in between. Real prices for chatbots, automation platforms and AI models, and where our packages sit
+- [How Much Does a Logo and Brand Identity Cost in 2026?](https://switchcasestudio.com/blog/how-much-does-a-logo-and-brand-identity-cost): A logo can cost $20 or $10,000. What separates a logo from a brand identity, what each price level buys, and where our packages sit
+- [How Much Does a Small Business Website Cost in 2026?](https://switchcasestudio.com/blog/how-much-does-a-small-business-website-cost): From a free builder to five figures. What each price buys, what a site costs to run after launch, and where our packages sit in the market
 - [How to Choose Fonts for a Small Business Website](https://switchcasestudio.com/blog/how-to-choose-fonts-for-a-small-business-website): The right website typography is not the trendiest font pairing. It is a small, durable system that makes your business easier to read, recognize, and trust
 - [How We Sell a WordPress Theme With a Stripe Payment Link](https://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link): No store plugin: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip
 - [Office Hours With the Studio, and Free Hours for Students](https://switchcasestudio.com/blog/office-hours-and-free-student-hours): You can now book one-to-one time with Switch Case Studio for questions on SEO, design, code or WordPress. Students get free hours every week

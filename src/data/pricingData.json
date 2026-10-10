@@ -4,6 +4,7 @@
       "id": "design-branding",
       "title": "Brand Identity",
       "subtitle": "Logo, system, guidelines, built to last.",
+      "costGuide": { "slug": "how-much-does-a-logo-and-brand-identity-cost", "label": "What a logo and brand identity cost elsewhere" },
       "tiers": [
         {
           "name": "Logo & Style Guide",
@@ -59,6 +60,7 @@
       "id": "web-development",
       "title": "Web Development",
       "subtitle": "Landing pages, sites, and stores built to convert, then kept running.",
+      "costGuide": { "slug": "how-much-does-a-small-business-website-cost", "label": "What a small business website costs elsewhere" },
       "tiers": [
         {
           "name": "Landing Page",
@@ -183,6 +185,7 @@
       "id": "ai-development",
       "title": "AI & Automation",
       "subtitle": "Assistants, agents, and workflows: built like production software.",
+      "costGuide": { "slug": "how-much-does-an-ai-chatbot-or-automation-cost", "label": "What an AI chatbot or automation costs elsewhere" },
       "tiers": [
         {
           "name": "AI Roadmap Sprint",
@@ -263,6 +266,7 @@
       "id": "marketing-advertisement",
       "title": "SEO & AI Search",
       "subtitle": "Found on Google and in AI answers, then turned into revenue.",
+      "costGuide": { "slug": "how-much-does-seo-cost-for-a-small-business", "label": "What SEO costs elsewhere" },
       "tiers": [
         {
           "name": "SEO + GEO Optimization Sprint",
