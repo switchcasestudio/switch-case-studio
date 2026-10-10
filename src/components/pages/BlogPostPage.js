@@ -16,7 +16,7 @@ const BlogPostPage = () => {
 
   if (!post) return <Navigate to="/blog" replace />;
 
-  const { title, seoTitle, excerpt, author, date, coverImage, imageAlt } = post;
+  const { title, seoTitle, excerpt, author, date, updated, coverImage, imageAlt } = post;
 
   // The excerpt is the page's lede AND its meta description, so it is kept
   // under 160 characters at the data (SEO audit fix 8). The clamp is the net
@@ -42,7 +42,7 @@ const BlogPostPage = () => {
             headline: title,
             url,
             description: metaDescription,
-            ...(date ? { datePublished: date, dateModified: date } : {}),
+            ...(date ? { datePublished: date, dateModified: updated || date } : {}),
             ...(coverImage ? { image: `${SITE}${coverImage}` } : {}),
             author: authorNode(author, TEAM_NAMES),
             publisher: ORG_REF,

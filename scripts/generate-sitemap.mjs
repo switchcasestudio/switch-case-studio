@@ -8,7 +8,7 @@
  * study shared projects.json's last commit date and every static page
  * shared the date of any change under src/, so one edit re-dated 24 URLs at
  * once and lastmod said nothing. Now:
- *   - a blog post: its own `date`;
+ *   - a blog post: its `updated` date if it has one, else its `date`;
  *   - a case study / a service: the last commit that changed THAT entry
  *     (its object in projects.json; its objects in services.json and
  *     pricingData.json), found by walking the data file's git history;
@@ -87,7 +87,7 @@ const serviceDates = entryDates('src/data/services.json', (s) => s.slug);
 // pricingData keys services by id; one legacy id differs from its slug.
 const PRICING_ID = { 'marketing-ads': 'marketing-advertisement' };
 const pricingDates = entryDates('src/data/pricingData.json', (s) => s.id);
-const newestPost = max(...posts.map((p) => p.date));
+const newestPost = max(...posts.flatMap((p) => [p.date, p.updated]));
 
 const page = (...files) => lastmodOf(...files.map((f) => (f.includes('/') ? f : `src/components/pages/${f}`)));
 
@@ -108,7 +108,7 @@ const urls = [
   { loc: '/unhurried-pro/', lastmod: lastmodOf('public/unhurried-pro/index.html'), priority: '0.6' },
   ...posts.map((p) => ({
     loc: `/blog/${p.slug}`,
-    lastmod: p.date || newestPost,
+    lastmod: max(p.date, p.updated) || newestPost,
     priority: '0.6',
   })),
   ...services.map((s) => ({

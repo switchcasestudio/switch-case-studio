@@ -35,6 +35,10 @@
  *   author       string  (default "Moses Atia Poston")
  *   authorRole   string  (default "Founder")
  *   date         "YYYY-MM-DD" (default: today, America/Los_Angeles)
+ *   updated      "YYYY-MM-DD", only when the article was substantially rewritten
+ *                 (feeds dateModified, the sitemap lastmod and an "Updated" row)
+ *   category     one of src/components/blog/categories.js BLOG_CATEGORIES; known
+ *                 aliases ("Automation", "UX & Web Design") are folded in
  *   kicker       string  (default: category)
  *   readingTime  string  (default: derived from word count)
  *   coverImage   string  (default "" — the list page renders a branded fallback)
@@ -49,6 +53,8 @@ import { fileURLToPath } from 'node:url';
 import { badLinks, plainText } from '../src/components/blog/inlineLinks.js';
 // The page's own title and description rules (SEO audit fix 8).
 import { brandTitle, DESC_MAX, TITLE_MAX } from '../src/utils/seoText.js';
+// One category list for the journal (SEO audit fix 14).
+import { BLOG_CATEGORIES, isKnownCategory, normalizeCategory } from '../src/components/blog/categories.js';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const POSTS = resolve(root, 'src/data/posts.json');
@@ -144,6 +150,15 @@ if (post.date && !/^\d{4}-\d{2}-\d{2}$/.test(post.date))
   die(`date "${post.date}" must be YYYY-MM-DD`);
 if (post.seoTitle !== undefined && (typeof post.seoTitle !== 'string' || !post.seoTitle.trim()))
   die('seoTitle, when present, must be a non-empty string');
+if (post.updated && !/^\d{4}-\d{2}-\d{2}$/.test(post.updated))
+  die(`updated "${post.updated}" must be YYYY-MM-DD`);
+
+/* ── category: fold known aliases, warn on anything else (never reject) ── */
+const category = normalizeCategory(post.category);
+if (category !== post.category)
+  console.warn(`add-post: category "${post.category}" filed as "${category}".`);
+if (!isKnownCategory(category))
+  console.warn(`add-post: WARNING category "${category}" is not one of: ${BLOG_CATEGORIES.join(', ')}.`);
 
 /* ── search-result lengths: warn, never reject ──
    The scheduler (.github/workflows/scheduled-posts.yml) runs this script
@@ -177,11 +192,12 @@ const normalized = {
   title: post.title,
   ...(post.seoTitle ? { seoTitle: post.seoTitle } : {}),
   excerpt: post.excerpt,
-  kicker: post.kicker || post.category,
-  category: post.category,
+  kicker: post.kicker || category,
+  category,
   author: post.author || 'Moses Atia Poston',
   authorRole: post.authorRole || 'Founder',
   date: post.date || todayPT(),
+  ...(post.updated ? { updated: post.updated } : {}),
   readingTime: post.readingTime || readingTimeFrom(post.body),
   coverImage: post.coverImage || '',
   imageAlt: post.imageAlt || '',

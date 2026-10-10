@@ -78,6 +78,43 @@
     line-height: 1.6;
     color: rgba(255, 255, 255, 0.6);
   }
+
+  // The service's cost guide (fix 10): one quiet line under the disclaimer,
+  // lavender kicker, underlined link with a 44px tap row.
+  &__guide {
+    margin: 1.25rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  &__guide-kicker {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $g6;
+  }
+
+  &__guide-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.3);
+    text-underline-offset: 0.3em;
+    transition: color 0.2s ease, text-decoration-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: #fff;
+      text-decoration-color: currentColor;
+    }
+  }
 }
 
 .pg-footer {

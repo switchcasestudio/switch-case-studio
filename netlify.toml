@@ -127,6 +127,14 @@
   to = "/"
   status = 301
 
+# Two posts on site speed competed for the same searches (SEO audit fix 14,
+# 2026-10-09): "Why Fast Sites Win More Clients" was folded into the Core Web
+# Vitals post, which keeps its URL.
+[[redirects]]
+  from = "/blog/why-fast-sites-win-more-clients"
+  to = "/blog/core-web-vitals-and-performance-optimization"
+  status = 301
+
 # Services consolidated 7 → 4 on 2026-09-10 (owner decision). The three
 # retired pricing pages were live and in the sitemap: 301 each to the
 # service that absorbed it. Remove a block only if that slug comes back.

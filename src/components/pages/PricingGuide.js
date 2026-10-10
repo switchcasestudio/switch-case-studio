@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -203,6 +204,17 @@ export const PricingGuide = ({ serviceId }) => {
           complexity, and goals of your project. Let’s talk through the details
           so we can put together the right plan for you.
         </p>
+        {/* Each service links its cost guide (SEO audit fix 10, 2026-10-09):
+            price searches rank long guides, and the guide is where these
+            packages are compared with the market. */}
+        {service.costGuide && (
+          <p className="pg-outro__guide">
+            <span className="pg-outro__guide-kicker">Cost guide</span>
+            <Link to={`/blog/${service.costGuide.slug}`} className="pg-outro__guide-link">
+              {service.costGuide.label}
+            </Link>
+          </p>
+        )}
       </div>
 
       <footer className="pg-footer pg-animate" aria-label="Contact">

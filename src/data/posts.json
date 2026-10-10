@@ -1,5 +1,592 @@
 [
   {
+    "slug": "how-much-does-seo-cost-for-a-small-business",
+    "title": "How Much Does SEO Cost for a Small Business in 2026?",
+    "excerpt": "Monthly retainers, hourly rates and one-off projects, priced from a survey of 439 SEO providers, plus what moves the number and what we charge.",
+    "kicker": "SEO & Growth",
+    "category": "SEO & Growth",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-09",
+    "readingTime": "5 min read",
+    "coverImage": "/images/journal/how-much-does-seo-cost-for-a-small-business.jpg",
+    "imageAlt": "Cost guide card: monthly, hourly and per-project SEO price bands, beside the title How much does SEO cost for a small business",
+    "tags": [
+      "Cost guide",
+      "SEO pricing",
+      "Local SEO"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "SEO is sold three ways: by the month, by the hour and by the project. Each has a market rate, and the rates are better documented than most marketing prices because one large survey asked the people who sell it. This guide uses that survey, explains what moves a quote up or down, and shows where [our SEO and AI search packages](/pricing/marketing-ads) sit."
+      },
+      {
+        "type": "paragraph",
+        "text": "The survey is [Ahrefs' poll of 439 SEO service providers](https://ahrefs.com/blog/seo-pricing/), who were checked by hand to confirm they really sell SEO. Its headline figure is an average of $2,917 a month, and $1,557 a month for local SEO, which is the closest match for most small businesses. Ahrefs makes SEO software and does not sell SEO services, and the page was last updated in August 2024, so treat the numbers as a recent baseline; this month's market may differ."
+      },
+      {
+        "type": "heading",
+        "text": "The short answer"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Monthly retainer: $501 to $1,000 a month is the most common band, charged by 20.4% of providers. 68.8% charge $2,000 a month or less.",
+          "Local or small business SEO: $1,557 a month on average.",
+          "Hourly: $75 to $100 an hour is the most common rate, and the average is $111.",
+          "One-off projects: $2,501 to $5,000 is the most common fee, charged by 21.2% of providers.",
+          "Who you hire matters: Ahrefs found agencies charge 138% more than freelancers."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The three pricing models"
+      },
+      {
+        "type": "paragraph",
+        "text": "A retainer buys continuing work: content, on-page changes, reporting and whatever the month needs. 78.2% of the providers in the survey charge this way. It suits a business that competes for the same searches every month and needs someone watching."
+      },
+      {
+        "type": "paragraph",
+        "text": "A project buys a defined result: an audit, a site migration, a technical clean-up. It suits a site with a known problem, such as pages Google cannot index or a redesign that lost its rankings, and it should end with the problem fixed and documented."
+      },
+      {
+        "type": "paragraph",
+        "text": "Hourly work suits advice: a second opinion on a plan, or help reading Search Console. Our post on [reading Search Console without chasing noise](/blog/how-to-read-google-search-console-without-chasing-noise) covers what you can do yourself before paying anyone by the hour."
+      },
+      {
+        "type": "heading",
+        "text": "What moves the price"
+      },
+      {
+        "type": "list",
+        "items": [
+          "How much is broken. A site with no titles, no descriptions and pages blocked from Google needs a fix before anything else will work, and that fix is a project.",
+          "How many pages and locations. A five-page site for one town is a different job from a store with two thousand products or a business with ten locations.",
+          "How crowded the search is. A medical spa in a competitive suburb faces more and better-funded rivals than a specialist trade in a small town.",
+          "Who writes the content. Content is usually the largest ongoing cost. A retainer that includes writing costs more than one that only advises on it.",
+          "Paid ads. Some retainers bundle Google and Meta ad management. The ad spend itself is always extra."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "AI search, and what it changes"
+      },
+      {
+        "type": "paragraph",
+        "text": "[Google's guide to AI features](https://developers.google.com/search/docs/appearance/ai-features) says there are no additional requirements to appear in AI Overviews or AI Mode, and that the same foundational SEO practices apply. So most \"AI search optimization\" is the same work: a site that is fast, crawlable, clearly structured and consistent with your Google Business Profile. Our post on why [AI search still needs a real website](/blog/ai-search-still-needs-a-real-website) explains the overlap."
+      },
+      {
+        "type": "quote",
+        "text": "The cheapest SEO is the problem you fix once: a page Google can finally index stays indexed."
+      },
+      {
+        "type": "heading",
+        "text": "What we charge"
+      },
+      {
+        "type": "list",
+        "items": [
+          "SEO + GEO Optimization Sprint, $3,500 one-time: a full technical and on-page audit with a written report, then the fixes themselves, including images, meta tags on every page, structured data, AI-crawler access, Google Analytics 4 with conversion tracking, and Core Web Vitals work.",
+          "Growth Retainer, $3,000 a month: Google and Meta ad management (spend separate), keyword research and on-page optimization, a quarterly content plan with two blog posts a month, two email campaigns a month, conversion work on key pages, and a monthly strategy call."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Against the survey, the sprint sits at the top of the most common project band, and it includes the implementation as well as the audit. The retainer is close to the $2,917 overall average, and it covers ad management, email and content alongside the SEO."
+      },
+      {
+        "type": "paragraph",
+        "text": "The work shows up in measurements a client can check. After our work on [Zahav Medspa](/projects/zahav-medspa), the homepage's average Google position moved from 13.2 to 7.0 across two 28-day Search Console windows, page two to page one, and calls from its Google Business Profile rose 37% from June to August 2026. [Renewed Bodyworks](/projects/renewed-bodyworks) went from no pages Google was allowed to index to nine, and [Florida Green Improvements](/projects/florida-green-improvements) moved from a Lighthouse SEO score of 77 to 100 on every page."
+      },
+      {
+        "type": "heading",
+        "text": "Three example budgets"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A small site doing most of it yourself: Google Search Console is free, and a few hours of advice at the survey's most common rate of $75 to $100 an hour costs $225 to $300 for three.",
+          "A site with a known technical problem, such as pages blocked from Google or a redesign that lost its rankings: a one-time project. Our SEO + GEO Optimization Sprint is $3,500, audit and fixes included.",
+          "A business competing for the same local searches every month: a retainer. The survey's local average is $1,557 a month for SEO alone. Our Growth Retainer is $3,000 a month with ad management, email and content included, and ad spend on top."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Red flags"
+      },
+      {
+        "type": "paragraph",
+        "text": "Google's own guide to [hiring an SEO](https://developers.google.com/search/docs/fundamentals/do-i-need-seo) is blunt: \"No one can guarantee a #1 ranking on Google.\" It says that if a provider guarantees first place in search results, you should find someone else. Three more questions sort good offers from bad ones."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Will you show me every change you make to the site? You should be able to see the work, not only the report.",
+          "What will you measure, and where? Search Console and your analytics, with a baseline taken before the work starts.",
+          "Who owns the accounts? Your Search Console, analytics and Business Profile should be in your name, with the provider added as a user."
+        ]
+      },
+      {
+        "type": "link",
+        "url": "/pricing/marketing-ads",
+        "label": "See the SEO & AI Search packages",
+        "note": "Published prices, sprint from $3,500"
+      }
+    ]
+  },
+  {
+    "slug": "how-much-does-an-ai-chatbot-or-automation-cost",
+    "title": "How Much Does an AI Chatbot or Automation Cost?",
+    "excerpt": "Subscriptions, custom builds and the running costs in between. Real prices for chatbots, automation platforms and AI models, and where our packages sit.",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-09",
+    "readingTime": "6 min read",
+    "coverImage": "/images/journal/how-much-does-an-ai-chatbot-or-automation-cost.jpg",
+    "imageAlt": "Cost guide card: a price ladder from a chatbot subscription to a custom AI build, beside the title How much does an AI chatbot or automation cost",
+    "tags": [
+      "Cost guide",
+      "AI chatbot",
+      "Automation"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "An AI chatbot can cost $20 a month or $150,000 to build, and both prices are real. The difference is whether you rent a finished product, assemble one from platforms, or pay someone to build it around your business. Each path has a build cost and a running cost, and the running cost is the one most quotes leave vague. This guide prices all of them from published rate cards and shows where [our AI and automation packages](/pricing/ai-development) sit."
+      },
+      {
+        "type": "heading",
+        "text": "Three ways to buy it"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Rent a chatbot. A subscription tool you train on your site and FAQs. Fast to start, limited to what the vendor built.",
+          "Assemble it from platforms. An automation tool such as Zapier or n8n, connected to an AI model and your existing apps. Flexible, and someone has to set it up and keep it running.",
+          "Have it built. A custom assistant or agent designed around one process in your business, with its own integrations, guardrails and monitoring."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Renting: what the subscriptions cost"
+      },
+      {
+        "type": "paragraph",
+        "text": "[Intercom's pricing page](https://www.intercom.com/pricing) charges $19, $85 or $132 per seat a month for its helpdesk plans, plus $0.99 for every outcome its Fin AI agent handles. [Zapier's pricing](https://zapier.com/pricing) includes a chatbot product at $13.33 a month for five bots or $66.67 for twenty, both billed annually."
+      },
+      {
+        "type": "paragraph",
+        "text": "Vendor surveys of the wider market land in the same place. [Denser, which sells chatbot software](https://denser.ai/blog/how-much-chatbot-cost/), puts a typical small business chatbot at $19 to $89 a month with $0 to $2,000 of setup, and mid-market tools at $100 to $500 a month. Watch the per-outcome fees: at $0.99 each, a thousand Fin outcomes a month add $990 to the bill."
+      },
+      {
+        "type": "heading",
+        "text": "Assembling: what the platforms cost"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Zapier: free for 100 tasks a month, then plans starting at $19.99 and $69 a month on its pricing page, priced by tasks.",
+          "n8n: [cloud plans](https://n8n.io/pricing/) at €20 and €50 a month billed annually, priced by workflow executions, or self-hosted on your own server.",
+          "The model itself, billed by usage. [Anthropic's API prices](https://www.anthropic.com/pricing) list Sonnet 5.5 at $2 per million input tokens and $10 per million output tokens."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Model usage is usually the smallest line. As a worked example, assume a support conversation sends about 4,000 tokens to the model and gets about 600 back. At the Sonnet 5.5 prices above that is $0.008 in and $0.006 out, about 1.4 cents a conversation, or roughly $14 for a thousand. Your numbers will differ with longer documents or chattier customers, but the order of magnitude holds for most small business use."
+      },
+      {
+        "type": "heading",
+        "text": "Building: what custom work costs"
+      },
+      {
+        "type": "paragraph",
+        "text": "Published ranges for custom builds come mostly from companies that sell chatbots, and they run high. [Quickchat's cost guide](https://quickchat.ai/post/how-much-does-chatbot-cost) puts a typical simple custom bot at $10,000 to $30,000 and a typical custom AI bot at $75,000 to $150,000, with annual maintenance of $5,000 to $15,000. Denser prices each custom API integration at $5,000 to $25,000."
+      },
+      {
+        "type": "paragraph",
+        "text": "Those figures describe large teams building for large companies. A small business usually needs something narrower: one assistant that knows the business, or one workflow that removes a daily chore. Scoped that tightly, a custom build costs a fraction of those ranges, and the running cost can be lower than a subscription because you pay the model and the server directly."
+      },
+      {
+        "type": "quote",
+        "text": "Price the whole first year: build, platform, model usage, hosting and the hours someone spends keeping it right."
+      },
+      {
+        "type": "heading",
+        "text": "What moves the price"
+      },
+      {
+        "type": "list",
+        "items": [
+          "How many systems it touches. Answering questions from your website is one job. Reading your calendar, writing to your CRM and emailing a quote is four.",
+          "How much it may decide on its own. Every action an agent can take without a person needs guardrails, logging and a way to undo it.",
+          "Where your data lives. A subscription keeps your documents on the vendor's servers. A self-hosted build keeps them on yours, at the cost of running a server.",
+          "Volume. Per-seat and per-outcome pricing grows with your business. Usage-priced models grow too, usually much more slowly.",
+          "Maintenance. Models change, your prices change, your FAQ changes. Someone has to update the assistant, or it starts giving last year's answers."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What we charge"
+      },
+      {
+        "type": "list",
+        "items": [
+          "AI Roadmap Sprint, $500: a discovery call, an audit of where AI saves time or money and where it does not, one working proof of concept, and a written roadmap with costs.",
+          "AI Assistant, $1,800: an assistant built on Claude or OpenAI and trained on your content, on your site or in Slack or WhatsApp, with guardrails, human handoff, lead capture and 30 days of tuning.",
+          "Custom AI Agent, $4,500: an agent built around one business process, integrated with your CRM, calendar, email and forms, self-hosted on a VPS, with logging, a monitoring dashboard and 30 days of support.",
+          "Automation Retainer, $750 a month: up to five custom workflows across CRM, ads, email and forms, monitored and maintained.",
+          "AI Partner, $1,500 a month: continuous work on assistants, agents and workflows on a self-hosted n8n instance, with one or two new automations shipped a month."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The one-time builds sit well under the custom ranges vendors publish, because each one is scoped to a single assistant or a single process. The AI Partner plan runs your workflows on a self-hosted n8n instance, so there are no per-task platform fees on top."
+      },
+      {
+        "type": "paragraph",
+        "text": "Two examples of the narrow kind of system that pays off. [My Challah Dealer's order form](/projects/my-challah-dealer) drops every order into a Google Sheet and sends two emails, a confirmation to the customer and an alert to the owner, with no one copying anything by hand. [Scout](/projects/scout), our own product, polls six listing sources four times a day and scores every listing against a client's profile with the evidence written out, so a person reviews a short list instead of six websites."
+      },
+      {
+        "type": "heading",
+        "text": "Three example budgets"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Answering the same ten questions on your website: a subscription such as Zapier's chatbot plan at $160 a year, or our AI Assistant at $1,800 once, trained on your own content, plus model usage of about $14 per thousand conversations at the worked example above.",
+          "Stopping a daily copy-and-paste job, such as orders into a spreadsheet: an automation platform from $19.99 a month on Zapier or €20 a month on n8n, set up by you or delivered as the working proof of concept in our $500 AI Roadmap Sprint.",
+          "Handling new leads end to end, from form to CRM to a first reply: our Custom AI Agent at $4,500, self-hosted on a server you own. If you want us to run that server, our VPS & Self-Hosted care plan is $150 a month, with the server billed at the provider's rate."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Before you pay for anything"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Write down the one task you want to stop doing, and how many times a week it happens.",
+          "Ask for the full first-year cost: build, platform, model usage, hosting and maintenance hours.",
+          "Ask where your documents and customer data will be stored, and who can see them.",
+          "Ask what happens when the assistant is unsure: does it hand off to a person, and how?",
+          "Ask who updates it when your prices, hours or policies change."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "If the honest answer to the first question is \"not often\", you may not need AI at all, and a good studio will tell you so. Our post on [AI builds that need business systems](/blog/ai-builds-need-business-systems) goes deeper on that test."
+      },
+      {
+        "type": "link",
+        "url": "/pricing/ai-development",
+        "label": "See the AI & Automation packages",
+        "note": "Published prices, from $500"
+      }
+    ]
+  },
+  {
+    "slug": "how-much-does-a-logo-and-brand-identity-cost",
+    "title": "How Much Does a Logo and Brand Identity Cost in 2026?",
+    "excerpt": "A logo can cost $20 or $10,000. What separates a logo from a brand identity, what each price level buys, and where our packages sit.",
+    "kicker": "Brand Identity",
+    "category": "Brand Identity",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-09",
+    "readingTime": "5 min read",
+    "coverImage": "/images/journal/how-much-does-a-logo-and-brand-identity-cost.jpg",
+    "imageAlt": "Cost guide card: a price ladder from a logo maker to a branding agency, beside the title How much does a logo and brand identity cost",
+    "tags": [
+      "Cost guide",
+      "Branding",
+      "Logo design"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Ask what a logo costs and you will hear numbers from $20 to five figures. Most of that spread comes from one confusion: a logo, a brand identity and a brand system are three different things, and quotes rarely say which one they price. This guide separates them, puts sourced ranges on each, and shows what [our brand identity packages](/pricing/design-branding) include."
+      },
+      {
+        "type": "heading",
+        "text": "Logo, identity, system"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A logo is the mark: the symbol, the wordmark, or both, delivered as files.",
+          "A brand identity adds the pieces that make the mark usable: colors, typefaces, a few rules, and the formats you will actually need.",
+          "A brand system goes further: research and positioning, variations for every placement, written guidelines, and the first real applications, from business cards to social templates."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Each step costs more because each step is more work, and each step solves a different problem. A food truck with one sign needs a logo. A clinic with three locations, a website and a staff of twelve needs a system people can follow without asking."
+      },
+      {
+        "type": "heading",
+        "text": "What the market charges"
+      },
+      {
+        "type": "paragraph",
+        "text": "Two published price sheets agree closely. [Vistaprint's 2026 guide to logo design cost](https://www.vistaprint.com/hub/logo-design-cost) sorts the market into tiers, and [ManyPixels' cost guide](https://www.manypixels.co/blog/brand-design/logo-design-cost-guide), with prices checked in September 2026, lands in the same places. Both companies sell design, so read them as informed vendors' views."
+      },
+      {
+        "type": "list",
+        "items": [
+          "DIY and AI logo makers: $0 to $150 on Vistaprint's sheet. ManyPixels puts AI generators at $0 to $30 a month and logo makers at $20 to $200.",
+          "Design contests: [99designs' logo packages](https://99designs.com/pricing) run $249, $399, $799 and $1,050, with more concepts at each level and one winning designer.",
+          "Entry-level freelancers: $150 to $800 on Vistaprint's sheet.",
+          "Experienced freelancers: $800 to $2,500 on Vistaprint's sheet. ManyPixels says most small businesses land between $300 and $2,000.",
+          "Design studios and branding agencies: $2,500 to $10,000 or more on Vistaprint's sheet, and $3,000 to $10,000 or more on ManyPixels'.",
+          "Large rebrands: $10,000 to $50,000 or more, Vistaprint's premium tier, with deep research and an extensive system."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What moves the price"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Discovery. A call and a short brief, or a workshop, a competitor review and a written positioning statement. The second is slower and usually worth it for a business that plans to grow.",
+          "Concepts and rounds. Two concepts with one round of refinements is a different job from several directions refined over weeks.",
+          "Variations. A primary logo, a stacked version, a small mark for favicons and social avatars, one-color versions for embroidery or stamps. Each one has to work on its own.",
+          "Guidelines. A one-page sheet or a fifteen-page guide with spacing, misuse examples and voice. Our post on [brand guidelines small teams actually use](/blog/brand-guidelines-small-teams-actually-use) covers what belongs in one.",
+          "Applications. Business cards, signage, packaging, social templates. Designing the logo on real objects is where weak marks get found out."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Costs nobody quotes"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Font licences. A typeface found online is not automatically licensed for your website, your packaging or your app. Some licences are per platform. Our post on [choosing fonts for a small business website](/blog/how-to-choose-fonts-for-a-small-business-website) explains what to check.",
+          "Trademark search and registration. A designer is not a lawyer. If the name and mark matter to the business, budget for a proper search before you print anything.",
+          "Production. Printing, signage, embroidery and packaging cost money on their own, and each vendor wants files in its own format.",
+          "File ownership. Make sure you receive editable source files and a written transfer of rights, not only PNGs."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "A good identity is cheap to use: every new flyer, menu or page starts from the system."
+      },
+      {
+        "type": "heading",
+        "text": "What we charge"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Logo & Style Guide, $750: a discovery call and brief, two or three logo concepts with a round of refinements, final files in every common format, a basic palette and type pairing, and a one-page brand sheet.",
+          "Brand Starter Kit, $2,000: a questionnaire and strategy mini-workshop, several logo directions, an expanded palette and type system, a mood board, five to seven social templates, stationery or a business card, and a basic brand guide.",
+          "Brand System & Launch, $3,500: a discovery and positioning workshop, a competitive and visual audit, a full logo system, custom palette and type, guidelines of fifteen pages or more, and launch assets such as cards, signage or presentation templates."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Against the sheets above, the $750 package sits in the entry freelancer tier, the $2,000 kit in the experienced freelancer tier, and the $3,500 system at the low end of the studio and agency range, with a studio's process behind it."
+      },
+      {
+        "type": "paragraph",
+        "text": "For a sense of what a full system looks like, [My Challah Dealer](/projects/my-challah-dealer) is a one-person home bakery whose identity runs to a badge, a braid mark, two lockups, a wordmark, a die-cut sticker, a bread-clip mark and a six-shape sticker set, with print files for a clip-shaped business card and a bag stamp. [Zahav Medspa](/projects/zahav-medspa) shows the same work at the scale of a medical spa competing for local search."
+      },
+      {
+        "type": "heading",
+        "text": "Three example budgets"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Testing a side business over a weekend: a logo maker at $20 to $200 on ManyPixels' figures, or a 99designs contest from $249. Expect to redo it if the business works.",
+          "A local business about to order a sign and business cards: our Logo & Style Guide at $750, plus the font licence if the chosen face needs one, plus printing. Design once, then print.",
+          "A practice with staff, a website and social channels: the Brand System & Launch at $3,500, so everyone who makes a flyer, a post or a slide works from the same guidelines and templates."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "How to choose"
+      },
+      {
+        "type": "list",
+        "items": [
+          "If you need something this month and the business is still an experiment, a logo maker or a contest is a reasonable start.",
+          "If customers already know you and you are about to spend money on a sign, a vehicle wrap or packaging, pay for an identity first. Reprinting is the expensive part.",
+          "If more than two people produce materials for the brand, budget for guidelines, or every new flyer will drift a little further.",
+          "Whatever you buy, ask for the source files, the font licences and a written rights transfer before the final invoice."
+        ]
+      },
+      {
+        "type": "link",
+        "url": "/pricing/design-branding",
+        "label": "See the Brand Identity packages",
+        "note": "Published prices, from $750"
+      }
+    ]
+  },
+  {
+    "slug": "how-much-does-a-small-business-website-cost",
+    "title": "How Much Does a Small Business Website Cost in 2026?",
+    "excerpt": "From a free builder to five figures. What each price buys, what a site costs to run after launch, and where our packages sit in the market.",
+    "kicker": "Web Development",
+    "category": "Web Development",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-09",
+    "readingTime": "6 min read",
+    "coverImage": "/images/journal/how-much-does-a-small-business-website-cost.jpg",
+    "imageAlt": "Cost guide card: a price ladder from a free website builder to an agency build, beside the title How much does a small business website cost",
+    "tags": [
+      "Cost guide",
+      "Website pricing",
+      "Small business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A small business website can cost nothing or tens of thousands of dollars, and both numbers are honest. The spread comes from who does the work, how much of it is custom, and what the site has to do after someone lands on it. This guide puts real ranges on each option, names where every number comes from, and shows where [our own packages](/pricing/web-development) sit."
+      },
+      {
+        "type": "paragraph",
+        "text": "The largest published sample is a survey by [WebFX of more than 2,000 businesses](https://www.webfx.com/web-design/pricing/website-costs/). It puts a basic small business site at $0 to $500 with a DIY website builder, and $500 to $5,000 or more when a freelancer or agency designs it. Across every kind of site built by an agency or freelancer, its range runs from $1,000 to $145,000. WebFX sells web design itself, so read those figures as one vendor's view of the market. They are still the best sourced numbers available."
+      },
+      {
+        "type": "heading",
+        "text": "The short answer"
+      },
+      {
+        "type": "list",
+        "items": [
+          "DIY website builder: free to about $500 a month on WebFX's figures. You do the design, the writing and the setup yourself.",
+          "Freelancer or small studio: $500 to $5,000 or more for a small business site, the professional range in the same WebFX survey.",
+          "Agency: from about $1,000 into six figures. The top of that range is large custom builds; a five-page brochure site sits near the bottom.",
+          "Online store: add the platform. [Shopify's plans](https://www.shopify.com/pricing) run $29, $79 and $299 a month when billed yearly, and its Basic plan charges card fees from 2.9% + 30¢ per sale.",
+          "Running the site: hosting, domain, updates and edits. WebFX puts ongoing maintenance from an agency or freelancer at $3,600 to $50,000 a year."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What actually moves the price"
+      },
+      {
+        "type": "paragraph",
+        "text": "Two quotes for \"a website\" can differ by ten times and both be fair, because they describe different work. Five things decide most of the gap."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Page templates. Ten service pages that share one layout cost far less than ten pages that each need their own design. Ask how many distinct page types the quote covers.",
+          "Custom design or a theme. A theme gets you a decent site fast. A custom design is drawn around your business, your content and your customers, and it takes longer to make.",
+          "Who writes the words. Copy is easy to leave out of a quote. If you are writing it yourself, the project waits on you; if the studio writes it, that is real work and should be priced.",
+          "What the site connects to. Booking, a CRM, payments, a newsletter, a quote form that lands in a spreadsheet. Each connection is a small project with its own testing.",
+          "Selling online. A cart, product pages, tax, shipping and checkout turn a website into a store, and the platform fees above start the day it opens."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "The costs that come after launch"
+      },
+      {
+        "type": "paragraph",
+        "text": "The build is the number people compare, and the running cost is the number they live with. WebFX lists the pieces: hosting from $2 to $1,000 a month, and maintenance from $5 to $5,000 a month depending on what is included. That range is wide because \"maintenance\" means different things to different people."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Hosting and the domain: where the site lives and its address. Make sure the domain is registered in your name, whoever pays for it.",
+          "Security and updates: plugins, themes and the server itself need patching. A WordPress site that nobody updates is a liability within a year.",
+          "Backups: daily or weekly copies you can restore from, tested at least once.",
+          "Edits: new photos, a price change, a new service page. Ask how many hours a month the plan covers and what an extra hour costs.",
+          "Reporting: a short note on uptime, speed and anything that broke, so you are not the one who finds it."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Builder, freelancer, studio or agency"
+      },
+      {
+        "type": "paragraph",
+        "text": "A builder makes sense when the budget is close to zero and you have the time to do the work. A freelancer is often the best value for a small site, with the risk that one person is your whole support plan. A small studio sits between: a team you can reach, prices closer to a freelancer's than an agency's, and usually the same people from the first call to launch. An agency earns its fee on large, multi-department projects where coordination is half the work."
+      },
+      {
+        "type": "quote",
+        "text": "Compare what each quote includes, line by line, before you compare the totals."
+      },
+      {
+        "type": "heading",
+        "text": "What we charge"
+      },
+      {
+        "type": "paragraph",
+        "text": "Our prices are published, and each one is a fixed price for a defined scope. Every build is a custom design, and from the Simple Website up the first year of hosting and domain registration is included."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Landing Page, $800: one custom page built around a single goal, with SEO essentials and a fast load.",
+          "Simple Website, $1,500: up to five pages, a gallery, basic SEO, and a year of hosting and domain registration.",
+          "Business Bundle, $2,500: up to ten pages, a content management system, a contact form, Google Analytics, and a year of hosting and domain.",
+          "Growth Suite, $5,000: unlimited pages, e-commerce with checkout, a database, custom forms and advanced SEO.",
+          "Care plans, $75, $125 or $150 a month: hosting, backups, updates, monitoring and monthly edit hours, from shared hosting to your own server."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The builds sit inside the $500 to $5,000+ range WebFX reports for a professionally designed small business site. The care plans come to $900 to $1,800 a year, under the $3,600 floor of its maintenance range, because they cover hosting, updates and a few hours of edits, with a fixed scope."
+      },
+      {
+        "type": "paragraph",
+        "text": "What the money buys shows up in the numbers. When we rebuilt [Florida Green Improvements](/projects/florida-green-improvements), the homepage dropped from 29,834 KiB to 1,839 KiB on mobile and its main content painted in 3.46 seconds instead of 11.62. [Renewed Bodyworks](/projects/renewed-bodyworks) went from a site Google was not allowed to index to nine pages Google can index, listed in a sitemap, with all eight services priced."
+      },
+      {
+        "type": "heading",
+        "text": "Three example budgets"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A new solo practice that needs to be found and contacted: our Simple Website at $1,500, with the first year of hosting and domain included. From year two, Starter Care at $75 a month, $900 a year, with the domain renewal billed at cost.",
+          "A growing service business with a team and a booking flow: the Business Bundle at $2,500, then Growth Care at $125 a month, $1,500 a year, for staging, daily backups and up to three hours of edits a month.",
+          "A maker selling online on a platform: Shopify's Basic plan is $29 a month billed yearly, $348 a year, before card fees. At 2.9% + 30¢, a $50 sale pays $1.75 in fees. A designed store on top of that is a build cost, like any other site."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "How to compare two quotes"
+      },
+      {
+        "type": "list",
+        "items": [
+          "How many distinct page designs does this cover, and what does one more cost?",
+          "Who writes the copy, and is that in the price?",
+          "Who owns the domain, the code and the content when the project ends?",
+          "What is included in the first year of hosting, and what does year two cost?",
+          "How fast will the homepage load on a phone, and how will you measure it?",
+          "What does a small change cost three months after launch?"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "A quote that answers all six in writing is easier to trust than a lower total that answers none. If you want to see the line items for ours, [the Web Development page](/pricing/web-development) lists every package side by side."
+      },
+      {
+        "type": "link",
+        "url": "/pricing/web-development",
+        "label": "See the Web Development packages",
+        "note": "Published prices, from $800"
+      }
+    ]
+  },
+  {
     "slug": "how-to-choose-fonts-for-a-small-business-website",
     "title": "How to Choose Fonts for a Small Business Website",
     "excerpt": "The right website typography is not the trendiest font pairing. It is a small, durable system that makes your business easier to read, recognize, and trust.",
@@ -1169,14 +1756,15 @@
   },
   {
     "slug": "core-web-vitals-and-performance-optimization",
-    "title": "Core Web Vitals and Performance Optimization",
-    "excerpt": "What the three metrics measure, what they did on three of our own rebuilds, and where the load time usually goes.",
+    "title": "Core Web Vitals and Website Speed: What Moves the Numbers",
+    "excerpt": "What the three metrics measure, what they did on our own rebuilds, where the load time usually goes, and how to check your own site.",
     "kicker": "Web Development",
     "category": "Web Development",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-08-13",
-    "readingTime": "2 min read",
+    "updated": "2026-10-09",
+    "readingTime": "4 min read",
     "coverImage": "/images/journal/core-web-vitals-and-performance-optimization.jpg",
     "imageAlt": "Long-exposure light trails suggesting speed and performance",
     "tags": [
@@ -1187,27 +1775,48 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Google's Core Web Vitals are three measurements of how a page feels to use: how fast the main content paints (Largest Contentful Paint), how quickly the page responds to a tap or click (Interaction to Next Paint, which replaced First Input Delay in 2024), and how much the layout jumps while loading (Cumulative Layout Shift). They are a ranking signal, but the more useful way to read them is as a description of the first five seconds a visitor spends with you."
+        "text": "Before a visitor reads your headline or looks at your prices, they experience your load time. A page that appears at once reads as competent; a page that stutters reads as the opposite, and good copy rarely wins back a first impression spent watching a blank screen. Google measures that experience with three numbers it calls Core Web Vitals, and this post covers what they mean, what moved them on our own projects, and where the time usually goes."
       },
       {
         "type": "heading",
-        "text": "What the numbers look like on real sites"
+        "text": "The three numbers, and Google's targets"
       },
       {
         "type": "paragraph",
-        "text": "We measure every [rebuild](/pricing/web-development) with the same instrument on the same day, before and after. So instead of industry averages, here is what the metrics did on three of our own projects."
+        "text": "[Google's Core Web Vitals page](https://developers.google.com/search/docs/appearance/core-web-vitals) defines the three metrics and the targets for a good experience."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Largest Contentful Paint (LCP): how fast the main content appears. Google's target is within the first 2.5 seconds of the page starting to load.",
+          "Interaction to Next Paint (INP): how quickly the page responds to a tap or click. It replaced First Input Delay in 2024. The target is under 200 milliseconds.",
+          "Cumulative Layout Shift (CLS): how much the layout jumps while it loads. The target is a score under 0.1."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "They count for search too. Google says good Core Web Vitals, with the rest of [page experience](https://developers.google.com/search/docs/appearance/page-experience), align with what its core ranking systems seek to reward. They are one signal among many, and the more useful way to read them is as a description of the first few seconds a visitor spends with you."
+      },
+      {
+        "type": "heading",
+        "text": "What the numbers did on real sites"
+      },
+      {
+        "type": "paragraph",
+        "text": "We measure every [rebuild](/pricing/web-development) with the same instrument on the same day, before and after. So instead of industry averages, here is what moved on our own projects."
       },
       {
         "type": "list",
         "items": [
           "[Florida Green Improvements](/projects/florida-green-improvements): homepage largest contentful paint on mobile from 11.62s to 3.46s, homepage weight from 29,834 KiB to 1,839 KiB, mobile performance score 59 to 90.",
+          "[Renewed Bodyworks](/projects/renewed-bodyworks): homepage largest contentful paint on mobile from 8.48s to 3.19s, and 79% less homepage weight, 9,813 KiB to 2,029 KiB.",
           "[Prodani Miami](/projects/prodani-miami): largest contentful paint from 768ms to 352ms and product-page layout shift from 0.075 to 0.012, over five interleaved runs per page with the cache disabled.",
           "[Zahav Medspa](/projects/zahav-medspa): a Lighthouse performance score of 99/100 on desktop with a layout shift of zero, re-runnable by anyone against zahavmedspa.com."
         ]
       },
       {
         "type": "paragraph",
-        "text": "Each case study has the method written down, including the figures that moved the wrong way."
+        "text": "Each case study has the method written down, including the figures that moved the wrong way. We also run the same checks on this site. In October 2026 they found our About page weighing 3.7MB on a phone, almost all of it four team photos shipped at up to twenty times the size they were shown. Resized to the size on screen, the page dropped to 852KB."
       },
       {
         "type": "heading",
@@ -1220,10 +1829,29 @@
       {
         "type": "list",
         "items": [
-          "Media served at upload size. One 5.6MB hero video re-encoded to 375KB was three quarters of Prodani's homepage saving on its own.",
+          "Media served at upload size. One 5.6MB hero video re-encoded to 375KB was three quarters of Prodani's homepage saving on its own, and our own team photos were the same mistake.",
           "Scripts and stylesheets loading before the page can paint. Anything the first screen does not need belongs after it.",
           "Fonts fetched from a third party on the critical path. Self-hosted, subsetted files, with the hero face preloaded and nothing else.",
+          "The main image loading late. Lazy loading is right below the fold and wrong for the largest image on the first screen, which should load first.",
           "Nothing reserving space for content that arrives late, which is what layout shift measures. Fixed-size slots for images, video and anything that types itself in."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What we do on every build"
+      },
+      {
+        "type": "quote",
+        "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Ship less JavaScript: every kilobyte is parsed on the visitor's phone, not on our machines.",
+          "Serve modern image formats such as WebP and AVIF, sized for the screen that shows them, with a smaller file for phones.",
+          "Pre-render the pages, so the first paint does not wait on the network.",
+          "Load what sits below the fold lazily, and the first screen's main image eagerly.",
+          "Measure before and after with the same tool, three runs at least, and keep the numbers."
         ]
       },
       {
@@ -1232,11 +1860,11 @@
       },
       {
         "type": "paragraph",
-        "text": "Run PageSpeed Insights at least twice on a warmed-up page and treat a single run as noise. Mobile is where the problems show, because mobile is where the throttling is. If you have field data, read that first; the lab score is a proxy."
+        "text": "Run PageSpeed Insights at least twice on a warmed-up page and treat a single run as noise; one of our own measurements this month read 15 seconds on the first run and 5 on the next two. Mobile is where the problems show, because mobile is where the throttling is. If you have field data, read that first; the lab score is a proxy."
       },
       {
         "type": "paragraph",
-        "text": "If your site is slow, the fix is rarely one trick. It is measuring, cutting what the first screen does not need, then measuring again. That is also what the case studies above are."
+        "text": "If your site is slow, the fix is rarely one trick. It is measuring, cutting what the first screen does not need, then measuring again. That is also what the case studies above are, and what a [website rebuild](/pricing/web-development) with us includes."
       }
     ]
   },
@@ -1488,8 +2116,8 @@
     "slug": "graph-engineering-is-workflow-design",
     "title": "Graph Engineering Is Workflow Design",
     "excerpt": "AI agent diagrams are having a moment. The useful part is deciding which work should be split, checked, retried, and handed back to a human.",
-    "kicker": "Automation & Systems",
-    "category": "Automation & Systems",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-31",
@@ -1641,8 +2269,8 @@
     "slug": "contact-forms-that-dont-kill-good-leads",
     "title": "Contact Forms That Don't Kill Good Leads",
     "excerpt": "For a service business, the contact form is the handoff between interest and revenue, and small UX mistakes can quietly make that handoff harder.",
-    "kicker": "UX & Web Design",
-    "category": "UX & Web Design",
+    "kicker": "Web Design",
+    "category": "Web Design",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-30",
@@ -1793,8 +2421,8 @@
     "slug": "ai-builds-need-business-systems",
     "title": "AI Builds Need Business Systems",
     "excerpt": "A quick Claude build can be useful. The value comes when the prototype becomes a reliable workflow with clear inputs, guardrails, and an owner.",
-    "kicker": "Automation",
-    "category": "Automation",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-26",
@@ -2189,69 +2817,6 @@
     ]
   },
   {
-    "slug": "why-fast-sites-win-more-clients",
-    "title": "Why Fast Sites Win More Clients",
-    "excerpt": "Speed is the first impression, a search signal, and a conversion lever at once. Here is how we build sites that load before your visitor blinks.",
-    "kicker": "Performance",
-    "category": "Web Development",
-    "author": "Moses Atia Poston",
-    "authorRole": "Founder",
-    "date": "2026-07-16",
-    "readingTime": "5 min read",
-    "coverImage": "/images/journal/why-fast-sites-win-more-clients.jpg",
-    "imageAlt": "Blue and red light trails crossing a dark background",
-    "tags": [
-      "Performance",
-      "SEO",
-      "Conversion"
-    ],
-    "featured": true,
-    "body": [
-      {
-        "type": "paragraph",
-        "text": "Every second your site takes to load is a second your visitor spends deciding whether to leave. The figures we publish are our own, measured before and after each rebuild: [Florida Green Improvements](/projects/florida-green-improvements)' homepage painted in 11.62 seconds on a phone before the work and 3.46 after. A fast site isn't a nice-to-have; it's the price of being taken seriously."
-      },
-      {
-        "type": "heading",
-        "text": "Speed is your first impression"
-      },
-      {
-        "type": "paragraph",
-        "text": "Before a visitor reads your headline, judges your design, or considers your offer, they experience your load time. A page that snaps into view signals competence. A page that stutters signals the opposite, and no amount of polished copy recovers a first impression spent watching a spinner."
-      },
-      {
-        "type": "heading",
-        "text": "Google is watching too"
-      },
-      {
-        "type": "paragraph",
-        "text": "Core Web Vitals are a [ranking factor](https://developers.google.com/search/docs/appearance/page-experience), not a suggestion. Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint all feed directly into how you rank. A slow site is quietly taxed on every search result it appears in."
-      },
-      {
-        "type": "list",
-        "items": [
-          "Ship less JavaScript: every kilobyte is parsed on the user's device, not yours.",
-          "Serve modern image formats (AVIF, WebP) and size them for the viewport.",
-          "Pre-render static content so the first paint doesn't wait on the network.",
-          "Lazy-load anything below the fold: the hero should never wait on the footer."
-        ]
-      },
-      {
-        "type": "quote",
-        "text": "We build every site static-first. The HTML arrives complete, so the page is readable before a single script runs.",
-        "cite": "Switch Case Studio"
-      },
-      {
-        "type": "heading",
-        "text": "The bottom line"
-      },
-      {
-        "type": "paragraph",
-        "text": "When we [build from scratch](/pricing/web-development), performance isn't a phase we bolt on at the end; it's the constraint we design within from the first line of code. That's how a site earns trust in the half-second before anyone has read a word."
-      }
-    ]
-  },
-  {
     "slug": "what-a-brand-actually-is",
     "title": "What a Brand Actually Is (It's Not Your Logo)",
     "excerpt": "Founders often think branding starts with a logo. A brand is the promise you keep before anyone reads a word, and it lives in every decision you make.",
@@ -2260,7 +2825,8 @@
     "author": "Moses Atia Poston",
     "authorRole": "Founder",
     "date": "2026-07-10",
-    "readingTime": "4 min read",
+    "updated": "2026-10-09",
+    "readingTime": "3 min read",
     "coverImage": "/images/journal/what-a-brand-actually-is.jpg",
     "imageAlt": "A person carrying coordinated coffee cups and shopping bags",
     "tags": [
@@ -2272,7 +2838,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Ask ten founders what a brand is and nine will point to a logo. The logo is real, and it matters, but it's the smallest, last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
+        "text": "Ask a founder what their brand is and the answer is usually the logo. The logo is real, and it matters, but it is the smallest and last part of the story. A brand is the sum of every impression you leave, and most of those happen long before someone notices your mark."
       },
       {
         "type": "heading",
@@ -2281,6 +2847,10 @@
       {
         "type": "paragraph",
         "text": "Before the logo, before the color palette, there's a promise: this is who we are, this is what you can expect from us. Everything else (type, color, tone, motion) exists to make that promise legible at a glance. Get the promise wrong and the prettiest logo in the world can't save you."
+      },
+      {
+        "type": "paragraph",
+        "text": "Write it down in one sentence before anything is designed: for whom, what you do for them, and why they would pick you over the obvious alternative. If the team cannot agree on that sentence, a logo will not settle the argument. It will only decorate it."
       },
       {
         "type": "heading",
@@ -2304,8 +2874,51 @@
         "text": "A logo is what people recognize. A brand is why they come back."
       },
       {
+        "type": "heading",
+        "text": "Where a brand actually lives"
+      },
+      {
         "type": "paragraph",
-        "text": "When we [build a brand identity](/pricing/design-branding), we start with the promise and work outward. The logo is the last thing we design, because it's the easiest thing to get right once everything underneath it is true. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark."
+        "text": "Most of a customer's experience of your brand happens in places nobody designed. Walk through them once with fresh eyes."
+      },
+      {
+        "type": "list",
+        "items": [
+          "The first reply to an inquiry: how fast it comes, what it says, and whether it sounds like the website.",
+          "The first screen of the website on a phone, which is where most people meet you now.",
+          "The invoice, the receipt and the contract. They are read closely, at a moment when trust matters.",
+          "The way the phone is answered, and what the voicemail says.",
+          "The packaging, the sign on the door, the follow-up after the job is done."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "If those places disagree with each other, customers notice the disagreement before they notice the logo. Our post on [brand guidelines small teams actually use](/blog/brand-guidelines-small-teams-actually-use) covers how to keep them consistent without a hundred-page manual."
+      },
+      {
+        "type": "heading",
+        "text": "Signs the problem is the brand, and the logo is fine"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Customers describe you differently from how you describe yourself.",
+          "Your flyer, your website and your social posts look like they came from three companies.",
+          "Staff cannot explain what you do in one sentence, or explain it three different ways.",
+          "You keep changing the logo, hoping the next one will fix how the business is seen."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "When a new logo is the right fix"
+      },
+      {
+        "type": "paragraph",
+        "text": "Sometimes the mark really is the problem. A new logo earns its cost when the name changes, when the old mark falls apart at small sizes such as a favicon, a social avatar or embroidery, when it collides with someone else's trademark, or when the business has moved to a different customer and the old mark speaks to the old one. Even then, design it last: it is the easiest piece to get right once everything underneath it is true."
+      },
+      {
+        "type": "paragraph",
+        "text": "When we [build a brand identity](/pricing/design-branding), we start with the promise and work outward, and the logo is the last thing we design. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark. If you are pricing the work, our [guide to what a logo and brand identity cost](/blog/how-much-does-a-logo-and-brand-identity-cost) lays out the market and our packages."
       }
     ]
   }
