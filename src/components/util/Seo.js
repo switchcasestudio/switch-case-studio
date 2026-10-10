@@ -32,6 +32,10 @@ const Seo = ({
   robots, // explicit robots string (e.g. "noindex,follow"); overrides `noindex`
 }) => {
   const url = `${SITE}${path}`;
+  // A page that asks not to be indexed gets no canonical (SEO audit fix 13,
+  // 2026-10-09): the 404 page pointed its canonical at /404, which tells a
+  // crawler "index this URL" in the same head that says "don't".
+  const indexable = !(noindex || (robots && /noindex/i.test(robots)));
   const img = image
     ? image.startsWith('http')
       ? image
@@ -47,7 +51,7 @@ const Seo = ({
       ) : (
         noindex && <meta name="robots" content="noindex" />
       )}
-      <link rel="canonical" href={url} />
+      {indexable && <link rel="canonical" href={url} />}
 
       <meta property="og:type" content={ogType} />
       <meta property="og:title" content={title} />

@@ -121,6 +121,10 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     line-height: 1.6;
     color: $ap-muted;
     margin: 0 0 1rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem; // phone reading floor (fix 11)
+    }
   }
 
   &__links {
@@ -317,6 +321,10 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     line-height: 1.6;
     color: $ap-muted;
     margin: 0;
+
+    @media (max-width: 768px) {
+      font-size: 1rem; // phone reading floor (fix 11)
+    }
   }
 }
 
@@ -537,6 +545,10 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     color: $ap-muted;
     max-width: 42ch;
     margin: 0 0 1.25rem;
+
+    @media (max-width: 768px) {
+      font-size: 1rem; // phone reading floor (fix 11)
+    }
   }
 
   &__all {

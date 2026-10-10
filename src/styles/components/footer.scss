@@ -110,6 +110,13 @@
     text-decoration: none;
     transition: opacity 0.2s ease;
 
+    // At phone sizes the one-line address is ~21px tall: pad the tap area to
+    // 44px without moving the text (fix 11, 2026-10-09).
+    @media (hover: none) and (pointer: coarse) {
+      padding-block: max(0px, calc((44px - 1em) / 2));
+      margin-block: calc(-1 * max(0px, calc((44px - 1em) / 2)));
+    }
+
     &:hover {
       opacity: 0.8;
     }
@@ -182,12 +189,24 @@
 
 .footer-socials {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
+
+  // 44px icons on touch (fix 11, 2026-10-09); a tighter gap keeps all seven
+  // on one row at 390, and they wrap rather than overflow on narrower phones.
+  @media (hover: none) and (pointer: coarse) {
+    gap: 0.25rem;
+  }
 
   &__item {
     width: 2.25rem;
     height: 2.25rem;
+
+    @media (hover: none) and (pointer: coarse) {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
     border-radius: 0.375rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
     color: rgba(255, 255, 255, 0.8);
@@ -232,9 +251,14 @@
     }
 
     @media (hover: none) and (pointer: coarse) {
-      display: inline-block;
-      padding-block: 0.55rem;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
     }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    row-gap: 0;
   }
 }
 
@@ -270,10 +294,17 @@
 
     // M5: real touch targets — 0.9rem rows with 0.25rem gaps were ~26px
     // tappable height (WCAG 2.5.8 wants 24px minimum, 44px comfortable).
+    // Fix 11 (2026-10-09): padding gave ~35px; min-height makes it 44, and
+    // the list gap drops to 0 on touch so the row pitch barely moves.
     @media (hover: none) and (pointer: coarse) {
-      display: inline-block;
-      padding-block: 0.55rem;
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
     }
+  }
+
+  @media (hover: none) and (pointer: coarse) {
+    gap: 0;
   }
 
   // "All case studies →" index link — quieter than the project names.
@@ -410,10 +441,11 @@
         color: #fef7ed;
       }
 
-      // M5: touch target height for the legal row too.
+      // M5: touch target height for the legal row too (44px since fix 11).
       @media (hover: none) and (pointer: coarse) {
-        display: inline-block;
-        padding-block: 0.55rem;
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
       }
     }
   }

@@ -78,11 +78,21 @@
   }
 }
 
+// Phone (SEO audit fix 11, 2026-10-09): the buttons were 33px tall, under
+// the 44px touch target; they grow to 44 while tighter padding, gap and
+// leading keep the whole banner shorter than its old 166px (20% of an
+// 844px screen). The consent wording is untouched.
 @media (max-width: 600px) {
   .consent-banner {
     left: 0.75rem;
     right: 0.75rem;
     bottom: 0.75rem;
+    gap: 0.7rem;
+    padding: 0.9rem 1rem;
+
+    &__text {
+      line-height: 1.4;
+    }
 
     &__actions {
       justify-content: stretch;
@@ -90,6 +100,7 @@
 
     &__btn {
       flex: 1;
+      min-height: 44px;
     }
   }
 }

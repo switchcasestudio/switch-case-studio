@@ -236,7 +236,7 @@ $hero-pad-y: 1.5rem;
   @media (max-width: 1100px) {
     .hero-note {
       max-width: 18em;
-      font-size: 0.95rem;
+      font-size: 1rem; // was 0.95rem; phone reading floor (fix 11)
     }
   }
 

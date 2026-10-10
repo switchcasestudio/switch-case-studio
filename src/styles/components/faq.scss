@@ -178,7 +178,9 @@
 
   &__answer {
     padding: 0 1.75rem 1.5rem;
-    font-size: 0.9rem;
+    // 1rem at every width: phones were the one place it dropped to 0.9rem
+    // (SEO audit fix 11, 2026-10-09).
+    font-size: 1rem;
     line-height: 1.65;
     margin: 0;
     color: $black-color; // token (was raw #000); 5.83:1 on orange — AA
@@ -186,7 +188,6 @@
 
     @media (min-width: 640px) {
       padding: 0 2rem 1.75rem;
-      font-size: 1rem;
     }
   }
 }

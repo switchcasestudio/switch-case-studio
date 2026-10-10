@@ -134,8 +134,10 @@
 
     <!-- Web Manifest Link (Pointing to your custom favicon folder) -->
     <link rel="manifest" href="/images/favicon/site.webmanifest" />
-    <!-- No static <title>: every route's title is injected at build time by
-         vite-react-ssg from <Seo>; a static one would ship two titles. -->
+    <!-- No static title element: every route's title is injected at build
+         time by vite-react-ssg from the Seo component; a static one would
+         ship two titles. This comment spells no tag on purpose: tag text in
+         it made every page's head probe match twice. -->
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
