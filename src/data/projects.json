@@ -187,7 +187,10 @@
     "result": "Five Lighthouse runs on the live site, three desktop and two phone: accessibility, best practices and SEO scored 100 on every one, with zero layout shift. A real order, MCD-0922-WN3, went from mychallahdealer.com to the sheet on the day the domain went live.",
     "kicker": "In depth on",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://mychallahdealer.com"
+    "ctaUrl": "https://mychallahdealer.com",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/switchcasestudio/my-challah-dealer-site" }
+    ]
   },
   {
     "id": 10,
