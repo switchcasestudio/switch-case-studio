@@ -71,7 +71,10 @@
     "result": "90 automated checks run before every deploy, against staging and again on the live store: every route renders, add-to-cart works end to end, every asset resolves. The figures that moved the wrong way are published with the ones that didn't.",
     "kicker": "In depth on",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://www.prodanimiami.com"
+    "ctaUrl": "https://www.prodanimiami.com",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/switchcasestudio/prodani-miami" }
+    ]
   },
   {
     "id": 12,
@@ -261,7 +264,10 @@
     "result": "Across three pages, two form factors and twelve measured metrics, every figure moved the right way or stayed level. Six Wix pages became nine indexable routes, and the four Lighthouse categories were re-run on both sites the same afternoon so the before column is a measurement rather than a memory.",
     "kicker": "In depth on",
     "ctaLabel": "View Live",
-    "ctaUrl": "https://www.renewedbodyworks.com"
+    "ctaUrl": "https://www.renewedbodyworks.com",
+    "repos": [
+      { "label": "Source", "url": "https://github.com/switchcasestudio/renewedbodyworks-website" }
+    ]
   },
   {
     "id": 8,
