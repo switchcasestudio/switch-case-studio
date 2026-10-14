@@ -13,6 +13,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 ## Case studies
 
+- [Prodani Miami](https://switchcasestudio.com/projects/prodani-miami): High-Protein Dessert Brand, Miami, Florida. −72% product page paint
 - [Unhurried](https://switchcasestudio.com/projects/unhurried): A free WordPress block theme for studios, spas and makers, and a $49 Pro add-on that styles the shop. Studio project. 27 block patterns in the free theme
 - [My Challah Dealer](https://switchcasestudio.com/projects/my-challah-dealer): Home Bakery · Portland, Oregon. 100 Lighthouse accessibility, best practices and SEO
 - [Renewed Bodyworks](https://switchcasestudio.com/projects/renewed-bodyworks): Massage Therapy · Eugene and Portland, Oregon. −79% homepage weight on mobile
@@ -21,7 +22,6 @@ The studio offers 4 services, each with published package prices. Where a case s
 - [Scout](https://switchcasestudio.com/projects/scout): Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location. Studio project. 6 listing sources polled four times a day
 - [Jo Marketing 11](https://switchcasestudio.com/projects/jo-marketing-11): Marketing Company Website. < 2 weeks design to live
 - [Crimson Equities](https://switchcasestudio.com/projects/crimson-equities): Distressed Real Estate Investment Firm. < 7 days concept to live
-- [Prodani Miami](https://switchcasestudio.com/projects/prodani-miami): High-Protein Dessert Brand, Miami, Florida. −74% homepage weight
 - [Sha Design Studio](https://switchcasestudio.com/projects/sha-design-studio): Toy Design Studio Website
 - [Jelly Belly Wiki](https://switchcasestudio.com/projects/jelly-belly-wiki): Python scraper → MySQL → C# / .NET API → React client. A four-stage data pipeline, built solo. Studio project. 317 records served across 5 resources
 - [Birth of Venus](https://switchcasestudio.com/projects/birth-of-venus): Interactive Art History Website. Studio project

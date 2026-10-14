@@ -1,5 +1,79 @@
 [
   {
+    "id": 5,
+    "slug": "prodani-miami", "indexLine": "Shopify · Dessert brand",
+    "indexMetric": { "value": "−72%", "label": "product page paint" },
+    "type": "Rebuild + SEO",
+    "badge": "E-Commerce",
+    "featured": true,
+    "coverTile": "/projects/prodani/prodani-cover-tile.webp",
+    "clientLogo": "/clients/prodani-miami.webp",
+    "clientLogoAlt": "Prodani Miami logo",
+    "imageSrc": "/projects/prodani/after-home.webp", "preview": "/projects/prodani/preview.webp",
+    "longWeb": "/projects/prodani/long.webp",
+    "imageAlt": "The Prodani Miami homepage after the v2 relaunch: a cake under a chocolate pour, headed Bite into Balance",
+    "comparisonsLabel": "Before and after",
+    "comparisonsNote": "The original theme on the left, today's storefront (v2, live since 8 October 2026) on the right, both at 1150 × 1000. The original homepage, baker and contact shots are our record from August; the product page was shot again on 14 October through Shopify's theme preview, because the cake in the August shot is no longer sold.",
+    "comparisons": [
+      { "src": "/projects/prodani/compare-home.webp", "caption": "Homepage", "note": "−68% weight · −17% largest contentful paint", "alt": "The Prodani Miami homepage on the original theme and on v2, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-product.webp", "caption": "Product page", "note": "−72% largest contentful paint · −61% DOM elements", "alt": "The Personal Carrot Cake product page on the original theme and on v2, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-baker.webp", "caption": "Meet Your Baker", "note": "No layout shift · paints 20% later: the largest element is now a photo, not a paragraph", "alt": "The Prodani Miami Meet Your Baker page on the original theme and on v2, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "−28% largest contentful paint · a real enquiry form next to the address", "alt": "The Prodani Miami contact page on the original theme and on v2, both at 1150 pixels wide" }
+    ],
+    "title": "Prodani Miami",
+    "subtitle": "High-Protein Dessert Brand, Miami, Florida",
+    "outcome": "",
+    "year": "2026",
+    "metrics": [
+      { "value": "−72%", "label": "product page largest contentful paint, 1,320ms to 364ms" },
+      { "value": "−68%", "label": "homepage weight, 7.01MB to 2.24MB" },
+      { "value": "−99%", "label": "product page layout shift, 0.066 to 0.0003" },
+      { "value": "−61%", "label": "product page DOM elements, 2,009 to 788" }
+    ],
+    "description": "Prodani Miami sells high-protein cakes on Shopify. We rebuilt the store as a bespoke theme on Dawn 16 in August, then relaunched it as v2 on 8 October: a calm champagne palette, a seven-cake menu, a box builder and subscriptions. The original theme and v2 went through the same instrument on the same day (five interleaved runs per page, cache disabled, headless Chrome at 1150 × 1000), so every figure here is measured, not estimated. Alongside the store we shaped the brand direction, packaging and trade show presence.",
+    "servicePages": ["web-development", "design-branding"],
+    "services": [
+      { "label": "#Brand Direction" },
+      { "label": "#Shopify Theme Development" },
+      { "label": "#Subscriptions & Bundles" },
+      { "label": "#Performance Engineering" },
+      { "label": "#Accessibility" },
+      { "label": "#Content & Copy" },
+      { "label": "#Packaging Direction" },
+      { "label": "#Trade Show Design" }
+    ],
+    "highlights": [
+      {
+        "title": "Build Your Box",
+        "summary": "Pick 6, 12 or 18 cakes ($49, $89 or $120), mix the seven flavors, and the box checks out as one line in the cart."
+      },
+      {
+        "title": "Subscribe & Save",
+        "summary": "10% off every delivery, weekly, every two weeks or monthly, on the box and all seven cakes. Customers skip, pause or cancel from their account."
+      },
+      {
+        "title": "Product Pages That Answer",
+        "summary": "Protein, calories and sugar as chips from each cake's own label, the price per cake beside the pack price, breadcrumbs, and a share image on every page."
+      },
+      {
+        "title": "Tested in iPhone Safari",
+        "summary": "Every page driven in Safari on the iOS simulator: the header, the box builder, the carousels and the form inputs that zoomed on tap were fixed there."
+      },
+      {
+        "title": "Measured, Not Estimated",
+        "summary": "Original and v2 on the same day, runs interleaved so a slow minute can't land on one side. Five runs per page, cache off, the median reported."
+      },
+      {
+        "title": "What Got Worse, On Purpose",
+        "summary": "The homepage is twice as tall with 85% more elements (box builder, flavor deck, reviews), and Meet Your Baker paints 20% later behind a bigger photo."
+      }
+    ],
+    "result": "90 automated checks run before every deploy, against staging and again on the live store: every route renders, add-to-cart works end to end, every asset resolves. The figures that moved the wrong way are published with the ones that didn't.",
+    "kicker": "In depth on",
+    "ctaLabel": "View Live",
+    "ctaUrl": "https://www.prodanimiami.com"
+  },
+  {
     "id": 12,
     "slug": "unhurried", "indexLine": "WordPress · Block theme",
     "indexMetric": { "value": "27", "label": "block patterns in the free theme" },
@@ -502,79 +576,6 @@
     "kicker": "In depth on",
     "ctaLabel": "View Live",
     "ctaUrl": "https://crimsonequities.com"
-  },
-  {
-    "id": 5,
-    "slug": "prodani-miami", "indexLine": "Shopify · Dessert brand",
-    "indexMetric": { "value": "−74%", "label": "homepage weight" },
-    "type": "Rebuild + SEO",
-    "badge": "E-Commerce",
-    "featured": true,
-    "coverTile": "/projects/prodani/prodani-cover-tile.webp",
-    "clientLogo": "/clients/prodani-miami.webp",
-    "clientLogoAlt": "Prodani Miami logo",
-    "imageSrc": "/projects/prodani/after-home.webp", "preview": "/projects/prodani/preview.webp",
-    "longWeb": "/projects/prodani/long-v2.webp",
-    "imageAlt": "The rebuilt Prodani Miami homepage on the bespoke Dawn 16 theme",
-    "comparisonsLabel": "Before and after",
-    "comparisonsNote": "Both versions at the same 1150 × 1000 viewport, captured on the same afternoon. Old theme on the left, the rebuild on the right.",
-    "comparisons": [
-      { "src": "/projects/prodani/compare-home.webp", "caption": "Homepage", "note": "−74% weight · −54% largest contentful paint", "alt": "The Prodani Miami homepage before and after the rebuild, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-product.webp", "caption": "Product page", "note": "−84% layout shift · −68% DOM elements", "alt": "A Prodani Miami product page before and after the rebuild, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-baker.webp", "caption": "Meet Your Baker", "note": "−39% largest contentful paint · story lifted out of theme settings", "alt": "The Prodani Miami Meet Your Baker page before and after the rebuild, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "Two fields became a real enquiry form, next to a map", "alt": "The Prodani Miami contact page before and after the rebuild, both at 1150 pixels wide" }
-    ],
-    "title": "Prodani Miami",
-    "subtitle": "High-Protein Dessert Brand, Miami, Florida",
-    "outcome": "",
-    "year": "",
-    "metrics": [
-      { "value": "−74%", "label": "homepage weight, 6.95MB to 1.83MB" },
-      { "value": "−54%", "label": "largest contentful paint, 768ms to 352ms" },
-      { "value": "−84%", "label": "product page layout shift, 0.075 to 0.012" },
-      { "value": "−66%", "label": "server response across four pages, 151ms to 51ms" }
-    ],
-    "description": "Prodani Miami sells high-protein desserts on Shopify. We rebuilt the storefront as a bespoke theme on Dawn 16, then measured it against the old one. Both versions went through the same instrument at the same viewport (five interleaved runs per page, cache disabled, headless Chrome driven over the DevTools protocol), so every figure here is measured, not estimated. The homepage lost three quarters of its weight, most of that a 5.6MB hero video re-encoded to 375KB. Alongside the rebuild we shaped the brand direction, packaging, and trade show presence.",
-    "servicePages": ["web-development", "design-branding"],
-    "services": [
-      { "label": "#Brand Direction" },
-      { "label": "#Shopify Theme Development" },
-      { "label": "#Performance Engineering" },
-      { "label": "#Accessibility" },
-      { "label": "#Content & Copy" },
-      { "label": "#Packaging Direction" },
-      { "label": "#Trade Show Design" }
-    ],
-    "highlights": [
-      {
-        "title": "Bespoke Theme on Dawn 16",
-        "summary": "Rebuilt from scratch: new header, video hero, wave marquee, filterable collection, scroll-stacking stats deck, Meet Your Baker, reviews, and a real enquiry form."
-      },
-      {
-        "title": "Measured, Not Estimated",
-        "summary": "Five interleaved runs per page per version, cache disabled, at a pinned 1150 × 1000 viewport. Reported value is the median."
-      },
-      {
-        "title": "The 5.6MB Hero Video",
-        "summary": "Served raw on the old theme. Re-encoded to 375KB, roughly three quarters of the homepage weight saving on its own."
-      },
-      {
-        "title": "Fonts Brought In-House",
-        "summary": "Google Fonts was a blocking third-party request on every page. Three self-hosted woff2 files, 42KB total, replaced it."
-      },
-      {
-        "title": "Contrast Computed, Not Eyeballed",
-        "summary": "Every text and control pair checked against WCAG before it shipped. One h1 per page across all sixteen routes; alt text on every homepage image."
-      },
-      {
-        "title": "What Got Worse, On Purpose",
-        "summary": "The homepage is 69% taller and the product page 5% heavier. Nine sections instead of four, and a gallery that shows the cake bigger."
-      }
-    ],
-    "result": "89 checks, 0 failures: run read-only against the theme before publishing, and again against the live storefront afterwards. Every route renders, add-to-cart works end to end, every asset resolves. The four figures that moved the wrong way are published alongside the forty that didn't.",
-    "kicker": "In depth on",
-    "ctaLabel": "View Live",
-    "ctaUrl": "https://www.prodanimiami.com"
   },
   {
     "id": 6,

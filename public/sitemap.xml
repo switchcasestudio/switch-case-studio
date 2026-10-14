@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-14</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -181,6 +181,11 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://switchcasestudio.com/projects/prodani-miami</loc>
+    <lastmod>2026-10-14</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://switchcasestudio.com/projects/unhurried</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
@@ -217,11 +222,6 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/projects/crimson-equities</loc>
-    <lastmod>2026-10-09</lastmod>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://switchcasestudio.com/projects/prodani-miami</loc>
     <lastmod>2026-10-09</lastmod>
     <priority>0.6</priority>
   </url>
