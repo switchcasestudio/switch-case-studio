@@ -1,0 +1,68 @@
+{
+ "url": "https://sha-design.com/",
+ "date": "2026-10-15",
+ "tool": "Lighthouse 12 (npx), headless Chrome, default mobile and --preset=desktop",
+ "note": "After the Sha repo shipped robots.txt, sitemap.xml, per-route canonicals on sha-design.com and heading-order fixes. Live checks the same day: robots.txt text/plain, sitemap.xml application/xml with 11 URLs, canonicals per route, 404 noindex. Supersedes sha-metrics-2026-10-14.json for the published figures.",
+ "runs": {
+  "m1": {
+   "performance": 68,
+   "accessibility": 100,
+   "bestPractices": 96,
+   "seo": 100,
+   "lcpMs": 4337,
+   "cls": 0.0089,
+   "totalKB": 827,
+   "requests": 28
+  },
+  "m2": {
+   "performance": 83,
+   "accessibility": 100,
+   "bestPractices": 96,
+   "seo": 100,
+   "lcpMs": 3547,
+   "cls": 0,
+   "totalKB": 827,
+   "requests": 28
+  },
+  "m3": {
+   "performance": 69,
+   "accessibility": 100,
+   "bestPractices": 96,
+   "seo": 100,
+   "lcpMs": 5271,
+   "cls": 0,
+   "totalKB": 827,
+   "requests": 28
+  },
+  "d1": {
+   "performance": 94,
+   "accessibility": 100,
+   "bestPractices": 100,
+   "seo": 100,
+   "lcpMs": 1191,
+   "cls": 0.0138,
+   "totalKB": 827,
+   "requests": 28
+  },
+  "d2": {
+   "performance": 97,
+   "accessibility": 100,
+   "bestPractices": 100,
+   "seo": 100,
+   "lcpMs": 965,
+   "cls": 0.0138,
+   "totalKB": 827,
+   "requests": 28
+  },
+  "d3": {
+   "performance": 97,
+   "accessibility": 100,
+   "bestPractices": 100,
+   "seo": 100,
+   "lcpMs": 948,
+   "cls": 0.0138,
+   "totalKB": 827,
+   "requests": 28
+  }
+ }
+}

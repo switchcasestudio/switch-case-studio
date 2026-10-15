@@ -22,7 +22,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 - [Scout](https://switchcasestudio.com/projects/scout): Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location. Studio project. 6 listing sources polled four times a day
 - [Jo Marketing 11](https://switchcasestudio.com/projects/jo-marketing-11): Marketing Company Website. < 2 weeks design to live
 - [Crimson Equities](https://switchcasestudio.com/projects/crimson-equities): Distressed Real Estate Investment Firm. < 7 days concept to live
-- [Sha Design Studio](https://switchcasestudio.com/projects/sha-design-studio): Toy Design Studio Website. 98 Lighthouse desktop performance
+- [Sha Design Studio](https://switchcasestudio.com/projects/sha-design-studio): Toy Design Studio Website. 100 Lighthouse accessibility and SEO
 - [Jelly Belly Wiki](https://switchcasestudio.com/projects/jelly-belly-wiki): Python scraper → MySQL → C# / .NET API → React client. A four-stage data pipeline, built solo. Studio project. 317 records served across 5 resources
 - [Birth of Venus](https://switchcasestudio.com/projects/birth-of-venus): Interactive Art History Website. Studio project
 - [Florida Energy Assistance](https://switchcasestudio.com/projects/florida-energy-assistance): Landing Page for Florida Home Energy Programs. < 2 weeks design to live
