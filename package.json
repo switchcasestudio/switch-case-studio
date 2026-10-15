@@ -31,6 +31,7 @@
     "dev": "vite-react-ssg dev",
     "check:sameas": "node scripts/check-sameas.mjs",
     "check:media": "node scripts/check-media.mjs",
+    "visits": "node scripts/visits.mjs",
     "prebuild": "node scripts/check-sameas.mjs && node scripts/check-media.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-llms.mjs",
     "build": "vite-react-ssg build",
     "preview": "vite preview"
