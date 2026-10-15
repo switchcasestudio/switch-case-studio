@@ -7,6 +7,7 @@ import {
   initInteractionTracking,
 } from "./ga";
 import { initMetaPixel, trackPixelPageView } from "./metaPixel";
+import { logVisit } from "./visitLog";
 
 /**
  * Mount once inside the Router. Initialises GA4 + interaction tracking on first
@@ -50,6 +51,8 @@ export default function RouteAnalytics() {
       // Meta Pixel mirrors the same one-view-per-route guard; no-ops until
       // the visitor has consented (load-on-consent, see metaPixel.js).
       trackPixelPageView();
+      // Cookie-free visit log: every visitor, no consent needed (visitLog.js).
+      logVisit(location.pathname + location.search);
     };
 
     const titleEl = document.querySelector("title");

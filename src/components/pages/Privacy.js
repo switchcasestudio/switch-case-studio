@@ -66,6 +66,18 @@ const Privacy = () => {
         are set, and the Meta Pixel is not even loaded. You can change your choice
         by clearing this site’s data in your browser. We do not sell any data.
       </p>
+      <p>
+        <strong>Anonymous Visit Counts:</strong> Separately from the tools
+        above, our own server keeps a basic count of page views for every
+        visitor. It sets no cookie and stores no IP address. For each page view
+        it records the time, the page, the website that linked to us (for
+        example linkedin.com), any campaign tag in the link, the approximate
+        location your connection indicates (city, region, country), your device
+        type, browser and language, and a visitor code that changes every day
+        and cannot be traced back to you, so we can tell one visitor’s pages
+        apart from another’s within a day. We use these counts only to
+        understand how many people visit and how they find us.
+      </p>
 
       <h2>2. How We Use Your Information</h2>
       <p>We use the information you provide solely to:</p>
@@ -99,7 +111,8 @@ const Privacy = () => {
       </p>
       <p>
         Contact-form submission records are stored privately with our hosting
-        provider, Netlify, and deleted automatically after 24 months. Your
+        provider, Netlify, and deleted automatically after 24 months. Anonymous
+        visit counts are stored the same way and deleted after 12 months. Your
         message reaches our inbox through EmailJS, an email delivery service.
       </p>
 
