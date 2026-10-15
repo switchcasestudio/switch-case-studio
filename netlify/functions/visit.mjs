@@ -10,6 +10,12 @@
 //
 // Store "site-visits", key "YYYY-MM-DD/<ISO time>_<id>". Read with
 // `node scripts/visits.mjs` (see its header).
+//
+// VISITS_IGNORE_IPS (Netlify env, never in git: this repo is public): comma-
+// separated IPv4/IPv6 addresses or CIDR ranges whose visits are dropped, the
+// studio's own networks. Home ISPs reassign addresses, so the per-browser
+// ?visits=off opt-out (visitLog.js) is the reliable one; this list catches
+// devices that never opened it.
 import { getStore } from '@netlify/blobs';
 import { createHash, randomBytes, randomUUID } from 'node:crypto';
 
@@ -61,6 +67,38 @@ function device(ua) {
   return { type, os, browser };
 }
 
+// IP → [BigInt, bit length], or null. IPv6 handles "::" and drops a zone id;
+// IPv4-mapped IPv6 ("::ffff:1.2.3.4") is read as IPv4.
+function ipBits(ip) {
+  const s = ip.trim().replace(/%.*$/, '').replace(/^::ffff:(?=\d+\.)/i, '');
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(s)) {
+    const parts = s.split('.').map(Number);
+    if (parts.some((p) => p > 255)) return null;
+    return [parts.reduce((n, p) => (n << 8n) + BigInt(p), 0n), 32];
+  }
+  if (!s.includes(':')) return null;
+  const [head, tail] = s.split('::');
+  const h = head ? head.split(':') : [];
+  const t = tail !== undefined && tail ? tail.split(':') : [];
+  const groups = tail === undefined ? h : [...h, ...Array(8 - h.length - t.length).fill('0'), ...t];
+  if (groups.length !== 8 || groups.some((g) => !/^[0-9a-f]{1,4}$/i.test(g))) return null;
+  return [groups.reduce((n, g) => (n << 16n) + BigInt(parseInt(g, 16)), 0n), 128];
+}
+
+function ignored(ip) {
+  const list = (process.env.VISITS_IGNORE_IPS || '').split(',').filter((x) => x.trim());
+  const addr = ip && ipBits(ip);
+  if (!addr || !list.length) return false;
+  return list.some((entry) => {
+    const [base, len] = entry.trim().split('/');
+    const net = ipBits(base);
+    if (!net || net[1] !== addr[1]) return false;
+    const prefix = len === undefined ? net[1] : Number(len);
+    const shift = BigInt(net[1] - prefix);
+    return net[0] >> shift === addr[0] >> shift;
+  });
+}
+
 // One random salt per UTC day, created on first use. Two requests racing on a
 // new day may each write one; the last write wins and a visitor's first hit of
 // the day can carry a different hash. Acceptable for counting.
@@ -82,6 +120,7 @@ export default async (req, context) => {
 
   const ua = req.headers.get('user-agent') || '';
   if (!ua || BOT_UA.test(ua)) return noContent();
+  if (ignored(context.ip)) return noContent();
 
   const text = await req.text();
   if (text.length > MAX_BODY) return noContent();
