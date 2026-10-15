@@ -1,5 +1,129 @@
 [
   {
+    "slug": "how-to-automate-client-onboarding-without-going-cold",
+    "title": "Automate Client Onboarding Without Going Cold",
+    "excerpt": "A useful onboarding workflow removes repetitive admin while keeping judgment, reassurance, and exceptions in human hands.",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-15",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "Automation",
+      "Client Experience",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Client onboarding is a good candidate for automation because much of it is predictable. The agreement is signed. The first invoice is paid. A welcome message goes out. A folder gets created. An intake form arrives. Tasks are assigned. None of that needs a founder to remember seven small steps while also starting the actual work."
+      },
+      {
+        "type": "paragraph",
+        "text": "The mistake is treating the whole relationship as predictable. A new client may have a missing file, a strange approval process, a nervous stakeholder, or a question that deserves a thoughtful answer. Good automation handles the routine path and makes exceptions obvious. It does not impersonate care."
+      },
+      {
+        "type": "heading",
+        "text": "Start with the handoff, not the software"
+      },
+      {
+        "type": "paragraph",
+        "text": "Before opening an automation tool, map one real onboarding from accepted proposal to kickoff. Write down every event, task, decision, and message. Mark who owns each step and what must be true before the next one begins. If the process is unclear on paper, connecting five apps will only make the confusion run faster."
+      },
+      {
+        "type": "paragraph",
+        "text": "Choose one reliable trigger. For many service businesses, that is a signed agreement plus a confirmed first payment. A form submission alone is usually too early because an inquiry is not yet a client. The trigger should represent a real change in business state, not merely activity."
+      },
+      {
+        "type": "quote",
+        "text": "Automate the handoff. Keep the welcome human.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Automate the boring, reliable steps"
+      },
+      {
+        "type": "paragraph",
+        "text": "A small first workflow should do a few things consistently. It can create the client record, open a standard project folder, generate an internal checklist, send the correct intake form, assign an owner, and prepare the kickoff instructions. Each action should use information already collected, so the client is not asked to type the same business name and contact details three times."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Create one client record from a verified source.",
+          "Create the project folder from a standard template.",
+          "Assign tasks with owners and due dates.",
+          "Send the relevant intake form and track its status.",
+          "Notify the project owner when the package is ready for review."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "Notice what is missing from that list: a long chain of cheerful emails pretending every project is identical. Templates are useful, but a person should own the relationship. The automation can draft or queue a welcome note. The owner should check the name, scope, timing, and next step before it reaches the client."
+      },
+      {
+        "type": "heading",
+        "text": "Give every workflow a visible state"
+      },
+      {
+        "type": "paragraph",
+        "text": "An automation is difficult to trust when nobody can tell where a client is. Use a short set of states such as Awaiting agreement, Awaiting payment, Intake requested, Intake received, Needs review, and Ready for kickoff. The names matter less than the fact that the team shares one definition of done."
+      },
+      {
+        "type": "paragraph",
+        "text": "Store the current state in the system your team already checks. Do not bury it inside an automation run log that only the builder understands. A useful system lets an operator answer two questions quickly: what is waiting, and who needs to act?"
+      },
+      {
+        "type": "heading",
+        "text": "Design the exception path before launch"
+      },
+      {
+        "type": "paragraph",
+        "text": "The normal path is the easy part. Decide what happens when payment is delayed, a form is incomplete, an email bounces, a folder cannot be created, or two records share the same company name. Each failure should create a clear task or alert for a named person. Silent failure is not an automation strategy."
+      },
+      {
+        "type": "paragraph",
+        "text": "Add a final verification step. The workflow can check that the client record, folder, intake request, and internal tasks exist. If one is missing, it should stop and surface the problem rather than continuing with a polished welcome message for a setup that is not ready."
+      },
+      {
+        "type": "heading",
+        "text": "Keep sensitive access out of casual forms"
+      },
+      {
+        "type": "paragraph",
+        "text": "Onboarding often involves account access, customer data, financial details, or private documents. Collect only what the work requires. Use appropriate permission controls and secure sharing methods. Do not ask clients to paste passwords into a general intake form or send them through an ordinary email thread. Access should be scoped, revocable, and documented."
+      },
+      {
+        "type": "heading",
+        "text": "Test one service before expanding"
+      },
+      {
+        "type": "paragraph",
+        "text": "Run the workflow with test data, then use it for one service or project type. Watch the first few live runs closely. Record where someone has to correct data, explain an email, or rescue a missed edge case. Those interventions are not proof the idea failed. They are the design notes for version two."
+      },
+      {
+        "type": "paragraph",
+        "text": "Measure operational outcomes, not the number of automated steps. Look for fewer duplicate records, fewer requests for information you already have, faster readiness for kickoff, and fewer unanswered exceptions. A twelve-step workflow is not more mature than a four-step one if the team has to babysit it."
+      },
+      {
+        "type": "heading",
+        "text": "A practical first version"
+      },
+      {
+        "type": "paragraph",
+        "text": "For most small service businesses, the useful first version is modest: a confirmed agreement and payment create the project structure, send the correct intake request, assign an owner, and schedule a human review. That removes repeated clerical work without outsourcing judgment."
+      },
+      {
+        "type": "paragraph",
+        "text": "The best onboarding automation is almost boring. Clients receive clear instructions. The team sees what is missing. The project owner enters the conversation with context. The system stays in the background, which is where good infrastructure belongs."
+      }
+    ]
+  },
+  {
     "slug": "how-much-does-seo-cost-for-a-small-business",
     "title": "How Much Does SEO Cost for a Small Business in 2026?",
     "excerpt": "Monthly retainers, hourly rates and one-off projects, priced from a survey of 439 SEO providers, plus what moves the number and what we charge.",
