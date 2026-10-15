@@ -1,5 +1,6 @@
 import useReducedMotion from '../../hooks/useReducedMotion';
 import projects from '../../data/projects.json';
+import { starPoints } from '../pricing/spreads/artKit';
 import '../../styles/components/clientStrip.scss';
 
 /* ------------------------------------------------------------------ *
@@ -75,10 +76,14 @@ const ClientMark = ({ client }) =>
     <span className="client-strip__name">{client.name}</span>
   );
 
+// An SVG burst, not a glyph: U+2733 drew as an emoji on Apple devices
+// (owner, 2026-10-14). Same star as the sticker sheet, sharper inner radius.
+const SEP_POINTS = starPoints(10, 4.5);
+
 const StarSep = () => (
-  <span className="client-strip__sep" aria-hidden="true">
-    &#10035;
-  </span>
+  <svg className="client-strip__sep" viewBox="-10 -10 20 20" aria-hidden="true" focusable="false">
+    <polygon points={SEP_POINTS} />
+  </svg>
 );
 
 const ClientStrip = () => {

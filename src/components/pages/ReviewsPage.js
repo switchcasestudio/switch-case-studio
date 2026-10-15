@@ -7,13 +7,17 @@ import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import BookCallCta from '../ui/BookCallCta';
 import '../../styles/components/testimonialsPage.scss';
 
+// The lede's count follows the data, so a new review can't leave it stale.
+const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+const CLIENT_COUNT = COUNT_WORDS[testimonialsData.length] ?? String(testimonialsData.length);
+
 /* /testimonials (2026-09-27, owner: "update the presentation"): one voice at
  * a time. The pull-quote set large, the person, the full review at reading
  * size, and, where the review has a case study on this site, the client's
- * site shot and a sourced figure with a link. The seven names run down the
+ * site shot and a sourced figure with a link. The names run down the
  * side and switch the stage (hover or click). The static HTML carries all
- * seven reviews stacked; hydration adds `is-live`, which collapses them to
- * one at a time on wide screens only. Phones read all seven in order. No
+ * reviews stacked; hydration adds `is-live`, which collapses them to
+ * one at a time on wide screens only. Phones read them all in order. No
  * motion library: the switch is a CSS keyframe. */
 const projectOf = (t) => (t.project ? projectsData.find((p) => p.slug === t.project) : null);
 const company = (title = '') => title.replace(/^(Owner at|Founder of|Owner of)\s+/i, '');
@@ -70,7 +74,7 @@ const ReviewsPage = () => {
             Real results.
           </h1>
           <p className="testimonials-page__lede page-head-animate">
-            Seven clients in their own words. Where the work is on this site, the number
+            {CLIENT_COUNT} clients in their own words. Where the work is on this site, the number
             they saw sits next to the words.
           </p>
         </header>

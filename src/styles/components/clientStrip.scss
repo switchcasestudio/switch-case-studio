@@ -80,11 +80,10 @@
   // Brand eight-point star between wordmarks — decorative rhythm (VE-3).
   &__sep {
     flex-shrink: 0;
-    font-size: 0.8rem;
-    line-height: 1;
-    color: $orange-color;
+    width: 0.8rem;
+    height: 0.8rem;
+    fill: $orange-color;
     opacity: 0.8;
-    user-select: none;
   }
 
   // Pause the marquee while reading (also a WCAG 2.2.2 pause affordance).
