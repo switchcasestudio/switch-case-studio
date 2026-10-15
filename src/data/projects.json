@@ -589,6 +589,7 @@
   {
     "id": 6,
     "slug": "sha-design-studio", "indexLine": "Toy design studio",
+    "indexMetric": { "value": "98", "label": "Lighthouse desktop performance" },
     "featured": true,
     "type": "Portfolio Site",
     "badge": "Portfolio Site",
@@ -602,7 +603,12 @@
     "subtitle": "Toy Design Studio Website",
     "outcome": "",
     "year": "2026",
-    "metrics": [],
+    "metrics": [
+      { "value": "98", "label": "Lighthouse performance on desktop, median of three runs (97 to 99)" },
+      { "value": "799KB", "label": "homepage on a phone, product photography included, in 27 requests" },
+      { "value": "0", "label": "layout shift on mobile, in five of five Lighthouse runs" },
+      { "value": "100", "label": "Lighthouse best practices, every run" }
+    ],
     "description": "Sha Design Studio is the portfolio of Shiran Bar Hayon, an industrial designer of toys and baby products (Shenkar, then HAPE, then Tiny Love, now her own studio). We designed the brand and built the site, then in October 2026 rebuilt both on brand kit v3: a cream canvas, three primaries, navy text and a single typeface. She asked for a calmer, cleaner site, so every tilt and wobble went, and the products she shipped, photographed in use, now carry the page.",
     "servicePages": ["design-branding", "web-development"],
     "services": [

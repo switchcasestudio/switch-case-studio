@@ -1,0 +1,96 @@
+{
+ "url": "https://sha-design.com/",
+ "date": "2026-10-14",
+ "tool": "Lighthouse 12 (npx), headless Chrome, default mobile and --preset=desktop",
+ "note": "Mobile run 1 was a cold, busy-machine outlier (TBT 2,320ms) and is kept; performance on mobile is not published because it ranged 35 to 86.",
+ "runs": {
+  "m1": {
+   "performance": 35,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 7106,
+   "cls": 0,
+   "tbtMs": 2320,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "m2": {
+   "performance": 81,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 3791,
+   "cls": 0,
+   "tbtMs": 49,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "m3": {
+   "performance": 86,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 3603,
+   "cls": 0,
+   "tbtMs": 58,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "m4": {
+   "performance": 82,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 3728,
+   "cls": 0,
+   "tbtMs": 49,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "m5": {
+   "performance": 77,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 5046,
+   "cls": 0,
+   "tbtMs": 62,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "d1": {
+   "performance": 97,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 1160,
+   "cls": 0.0002,
+   "tbtMs": 0,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "d2": {
+   "performance": 98,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 1065,
+   "cls": 0.0002,
+   "tbtMs": 0,
+   "totalKB": 799,
+   "requests": 27
+  },
+  "d3": {
+   "performance": 99,
+   "accessibility": 98,
+   "bestPractices": 100,
+   "seo": 92,
+   "lcpMs": 902,
+   "cls": 0.0002,
+   "tbtMs": 0,
+   "totalKB": 799,
+   "requests": 27
+  }
+ }
+}
