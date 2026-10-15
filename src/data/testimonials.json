@@ -1,5 +1,15 @@
 [
   {
+    "id": 8,
+    "name": "Scott Hartzell",
+    "title": "Owner at Renewed Bodyworks",
+    "project": "renewed-bodyworks",
+    "url": "https://www.renewedbodyworks.com",
+    "highlight": "They did a review of my site and google presence and came up with a plan for better visibility.",
+    "testimonial": "Switch Case Studio has been such a breath of fresh air to work with. They developed a new site for my business that I love and is way more user friendly. They did a review of my site and google presence and came up with a plan for better visibility. Gave me great instructions on what I needed to do and communicated in a way I could understand. I have ideas for other businesses and now want them to develop websites for that as well. Highly recommend!!!!",
+    "image": "/images/scott.webp"
+  },
+  {
     "id": 7,
     "name": "Shay Assraf",
     "title": "Owner at Florida Green Improvements",
@@ -57,7 +67,7 @@
   },
   {
     "id": 6,
-    "name": "Yuli",
+    "name": "Yuli Bar",
     "title": "Owner at Isha Medspa",
     "highlight": "They understood the style and level we wanted for Isha Medspa and turned it into a clean, professional website that feels right for our brand.",
     "testimonial": "Working with Switch Case Studio on our website was a great experience. They understood the style and level we wanted for Isha Medspa and helped turn it into a clean, professional website that feels right for our brand. We have two locations in Miami, so it was important for the website to look polished, be easy to understand, and make it simple for clients to learn about our services. Switch Case Studio was patient, creative, and very detail-oriented throughout the process. We’re very happy with the final result.",

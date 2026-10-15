@@ -110,27 +110,9 @@ $hero-pad-y: 1.5rem;
       font-weight: 400;
       letter-spacing: -0.01em;
       color: $hero-ink;
+      // No hover underline: the cursor wraps the link in its own border
+      // (owner, 2026-10-14), so a second mark read as doubled.
       text-decoration: none;
-
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: -0.1em;
-        height: 1px;
-        background: currentColor;
-        transform: scaleX(0);
-        transform-origin: 100% 50%;
-        transition: transform $dur-fast $ease-out;
-      }
-
-      @media (hover: hover) and (pointer: fine) {
-        &:hover::after {
-          transform: scaleX(1);
-          transform-origin: 0 50%;
-        }
-      }
     }
 
     &__link:focus-visible {

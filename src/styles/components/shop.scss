@@ -78,10 +78,13 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 24px;
   overflow: hidden;
-  transition: border-color 0.2s ease, transform 0.3s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.3s ease;
 
+  // Full orange plus a 1px outer ring reads as a 2px edge without
+  // changing the border width, so nothing inside the card moves.
   &:hover {
-    border-color: rgba(255, 131, 74, 0.6);
+    border-color: $orange-color;
+    box-shadow: 0 0 0 1px $orange-color;
   }
 
   &__image {
