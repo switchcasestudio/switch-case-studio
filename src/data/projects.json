@@ -596,7 +596,7 @@
     "clientLogo": "/clients/sha-design-studio.webp",
     "clientLogoAlt": "Sha Design Studio logo",
     "imageSrc": "/projects/sha-design-studio/hero.webp", "preview": "/projects/sha-design-studio/preview.webp",
-    "longWeb": "/projects/sha-design-studio/long.webp",
+    "longWeb": "/projects/sha-design-studio/long.webp", "longVideo": "/projects/sha-design-studio/scroll.mp4",
     "imageAlt": "Sha Design Studio homepage on desktop and phone: Designing thoughtful products, in tomato orange with one word on a blue block",
     "title": "Sha Design Studio",
     "subtitle": "Toy Design Studio Website",

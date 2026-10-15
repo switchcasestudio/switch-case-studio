@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback } from 'react';
 import gsap from 'gsap';
 import PropTypes from 'prop-types';
 import useReducedMotion from '../../hooks/useReducedMotion';
+import playMuted from '../../utils/playMuted';
 import '../../styles/components/scrollingShot.scss';
 
 /**
@@ -10,6 +11,14 @@ import '../../styles/components/scrollingShot.scss';
  * down, hold, back up, hold — on a loop. Pauses on hover and when off-screen.
  * Reduced-motion users get a static top-of-page view (no animation).
  * Replaces the old laptop-framed DeviceMockup inside the bento gallery.
+ *
+ * Optional `video` (2026-10-14, Sha Design Studio): a recorded scroll of the
+ * live site, for sites whose design IS scroll motion (a pinned hero reads as
+ * a blank stretch in a full-page screenshot). Wide screens only, never under
+ * reduced motion or Save-Data. The image stays in the static HTML as the LCP
+ * element and the fallback; the video mounts after hydration, loads once the
+ * band is in view, and covers the image only once it is actually playing.
+ * Any error removes it and the image loop carries on.
  */
 const ScrollingShot = ({
   src,
@@ -27,6 +36,7 @@ const ScrollingShot = ({
   hold = 0.8,
   pauseOnHover = true,
   chrome = true,
+  video,
   className = '',
 }) => {
   const wrapRef = useRef(null);
@@ -38,6 +48,14 @@ const ScrollingShot = ({
   const distanceRef = useRef(0);
   const inViewRef = useRef(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+  // useVideo: conditions met, mount the element. videoSrc: set once in view.
+  // videoOn: it is playing, so it covers the image and the image loop stops.
+  const [useVideo, setUseVideo] = useState(false);
+  const [videoSrc, setVideoSrc] = useState(null);
+  const [videoOn, setVideoOn] = useState(false);
+  const videoOnRef = useRef(false);
+  videoOnRef.current = videoOn;
 
   // Effect-based (starts false, updates after mount) — never read matchMedia
   // in the render body: the SSG render must produce environment-independent
@@ -120,6 +138,22 @@ const ScrollingShot = ({
     };
   }, [src, buildLoop, prefersReduced]);
 
+  // Video eligibility is decided in an effect (environment-independent SSG).
+  useEffect(() => {
+    setVideoOn(false);
+    setVideoSrc(null);
+    const wide = window.matchMedia('(min-width: 769px)').matches;
+    const saveData = navigator.connection?.saveData === true;
+    setUseVideo(Boolean(video) && !prefersReduced && wide && !saveData);
+  }, [video, prefersReduced]);
+
+  // Once the video plays, it owns the band: park the image loop at the top.
+  useEffect(() => {
+    if (!videoOn) return;
+    tlRef.current?.pause(0);
+    if (imgRef.current) gsap.set(imgRef.current, { y: 0 });
+  }, [videoOn]);
+
   // Play only while in view; pause when scrolled away.
   useEffect(() => {
     if (prefersReduced) return;
@@ -130,6 +164,15 @@ const ScrollingShot = ({
       (entries) =>
         entries.forEach((e) => {
           inViewRef.current = e.isIntersecting;
+          const v = videoRef.current;
+          if (v && videoOnRef.current) {
+            if (e.isIntersecting) playMuted(v);
+            else v.pause();
+          }
+          if (videoOnRef.current) {
+            setIsPlaying(e.isIntersecting);
+            return;
+          }
           const tl = tlRef.current;
           if (!tl) return;
           if (e.isIntersecting) {
@@ -147,10 +190,16 @@ const ScrollingShot = ({
     let onEnter, onLeave;
     if (pauseOnHover) {
       onEnter = () => {
+        videoRef.current?.pause();
         if (tlRef.current) tlRef.current.pause();
         setIsPlaying(false);
       };
       onLeave = () => {
+        if (videoOnRef.current) {
+          if (inViewRef.current) playMuted(videoRef.current);
+          setIsPlaying(inViewRef.current);
+          return;
+        }
         if (tlRef.current && inViewRef.current) {
           tlRef.current.resume();
           setIsPlaying(true);
@@ -168,6 +217,26 @@ const ScrollingShot = ({
       }
     };
   }, [prefersReduced, pauseOnHover]);
+
+  // The band is on the first screen, so the video loads right after the
+  // page's own load: the image has painted (LCP) and nothing else waits.
+  useEffect(() => {
+    if (!useVideo || !video) return undefined;
+    const go = () => setVideoSrc(video);
+    if (document.readyState === 'complete') {
+      go();
+      return undefined;
+    }
+    window.addEventListener('load', go, { once: true });
+    return () => window.removeEventListener('load', go);
+  }, [useVideo, video]);
+
+  // Start the video as soon as it has a source; it shows on 'playing'.
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || !videoSrc) return undefined;
+    return playMuted(v);
+  }, [videoSrc]);
 
   return (
     <div
@@ -194,6 +263,25 @@ const ScrollingShot = ({
           loading={priority ? 'eager' : 'lazy'}
           fetchPriority={priority ? 'high' : undefined}
         />
+        {useVideo && (
+          <video
+            ref={videoRef}
+            className={`scrolling-shot__video${videoOn ? ' is-on' : ''}`}
+            src={videoSrc || undefined}
+            muted
+            loop
+            playsInline
+            preload="auto"
+            aria-hidden="true"
+            tabIndex={-1}
+            onPlaying={() => setVideoOn(true)}
+            onError={() => {
+              setUseVideo(false);
+              setVideoOn(false);
+              if (tlRef.current && inViewRef.current) tlRef.current.resume();
+            }}
+          />
+        )}
       </div>
     </div>
   );
@@ -210,6 +298,7 @@ ScrollingShot.propTypes = {
   hold: PropTypes.number,
   pauseOnHover: PropTypes.bool,
   chrome: PropTypes.bool,
+  video: PropTypes.string,
   className: PropTypes.string,
 };
 

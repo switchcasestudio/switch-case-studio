@@ -26,7 +26,7 @@ const need = (owner, field, p) => {
 
 for (const p of readJson('src/data/projects.json')) {
   const who = `projects/${p.slug}`;
-  for (const f of ['coverTile', 'imageSrc', 'preview', 'longWeb', 'diagram', 'clientLogo', 'mediaMobile', 'mediaCopy', 'mediaCta']) need(who, f, p[f]);
+  for (const f of ['coverTile', 'imageSrc', 'preview', 'longWeb', 'longVideo', 'diagram', 'clientLogo', 'mediaMobile', 'mediaCopy', 'mediaCta']) need(who, f, p[f]);
   if (p.preview?.endsWith('preview.webp')) need(who, 'preview (600w sibling)', p.preview.replace(/preview\.webp$/, 'preview-600.webp'));
   if (p.longWeb?.endsWith('/long.webp')) need(who, 'longWeb (700w sibling)', p.longWeb.replace(/long\.webp$/, 'long-700.webp'));
   for (const c of p.comparisons || []) need(who, 'comparisons[].src', c.src);

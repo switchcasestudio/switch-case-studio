@@ -510,6 +510,7 @@ const CaseStudyPage = () => {
                 src={publicLongWeb}
                 srcSet={longWebSrcSet}
                 sizes="(max-width: 768px) calc(100vw - 42px), 1150px"
+                video={project.longVideo}
                 priority
                 onFail={() => setBandFailed(true)}
                 alt={imageAlt || `${title}: landing page`}
