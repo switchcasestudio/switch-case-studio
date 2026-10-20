@@ -59,7 +59,7 @@
     {
       "id": "web-development",
       "title": "Web Development",
-      "subtitle": "Landing pages, sites, and stores built to convert, then kept running.",
+      "subtitle": "Landing pages, sites, stores and mobile apps built to convert, then kept running.",
       "costGuide": { "slug": "how-much-does-a-small-business-website-cost", "label": "What a small business website costs elsewhere" },
       "tiers": [
         {
@@ -129,6 +129,23 @@
             "Google Analytics integration for visitor insights",
             "Image gallery or project showcase",
             "Fully responsive and optimized for fast load times",
+            "Ongoing technical support"
+          ],
+          "group": "Build"
+        },
+        {
+          "name": "Mobile App",
+          "price": 8000,
+          "billing": "one-time",
+          "description": "An iOS and Android app from one React Native codebase, designed, built and submitted to both app stores.",
+          "includes": [
+            "iOS and Android from one React Native codebase",
+            "Custom app design: screens, flows and app icon",
+            "User accounts and sign-in",
+            "Backend and database for your app's data",
+            "Push notifications",
+            "Analytics for installs and usage",
+            "App Store and Google Play submission",
             "Ongoing technical support"
           ],
           "group": "Build"
