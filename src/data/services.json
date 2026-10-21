@@ -18,12 +18,13 @@
     "title": "Web Development",
     "slug": "web-development",
     "kicker": "Code",
-    "subTitle": "Landing pages, sites, and stores built to convert, then kept running.",
+    "subTitle": "Landing pages, sites, stores and mobile apps built to convert, then kept running.",
     "cta": "See pricing →",
-    "description": "Custom websites, e-commerce stores, and web apps written by engineers who ship real code, then hosted and maintained by the same team: managed hosting, your own VPS, SSL, DNS, and uptime. Including white-label builds for agencies.",
+    "description": "Custom websites, e-commerce stores, web apps and iOS and Android apps written by engineers who ship real code, then hosted and maintained by the same team: managed hosting, your own VPS, SSL, DNS, and uptime. Including white-label builds for agencies.",
     "items": [
       "Landing page design & development",
       "React & Next.js, Node.js backends",
+      "iOS & Android apps in React Native",
       "WordPress & WooCommerce stores",
       "Managed hosting, care plans, and your own VPS",
       "SSL, DNS, and SPF/DKIM/DMARC setup"

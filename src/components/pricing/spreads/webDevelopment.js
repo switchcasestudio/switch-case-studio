@@ -1,7 +1,8 @@
 import { SANS, MONO, Browser, Chip, Lines, Sheet, Spark, gridPath } from "./artKit";
 
-/* Web Development package board (2026-09-26): two sections, the four
-   one-time builds and the three monthly care plans. Every cell repeats
+/* Web Development package board (2026-09-26): three sections, the four
+   one-time website builds, the mobile app (2026-10-20) and the three
+   monthly care plans. Every cell repeats
    that tier's own `includes` line in pricingData.json, shortened; an item
    a tier does not list gets no dot, even when a cheaper tier lists it (the
    holes are reported to the owner, not painted over). Rows are ordered as
@@ -239,10 +240,52 @@ export const AppsArt = () => (
   </>
 );
 
+/* ── Mobile app tiles ── */
+const PhonesArt = () => (
+  <>
+    <rect x="96" y="40" width="112" height="220" rx="20" className="sp-f-cream" stroke="#141414" strokeWidth="5" />
+    <rect x="112" y="70" width="80" height="54" rx="8" className="sp-f-terra" />
+    <Lines x={112} y={140} widths={[80, 56, 70]} h={8} gap={18} opacity="0.4" />
+    <rect x="192" y="60" width="112" height="220" rx="20" className="sp-f-ink" />
+    <rect x="208" y="90" width="80" height="54" rx="8" className="tsp-f-lilac" />
+    <rect x="208" y="160" width="80" height="12" rx="6" className="sp-f-cream" opacity="0.5" />
+    <rect x="208" y="186" width="56" height="12" rx="6" className="sp-f-cream" opacity="0.5" />
+    <Chip x={232} y={240} w={96} label="ios+android" fill="sp-f-mint" />
+  </>
+);
+const AccountsArt = () => (
+  <>
+    <rect x="100" y="50" width="200" height="200" rx="18" className="sp-f-cream" stroke="#141414" strokeWidth="4" />
+    <circle cx="200" cy="108" r="26" className="tsp-f-lilac" />
+    <rect x="130" y="152" width="140" height="22" rx="11" className="sp-f-ink" opacity="0.15" />
+    <rect x="130" y="184" width="140" height="22" rx="11" className="sp-f-ink" opacity="0.15" />
+    <rect x="150" y="218" width="100" height="20" rx="10" className="sp-f-terra" />
+  </>
+);
+const PushArt = () => (
+  <>
+    <rect x="60" y="70" width="280" height="70" rx="16" className="sp-f-cream" stroke="#141414" strokeWidth="4" />
+    <rect x="78" y="88" width="34" height="34" rx="9" className="sp-f-terra" />
+    <Lines x={128} y={92} widths={[150, 110]} h={9} gap={18} opacity="0.4" />
+    <rect x="80" y="160" width="240" height="60" rx="14" className="sp-f-cream" stroke="#141414" strokeWidth="4" opacity="0.55" />
+    <circle cx="322" cy="76" r="16" className="sp-f-mint" />
+  </>
+);
+const StoresArt = () => (
+  <>
+    <rect x="50" y="90" width="140" height="120" rx="18" className="sp-f-ink" />
+    <text x="120" y="160" textAnchor="middle" fontFamily={SANS} fontSize="26" fontWeight="700" className="sp-f-cream">App Store</text>
+    <rect x="210" y="90" width="140" height="120" rx="18" className="sp-f-mint" />
+    <text x="280" y="160" textAnchor="middle" fontFamily={SANS} fontSize="26" fontWeight="700" className="sp-f-ink">Play</text>
+    <Spark x={200} y={66} r={16} />
+  </>
+);
+
 const LP = "Landing Page";
 const SW = "Simple Website";
 const BB = "Business Bundle";
 const GS = "Growth Suite";
+const MA = "Mobile App";
 const SC = "Starter Care";
 const GC = "Growth Care";
 const VP = "VPS & Self-Hosted";
@@ -260,6 +303,7 @@ export const TIERS = {
       { slug: "zahav-medspa", label: "Zahav Medspa" },
     ],
   },
+  [MA]: { for: "iOS and Android apps" },
   [SC]: { for: "Personal sites, artists, micro-businesses" },
   [GC]: { for: "Growing traffic, regular updates" },
   [VP]: { for: "Self-hosting n8n, AI agents or custom apps" },
@@ -285,6 +329,22 @@ export const SECTIONS = [
       { id: "database", label: "Database", Art: DatabaseArt, cells: { [GS]: "Products, users, admin" } },
       { id: "ai", label: "AI features", Art: AiArt, cells: { [GS]: "On request: chat, search, content" } },
       { id: "support", label: "Ongoing support", Art: SupportArt, cells: { [GS]: true } },
+    ],
+  },
+  {
+    id: "app",
+    title: "Mobile apps",
+    unit: "app",
+    tiers: [MA],
+    rows: [
+      { id: "platforms", label: "iOS and Android", Art: PhonesArt, cells: { [MA]: "One React Native codebase" } },
+      { id: "app-design", label: "Custom app design", Art: DesignArt, cells: { [MA]: "Screens, flows, app icon" } },
+      { id: "accounts", label: "User accounts", Art: AccountsArt, cells: { [MA]: "Sign-in" } },
+      { id: "app-database", label: "Backend and database", Art: DatabaseArt, cells: { [MA]: true } },
+      { id: "push", label: "Push notifications", Art: PushArt, cells: { [MA]: true } },
+      { id: "app-analytics", label: "Analytics", Art: AnalyticsArt, cells: { [MA]: "Installs and usage" } },
+      { id: "stores", label: "Store submission", Art: StoresArt, cells: { [MA]: "App Store and Google Play" } },
+      { id: "app-support", label: "Ongoing support", Art: SupportArt, cells: { [MA]: true } },
     ],
   },
   {

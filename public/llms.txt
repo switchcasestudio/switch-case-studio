@@ -7,7 +7,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 ## Services
 
 - [Brand Identity](https://switchcasestudio.com/pricing/design-branding): A visual system that makes your business unmistakable
-- [Web Development](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, and stores built to convert, then kept running
+- [Web Development](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, stores and mobile apps built to convert, then kept running
 - [AI & Automation](https://switchcasestudio.com/pricing/ai-development): Assistants, agents, and workflows that run your operations
 - [SEO & AI Search](https://switchcasestudio.com/pricing/marketing-ads): Found on Google and in AI answers, then turned into revenue
 
@@ -38,6 +38,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 ## Journal
 
+- [Automate Client Onboarding Without Going Cold](https://switchcasestudio.com/blog/how-to-automate-client-onboarding-without-going-cold): A useful onboarding workflow removes repetitive admin while keeping judgment, reassurance, and exceptions in human hands
 - [How Much Does SEO Cost for a Small Business in 2026?](https://switchcasestudio.com/blog/how-much-does-seo-cost-for-a-small-business): Monthly retainers, hourly rates and one-off projects, priced from a survey of 439 SEO providers, plus what moves the number and what we charge
 - [How Much Does an AI Chatbot or Automation Cost?](https://switchcasestudio.com/blog/how-much-does-an-ai-chatbot-or-automation-cost): Subscriptions, custom builds and the running costs in between. Real prices for chatbots, automation platforms and AI models, and where our packages sit
 - [How Much Does a Logo and Brand Identity Cost in 2026?](https://switchcasestudio.com/blog/how-much-does-a-logo-and-brand-identity-cost): A logo can cost $20 or $10,000. What separates a logo from a brand identity, what each price level buys, and where our packages sit
