@@ -1,0 +1,888 @@
+@import '../_variables.scss';
+@import '../_page-head.scss';
+
+// The Brand Identity world (2026-10-22). Flat plates on the site's black,
+// SCS palette plus the poster flats. The collage hero and the process stage
+// pin and scrub on wide pointer screens (same gate as the services pan);
+// below 1024px or under reduced motion everything stacks, so the static
+// HTML is a complete page on its own.
+$bw-palette: (
+  'cream': $white-color,
+  'ink': $promo-ink,
+  'lavender': $g5,
+  'lilac': $g7,
+  'blue': $blue-color,
+  'orange': $orange-color,
+  'terra': $promo-terra,
+  'mint': $promo-mint,
+  'pink': $g4,
+);
+
+@each $name, $color in $bw-palette {
+  .bw-f-#{$name} { fill: $color; }
+  .bw-s-#{$name} { stroke: $color; }
+}
+
+$bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
+
+.bw {
+  background: #000;
+  color: $white-color;
+  overflow-x: clip;
+}
+
+// Section heading, shared: Inter, one phrase on a plate.
+@mixin bw-h2 {
+  font-family: $font-text;
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+
+/* ---- Collage hero ---- */
+.bw-collage {
+  position: relative;
+  height: 100svh;
+  min-height: 640px;
+  overflow: hidden;
+}
+
+.bw-collage__copy {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 $edge-pad;
+}
+
+.bw-collage__kicker {
+  @include page-kicker;
+}
+
+.bw-collage__title {
+  font-family: $font-text;
+  font-size: clamp(2.4rem, 5.6vw, 5rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: $white-color;
+  max-width: 14ch;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.bw-collage__lede {
+  font-family: $font-text;
+  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  color: rgba(254, 247, 237, 0.65);
+  max-width: 44ch;
+  margin: 1.25rem 0 0;
+}
+
+.bw-collage__cta {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.9rem 1.6rem;
+  min-height: 44px;
+  border-radius: 999px;
+  background: $g5;
+  color: $promo-ink;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $g7;
+  }
+}
+
+.bw-collage__tiles {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.bw-tile {
+  position: absolute;
+  left: var(--sx);
+  top: var(--sy);
+  width: var(--w);
+  border-radius: 12px;
+  overflow: hidden;
+  pointer-events: auto;
+  will-change: transform;
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.bw-tile__live,
+.bw-tile__poster {
+  display: flex;
+  width: 100%;
+  height: 100%;
+
+  .service-poster {
+    flex: 1 1 auto;
+    aspect-ratio: auto;
+    border-radius: 0;
+  }
+}
+
+.bw-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: $promo-ink;
+}
+
+// Sheet mode: phones, tablets, reduced motion. No pin, no absolute tiles.
+@media #{$bw-sheet} {
+  .bw-collage {
+    height: auto;
+    min-height: 0;
+    padding: 7rem 0 1rem;
+  }
+
+  .bw-collage__copy {
+    position: static;
+    min-height: 50svh;
+  }
+
+  .bw-collage__tiles {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 2rem $edge-pad 0;
+  }
+
+  .bw-tile {
+    position: static;
+    width: 100%;
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .bw-tile--fieldnote-sticker,
+  .bw-tile--badge,
+  .bw-tile--lowtide-video {
+    display: none;
+  }
+}
+
+/* ---- Site shots: real client work in browser chrome ---- */
+.bw-shot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: $white-color;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-family: $font-text;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    color: rgba(20, 20, 20, 0.55);
+    background: $grey-color;
+
+    i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(20, 20, 20, 0.25);
+    }
+
+    span {
+      margin-left: 6px;
+    }
+  }
+
+  img {
+    display: block;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+/* ---- Pixel test ---- */
+.bw-pixel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $white-color;
+  overflow: hidden;
+
+  &__still,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    opacity: 0;
+
+    &.is-live {
+      opacity: 1;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    left: 7%;
+    bottom: 6%;
+    font-family: $font-text;
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $promo-ink;
+  }
+}
+
+/* ---- 3D card ---- */
+.bw-card3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $promo-ink;
+  overflow: hidden;
+  cursor: pointer;
+
+  &__still,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  &.is-live &__still {
+    opacity: 0;
+  }
+
+  &__hint {
+    position: absolute;
+    left: 7%;
+    bottom: 6%;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $white-color;
+    opacity: 0.7;
+    pointer-events: none;
+  }
+}
+
+/* ---- Breath ---- */
+.bw-breath {
+  padding: clamp(6rem, 28vh, 16rem) $edge-pad;
+
+  p {
+    max-width: 52ch;
+    margin: 0 auto;
+    text-align: center;
+    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+    line-height: 1.6;
+    color: rgba(254, 247, 237, 0.65);
+  }
+}
+
+/* ---- Type stage ---- */
+.bw-type {
+  margin: 0 $edge-pad;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
+  border-radius: 24px;
+  background: $promo-ink;
+  color: $white-color;
+
+  &__head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 60ch;
+  }
+
+  &__title {
+    @include bw-h2;
+    color: $white-color;
+  }
+
+  &__lede {
+    margin: 0;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(254, 247, 237, 0.65);
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  &__pill {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(254, 247, 237, 0.3);
+    border-radius: 999px;
+    background: transparent;
+    color: $white-color;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $g5;
+      color: $g5;
+    }
+
+    &.is-on {
+      background: $g5;
+      border-color: $g5;
+      color: $promo-ink;
+    }
+  }
+
+  &__word {
+    margin: clamp(1rem, 3vw, 2.5rem) auto;
+
+    .text-pressure-title {
+      color: $white-color;
+    }
+  }
+
+  &__faces {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(254, 247, 237, 0.15);
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Same face as the big word above (Roboto Flex, loaded by TextPressure),
+  // never the SCS display face here (owner, 2026-10-22).
+  &__display {
+    margin: 0;
+    font-family: 'Roboto Flex', $font-text;
+    font-variation-settings: 'wght' 800, 'wdth' 125;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1;
+    color: $g5;
+  }
+
+  &__weights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto Flex', $font-text;
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+    line-height: 1.3;
+
+    li {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+      padding: 0.35em 0;
+      border-bottom: 1px solid rgba(254, 247, 237, 0.08);
+    }
+  }
+
+  &__w {
+    flex: 0 0 3.5ch;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(254, 247, 237, 0.5);
+  }
+}
+
+/* ---- Process stage ---- */
+// Full bleed, no corners (owner, 2026-10-22): an inset rounded card showed
+// its left corners while the pin clipped the right edge, which read as a
+// mistake. Edge to edge, the stage is one field.
+.bw-stage {
+  position: relative;
+  margin: clamp(3rem, 8vh, 6rem) 0 0;
+  width: 100%;
+  height: calc(100svh - var(--bw-top, 0px));
+  min-height: 600px;
+  border-radius: 0;
+  background: $white-color;
+  color: $promo-ink;
+  overflow: hidden;
+
+  &__h {
+    position: absolute;
+    top: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(2.5rem, 5vw, 5rem);
+    margin: 0;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+}
+
+.bw-state {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+
+  &__title {
+    position: absolute;
+    top: clamp(1.5rem, 3vw, 2.5rem);
+    right: clamp(2.5rem, 5vw, 5rem);
+    margin: 0;
+    @include bw-h2;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+  }
+
+  &__n {
+    display: inline-block;
+    margin-right: 0.4em;
+    font-size: 0.7em;
+    opacity: 0.5;
+  }
+
+  &__art {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(44vw, 720px);
+    max-height: 72%;
+    transform: translate(-50%, -50%);
+    border-radius: 14px;
+    overflow: hidden;
+
+    svg,
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__card {
+    position: absolute;
+    top: 50%;
+    width: min(28vw, 380px);
+    padding: clamp(1.25rem, 2vw, 2rem);
+    border-radius: 14px;
+    background: #fff;
+    color: $promo-ink;
+    transform: translateY(-50%);
+
+    p {
+      margin: 0;
+      font-size: clamp(1rem, 1.25vw, 1.15rem);
+      line-height: 1.55;
+    }
+  }
+
+  &--right .bw-state__card {
+    right: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  &--left .bw-state__card {
+    left: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  &__sticker {
+    position: absolute;
+    width: min(14vw, 220px);
+    border-radius: 12px;
+    overflow: hidden;
+
+    svg,
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &--bl .bw-state__sticker {
+    left: clamp(2.5rem, 5vw, 5rem);
+    bottom: clamp(2.5rem, 5vw, 5rem);
+  }
+
+  &--tr .bw-state__sticker {
+    right: clamp(2.5rem, 5vw, 5rem);
+    top: clamp(5rem, 9vw, 7rem);
+  }
+
+  &[data-state='colour'] .bw-state__art {
+    width: min(22vw, 360px);
+  }
+}
+
+// Stacked states: phones, tablets, reduced motion.
+@media #{$bw-sheet} {
+  .bw-stage {
+    height: auto;
+    min-height: 0;
+    padding: 1rem;
+    background: transparent;
+    color: $white-color;
+
+    &__h {
+      position: static;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .bw-state {
+    position: relative;
+    inset: auto;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 18px;
+    background: $white-color;
+    color: $promo-ink;
+
+    &__title,
+    &__art,
+    &__card,
+    &__sticker {
+      position: static;
+      width: auto;
+      max-height: none;
+      transform: none;
+    }
+
+    &__card {
+      padding: 0;
+      background: transparent;
+    }
+
+    &__sticker {
+      width: 50%;
+    }
+
+    &[data-state='colour'] .bw-state__art {
+      width: 60%;
+    }
+
+    &[data-state='system'] .bw-state__art {
+      aspect-ratio: 7 / 4;
+    }
+  }
+}
+
+/* ---- Deliverables grid ---- */
+.bw-grid {
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+  border-radius: 24px;
+  background: $promo-terra;
+  color: $promo-ink;
+
+  &__title {
+    @include bw-h2;
+    max-width: 24ch;
+  }
+
+  &__cards {
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 599px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  // Every card is a column: the demo sits centred in the room it has, the
+  // caption is grounded at the bottom so a row's captions line up like a
+  // notebook (owner, 2026-10-22).
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 16px;
+    background: $white-color;
+  }
+
+  &__stage {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  &__demo {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    background: $promo-ink;
+
+    svg,
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &--tall {
+      aspect-ratio: 9 / 16;
+      max-height: 320px;
+      width: auto;
+      margin: 0 auto;
+    }
+
+    &--drag {
+      background: $g5;
+      touch-action: none;
+    }
+
+    &--hover {
+      display: grid;
+      place-items: center;
+      background: $white-color;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: $orange-color;
+      }
+    }
+  }
+
+  &__sticker {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 40%;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+    will-change: transform;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__big {
+    font-family: $font-text;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: $promo-ink;
+  }
+
+  &__cap {
+    margin: auto 0.25rem 0.25rem;
+    min-height: 2 * 1.5 * 0.95rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+/* ---- Client bubbles ---- */
+.bw-bubbles {
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+  border-radius: 24px;
+  background: $blue-color;
+  color: #fff;
+
+  &__title {
+    @include bw-h2;
+    color: #fff;
+    text-align: center;
+  }
+
+  &__field {
+    position: relative;
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    padding: 0;
+    height: clamp(360px, 40vw, 520px);
+  }
+}
+
+.bw-bubble {
+  position: absolute;
+  max-width: min(38%, 420px);
+  padding: 0.9rem 1.1rem;
+  border-radius: 16px 16px 16px 4px;
+  background: #fff;
+  color: $promo-ink;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.45;
+
+  q {
+    quotes: none;
+  }
+
+  &__who {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 767px) {
+  .bw-bubbles__field {
+    height: auto;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .bw-bubble {
+    position: static;
+    max-width: none;
+  }
+}
+
+/* ---- Two circles ---- */
+.bw-circles {
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: clamp(2rem, 5vw, 4rem);
+  border-radius: 24px;
+  background: $white-color;
+  color: $promo-ink;
+}
+
+.bw-circles__title {
+  @include bw-h2;
+}
+
+.bw-circles__row {
+  display: flex;
+  justify-content: flex-end;
+  gap: clamp(1rem, 3vw, 2.5rem);
+  margin: clamp(1.5rem, 3vw, 3rem) 0 1.5rem;
+  flex-wrap: wrap;
+}
+
+.bw-circle {
+  display: grid;
+  place-items: center;
+  width: clamp(160px, 24vw, 340px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  font-weight: 500;
+  font-size: clamp(1rem, 1.6vw, 1.4rem);
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &--orange {
+    background: $orange-color;
+    color: $promo-ink;
+
+    &:hover,
+    &:focus-visible {
+      background: $promo-terra;
+      color: $white-color;
+    }
+  }
+
+  &--blue {
+    background: $blue-color;
+    color: #fff;
+
+    &:hover,
+    &:focus-visible {
+      background: $g5;
+      color: $promo-ink;
+    }
+  }
+}
+
+.bw-circles__note {
+  max-width: 44ch;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: rgba(20, 20, 20, 0.7);
+}
+
+/* ---- Pill CTA ---- */
+.bw-pill {
+  display: block;
+  margin: 2rem $edge-pad 4rem;
+  padding: clamp(2.5rem, 7vw, 6rem) 1rem;
+  border-radius: 999px;
+  background: $blue-color;
+  color: #fff;
+  text-align: center;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: $orange-color;
+    color: $promo-ink;
+  }
+}

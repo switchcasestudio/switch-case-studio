@@ -6,7 +6,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 ## Services
 
-- [Brand Identity](https://switchcasestudio.com/pricing/design-branding): A visual system that makes your business unmistakable
+- [Brand Identity](https://switchcasestudio.com/pricing/brand-identity): A visual system that makes your business unmistakable
 - [Web Development](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, stores and mobile apps built to convert, then kept running
 - [AI & Automation](https://switchcasestudio.com/pricing/ai-development): Assistants, agents, and workflows that run your operations
 - [SEO & AI Search](https://switchcasestudio.com/pricing/marketing-ads): Found on Google and in AI answers, then turned into revenue
@@ -32,12 +32,14 @@ The studio offers 4 services, each with published package prices. Where a case s
 - [About](https://switchcasestudio.com/about): The team, how a project runs, and the stack
 - [Case studies](https://switchcasestudio.com/projects): Every project, grouped by type
 - [Services and pricing](https://switchcasestudio.com/pricing): All 4 services and their packages
+- [Brand identity service](https://switchcasestudio.com/services/brand-identity): What a brand identity from the studio looks like, shown not told
 - [Client reviews](https://switchcasestudio.com/testimonials)
 - [Shop](https://switchcasestudio.com/shop): WordPress themes and one-to-one office hours
 - [Contact](https://switchcasestudio.com/contact): Book a strategy call or send a message
 
 ## Journal
 
+- [How to Write an About Page That Builds Trust](https://switchcasestudio.com/blog/how-to-write-an-about-page-that-builds-trust): A useful About page replaces vague brand language with the facts, people, proof, and next step a potential customer needs to trust the business
 - [Automate Client Onboarding Without Going Cold](https://switchcasestudio.com/blog/how-to-automate-client-onboarding-without-going-cold): A useful onboarding workflow removes repetitive admin while keeping judgment, reassurance, and exceptions in human hands
 - [How Much Does SEO Cost for a Small Business in 2026?](https://switchcasestudio.com/blog/how-much-does-seo-cost-for-a-small-business): Monthly retainers, hourly rates and one-off projects, priced from a survey of 439 SEO providers, plus what moves the number and what we charge
 - [How Much Does an AI Chatbot or Automation Cost?](https://switchcasestudio.com/blog/how-much-does-an-ai-chatbot-or-automation-cost): Subscriptions, custom builds and the running costs in between. Real prices for chatbots, automation platforms and AI models, and where our packages sit

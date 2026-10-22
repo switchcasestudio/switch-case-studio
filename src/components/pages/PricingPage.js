@@ -6,7 +6,7 @@ import { ORG_REF } from '../../utils/schemaIds';
 import { PricingGuide } from './PricingGuide';
 
 const slugToServiceId = {
-  'design-branding': 'design-branding',
+  'brand-identity': 'design-branding',
   'web-development': 'web-development',
   'ai-development': 'ai-development',
   'marketing-ads': 'marketing-advertisement',

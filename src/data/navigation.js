@@ -9,6 +9,18 @@ export const PRICING_LINKS = services.map((service) => ({
   to: `/pricing/${service.slug}`,
 }));
 
+// Services and pricing are separate since 2026-10-22: /services/<slug> is
+// the service page, /pricing/<slug> the packages. Only slugs listed here
+// have a service page (routes.js emits them); every other service links
+// straight to its pricing page until its own page exists, the same
+// fallback netlify.toml applies with a 301.
+export const SERVICE_PAGES = ['brand-identity'];
+
+export const SERVICE_LINKS = services.map((service) => ({
+  label: service.title,
+  to: SERVICE_PAGES.includes(service.slug) ? `/services/${service.slug}` : `/pricing/${service.slug}`,
+}));
+
 // Dynamically generate project links based on the slugs in projects.json
 export const PROJECT_LINKS = projects.map((project) => ({
   label: project.title,
@@ -23,7 +35,7 @@ export const EXPLORE_LINKS = [
   { label: 'Services', hash: '#services' },
   { label: 'About', to: '/about' },
   { label: 'Case Studies', to: '/projects' },
-  { label: 'Services & Pricing', to: '/pricing' },
+  { label: 'Pricing', to: '/pricing' },
   { label: 'Blog', to: '/blog' },
   { label: 'Contact', hash: '#contact' },
 ];

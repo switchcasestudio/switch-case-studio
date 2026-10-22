@@ -15,7 +15,7 @@ import {
 import { faRss } from '@fortawesome/free-solid-svg-icons';
 import SCSLogo from '../ui/SCSLogo';
 import {
-  PRICING_LINKS,
+  SERVICE_LINKS,
   PROJECT_LINKS,
   LEGAL_LINKS,
   EXPLORE_LINKS,
@@ -81,7 +81,8 @@ const handleAnchorClick = (e, hash) => {
  * ------------------------------------------------------------------ */
 // Shared with the nav menu (navigation.js) — one source of truth for the
 // service list; a hardcoded copy here drifted when services were renamed.
-const SERVICES_LINKS = PRICING_LINKS;
+// Service pages where they exist, pricing pages otherwise (2026-10-22).
+const SERVICES_LINKS = SERVICE_LINKS;
 
 const CONNECT_LINKS = [
   {

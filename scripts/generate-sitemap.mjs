@@ -85,7 +85,7 @@ const max = (...ds) => ds.filter(Boolean).sort().pop() || TODAY;
 const projectDates = entryDates('src/data/projects.json', (p) => p.slug);
 const serviceDates = entryDates('src/data/services.json', (s) => s.slug);
 // pricingData keys services by id; one legacy id differs from its slug.
-const PRICING_ID = { 'marketing-ads': 'marketing-advertisement' };
+const PRICING_ID = { 'marketing-ads': 'marketing-advertisement', 'brand-identity': 'design-branding' };
 const pricingDates = entryDates('src/data/pricingData.json', (s) => s.id);
 const newestPost = max(...posts.flatMap((p) => [p.date, p.updated]));
 
@@ -101,6 +101,8 @@ const urls = [
   { loc: '/about', lastmod: page('AboutPage.js', 'src/data/team.json', 'src/components/sections/Polaroids.js'), priority: '0.8' },
   { loc: '/projects', lastmod: max(page('CaseStudiesPage.js', 'src/data/projectGroups.js'), ...projectDates.values()), priority: '0.8' },
   { loc: '/pricing', lastmod: page('ServiceIndexPage.js', 'src/data/services.json'), priority: '0.8' },
+  // Service worlds: one entry per emitted world (routes.js getStaticPaths).
+  { loc: '/services/brand-identity', lastmod: lastmodOf('src/components/pages/BrandIdentityPage.js', 'src/components/brandWorld'), priority: '0.8' },
   { loc: '/testimonials', lastmod: page('ReviewsPage.js', 'src/data/testimonials.json'), priority: '0.7' },
   { loc: '/contact', lastmod: page('ContactPage.js', 'src/components/sections/Contact.js'), priority: '0.7' },
   { loc: '/blog', lastmod: newestPost, priority: '0.7' },

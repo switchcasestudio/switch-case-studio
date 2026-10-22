@@ -9,7 +9,7 @@ import "../../styles/components/servicePoster.scss";
 
 // Keyed by service slug (services.json). A slug with no poster renders nothing.
 const POSTERS = {
-  "design-branding": { n: 1, headline: "In register.", tone: "ink", bg: "cream", ...InRegister },
+  "brand-identity": { n: 1, headline: "In register.", tone: "ink", bg: "cream", ...InRegister },
   "web-development": { n: 2, headline: "Built to convert.", tone: "ink", bg: "mint", ...BuiltToConvert },
   "ai-development": { n: 3, headline: "Always on.", tone: "cream", bg: "ink", ...Workflow },
   "marketing-ads": { n: 4, headline: "Be the answer.", tone: "ink", bg: "terra", ...BeTheAnswer },

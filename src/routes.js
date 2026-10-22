@@ -166,6 +166,16 @@ export const routes = [
         getStaticPaths: () => projects.map((p) => `/projects/${p.slug}`),
       },
 
+      // Service worlds (2026-10-22): a service page is the experience, the
+      // pricing page is the number. Only a service with a world is emitted;
+      // the others 301 to their pricing page in netlify.toml until theirs
+      // exists. Same slug on both sides: /services/<slug> + /pricing/<slug>.
+      {
+        path: 'services/:serviceSlug',
+        lazy: page(() => import('./components/pages/BrandIdentityPage')),
+        getStaticPaths: () => ['/services/brand-identity'],
+      },
+
       // Pricing
       {
         path: 'pricing',

@@ -2186,3 +2186,8 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Local Lighthouse mobile LCP doubles under machine contention (probes running in parallel); CLS is stable. Compare LCP elements with a buffered `PerformanceObserver`, not Lighthouse 13.5's element audit (empty).
 - `uniq -w` does not exist on macOS; `grep --include='*.js'` needs quotes in zsh.
 - Route baseline unchanged: 53 HTML files.
+
+### 2026-10-22 — Brand Identity world (branch `feat/brand-identity-world`, unpushed)
+- `/services/:slug` now exists beside `/pricing/:slug`; Brand Identity slug is `brand-identity` (old `design-branding` 301s). Only Brand Identity has a service page; the other three 301 to pricing.
+- `/services/brand-identity`: pinned scroll collage of five studio concepts (SVG tiles on their own scrubbed vectors), breath, two circles, pill CTA. Reference analysis: `.audit/brand-identity-reference.md`. Route baseline 59.
+- Next: owner review → more/bigger tiles, per-tile interactivity, concept row, process stage, deliverables grid, testimonials, Remotion stickers.

@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 import HeaderCTA from "./HeaderCTA";
 import HeaderLogo from "../ui/HeaderLogo";
 import StaggeredMenu from "./StaggeredMenu";
-import { PRICING_LINKS, PROJECT_LINKS } from "../../data/navigation";
+import { PRICING_LINKS, PROJECT_LINKS, SERVICE_LINKS } from "../../data/navigation";
 import useReducedMotion from "../../hooks/useReducedMotion";
 import "../../styles/components/header.scss";
 
@@ -297,6 +297,35 @@ const Header = () => {
               {/* Pricing — disclosure submenu (button, not link).
                   .is-open ONLY reflects activeSubmenu state.
                   Route-match highlights the trigger via .is-active below. */}
+              {/* Services and Pricing are two menus since 2026-10-22: a service
+                  page sells the work, a pricing page the packages. Both
+                  triggers open the services index until a /services index
+                  exists. */}
+              <li
+                className={`nav_item nav_item--has-submenu ${
+                  activeSubmenu === "services" ? "is-open" : ""
+                }`}
+                onMouseEnter={handleSubmenuEnter("services")}
+                onMouseLeave={handleSubmenuLeave}
+                onBlur={handleSubmenuBlur}
+              >
+                <Link
+                  to="/pricing"
+                  className={`nav_link nav_link--trigger ${
+                    isSectionActive("/services") ? "is-active" : ""
+                  }`}
+                  aria-haspopup="true"
+                  aria-expanded={activeSubmenu === "services"}
+                  aria-controls="submenu-services"
+                  onFocus={handleTriggerFocus("services")}
+                  onClick={() => setActiveSubmenu(null)}
+                >
+                  Services
+                  <span className="nav_caret" aria-hidden="true" />
+                </Link>
+                {renderSubmenu("services", SERVICE_LINKS)}
+              </li>
+
               <li
                 className={`nav_item nav_item--has-submenu ${
                   activeSubmenu === "pricing" ? "is-open" : ""
@@ -316,7 +345,7 @@ const Header = () => {
                   onFocus={handleTriggerFocus("pricing")}
                   onClick={() => setActiveSubmenu(null)}
                 >
-                  Services &amp; Pricing
+                  Pricing
                   <span className="nav_caret" aria-hidden="true" />
                 </Link>
                 {renderSubmenu("pricing", PRICING_LINKS)}
