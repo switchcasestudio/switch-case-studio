@@ -69,12 +69,13 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l 'id="S:' build/**/*.html` matches nothing; `<h1` sits inside `<main>` on every page.
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
-- `find build -name '*.html' | wc -l` = route baseline (56 as of 2026-10-09); re-baseline in `.audit/rules.md` when routes change.
+- `find build -name '*.html' | wc -l` = route baseline (59 as of 2026-10-22); re-baseline in `.audit/rules.md` when routes change.
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily); no post with empty `coverImage`.
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- Read a reference site's own data (widget JSON, `__NEXT_DATA__`) before its pixels: the recording shows the result, the data shows the mechanism; and serve a static build with clean URLs when probing, or the `.html` becomes a route param (baseline 59 HTML files, 2026-10-22).
 - GA4 counts only visitors who accept the banner, so the site keeps its own cookie-free visit log: `src/analytics/visitLog.js` beacons every route view to `/api/visit` (`netlify/functions/visit.mjs`), Blobs store `site-visits`, read with `npm run visits --…
 - A site whose design is scroll motion gets a recorded scroll (`longVideo`), because a full-page screenshot of a pinned section is a blank stretch.
 - A case-study refresh re-measures BOTH sides on the same day, and a full-page capture scrolls the page through first.
