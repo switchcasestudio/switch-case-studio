@@ -79,7 +79,7 @@ export default function Deliverables() {
           </div>
           </div>
           <p className="bw-grid__cap">
-            <strong>Logo files.</strong> SVG, PNG, PDF, in every colourway, with the clear space drawn in.
+            <strong>Logo files.</strong> SVG, PNG, PDF, in every colorway, with the clear space drawn in.
           </p>
         </li>
         <li className="bw-grid__card">

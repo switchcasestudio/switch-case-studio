@@ -1,6 +1,6 @@
 import { f, q, qa, writer } from '../../servicePoster/usePosterEngine';
 
-/* Live behaviour for the collage tiles (2026-10-22), one `create(svg, api)`
+/* Live behavior for the collage tiles (2026-10-22), one `create(svg, api)`
    per art, run by the house poster engine (usePosterEngine): pointer mode
    on a fine pointer, ambient on touch, static under reduced motion. The
    engine gives `api.pointer` (−0.5…0.5, lerped), `api.hover.v` (0…1) and a
@@ -127,7 +127,7 @@ export function HumMark(svg, api) {
       const { x, y, h } = P(api);
       const d = Math.min(1, Math.hypot(x, y) * 2) * h;
       rings.forEach((w, i) => {
-        // Breathing idle; the hand's distance from the centre is volume.
+        // Breathing idle; the hand's distance from the center is volume.
         const pulse = Math.sin(t * 2.2 - i * 0.8) * 6;
         w(f(base[i] + pulse + d * 40 * (i + 1) * 0.5));
       });

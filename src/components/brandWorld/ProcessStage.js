@@ -11,7 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 const Card3D = lazy(() => import('./Card3D'));
 
 /* The process stage (2026-10-22): what the reference builds from 67 fixed
-   layers. One pinned viewport, five states; per state the field colour
+   layers. One pinned viewport, five states; per state the field color
    fades over the last, the artefact scales in, the text card lands on the
    other side, the sticker comes in from the other corner. Timeline on a
    pinned ScrollTrigger (house pattern), same gate as the collage. Under
@@ -57,10 +57,10 @@ const STATES = [
     stickerRatio: '3/2',
   },
   {
-    key: 'colour',
+    key: 'color',
     field: '#1748ef',
     ink: '#fef7ed',
-    title: 'Colour',
+    title: 'Color',
     copy: 'Five swatches with names and codes, tested on a bad printer and a cheap phone before they are final.',
     side: 'left',
     corner: 'tr',

@@ -3,7 +3,7 @@
    studio). Pure SVG, SSR-safe, presentation attributes only; `data-p` hooks
    mark the parts a later engine moves. Fills are classes from
    brandWorld.scss so the palette stays on tokens. Each tile is a plate:
-   flat colour, rounded corners come from the tile box, no shadows. */
+   flat color, rounded corners come from the tile box, no shadows. */
 import { INNER_STAR, OUTER_STAR } from './starPaths';
 
 const INTER = "Inter, 'Inter Fallback', sans-serif";

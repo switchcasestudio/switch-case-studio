@@ -22,7 +22,7 @@ export default function BrandIdentityPage() {
     <>
       <Seo
         title="Brand Identity Design | Switch Case Studio"
-        description="Logo, colour, type and the rules that keep them together. Five studio concepts you can push around, by the designer who draws them."
+        description="Logo, color, type and the rules that keep them together. Five studio concepts you can push around, by the designer who draws them."
         path={PATH}
         jsonLd={[
           {

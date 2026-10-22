@@ -18,7 +18,7 @@
       { "src": "/projects/prodani/compare-home.webp", "caption": "Homepage", "note": "−68% weight · −17% largest contentful paint", "alt": "The Prodani Miami homepage on the original theme and on v2, both at 1150 pixels wide" },
       { "src": "/projects/prodani/compare-product.webp", "caption": "Product page", "note": "−72% largest contentful paint · −61% DOM elements", "alt": "The Personal Carrot Cake product page on the original theme and on v2, both at 1150 pixels wide" },
       { "src": "/projects/prodani/compare-baker.webp", "caption": "Meet Your Baker", "note": "No layout shift · paints 20% later: the largest element is now a photo, not a paragraph", "alt": "The Prodani Miami Meet Your Baker page on the original theme and on v2, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "−28% largest contentful paint · a real enquiry form next to the address", "alt": "The Prodani Miami contact page on the original theme and on v2, both at 1150 pixels wide" }
+      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "−28% largest contentful paint · a real inquiry form next to the address", "alt": "The Prodani Miami contact page on the original theme and on v2, both at 1150 pixels wide" }
     ],
     "title": "Prodani Miami",
     "subtitle": "High-Protein Dessert Brand, Miami, Florida",
@@ -101,7 +101,7 @@
       { "value": "8", "label": "shop and store templates in Pro" },
       { "value": "320–1440", "label": "px tested with no sideways scroll" }
     ],
-    "description": "Unhurried is a calm, editorial WordPress block theme for studios, spas, clinics and makers, made for the web-builder community. The free theme has full-page patterns, a blog and three style variations, all edited in the Site Editor. It is GPL and submitted to WordPress.org. Unhurried Pro is a $49 child theme on top of it that styles the WooCommerce shop, from shelf to checkout. Buyers pay through Stripe, download through a verified link and get updates with a licence key.",
+    "description": "Unhurried is a calm, editorial WordPress block theme for studios, spas, clinics and makers, made for the web-builder community. The free theme has full-page patterns, a blog and three style variations, all edited in the Site Editor. It is GPL and submitted to WordPress.org. Unhurried Pro is a $49 child theme on top of it that styles the WooCommerce shop, from shelf to checkout. Buyers pay through Stripe, download through a verified link and get updates with a license key.",
     "servicePages": ["web-development"],
     "services": [
       { "label": "#Theme Design" },
@@ -146,14 +146,14 @@
     "brandKit": [
       { "src": "/projects/my-challah-dealer/brand/01-cover.webp", "srcSmall": "/projects/my-challah-dealer/brand/01-cover-1200.webp", "alt": "The primary badge on dough: a braided challah in an orange disc, ringed by My Challah Dealer and First one's on me" },
       { "src": "/projects/my-challah-dealer/brand/02-logo-system.webp", "srcSmall": "/projects/my-challah-dealer/brand/02-logo-system-1200.webp", "alt": "The logo system: primary badge, braid mark, horizontal lockup, stacked lockup, wordmark and die-cut sticker" },
-      { "src": "/projects/my-challah-dealer/brand/03-colour-variants.webp", "srcSmall": "/projects/my-challah-dealer/brand/03-colour-variants-1200.webp", "alt": "The badge on five grounds: full colour, on black, on orange, one colour on kraft, one colour cream" },
+      { "src": "/projects/my-challah-dealer/brand/03-colour-variants.webp", "srcSmall": "/projects/my-challah-dealer/brand/03-colour-variants-1200.webp", "alt": "The badge on five grounds: full color, on black, on orange, one color on kraft, one color cream" },
       { "src": "/projects/my-challah-dealer/brand/04-palette.webp", "srcSmall": "/projects/my-challah-dealer/brand/04-palette-1200.webp", "alt": "The palette: Dough, Ink, Safety Orange and Kraft, with HEX, RGB, CMYK and Pantone values" },
       { "src": "/projects/my-challah-dealer/brand/05-type.webp", "srcSmall": "/projects/my-challah-dealer/brand/05-type-1200.webp", "alt": "Type: Anton for display, Archivo for body, with specimens" },
       { "src": "/projects/my-challah-dealer/brand/06-bread-clip.webp", "srcSmall": "/projects/my-challah-dealer/brand/06-bread-clip-1200.webp", "alt": "The bread clip secondary mark, and the die-cut clip business card, front and back" },
       { "src": "/projects/my-challah-dealer/brand/07-stickers.webp", "srcSmall": "/projects/my-challah-dealer/brand/07-stickers-1200.webp", "alt": "The six-shape sticker set in orange, and in cream on black" },
       { "src": "/projects/my-challah-dealer/brand/08-voice.webp", "srcSmall": "/projects/my-challah-dealer/brand/08-voice-1200.webp", "alt": "Voice: First one's on me, with the approved lines beneath it" }
     ],
-    "motion": { "mp4": "/projects/my-challah-dealer/reel.mp4", "webm": "/projects/my-challah-dealer/reel.webm", "poster": "/projects/my-challah-dealer/reel-poster.webp", "caption": "A 21-second reel for Instagram, animated from the brand kit.", "note": "Built in Remotion from the same type, colours and clip mark as the site, cut with the baker's own photos. Plays muted while on screen; sound is one tap away.", "alt": "The My Challah Dealer reel: grocery store challah, hand-braided this week, the lineup, the bread clip, first one's on me, and the three steps to order" },
+    "motion": { "mp4": "/projects/my-challah-dealer/reel.mp4", "webm": "/projects/my-challah-dealer/reel.webm", "poster": "/projects/my-challah-dealer/reel-poster.webp", "caption": "A 21-second reel for Instagram, animated from the brand kit.", "note": "Built in Remotion from the same type, colors and clip mark as the site, cut with the baker's own photos. Plays muted while on screen; sound is one tap away.", "alt": "The My Challah Dealer reel: grocery store challah, hand-braided this week, the lineup, the bread clip, first one's on me, and the three steps to order" },
     "title": "My Challah Dealer",
     "subtitle": "Home Bakery · Portland, Oregon",
     "outcome": "",
@@ -177,10 +177,10 @@
       { "label": "#Analytics" }
     ],
     "highlights": [
-      { "title": "A Logo System, Not A Logo", "summary": "Badge, braid mark, horizontal and stacked lockups, wordmark and die-cut sticker, each in five colour variants, delivered as outlined SVG and PNG." },
+      { "title": "A Logo System, Not A Logo", "summary": "Badge, braid mark, horizontal and stacked lockups, wordmark and die-cut sticker, each in five color variants, delivered as outlined SVG and PNG." },
       { "title": "The Bread Clip", "summary": "A secondary mark drawn from the plastic clip that seals grocery bread, printed with the loaf's data. It doubles as a die-cut business card that closes every bag." },
       { "title": "Ready For The Printer", "summary": "Die lines on their own path, Pantone and CMYK specs, minimum sizes, a rubber-stamp file for kraft bags and a six-sticker sheet ready for a kiss-cut run." },
-      { "title": "Designed From The Kit", "summary": "The site follows the identity's own rules: Anton and Archivo, three colours plus kraft, 2px corners, hard offset shadows, supplied logo files only." },
+      { "title": "Designed From The Kit", "summary": "The site follows the identity's own rules: Anton and Archivo, three colors plus kraft, 2px corners, hard offset shadows, supplied logo files only." },
       { "title": "Three Steps To Order", "summary": "Loaves and egg wash, contact details, then a printed-receipt review. A live total, the first-order offer applied on the spot, and an order number at the end." },
       { "title": "Two Emails Per Order", "summary": "The form posts to an n8n workflow: a row in a Google Sheet, a confirmation to the customer and an alert to the owner. No server to host, no card taken online." }
     ],
@@ -284,14 +284,14 @@
     "clientLogoAlt": "Florida Green Improvements logo",
     "imageSrc": "/projects/florida-green/after-home.webp", "preview": "/projects/florida-green/preview.webp",
     "longWeb": "/projects/florida-green/long.webp",
-    "imageAlt": "The rebuilt Florida Green Improvements homepage: a centred headline on a glass panel over video of a modern South Florida house",
+    "imageAlt": "The rebuilt Florida Green Improvements homepage: a centered headline on a glass panel over video of a modern South Florida house",
     "comparisonsLabel": "Before and after",
     "comparisonsNote": "The live WordPress site on the left, the rebuild on the right. Every desktop pair is captured at the same 1150 × 1000 viewport by the same script on the same day; the phone pair at 390 px.",
     "comparisons": [
       { "src": "/projects/florida-green/compare-home.webp", "caption": "Homepage", "note": "−94% weight · −70% largest contentful paint · Performance 59 → 90 on mobile", "alt": "The Florida Green Improvements homepage before and after the rebuild, both at 1150 pixels wide" },
       { "src": "/projects/florida-green/compare-kitchen.webp", "caption": "Kitchen service page", "note": "−67% largest contentful paint · −61% weight · the old H1 read “kitchen” in lower case", "alt": "The Florida Green Improvements kitchen page before and after the rebuild, both at 1150 pixels wide" },
       { "src": "/projects/florida-green/compare-contact.webp", "caption": "Contact", "note": "−48% largest contentful paint · −55% weight · accessibility 87 → 100", "alt": "The Florida Green Improvements contact page before and after the rebuild, both at 1150 pixels wide" },
-      { "src": "/projects/florida-green/compare-about.webp", "caption": "About", "note": "Licence, 5.0 rating and service area now machine-readable, not only text a human can read", "alt": "The Florida Green Improvements about page before and after the rebuild, both at 1150 pixels wide" },
+      { "src": "/projects/florida-green/compare-about.webp", "caption": "About", "note": "License, 5.0 rating and service area now machine-readable, not only text a human can read", "alt": "The Florida Green Improvements about page before and after the rebuild, both at 1150 pixels wide" },
       { "src": "/projects/florida-green/compare-mobile.webp", "caption": "Homepage on a phone", "note": "The old page reports a 435 px document inside a 390 px viewport; it does not fit the phone it is read on. The rebuild reports 390 px.", "alt": "The Florida Green Improvements homepage before and after the rebuild, both captured at a 390 pixel phone viewport" }
     ],
     "title": "Florida Green Improvements",
@@ -374,7 +374,7 @@
       { "value": "100/100", "label": "Lighthouse SEO score" },
       { "value": "1 in 13", "label": "visits end in a book-appointment click (GA4, Jul–Aug 2026)" }
     ],
-    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then measured the result with Google's own tools. Lighthouse scores the site 100/100 on SEO and best practices and 99/100 on desktop performance. On mobile the homepage's main image went from 13.5 seconds to 4.1, and the page from 4.2 MB to 1.2. Twenty-five pages carried no H1 and thirty-five images had no alt text; both are now zero. Then Google responded. Across two 28-day Search Console windows, before and after the work, impressions rose 15% and the homepage moved from position 13.2 to 7.0, page two to page one. The practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\", and calls from its Google Business Profile rose from 57 in June to 78 in August, nearly triple August 2025's 27. One figure comes from the site's own analytics and is labelled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
+    "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then measured the result with Google's own tools. Lighthouse scores the site 100/100 on SEO and best practices and 99/100 on desktop performance. On mobile the homepage's main image went from 13.5 seconds to 4.1, and the page from 4.2 MB to 1.2. Twenty-five pages carried no H1 and thirty-five images had no alt text; both are now zero. Then Google responded. Across two 28-day Search Console windows, before and after the work, impressions rose 15% and the homepage moved from position 13.2 to 7.0, page two to page one. The practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\", and calls from its Google Business Profile rose from 57 in June to 78 in August, nearly triple August 2025's 27. One figure comes from the site's own analytics and is labeled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
     "servicePages": ["brand-identity", "web-development", "marketing-ads"],
     "services": [
       { "label": "#Brand Design" },
@@ -626,18 +626,18 @@
       },
       {
         "title": "Calm, On Request",
-        "summary": "The client asked for a quieter site. The tilts and wobbles went; motion is a quick colour swap and a 16px rise, and nothing bounces, loops or overshoots."
+        "summary": "The client asked for a quieter site. The tilts and wobbles went; motion is a quick color swap and a 16px rise, and nothing bounces, loops or overshoots."
       },
       {
         "title": "The Work Leads",
         "summary": "Shipped Tiny Love products, photographed in use, open the home page in a grid, and each one leads to its own case study."
       },
       {
-        "title": "One Colour Per Section",
+        "title": "One Color Per Section",
         "summary": "Every section is cream, tomato, yolk, pool or night, never piled up, so the eye has one place to land before the next beat."
       },
       {
-        "title": "Accessible Colour",
+        "title": "Accessible Color",
         "summary": "Every text and background pair passes WCAG AA, documented token by token. 44px touch targets, themed focus rings, and reduced motion respected on every animation."
       },
       {
@@ -645,7 +645,7 @@
         "summary": "About traces the road from Shenkar to her own studio, Services walks from sketch to production, and every page ends at the inquiry form."
       }
     ],
-    "result": "A quieter, more colourful portfolio on a full brand system: shipped products first, one colour per section, every text pair at WCAG AA, and every page ending at an inquiry.",
+    "result": "A quieter, more colorful portfolio on a full brand system: shipped products first, one color per section, every text pair at WCAG AA, and every page ending at an inquiry.",
     "kicker": "In depth on",
     "ctaLabel": "View Live",
     "ctaUrl": "https://sha-design.com/",
@@ -693,7 +693,7 @@
       },
       {
         "title": "2 · Data model · MySQL",
-        "summary": "Five related resources modelled in Entity Framework Core and seeded through migrations, so the schema rebuilds from scratch rather than being hand-loaded."
+        "summary": "Five related resources modeled in Entity Framework Core and seeded through migrations, so the schema rebuilds from scratch rather than being hand-loaded."
       },
       {
         "title": "3 · API · C# / ASP.NET Core",

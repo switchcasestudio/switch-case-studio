@@ -8,7 +8,7 @@ import '../../styles/components/brandWorld.scss';
 
 /* The Brand Identity world (2026-10-22). Principles from the reference
    analysis (.audit/brand-identity-reference.md): everything is a flat plate,
-   scroll is the clock, density breathes, hover flips colour, media lives in
+   scroll is the clock, density breathes, hover flips color, media lives in
    tiles. Palette stays SCS: ink, cream, lavender, blue, orange, plus the
    poster flats (terra, mint, pink). Order: collage, breath, type stage,
    process stage, deliverables, client bubbles, circles, pill. */

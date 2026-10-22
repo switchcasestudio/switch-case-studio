@@ -617,7 +617,7 @@
       {
         "type": "list",
         "items": [
-          "Font licences. A typeface found online is not automatically licensed for your website, your packaging or your app. Some licences are per platform. Our post on [choosing fonts for a small business website](/blog/how-to-choose-fonts-for-a-small-business-website) explains what to check.",
+          "Font licenses. A typeface found online is not automatically licensed for your website, your packaging or your app. Some licenses are per platform. Our post on [choosing fonts for a small business website](/blog/how-to-choose-fonts-for-a-small-business-website) explains what to check.",
           "Trademark search and registration. A designer is not a lawyer. If the name and mark matter to the business, budget for a proper search before you print anything.",
           "Production. Printing, signage, embroidery and packaging cost money on their own, and each vendor wants files in its own format.",
           "File ownership. Make sure you receive editable source files and a written transfer of rights, not only PNGs."
@@ -655,7 +655,7 @@
         "type": "list",
         "items": [
           "Testing a side business over a weekend: a logo maker at $20 to $200 on ManyPixels' figures, or a 99designs contest from $249. Expect to redo it if the business works.",
-          "A local business about to order a sign and business cards: our Logo & Style Guide at $750, plus the font licence if the chosen face needs one, plus printing. Design once, then print.",
+          "A local business about to order a sign and business cards: our Logo & Style Guide at $750, plus the font license if the chosen face needs one, plus printing. Design once, then print.",
           "A practice with staff, a website and social channels: the Brand System & Launch at $3,500, so everyone who makes a flyer, a post or a slide works from the same guidelines and templates."
         ]
       },
@@ -669,7 +669,7 @@
           "If you need something this month and the business is still an experiment, a logo maker or a contest is a reasonable start.",
           "If customers already know you and you are about to spend money on a sign, a vehicle wrap or packaging, pay for an identity first. Reprinting is the expensive part.",
           "If more than two people produce materials for the brand, budget for guidelines, or every new flyer will drift a little further.",
-          "Whatever you buy, ask for the source files, the font licences and a written rights transfer before the final invoice."
+          "Whatever you buy, ask for the source files, the font licenses and a written rights transfer before the final invoice."
         ]
       },
       {
@@ -1022,7 +1022,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Stripe's normal card fees, plus a small fee for its automatic tax calculation. There is no plugin licence, no store subscription and no server to maintain; the function runs only when someone clicks Download."
+        "text": "Stripe's normal card fees, plus a small fee for its automatic tax calculation. There is no plugin license, no store subscription and no server to maintain; the function runs only when someone clicks Download."
       },
       {
         "type": "heading",
@@ -1030,7 +1030,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If you sell many products, need licence keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function. The same setup for your own product is a small [web development](/pricing/web-development) job."
+        "text": "If you sell many products, need license keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function. The same setup for your own product is a small [web development](/pricing/web-development) job."
       },
       {
         "type": "link",
@@ -1290,7 +1290,7 @@
           "27 patterns, including complete Homepage, About, Services and Contact pages you can drop into a new page and edit.",
           "A blog with a staggered stories grid, category and tag archives, and single posts with comments.",
           "Section styles for any group (Panel, Card, Ink, Ground and Glass) and small touches like an eyebrow label, a statement paragraph and an arched image style.",
-          "Two extra colour schemes: Nocturne (dark) and Linen (warm, with a sage accent).",
+          "Two extra color schemes: Nocturne (dark) and Linen (warm, with a sage accent).",
           "A gentle scroll reveal you switch on per block, which stays still for visitors who prefer reduced motion."
         ]
       },
@@ -1355,7 +1355,7 @@
       },
       {
         "type": "paragraph",
-        "text": "[We build custom sites for clients](/pricing/web-development), and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colours, we can do that for you."
+        "text": "[We build custom sites for clients](/pricing/web-development), and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colors, we can do that for you."
       },
       {
         "type": "link",
@@ -1479,7 +1479,7 @@
     "date": "2026-09-17",
     "readingTime": "5 min read",
     "coverImage": "/images/journal/brand-guidelines-small-teams-actually-use.jpg",
-    "imageAlt": "Orange and yellow colour swatch cards scattered on dry grass",
+    "imageAlt": "Orange and yellow color swatch cards scattered on dry grass",
     "tags": [
       "Brand Guidelines",
       "Brand Systems",

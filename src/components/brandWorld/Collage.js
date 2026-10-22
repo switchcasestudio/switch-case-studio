@@ -92,7 +92,7 @@ export default function Collage() {
         <p className="bw-collage__kicker">Brand identity</p>
         <h1 className="bw-collage__title">A mark that holds up when it moves.</h1>
         <p className="bw-collage__lede">
-          Logo, colour, type and the rules that keep them together. Drawn by a designer, built for web, print and
+          Logo, color, type and the rules that keep them together. Drawn by a designer, built for web, print and
           packaging.
         </p>
         <Link to="/contact" className="bw-collage__cta">

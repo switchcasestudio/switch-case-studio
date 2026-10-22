@@ -71,7 +71,7 @@ function Card({ pointer, flip }) {
   const group = useRef(null);
   const [front, back] = useMemo(() => [makeTexture(paintFront), makeTexture(paintBack)], []);
   // Unlit materials: the card is a flat plate, the page's own rule, so the
-  // printed colours stay exactly the brand's under any angle.
+  // printed colors stay exactly the brand's under any angle.
   const edge = useMemo(() => new THREE.MeshBasicMaterial({ color: '#d9cfbf' }), []);
   const mats = useMemo(
     () => [edge, edge, edge, edge, new THREE.MeshBasicMaterial({ map: front }), new THREE.MeshBasicMaterial({ map: back })],

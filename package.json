@@ -34,6 +34,8 @@
     "visits": "node scripts/visits.mjs",
     "prebuild": "node scripts/check-sameas.mjs && node scripts/check-media.mjs && node scripts/generate-sitemap.mjs && node scripts/generate-llms.mjs",
     "build": "vite-react-ssg build",
+    "postbuild": "node scripts/check-us-english.mjs build",
+    "check:us": "node scripts/check-us-english.mjs build",
     "preview": "vite preview"
   },
   "overrides": {
