@@ -450,12 +450,16 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 }
 
 /* ---- Process stage ---- */
+// Full bleed, no corners (owner, 2026-10-22): an inset rounded card showed
+// its left corners while the pin clipped the right edge, which read as a
+// mistake. Edge to edge, the stage is one field.
 .bw-stage {
   position: relative;
-  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  margin: clamp(3rem, 8vh, 6rem) 0 0;
+  width: 100%;
   height: calc(100svh - var(--bw-top, 0px));
   min-height: 600px;
-  border-radius: 24px;
+  border-radius: 0;
   background: $white-color;
   color: $promo-ink;
   overflow: hidden;
@@ -463,7 +467,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   &__h {
     position: absolute;
     top: clamp(1.5rem, 3vw, 2.5rem);
-    left: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(2.5rem, 5vw, 5rem);
     margin: 0;
     font-family: $font-text;
     font-size: 0.75rem;
@@ -484,7 +488,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   &__title {
     position: absolute;
     top: clamp(1.5rem, 3vw, 2.5rem);
-    right: clamp(1.5rem, 3vw, 2.5rem);
+    right: clamp(2.5rem, 5vw, 5rem);
     margin: 0;
     @include bw-h2;
     font-size: clamp(1.4rem, 2.4vw, 2rem);
@@ -533,11 +537,11 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 
   &--right .bw-state__card {
-    right: clamp(1.5rem, 4vw, 4rem);
+    right: clamp(2.5rem, 5vw, 5rem);
   }
 
   &--left .bw-state__card {
-    left: clamp(1.5rem, 4vw, 4rem);
+    left: clamp(2.5rem, 5vw, 5rem);
   }
 
   &__sticker {
@@ -555,12 +559,12 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 
   &--bl .bw-state__sticker {
-    left: clamp(1.5rem, 4vw, 4rem);
-    bottom: clamp(1.5rem, 4vw, 4rem);
+    left: clamp(2.5rem, 5vw, 5rem);
+    bottom: clamp(2.5rem, 5vw, 5rem);
   }
 
   &--tr .bw-state__sticker {
-    right: clamp(1.5rem, 4vw, 4rem);
+    right: clamp(2.5rem, 5vw, 5rem);
     top: clamp(5rem, 9vw, 7rem);
   }
 

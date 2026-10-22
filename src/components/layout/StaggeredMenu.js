@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import {
   PRICING_LINKS,
+  SERVICE_LINKS,
   PROJECT_LINKS,
   LEGAL_LINKS,
 } from '../../data/navigation';
@@ -364,7 +365,16 @@ const StaggeredMenu = ({
             </li>
 
             <MenuAccordion
-              label="Services & Pricing"
+              label="Services"
+              labelTo="/pricing"
+              items={SERVICE_LINKS}
+              isOpen={openAccordion === 'services'}
+              onToggle={() => toggleAccordion('services')}
+              onNavClick={onClose}
+            />
+
+            <MenuAccordion
+              label="Pricing"
               labelTo="/pricing"
               items={PRICING_LINKS}
               isOpen={openAccordion === 'pricing'}
