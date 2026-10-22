@@ -2,10 +2,10 @@
 @import '../_page-head.scss';
 
 // The Brand Identity world (2026-10-22). Flat plates on the site's black,
-// SCS palette plus the poster flats. The collage hero pins and scrubs on
-// wide pointer screens (useCollageScroll, same gate as the services pan);
-// below 1024px or under reduced motion the tiles flow into a sheet under
-// the headline, so the static HTML is a complete page on its own.
+// SCS palette plus the poster flats. The collage hero and the process stage
+// pin and scrub on wide pointer screens (same gate as the services pan);
+// below 1024px or under reduced motion everything stacks, so the static
+// HTML is a complete page on its own.
 $bw-palette: (
   'cream': $white-color,
   'ink': $promo-ink,
@@ -23,10 +23,39 @@ $bw-palette: (
   .bw-s-#{$name} { stroke: $color; }
 }
 
+$bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
+
 .bw {
   background: #000;
   color: $white-color;
   overflow-x: clip;
+}
+
+// Section heading, shared: Inter, one phrase on a plate.
+@mixin bw-h2 {
+  font-family: $font-text;
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+.bw-plate {
+  display: inline-block;
+  padding: 0.02em 0.22em;
+  border-radius: 0.14em;
+
+  &--lavender {
+    background: $g5;
+    color: $promo-ink;
+  }
+
+  &--orange {
+    background: $orange-color;
+    color: $promo-ink;
+  }
 }
 
 /* ---- Collage hero ---- */
@@ -116,6 +145,7 @@ $bw-palette: (
   }
 }
 
+.bw-tile__live,
 .bw-tile__poster {
   display: flex;
   width: 100%;
@@ -128,8 +158,16 @@ $bw-palette: (
   }
 }
 
+.bw-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: $promo-ink;
+}
+
 // Sheet mode: phones, tablets, reduced motion. No pin, no absolute tiles.
-@media (max-width: 1023px), (prefers-reduced-motion: reduce) {
+@media #{$bw-sheet} {
   .bw-collage {
     height: auto;
     min-height: 0;
@@ -157,8 +195,85 @@ $bw-palette: (
   }
 
   .bw-tile--fieldnote-sticker,
-  .bw-tile--badge {
+  .bw-tile--badge,
+  .bw-tile--lowtide-video {
     display: none;
+  }
+}
+
+/* ---- Pixel test ---- */
+.bw-pixel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $white-color;
+  overflow: hidden;
+
+  &__still,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__canvas {
+    display: block;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    opacity: 0;
+
+    &.is-live {
+      opacity: 1;
+    }
+  }
+
+  &__label {
+    position: absolute;
+    left: 7%;
+    bottom: 6%;
+    font-family: $font-text;
+    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $promo-ink;
+  }
+}
+
+/* ---- 3D card ---- */
+.bw-card3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: $promo-ink;
+  overflow: hidden;
+  cursor: pointer;
+
+  &__still,
+  &__canvas {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  &.is-live &__still {
+    opacity: 0;
+  }
+
+  &__hint {
+    position: absolute;
+    left: 7%;
+    bottom: 6%;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $white-color;
+    opacity: 0.7;
+    pointer-events: none;
   }
 }
 
@@ -176,9 +291,471 @@ $bw-palette: (
   }
 }
 
+/* ---- Type stage ---- */
+.bw-type {
+  margin: 0 $edge-pad;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
+  border-radius: 24px;
+  background: $promo-ink;
+  color: $white-color;
+
+  &__head {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    max-width: 60ch;
+  }
+
+  &__title {
+    @include bw-h2;
+    color: $white-color;
+  }
+
+  &__lede {
+    margin: 0;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(254, 247, 237, 0.65);
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  &__pill {
+    min-height: 44px;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(254, 247, 237, 0.3);
+    border-radius: 999px;
+    background: transparent;
+    color: $white-color;
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $orange-color;
+      color: $orange-color;
+    }
+
+    &.is-on {
+      background: $orange-color;
+      border-color: $orange-color;
+      color: $promo-ink;
+    }
+  }
+
+  &__word {
+    margin: clamp(1rem, 3vw, 2.5rem) auto;
+
+    .text-pressure-title {
+      color: $white-color;
+    }
+  }
+
+  &__faces {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(254, 247, 237, 0.15);
+
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__display {
+    margin: 0;
+    font-family: 'SCS Display', 'SCS Display Fallback', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 1;
+    color: $g5;
+  }
+
+  &__weights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
+    line-height: 1.5;
+
+    li {
+      display: flex;
+      gap: 1rem;
+      align-items: baseline;
+    }
+  }
+
+  &__w {
+    flex: 0 0 3.5ch;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    color: rgba(254, 247, 237, 0.5);
+  }
+}
+
+/* ---- Process stage ---- */
+.bw-stage {
+  position: relative;
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  height: calc(100svh - var(--bw-top, 0px));
+  min-height: 600px;
+  border-radius: 24px;
+  background: $white-color;
+  color: $promo-ink;
+  overflow: hidden;
+
+  &__h {
+    position: absolute;
+    top: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(1.5rem, 3vw, 2.5rem);
+    margin: 0;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+}
+
+.bw-state {
+  position: absolute;
+  inset: 0;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+
+  &__title {
+    position: absolute;
+    top: clamp(1.5rem, 3vw, 2.5rem);
+    right: clamp(1.5rem, 3vw, 2.5rem);
+    margin: 0;
+    @include bw-h2;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+  }
+
+  &__n {
+    display: inline-block;
+    margin-right: 0.4em;
+    font-size: 0.7em;
+    opacity: 0.5;
+  }
+
+  &__art {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: min(44vw, 720px);
+    max-height: 72%;
+    transform: translate(-50%, -50%);
+    border-radius: 14px;
+    overflow: hidden;
+
+    svg,
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__card {
+    position: absolute;
+    top: 50%;
+    width: min(28vw, 380px);
+    padding: clamp(1.25rem, 2vw, 2rem);
+    border-radius: 14px;
+    background: #fff;
+    color: $promo-ink;
+    transform: translateY(-50%);
+
+    p {
+      margin: 0;
+      font-size: clamp(1rem, 1.25vw, 1.15rem);
+      line-height: 1.55;
+    }
+  }
+
+  &--right .bw-state__card {
+    right: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  &--left .bw-state__card {
+    left: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  &__sticker {
+    position: absolute;
+    width: min(14vw, 220px);
+    border-radius: 12px;
+    overflow: hidden;
+
+    svg,
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &--bl .bw-state__sticker {
+    left: clamp(1.5rem, 4vw, 4rem);
+    bottom: clamp(1.5rem, 4vw, 4rem);
+  }
+
+  &--tr .bw-state__sticker {
+    right: clamp(1.5rem, 4vw, 4rem);
+    top: clamp(5rem, 9vw, 7rem);
+  }
+
+  &[data-state='colour'] .bw-state__art {
+    width: min(22vw, 360px);
+  }
+}
+
+// Stacked states: phones, tablets, reduced motion.
+@media #{$bw-sheet} {
+  .bw-stage {
+    height: auto;
+    min-height: 0;
+    padding: 1rem;
+    background: transparent;
+    color: $white-color;
+
+    &__h {
+      position: static;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .bw-state {
+    position: relative;
+    inset: auto;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border-radius: 18px;
+    background: $white-color;
+    color: $promo-ink;
+
+    &__title,
+    &__art,
+    &__card,
+    &__sticker {
+      position: static;
+      width: auto;
+      max-height: none;
+      transform: none;
+    }
+
+    &__card {
+      padding: 0;
+      background: transparent;
+    }
+
+    &__sticker {
+      width: 50%;
+    }
+
+    &[data-state='colour'] .bw-state__art {
+      width: 60%;
+    }
+
+    &[data-state='system'] .bw-state__art {
+      aspect-ratio: 7 / 4;
+    }
+  }
+}
+
+/* ---- Deliverables grid ---- */
+.bw-grid {
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+  border-radius: 24px;
+  background: $promo-terra;
+  color: $promo-ink;
+
+  &__title {
+    @include bw-h2;
+    max-width: 24ch;
+  }
+
+  &__cards {
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(0.75rem, 1.5vw, 1.25rem);
+
+    @media (max-width: 1023px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (max-width: 599px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: 16px;
+    background: $white-color;
+  }
+
+  &__demo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+    overflow: hidden;
+    background: $promo-ink;
+
+    svg,
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &--tall {
+      aspect-ratio: 9 / 16;
+      max-height: 320px;
+      width: auto;
+      margin: 0 auto;
+    }
+
+    &--drag {
+      background: $g5;
+      touch-action: none;
+    }
+
+    &--hover {
+      display: grid;
+      place-items: center;
+      background: $white-color;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background: $orange-color;
+      }
+    }
+  }
+
+  &__sticker {
+    position: absolute;
+    left: 30%;
+    top: 20%;
+    width: 40%;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: grab;
+    will-change: transform;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  &__big {
+    font-family: $font-text;
+    font-size: clamp(1.8rem, 3vw, 2.8rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    color: $promo-ink;
+  }
+
+  &__cap {
+    margin: 0 0.25rem 0.25rem;
+    font-size: 0.95rem;
+    line-height: 1.5;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+/* ---- Client bubbles ---- */
+.bw-bubbles {
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);
+  border-radius: 24px;
+  background: $blue-color;
+  color: #fff;
+
+  &__title {
+    @include bw-h2;
+    color: #fff;
+    text-align: center;
+  }
+
+  &__field {
+    position: relative;
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    padding: 0;
+    height: clamp(360px, 40vw, 520px);
+  }
+}
+
+.bw-bubble {
+  position: absolute;
+  max-width: min(38%, 420px);
+  padding: 0.9rem 1.1rem;
+  border-radius: 16px 16px 16px 4px;
+  background: #fff;
+  color: $promo-ink;
+  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+  line-height: 1.45;
+
+  q {
+    quotes: none;
+  }
+
+  &__who {
+    display: block;
+    margin-top: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+}
+
+@media (max-width: 767px) {
+  .bw-bubbles__field {
+    height: auto;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .bw-bubble {
+    position: static;
+    max-width: none;
+  }
+}
+
 /* ---- Two circles ---- */
 .bw-circles {
-  margin: 0 $edge-pad;
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
   padding: clamp(2rem, 5vw, 4rem);
   border-radius: 24px;
   background: $white-color;
@@ -186,23 +763,7 @@ $bw-palette: (
 }
 
 .bw-circles__title {
-  font-family: $font-text;
-  font-size: clamp(2rem, 4.2vw, 3.5rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin: 0;
-}
-
-.bw-plate {
-  display: inline-block;
-  padding: 0.02em 0.22em;
-  border-radius: 0.14em;
-
-  &--lavender {
-    background: $g5;
-    color: $promo-ink;
-  }
+  @include bw-h2;
 }
 
 .bw-circles__row {

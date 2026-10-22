@@ -2,8 +2,26 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import ServicePoster from '../servicePoster/ServicePoster';
 import useCollageScroll from './useCollageScroll';
+import usePosterEngine from '../servicePoster/usePosterEngine';
+import VideoTile from './VideoTile';
+import PixelTile from './PixelTile';
 import { TILES } from './tiles/layout';
 import * as ART from './tiles/concepts';
+import * as LIVE from './tiles/live';
+
+// A tile with a `create` in tiles/live.js runs on the poster engine: the
+// SVG answers the pointer and breathes while in view; the SSR drawing is
+// its rest state, so nothing is lost without JS or under reduced motion.
+function LiveArt({ art }) {
+  const wrapRef = useRef(null);
+  const Art = ART[art];
+  usePosterEngine({ wrapRef, cardRef: wrapRef, create: LIVE[art] });
+  return (
+    <div ref={wrapRef} className="bw-tile__live">
+      <Art />
+    </div>
+  );
+}
 
 /* The collage hero. The SSR markup is the start state: headline in the
    middle, tiles peeking in from the edges at their `sx/sy`. On a wide
@@ -11,8 +29,16 @@ import * as ART from './tiles/concepts';
    own vector to `ex/ey` (useCollageScroll). Under 1024px, or with reduced
    motion, the stage does not pin and the tiles flow into a sheet under the
    headline (brandWorld.scss), so no state is ever hidden behind JS. */
-function Tile({ tile }) {
+function TileBody({ tile }) {
+  if (tile.kind === 'video') return <VideoTile src={tile.src} poster={tile.poster} label={tile.label} />;
+  if (tile.kind === 'pixel') return <PixelTile />;
+  if (tile.art === 'Register') return <RegisterTile />;
+  if (LIVE[tile.art]) return <LiveArt art={tile.art} />;
   const Art = ART[tile.art];
+  return <Art />;
+}
+
+function Tile({ tile }) {
   // Custom properties, not left/top, so the sheet mode (phones, reduced
   // motion) can drop the positioning in CSS without fighting inline styles.
   const style = {
@@ -24,7 +50,7 @@ function Tile({ tile }) {
   };
   return (
     <div className={`bw-tile bw-tile--${tile.id}`} style={style} data-tile={tile.id}>
-      {tile.art === 'Register' ? <RegisterTile /> : <Art />}
+      <TileBody tile={tile} />
     </div>
   );
 }
