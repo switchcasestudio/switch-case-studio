@@ -35,7 +35,7 @@ const COPY = {
 // derived from pricingData (same slug→id map as PricingPage) so the index
 // stays in sync with real pricing instead of a duplicated hardcoded number.
 const SLUG_TO_ID = {
-  'design-branding': 'design-branding',
+  'brand-identity': 'design-branding',
   'web-development': 'web-development',
   'ai-development': 'ai-development',
   'marketing-ads': 'marketing-advertisement',

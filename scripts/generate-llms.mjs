@@ -57,6 +57,7 @@ ${[
   link('About', '/about', 'The team, how a project runs, and the stack'),
   link('Case studies', '/projects', 'Every project, grouped by type'),
   link('Services and pricing', '/pricing', `All ${services.length} services and their packages`),
+  link('Brand identity service', '/services/brand-identity', 'What a brand identity from the studio looks like, shown not told'),
   link('Client reviews', '/testimonials'),
   link('Shop', '/shop', 'WordPress themes and one-to-one office hours'),
   link('Contact', '/contact', 'Book a strategy call or send a message'),

@@ -145,6 +145,36 @@
   to = "/pricing"
   status = 301
 
+# Service worlds (2026-10-22): /services/<slug> is the experience page and
+# /pricing/<slug> the number. Brand Identity is the first world; the other
+# three 301 to pricing until theirs exists. The Brand Identity slug changed
+# from design-branding to brand-identity the same day (it was live, in the
+# sitemap and linked from three posts).
+[[redirects]]
+  from = "/pricing/design-branding"
+  to = "/pricing/brand-identity"
+  status = 301
+
+[[redirects]]
+  from = "/services/design-branding"
+  to = "/services/brand-identity"
+  status = 301
+
+[[redirects]]
+  from = "/services/web-development"
+  to = "/pricing/web-development"
+  status = 301
+
+[[redirects]]
+  from = "/services/ai-development"
+  to = "/pricing/ai-development"
+  status = 301
+
+[[redirects]]
+  from = "/services/marketing-ads"
+  to = "/pricing/marketing-ads"
+  status = 301
+
 [[redirects]]
   from = "/pricing/automation-integrations"
   to = "/pricing/ai-development"

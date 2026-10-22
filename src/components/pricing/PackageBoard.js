@@ -26,7 +26,7 @@ import "../../styles/components/packageBoard.scss";
      TIERS     { [tier]: { for, process, examples: [{ slug, label }] } }
      NOTE      an optional line under the last board. */
 const BOARDS = {
-  "design-branding": brandIdentity,
+  "brand-identity": brandIdentity,
   "web-development": webDevelopment,
   "ai-development": aiAutomation,
   "marketing-advertisement": seoSearch,

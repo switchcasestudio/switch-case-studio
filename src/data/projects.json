@@ -31,7 +31,7 @@
       { "value": "−61%", "label": "product page DOM elements, 2,009 to 788" }
     ],
     "description": "Prodani Miami sells high-protein cakes on Shopify. We rebuilt the store as a bespoke theme on Dawn 16 in August, then relaunched it as v2 on 8 October: a calm champagne palette, a seven-cake menu, a box builder and subscriptions. The original theme and v2 went through the same instrument on the same day (five interleaved runs per page, cache disabled, headless Chrome at 1150 × 1000), so every figure here is measured, not estimated. Alongside the store we shaped the brand direction, packaging and trade show presence.",
-    "servicePages": ["web-development", "design-branding"],
+    "servicePages": ["web-development", "brand-identity"],
     "services": [
       { "label": "#Brand Direction" },
       { "label": "#Shopify Theme Development" },
@@ -165,7 +165,7 @@
       { "value": "18", "label": "requests to load the whole homepage, analytics included" }
     ],
     "description": "My Challah Dealer is a one-person home bakery in Portland that sells one thing: challah for Shabbat, picked up on Fridays. We designed the brand and built the business around it. The identity is a full logo system: badge, braid mark, two lockups, wordmark, die-cut sticker, a bread-clip secondary mark and a six-shape sticker set, with print files for a clip-shaped business card and a bag stamp. The website is one React page set in that identity, with a three-step order form. Every order lands in a Google Sheet and sends two emails: a confirmation to the customer and an alert to the owner. Live on mychallahdealer.com since September 2026.",
-    "servicePages": ["design-branding", "web-development"],
+    "servicePages": ["brand-identity", "web-development"],
     "services": [
       { "label": "#Brand Identity" },
       { "label": "#Logo Design" },
@@ -375,7 +375,7 @@
       { "value": "1 in 13", "label": "visits end in a book-appointment click (GA4, Jul–Aug 2026)" }
     ],
     "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then measured the result with Google's own tools. Lighthouse scores the site 100/100 on SEO and best practices and 99/100 on desktop performance. On mobile the homepage's main image went from 13.5 seconds to 4.1, and the page from 4.2 MB to 1.2. Twenty-five pages carried no H1 and thirty-five images had no alt text; both are now zero. Then Google responded. Across two 28-day Search Console windows, before and after the work, impressions rose 15% and the homepage moved from position 13.2 to 7.0, page two to page one. The practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\", and calls from its Google Business Profile rose from 57 in June to 78 in August, nearly triple August 2025's 27. One figure comes from the site's own analytics and is labelled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
-    "servicePages": ["design-branding", "web-development", "marketing-ads"],
+    "servicePages": ["brand-identity", "web-development", "marketing-ads"],
     "services": [
       { "label": "#Brand Design" },
       { "label": "#Brand Strategy" },
@@ -500,7 +500,7 @@
       { "value": "Website + LP", "label": "marketing site and campaign page delivered together" }
     ],
     "description": "A marketing website and landing page for a Florida-based contractor marketing company. The core job: turn a complicated lead-generation offer (stop paying for leads, start paying for appointments) into a page that contractors immediately understand and trust. We built the positioning, copy structure, and full front-end, then applied that same clear-offer architecture to their campaign landing pages.",
-    "servicePages": ["design-branding", "web-development"],
+    "servicePages": ["brand-identity", "web-development"],
     "services": [
       { "label": "#Branding" },
       { "label": "#Website Design" },
@@ -610,7 +610,7 @@
       { "value": "827KB", "label": "homepage on a phone, product photography included, in 28 requests" }
     ],
     "description": "Sha Design Studio is the portfolio of Shiran Bar Hayon, an industrial designer of toys and baby products (Shenkar, then HAPE, then Tiny Love, now her own studio). We designed the brand and built the site, then in October 2026 rebuilt both on brand kit v3: a cream canvas, three primaries, navy text and a single typeface. She asked for a calmer, cleaner site, so every tilt and wobble went, and the products she shipped, photographed in use, now carry the page.",
-    "servicePages": ["design-branding", "web-development"],
+    "servicePages": ["brand-identity", "web-development"],
     "services": [
       { "label": "#Branding" },
       { "label": "#Website Design" },

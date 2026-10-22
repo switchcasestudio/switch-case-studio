@@ -559,7 +559,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Ask what a logo costs and you will hear numbers from $20 to five figures. Most of that spread comes from one confusion: a logo, a brand identity and a brand system are three different things, and quotes rarely say which one they price. This guide separates them, puts sourced ranges on each, and shows what [our brand identity packages](/pricing/design-branding) include."
+        "text": "Ask what a logo costs and you will hear numbers from $20 to five figures. Most of that spread comes from one confusion: a logo, a brand identity and a brand system are three different things, and quotes rarely say which one they price. This guide separates them, puts sourced ranges on each, and shows what [our brand identity packages](/pricing/brand-identity) include."
       },
       {
         "type": "heading",
@@ -674,7 +674,7 @@
       },
       {
         "type": "link",
-        "url": "/pricing/design-branding",
+        "url": "/pricing/brand-identity",
         "label": "See the Brand Identity packages",
         "note": "Published prices, from $750"
       }
@@ -947,7 +947,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the [brand job](/pricing/design-branding). The rest is usability. Good website typography handles both without making the customer work for either. For an identity and site designed as one system, see [My Challah Dealer](/projects/my-challah-dealer)."
+        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the [brand job](/pricing/brand-identity). The rest is usability. Good website typography handles both without making the customer work for either. For an identity and site designed as one system, see [My Challah Dealer](/projects/my-challah-dealer)."
       }
     ]
   },
@@ -1081,7 +1081,7 @@
         "type": "list",
         "items": [
           "[SEO](/pricing/marketing-ads): search visibility, Search Console, site structure, local pages.",
-          "[Design](/pricing/design-branding): layout, type, hierarchy, a second pair of eyes on something you made.",
+          "[Design](/pricing/brand-identity): layout, type, hierarchy, a second pair of eyes on something you made.",
           "[Code](/pricing/web-development): front end, WordPress themes and blocks, small automations.",
           "WordPress: setup, themes, WooCommerce, and what is worth a plugin."
         ]
@@ -1493,7 +1493,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. [Ours run from one page to fifteen](/pricing/design-branding), depending on what the team will open. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
+        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. [Ours run from one page to fifteen](/pricing/brand-identity), depending on what the team will open. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
       },
       {
         "type": "heading",
@@ -3166,7 +3166,7 @@
       },
       {
         "type": "paragraph",
-        "text": "When we [build a brand identity](/pricing/design-branding), we start with the promise and work outward, and the logo is the last thing we design. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark. If you are pricing the work, our [guide to what a logo and brand identity cost](/blog/how-much-does-a-logo-and-brand-identity-cost) lays out the market and our packages."
+        "text": "When we [build a brand identity](/pricing/brand-identity), we start with the promise and work outward, and the logo is the last thing we design. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark. If you are pricing the work, our [guide to what a logo and brand identity cost](/blog/how-much-does-a-logo-and-brand-identity-cost) lays out the market and our packages."
       }
     ]
   }
