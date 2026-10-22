@@ -109,7 +109,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   padding: 0.9rem 1.6rem;
   min-height: 44px;
   border-radius: 999px;
-  background: $orange-color;
+  background: $g5;
   color: $promo-ink;
   font-weight: 500;
   text-decoration: none;
@@ -117,7 +117,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 
   &:hover,
   &:focus-visible {
-    background: $g5;
+    background: $g7;
   }
 }
 
@@ -198,6 +198,47 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   .bw-tile--badge,
   .bw-tile--lowtide-video {
     display: none;
+  }
+}
+
+/* ---- Site shots: real client work in browser chrome ---- */
+.bw-shot {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  background: $white-color;
+
+  &__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    font-family: $font-text;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    color: rgba(20, 20, 20, 0.55);
+    background: $grey-color;
+
+    i {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(20, 20, 20, 0.25);
+    }
+
+    span {
+      margin-left: 6px;
+    }
+  }
+
+  img {
+    display: block;
+    flex: 1 1 auto;
+    width: 100%;
+    min-height: 0;
+    object-fit: cover;
+    object-position: top;
   }
 }
 
@@ -339,13 +380,13 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 
     &:hover,
     &:focus-visible {
-      border-color: $orange-color;
-      color: $orange-color;
+      border-color: $g5;
+      color: $g5;
     }
 
     &.is-on {
-      background: $orange-color;
-      border-color: $orange-color;
+      background: $g5;
+      border-color: $g5;
       color: $promo-ink;
     }
   }

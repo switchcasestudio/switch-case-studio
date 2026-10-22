@@ -29,7 +29,7 @@ export default function Bubbles() {
   return (
     <section ref={ref} className="bw-bubbles" aria-labelledby="bw-bubbles-title">
       <h2 id="bw-bubbles-title" className="bw-bubbles__title">
-        Once it ships, <span className="bw-plate bw-plate--orange">clients say</span>
+        Once it ships, <span className="bw-plate bw-plate--lavender">clients say</span>
       </h2>
       <ul className="bw-bubbles__field">
         {LINES.map((t, i) => (

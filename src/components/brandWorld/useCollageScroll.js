@@ -5,16 +5,39 @@ import { TILES, SCROLL_LENGTH } from './tiles/layout';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Scroll engine for the collage (2026-10-22). What the reference does, read
-   from its data: every tile has its own vector (dx, dy), its own speed and
-   a pixel delay, eased both ways, scrubbed to scroll. Here: one timeline,
-   pinned on the stage, scrub with a short lag; each tile tweens from its
-   CSS start (left/top, the SSR state) by (ex - sx, ey - sy) of the stage
-   size, with `at` as the delay and `dur` as the speed. Translation only
-   (x/y), never left/top, so the SSR position is the fallback and GSAP owns
-   the transform. Same gate as the services pan: wide pointer screens with
-   motion allowed; everything else keeps the static sheet. */
+/* Scroll engine for the collage (2026-10-22, revised the same day after the
+   owner's review: "entering but not exiting, all the same pace, and the cut
+   at the end feels like a mistake"). Each tile now gets its own vector, pace
+   and distance from a seeded random (deterministic per tile, so a reload
+   looks the same): it starts at its SSR position on the edge, aims at a
+   random point around the middle, and keeps going on that line until it is
+   fully off the opposite side. Starts are staggered, durations vary, and
+   every tile has left by 95% of the pin, so the stage empties on its own
+   and the headline comes back before the pin releases; no hard cut.
+   Translation only (x/y/rotation), never left/top. Same gate as the
+   services pan; everything else keeps the static sheet. */
 const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
+
+// mulberry32: tiny seeded PRNG, so the choreography is stable per tile.
+function rng(seed) {
+  let a = seed + 0x6d2b79f5;
+  return () => {
+    a = Math.imul(a ^ (a >>> 15), a | 1);
+    a ^= a + Math.imul(a ^ (a >>> 7), a | 61);
+    return ((a ^ (a >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Where a tile's path leaves the stage: continue from start through aim
+// until both edges are cleared by the tile's own size (in % of the stage).
+function exitPoint(t, aim, sizeX, sizeY) {
+  const dx = aim.x - t.sx;
+  const dy = aim.y - t.sy;
+  const kx = dx > 0 ? (100 + sizeX - t.sx) / dx : dx < 0 ? (-sizeX - t.sx) / dx : Infinity;
+  const ky = dy > 0 ? (100 + sizeY - t.sy) / dy : dy < 0 ? (-sizeY - t.sy) / dy : Infinity;
+  const k = Math.min(kx, ky);
+  return { x: t.sx + dx * k, y: t.sy + dy * k };
+}
 
 export default function useCollageScroll(stageRef) {
   useEffect(() => {
@@ -34,23 +57,53 @@ export default function useCollageScroll(stageRef) {
           invalidateOnRefresh: true,
         },
       });
-      TILES.forEach((t) => {
+      TILES.forEach((t, i) => {
         const el = stage.querySelector(`[data-tile="${t.id}"]`);
         if (!el) return;
+        const r = rng(i * 7919 + 17);
+        const aim = { x: 28 + r() * 44, y: 22 + r() * 56 };
+        const at = r() * 0.32;
+        const dur = Math.min(0.45 + r() * 0.5, 0.95 - at);
+        const rot0 = (r() - 0.5) * 12;
+        const rot1 = rot0 + (r() - 0.5) * 30;
         tl.fromTo(
           el,
-          { x: 0, y: 0, rotation: t.r0 || 0 },
+          { x: 0, y: 0, rotation: rot0 },
           {
-            x: () => ((t.ex - t.sx) / 100) * stage.clientWidth,
-            y: () => ((t.ey - t.sy) / 100) * stage.clientHeight,
-            rotation: t.r1 || 0,
-            duration: t.dur,
+            x: () => {
+              const sizeX = (el.offsetWidth / stage.clientWidth) * 100 + 4;
+              const sizeY = (el.offsetHeight / stage.clientHeight) * 100 + 4;
+              return ((exitPoint(t, aim, sizeX, sizeY).x - t.sx) / 100) * stage.clientWidth;
+            },
+            y: () => {
+              const sizeX = (el.offsetWidth / stage.clientWidth) * 100 + 4;
+              const sizeY = (el.offsetHeight / stage.clientHeight) * 100 + 4;
+              return ((exitPoint(t, aim, sizeX, sizeY).y - t.sy) / 100) * stage.clientHeight;
+            },
+            rotation: rot1,
+            duration: dur,
           },
-          t.at,
+          at,
         );
+        // A scrubbed video runs its whole length over the tile's flight.
+        if (t.scrub) {
+          const video = el.querySelector('video');
+          if (video) {
+            const proxy = { p: 0 };
+            const seek = () => {
+              if (video.duration) video.currentTime = proxy.p * (video.duration - 0.05);
+            };
+            // Metadata may land after the first updates: apply the last
+            // position once the file knows its length.
+            video.addEventListener('loadedmetadata', seek, { once: true });
+            tl.to(proxy, { p: 1, duration: dur, ease: 'none', onUpdate: seek }, at);
+          }
+        }
       });
-      // The copy stays put and dims as the tiles run over it.
-      tl.to(stage.querySelector('.bw-collage__copy'), { opacity: 0.25, duration: 0.5 }, 0.45);
+      // The copy dims while the tiles run over it and returns as they leave.
+      const copy = stage.querySelector('.bw-collage__copy');
+      tl.to(copy, { opacity: 0.2, duration: 0.3 }, 0.25);
+      tl.to(copy, { opacity: 1, duration: 0.2 }, 0.8);
       return () => tl.scrollTrigger && tl.scrollTrigger.kill();
     });
     return () => mm.revert();

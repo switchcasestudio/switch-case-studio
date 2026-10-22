@@ -146,6 +146,29 @@ export function HumGlyph(svg, api) {
   };
 }
 
+/* The star seal in two and a half dimensions: stacked copies of the star
+   slide apart under the hand, the top one turns. */
+export function SealStar(svg, api) {
+  const layers = qa(svg, 'layer').map((el, i) => ({ w: writer(el), d: i }));
+  const n = layers.length;
+  const top = writer(q(svg, 'top'));
+  const spark = writer(q(svg, 'spark'));
+  return {
+    tick(t) {
+      const { x, y, h } = P(api);
+      // Idle: a slow wobble; hover: the stack leans toward the hand.
+      const ox = Math.sin(t * 0.9) * 2 * (1 - h) + x * 22 * h;
+      const oy = Math.cos(t * 0.7) * 2 * (1 - h) - y * 22 * h;
+      layers.forEach((l) => {
+        const k = (n - l.d) / n;
+        l.w(`translate(${f(-ox * k * 0.9)} ${f(-oy * k * 0.9)})`);
+      });
+      top(`translate(${f(ox * 0.3)} ${f(oy * 0.3)}) rotate(${f((t / 24) * 360 + x * 20 * h)} 388 374)`);
+      spark(`rotate(${f(-(t / 6) * 360)} 388 374)`);
+    },
+  };
+}
+
 export function Badge(svg, api) {
   const all = writer(svg);
   return {

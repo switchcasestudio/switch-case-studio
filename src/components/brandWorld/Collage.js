@@ -29,8 +29,25 @@ function LiveArt({ art }) {
    own vector to `ex/ey` (useCollageScroll). Under 1024px, or with reduced
    motion, the stage does not pin and the tiles flow into a sheet under the
    headline (brandWorld.scss), so no state is ever hidden behind JS. */
+// A real client site in a drawn browser frame: the reference's "real life"
+// tiles. Images are the case-study previews the site already ships.
+function SiteShot({ tile }) {
+  return (
+    <div className="bw-shot">
+      <div className="bw-shot__bar" aria-hidden="true">
+        <i />
+        <i />
+        <i />
+        <span>{tile.caption}</span>
+      </div>
+      <img src={tile.src} alt={tile.label} loading="lazy" width="600" height="375" />
+    </div>
+  );
+}
+
 function TileBody({ tile }) {
-  if (tile.kind === 'video') return <VideoTile src={tile.src} poster={tile.poster} label={tile.label} />;
+  if (tile.kind === 'video') return <VideoTile src={tile.src} poster={tile.poster} label={tile.label} scrub={!!tile.scrub} />;
+  if (tile.kind === 'shot') return <SiteShot tile={tile} />;
   if (tile.kind === 'pixel') return <PixelTile />;
   if (tile.art === 'Register') return <RegisterTile />;
   if (LIVE[tile.art]) return <LiveArt art={tile.art} />;

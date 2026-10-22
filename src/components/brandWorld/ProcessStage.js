@@ -3,7 +3,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import VideoTile from './VideoTile';
 import PixelTile from './PixelTile';
-import { Badge, LowtideColour, LowtideMark, MeridianType, StudioNote } from './tiles/concepts';
+import { LowtideColour, SealStar, MeridianType, StudioNote } from './tiles/concepts';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,9 +39,9 @@ const STATES = [
     side: 'left',
     corner: 'tr',
     Art: () => <VideoTile src="/brand-world/hatch-loop.mp4" poster="/brand-world/hatch-loop.jpg" label="Hatch mark, drawn then recoloured" />,
-    Sticker: () => <Badge />,
+    Sticker: () => <SealStar />,
     artRatio: '16/9',
-    stickerRatio: '1',
+    stickerRatio: '776/748',
   },
   {
     key: 'type',

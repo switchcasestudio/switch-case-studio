@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
 import VideoTile from './VideoTile';
-import { FieldnoteSticker, HatchMark, LowtideMark } from './tiles/concepts';
+import { HumPoster, LowtideMark, StickerSheet } from './tiles/concepts';
 
 gsap.registerPlugin(Draggable);
 
@@ -41,7 +41,7 @@ export default function Deliverables() {
   return (
     <section className="bw-grid" aria-labelledby="bw-grid-title">
       <h2 id="bw-grid-title" className="bw-grid__title">
-        <span className="bw-plate bw-plate--orange">Everything you get</span> is on this page.
+        <span className="bw-plate bw-plate--lavender">Everything you get</span> is on this page.
       </h2>
       <ul className="bw-grid__cards">
         <li className="bw-grid__card">
@@ -59,35 +59,35 @@ export default function Deliverables() {
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
-            <VideoTile src="/brand-world/hum-loop.mp4" poster="/brand-world/hum-loop.jpg" label="Hum loop" />
+          <div className="bw-grid__demo" style={{ aspectRatio: '16/9' }}>
+            <VideoTile src="/brand-world/guide-loop.mp4" poster="/brand-world/guide-loop.jpg" label="Brand guide pages turning" />
           </div>
           <p className="bw-grid__cap">
-            <strong>Motion.</strong> A short loop for the site, the socials and the door screen.
+            <strong>Guidelines.</strong> A short PDF that says what to do, with the reasons, so it gets read.
           </p>
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
-            <HatchMark />
+            <StickerSheet />
           </div>
           <p className="bw-grid__cap">
             <strong>Logo files.</strong> SVG, PNG, PDF, in every colourway, with the clear space drawn in.
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo bw-grid__demo--tall">
-            <FieldnoteSticker />
+          <div className="bw-grid__demo bw-grid__demo--tall" style={{ aspectRatio: '400/560' }}>
+            <HumPoster />
           </div>
           <p className="bw-grid__cap">
-            <strong>Print.</strong> Cards, bookmarks, labels, with the die lines ready for the printer.
+            <strong>Print.</strong> Posters, cards, labels, with the die lines ready for the printer.
           </p>
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
-            <VideoTile src="/brand-world/hatch-loop.mp4" poster="/brand-world/hatch-loop.jpg" label="Hatch loop" />
+            <VideoTile src="/brand-world/hum-loop.mp4" poster="/brand-world/hum-loop.jpg" label="Hum loop" />
           </div>
           <p className="bw-grid__cap">
-            <strong>Guidelines.</strong> A short PDF that says what to do, with the reasons, so it gets read.
+            <strong>Motion.</strong> A short loop for the site, the socials and the door screen.
           </p>
         </li>
       </ul>
