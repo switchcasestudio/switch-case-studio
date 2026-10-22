@@ -75,6 +75,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- No highlighter plates on headings (a phrase on a coloured rounded box): it is a client's style, not the studio's (owner, 2026-10-22).
 - Read a reference site's own data (widget JSON, `__NEXT_DATA__`) before its pixels: the recording shows the result, the data shows the mechanism; and serve a static build with clean URLs when probing, or the `.html` becomes a route param (baseline 59 HTML files, 2026-10-22).
 - GA4 counts only visitors who accept the banner, so the site keeps its own cookie-free visit log: `src/analytics/visitLog.js` beacons every route view to `/api/visit` (`netlify/functions/visit.mjs`), Blobs store `site-visits`, read with `npm run visits --…
 - A site whose design is scroll motion gets a recorded scroll (`longVideo`), because a full-page screenshot of a pinned section is a blank stretch.

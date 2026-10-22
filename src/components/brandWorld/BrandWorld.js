@@ -31,7 +31,7 @@ export default function BrandWorld() {
 
       <section className="bw-circles" aria-label="Next step">
         <h2 className="bw-circles__title">
-          <span className="bw-plate bw-plate--lavender">Your mark</span> is next.
+          Your mark is next.
         </h2>
         <div className="bw-circles__row">
           <Link to="/contact" className="bw-circle bw-circle--orange">

@@ -42,21 +42,6 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   text-wrap: balance;
 }
 
-.bw-plate {
-  display: inline-block;
-  padding: 0.02em 0.22em;
-  border-radius: 0.14em;
-
-  &--lavender {
-    background: $g5;
-    color: $promo-ink;
-  }
-
-  &--orange {
-    background: $orange-color;
-    color: $promo-ink;
-  }
-}
 
 /* ---- Collage hero ---- */
 .bw-collage {

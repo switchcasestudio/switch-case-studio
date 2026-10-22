@@ -42,7 +42,7 @@ So the recipe is: fixed-position layers + scroll-scrubbed move/opacity per eleme
 
 1. **Everything is a plate.** Every unit sits on a flat, saturated, rounded rectangle. No shadows, no gradients, no borders (one exception: the yellow outline on preview tiles). Depth comes from overlap, never from shading.
 2. **Sections are cards on a canvas.** Each section is a full-width rounded rect with its own field colour, inset by a gutter from the page edge. The page background itself changes (white → yellow → grey) so blocks read as objects laid on a table, not as stripes.
-3. **One phrase per headline wears a plate.** Headline in the field's accent colour; the key phrase on a contrasting plate in a third colour. Two colours per headline, never more.
+3. **(Not adopted at SCS)** The reference sets one phrase per headline on a plate; the owner rejected it on 2026-10-22 (a client of theirs uses it). Headings stay plain.
 4. **Collage, not grid.** Tiles are real artefacts at their native aspect ratios (type specimens, photos, screenshots in browser chrome, a vertical video, a giant single glyph, a text block, a sticker). Overlap is a feature. Position is a function of scroll.
 5. **Scroll is the clock.** Hero = scrubbed pans. Card row = pinned horizontal pan. Feature stage = pinned, discrete states, crossfaded. Everything else is static. The only motion not driven by scroll is inside a demo (a mockup's own loop, a video).
 6. **Discrete states, soft edges.** The stage never tweens continuously between features; it switches, and the switch is a 0.3 s crossfade of colour, a fade/scale of the artefact, a slide of the card and the sticker. Clear beats, soft transitions.

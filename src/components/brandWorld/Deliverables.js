@@ -41,7 +41,7 @@ export default function Deliverables() {
   return (
     <section className="bw-grid" aria-labelledby="bw-grid-title">
       <h2 id="bw-grid-title" className="bw-grid__title">
-        <span className="bw-plate bw-plate--lavender">Everything you get</span> is on this page.
+        Everything you get is on this page.
       </h2>
       <ul className="bw-grid__cards">
         <li className="bw-grid__card">
