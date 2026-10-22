@@ -1,5 +1,129 @@
 [
   {
+    "slug": "how-to-write-an-about-page-that-builds-trust",
+    "title": "How to Write an About Page That Builds Trust",
+    "excerpt": "A useful About page replaces vague brand language with the facts, people, proof, and next step a potential customer needs to trust the business.",
+    "kicker": "Web Design",
+    "category": "Web Design",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-22",
+    "readingTime": "4 min read",
+    "coverImage": "",
+    "imageAlt": "",
+    "tags": [
+      "UX",
+      "Trust",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "An About page is often written like a company introduction at a networking event: a little history, a broad mission, and several polite claims about quality. That is understandable. It is also rarely what a potential customer needs."
+      },
+      {
+        "type": "paragraph",
+        "text": "Someone opens an About page because they are checking the business behind the offer. They want to know whether the company is real, whether the people understand the work, and whether the experience will match the promise. The page should reduce that uncertainty with useful facts, not ask the reader to admire a brand manifesto."
+      },
+      {
+        "type": "heading",
+        "text": "Start with what the business actually does"
+      },
+      {
+        "type": "paragraph",
+        "text": "The first screen should identify the business in plain language. State what you provide, who it is for, and where you work when location matters. A visitor should not have to translate a tagline before learning whether they are in the right place."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is not merely a copy preference. [Google's guidance on helpful, reliable content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content) asks whether a site gives readers background about the organization publishing it, including through an About page. Clear company information helps people evaluate the source. It also gives search systems coherent facts to connect with the rest of the site."
+      },
+      {
+        "type": "quote",
+        "text": "Your About page is not a biography assignment. It is a trust check with a human face.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Give the reader a useful five-part answer"
+      },
+      {
+        "type": "paragraph",
+        "text": "Most small-business About pages do not need a complicated narrative. They need a clear sequence that answers the questions a careful buyer is already asking."
+      },
+      {
+        "type": "list",
+        "items": [
+          "What does this business do, and who does it help?",
+          "Who is responsible for the work or customer experience?",
+          "What experience, method, or point of view shapes the work?",
+          "What specific evidence supports the claims being made?",
+          "What should an interested visitor do next?"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "That structure leaves room for personality without sacrificing clarity. A bakery can explain why it uses a particular process. A contractor can describe the kinds of projects the crew knows best. A consultant can explain how engagements are run. The story earns its space when it helps a customer understand the service."
+      },
+      {
+        "type": "heading",
+        "text": "Show real people without manufacturing intimacy"
+      },
+      {
+        "type": "paragraph",
+        "text": "Use the names and roles of the people a customer is likely to meet. A current photograph is more useful than a generic team image. If the business is one person, say so plainly. A solo studio does not become more credible by writing like a multinational company."
+      },
+      {
+        "type": "paragraph",
+        "text": "Keep biographies relevant to the buying decision. A few sentences about experience, responsibility, and working style usually do more than a long life story. Credentials belong here when they matter to the service. So do licenses, professional memberships, and specialties, but only when they are accurate and current."
+      },
+      {
+        "type": "heading",
+        "text": "Put proof next to the claim"
+      },
+      {
+        "type": "paragraph",
+        "text": "Words such as trusted, experienced, local, and award-winning are not proof by themselves. Replace them with details a visitor can inspect. Link to relevant work. Name the service area. Explain the process. Show a small number of specific testimonials with permission. If a certification can be verified, link to the organization that issued it."
+      },
+      {
+        "type": "paragraph",
+        "text": "Proof should be proportional to the claim. If you say the business has served Portland for twenty years, the date and location are the evidence. If you say your process is unusually responsive, explain who replies and what the client can expect. Do not borrow authority with rows of logos that have no context."
+      },
+      {
+        "type": "heading",
+        "text": "Keep contact details consistent and reachable"
+      },
+      {
+        "type": "paragraph",
+        "text": "An About page should connect naturally to a real contact path. The [U.S. Small Business Administration's website guidance](https://www.sba.gov/blog/2018/2018-04/5-essential-pages-your-small-business-website/) emphasizes getting to the point about the business and making essential contact information available. For a service-area business, that may mean an email address, phone number, service region, and hours rather than a public storefront address."
+      },
+      {
+        "type": "paragraph",
+        "text": "Check that the business name, location, phone number, and hours agree with the contact page and public profiles. Small inconsistencies create unnecessary doubt. A broken contact link underneath a paragraph about attentive service is a particularly efficient way to lose the argument."
+      },
+      {
+        "type": "heading",
+        "text": "End with one sensible next step"
+      },
+      {
+        "type": "paragraph",
+        "text": "The reader has finished checking who you are. Give them a next step that matches that moment: view the services, see selected work, book a consultation, visit the shop, or send a question. One clear route is enough. A newsletter signup, five social icons, a phone number, and two competing buttons turn confidence into homework."
+      },
+      {
+        "type": "heading",
+        "text": "Audit the page once a year"
+      },
+      {
+        "type": "paragraph",
+        "text": "About pages age quietly. Team members change, service areas expand, old certifications expire, and a founding story that once felt current becomes disconnected from the business customers meet. Review the page at least annually and whenever the company changes its offer, ownership, location, or public contact details."
+      },
+      {
+        "type": "paragraph",
+        "text": "A good About page does not need to sound grand. It needs to sound true. Name the business, show the people, support the claims, and make the next step obvious. Credibility usually comes from several ordinary details agreeing with one another."
+      }
+    ]
+  },
+  {
     "slug": "how-to-automate-client-onboarding-without-going-cold",
     "title": "Automate Client Onboarding Without Going Cold",
     "excerpt": "A useful onboarding workflow removes repetitive admin while keeping judgment, reassurance, and exceptions in human hands.",
