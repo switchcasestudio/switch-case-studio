@@ -6,7 +6,10 @@ import TextPressure from '../ui/TextPressure';
    touch it runs off the scroll. The name pills swap the word. Under it,
    the two faces every concept on this page uses, at the weights they ship. */
 const NAMES = ['Hatch', 'Lowtide', 'Meridian', 'Fieldnote', 'Hum'];
-const WEIGHTS = [300, 400, 500, 600, 700, 800];
+// Roboto Flex has a continuous weight axis (100 to 1000), so the ramp uses
+// steps a reader can tell apart. Inter's static 400/500 and 600/700 pairs
+// could not (owner, 2026-10-22).
+const WEIGHTS = [100, 300, 500, 700, 900];
 
 export default function TypeStage() {
   const [name, setName] = useState(NAMES[0]);
@@ -45,7 +48,7 @@ export default function TypeStage() {
         <p className="bw-type__display">Aa Bb Cc 0123</p>
         <ul className="bw-type__weights">
           {WEIGHTS.map((w) => (
-            <li key={w} style={{ fontWeight: w }}>
+            <li key={w} style={{ fontVariationSettings: `'wght' ${w}` }}>
               <span className="bw-type__w">{w}</span> Fixed at 7 am. Rolling by noon.
             </li>
           ))}

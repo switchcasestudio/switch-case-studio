@@ -45,46 +45,58 @@ export default function Deliverables() {
       </h2>
       <ul className="bw-grid__cards">
         <li className="bw-grid__card">
-          <DragCard />
+          <div className="bw-grid__stage">
+            <DragCard />
+          </div>
           <p className="bw-grid__cap">
             <strong>Sticker sheets.</strong> Drag it. It comes back the same, which is the whole point of a mark.
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo bw-grid__demo--hover" data-cursor-color="#ff834a">
+          <div className="bw-grid__stage">
+            <div className="bw-grid__demo bw-grid__demo--hover" data-cursor-color="#ff834a">
             <span className="bw-grid__big">Hover me</span>
+          </div>
           </div>
           <p className="bw-grid__cap">
             <strong>Custom cursor and hover rules.</strong> The small things a site does when nobody is watching.
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo" style={{ aspectRatio: '16/9' }}>
+          <div className="bw-grid__stage">
+            <div className="bw-grid__demo" style={{ aspectRatio: '16/9' }}>
             <VideoTile src="/brand-world/guide-loop.mp4" poster="/brand-world/guide-loop.jpg" label="Brand guide pages turning" />
+          </div>
           </div>
           <p className="bw-grid__cap">
             <strong>Guidelines.</strong> A short PDF that says what to do, with the reasons, so it gets read.
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
+          <div className="bw-grid__stage">
+            <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
             <StickerSheet />
+          </div>
           </div>
           <p className="bw-grid__cap">
             <strong>Logo files.</strong> SVG, PNG, PDF, in every colourway, with the clear space drawn in.
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo bw-grid__demo--tall" style={{ aspectRatio: '400/560' }}>
+          <div className="bw-grid__stage">
+            <div className="bw-grid__demo bw-grid__demo--tall" style={{ aspectRatio: '400/560' }}>
             <HumPoster />
+          </div>
           </div>
           <p className="bw-grid__cap">
             <strong>Print.</strong> Posters, cards, labels, with the die lines ready for the printer.
           </p>
         </li>
         <li className="bw-grid__card">
-          <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
+          <div className="bw-grid__stage">
+            <div className="bw-grid__demo" style={{ aspectRatio: '1' }}>
             <VideoTile src="/brand-world/hum-loop.mp4" poster="/brand-world/hum-loop.jpg" label="Hum loop" />
+          </div>
           </div>
           <p className="bw-grid__cap">
             <strong>Motion.</strong> A short loop for the site, the socials and the door screen.
