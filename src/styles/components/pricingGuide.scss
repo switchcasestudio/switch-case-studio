@@ -31,6 +31,24 @@
   @include page-lede;
 }
 
+// The way to the service's own page, where it has one (PricingGuide.js).
+.pg-head__work {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 0.75rem;
+  color: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration-thickness: 2px;
+  }
+}
+
 // Stack of SinglePricingCards (one per tier).
 .pg-cards {
   position: relative;

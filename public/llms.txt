@@ -6,9 +6,9 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 ## Services
 
-- [Brand Identity](https://switchcasestudio.com/pricing/brand-identity): A visual system that makes your business unmistakable
-- [Web Development](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, stores and mobile apps built to convert, then kept running
-- [AI & Automation](https://switchcasestudio.com/pricing/ai-development): Assistants, agents, and workflows that run your operations
+- [Graphic Design & Brand Identity](https://switchcasestudio.com/services/brand-identity): A visual system that makes your business unmistakable
+- [Web Development & Mobile Apps](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, stores and mobile apps built to convert, then kept running
+- [AI & Automation](https://switchcasestudio.com/services/ai-development): Assistants, agents, and workflows that run your operations
 - [SEO & AI Search](https://switchcasestudio.com/pricing/marketing-ads): Found on Google and in AI answers, then turned into revenue
 
 ## Case studies
@@ -31,8 +31,10 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 - [About](https://switchcasestudio.com/about): The team, how a project runs, and the stack
 - [Case studies](https://switchcasestudio.com/projects): Every project, grouped by type
-- [Services and pricing](https://switchcasestudio.com/pricing): All 4 services and their packages
-- [Brand identity service](https://switchcasestudio.com/services/brand-identity): What a brand identity from the studio looks like, shown not told
+- [Services](https://switchcasestudio.com/services): All 4 services
+- [Pricing](https://switchcasestudio.com/pricing): Packages and prices for all 4 services
+- [Graphic design and brand identity service](https://switchcasestudio.com/services/brand-identity): What a brand identity from the studio looks like, shown not told
+- [AI and automation service](https://switchcasestudio.com/services/ai-development): What an assistant, an agent and a workflow from the studio do, shown running
 - [Client reviews](https://switchcasestudio.com/testimonials)
 - [Shop](https://switchcasestudio.com/shop): WordPress themes and one-to-one office hours
 - [Contact](https://switchcasestudio.com/contact): Book a strategy call or send a message

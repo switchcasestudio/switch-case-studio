@@ -138,16 +138,13 @@
 # Services consolidated 7 → 4 on 2026-09-10 (owner decision). The three
 # retired pricing pages were live and in the sitemap: 301 each to the
 # service that absorbed it. Remove a block only if that slug comes back.
-# /services duplicated /pricing and was retired 2026-09-10; /pricing is now
-# "Services & Pricing". The old page was live and in the sitemap.
-[[redirects]]
-  from = "/services"
-  to = "/pricing"
-  status = 301
+# /services was retired into /pricing on 2026-09-10 and came back on
+# 2026-10-22 as the services index (the service pages needed one), so the
+# old /services -> /pricing 301 is gone on purpose.
 
 # Service worlds (2026-10-22): /services/<slug> is the experience page and
-# /pricing/<slug> the number. Brand Identity is the first world; the other
-# three 301 to pricing until theirs exists. The Brand Identity slug changed
+# /pricing/<slug> the number. Graphic Design & Brand Identity and AI &
+# Automation have worlds; the other two 301 to pricing until theirs exists. The Brand Identity slug changed
 # from design-branding to brand-identity the same day (it was live, in the
 # sitemap and linked from three posts).
 [[redirects]]
@@ -163,11 +160,6 @@
 [[redirects]]
   from = "/services/web-development"
   to = "/pricing/web-development"
-  status = 301
-
-[[redirects]]
-  from = "/services/ai-development"
-  to = "/pricing/ai-development"
   status = 301
 
 [[redirects]]

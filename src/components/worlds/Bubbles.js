@@ -2,10 +2,10 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import testimonials from '../../data/testimonials.json';
 
-/* Client lines as speech bubbles on a blue field (2026-10-22), the
-   reference's testimonial billboard. Real reviews from testimonials.json
-   (the highlight line, first five). They float a little while in view. */
-const LINES = testimonials.slice(0, 5);
+/* Client lines as speech bubbles on a field (2026-10-22), the reference's
+   testimonial billboard. Real reviews from testimonials.json (the highlight
+   line, five from `offset`, so two worlds show different voices). They
+   float a little while in view. */
 const SPOTS = [
   { l: 4, t: 8 },
   { l: 54, t: 4 },
@@ -14,7 +14,8 @@ const SPOTS = [
   { l: 28, t: 74 },
 ];
 
-export default function Bubbles() {
+export default function Bubbles({ title, offset = 0 }) {
+  const lines = testimonials.slice(offset, offset + SPOTS.length);
   const ref = useRef(null);
   useEffect(() => {
     const root = ref.current;
@@ -29,10 +30,10 @@ export default function Bubbles() {
   return (
     <section ref={ref} className="bw-bubbles" aria-labelledby="bw-bubbles-title">
       <h2 id="bw-bubbles-title" className="bw-bubbles__title">
-        Once it ships, clients say
+        {title}
       </h2>
       <ul className="bw-bubbles__field">
-        {LINES.map((t, i) => (
+        {lines.map((t, i) => (
           <li key={t.id} className="bw-bubble" style={{ left: `${SPOTS[i].l}%`, top: `${SPOTS[i].t}%` }}>
             <q>{t.highlight}</q>
             <span className="bw-bubble__who">{t.name}</span>

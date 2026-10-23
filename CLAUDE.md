@@ -69,13 +69,14 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l 'id="S:' build/**/*.html` matches nothing; `<h1` sits inside `<main>` on every page.
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
-- `find build -name '*.html' | wc -l` = route baseline (59 as of 2026-10-22); re-baseline in `.audit/rules.md` when routes change.
+- `find build -name '*.html' | wc -l` = route baseline (61 as of 2026-10-22); re-baseline in `.audit/rules.md` when routes change.
 - `npm run check:us` (postbuild) is clean: US English only in every built page (`scripts/check-us-english.mjs`).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily); no post with empty `coverImage`.
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- A service world is built from the shared kit in `src/components/worlds/` (two worlds live: brand, AI), each world is its own static route record ahead of the `services/:serviceSlug` redirect, and a service card lands on its world via `servicePath()`; card titles sit on a reserved notebook row; `/services` is the services index (the only dropdown) and `/pricing` the pricing index (a plain link), and a world and its pricing page link each other (owner, 2026-10-22).
 - No highlighter plates on headings (a phrase on a coloured rounded box): it is a client's style, not the studio's (owner, 2026-10-22).
 - Read a reference site's own data (widget JSON, `__NEXT_DATA__`) before its pixels: the recording shows the result, the data shows the mechanism; and serve a static build with clean URLs when probing, or the `.html` becomes a route param (baseline 59 HTML files, 2026-10-22).
 - GA4 counts only visitors who accept the banner, so the site keeps its own cookie-free visit log: `src/analytics/visitLog.js` beacons every route view to `/api/visit` (`netlify/functions/visit.mjs`), Blobs store `site-visits`, read with `npm run visits --…

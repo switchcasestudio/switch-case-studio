@@ -10,6 +10,7 @@ import RotatingProof from '../ui/RotatingProof';
 import PackageBoard, { hasPackageBoard } from '../pricing/PackageBoard';
 import BookCallCta from '../ui/BookCallCta';
 import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
+import { SERVICE_PAGES, servicePath } from '../../data/navigation';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import {
   DUR_MED,
@@ -67,7 +68,10 @@ const formatMoney = (n) =>
     maximumFractionDigits: 0,
   });
 
-export const PricingGuide = ({ serviceId }) => {
+// `serviceSlug` is the route slug (services.json); where that service has a
+// page of its own the head links it, so the number and the work link both ways.
+export const PricingGuide = ({ serviceId, serviceSlug }) => {
+  const workPath = serviceSlug && SERVICE_PAGES.includes(serviceSlug) ? servicePath(serviceSlug) : null;
   const reduced = useReducedMotion();
   const rootRef = useRef(null);
 
@@ -155,6 +159,11 @@ export const PricingGuide = ({ serviceId }) => {
           {service.title}
         </h1>
         <p className="pg-sub pg-animate">{service.subtitle}</p>
+        {workPath && (
+          <Link to={workPath} className="pg-head__work pg-animate">
+            See the work, not just the price
+          </Link>
+        )}
       </header>
 
       {/* A service with a package board (PackageBoard.js) compares its tiers

@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 import HeaderCTA from "./HeaderCTA";
 import HeaderLogo from "../ui/HeaderLogo";
 import StaggeredMenu from "./StaggeredMenu";
-import { PRICING_LINKS, PROJECT_LINKS, SERVICE_LINKS } from "../../data/navigation";
+import { PROJECT_LINKS, SERVICE_LINKS } from "../../data/navigation";
 import useReducedMotion from "../../hooks/useReducedMotion";
 import "../../styles/components/header.scss";
 
@@ -294,13 +294,12 @@ const Header = () => {
                   About
                 </Link>
               </li>
-              {/* Pricing — disclosure submenu (button, not link).
+              {/* Services — disclosure submenu (link trigger + submenu).
                   .is-open ONLY reflects activeSubmenu state.
                   Route-match highlights the trigger via .is-active below. */}
-              {/* Services and Pricing are two menus since 2026-10-22: a service
-                  page sells the work, a pricing page the packages. Both
-                  triggers open the services index until a /services index
-                  exists. */}
+              {/* Services is the one dropdown of the pair since 2026-10-22: a
+                  service page sells the work, the trigger lands on /services;
+                  Pricing below is a plain link to its index. */}
               <li
                 className={`nav_item nav_item--has-submenu ${
                   activeSubmenu === "services" ? "is-open" : ""
@@ -310,7 +309,7 @@ const Header = () => {
                 onBlur={handleSubmenuBlur}
               >
                 <Link
-                  to="/pricing"
+                  to="/services"
                   className={`nav_link nav_link--trigger ${
                     isSectionActive("/services") ? "is-active" : ""
                   }`}
@@ -326,29 +325,16 @@ const Header = () => {
                 {renderSubmenu("services", SERVICE_LINKS)}
               </li>
 
-              <li
-                className={`nav_item nav_item--has-submenu ${
-                  activeSubmenu === "pricing" ? "is-open" : ""
-                }`}
-                onMouseEnter={handleSubmenuEnter("pricing")}
-                onMouseLeave={handleSubmenuLeave}
-                onBlur={handleSubmenuBlur}
-              >
+              {/* Pricing is a plain link (owner, 2026-10-22): the services
+                  dropdown is the only one of the pair; prices live on /pricing. */}
+              <li className="nav_item">
                 <Link
                   to="/pricing"
-                  className={`nav_link nav_link--trigger ${
-                    isSectionActive("/pricing") ? "is-active" : ""
-                  }`}
-                  aria-haspopup="true"
-                  aria-expanded={activeSubmenu === "pricing"}
-                  aria-controls="submenu-pricing"
-                  onFocus={handleTriggerFocus("pricing")}
-                  onClick={() => setActiveSubmenu(null)}
+                  className={`nav_link ${isSectionActive("/pricing") ? "is-active" : ""}`}
+                  aria-current={isActive("/pricing") ? "page" : undefined}
                 >
                   Pricing
-                  <span className="nav_caret" aria-hidden="true" />
                 </Link>
-                {renderSubmenu("pricing", PRICING_LINKS)}
               </li>
 
               {/* Case Studies — disclosure with a primary route */}

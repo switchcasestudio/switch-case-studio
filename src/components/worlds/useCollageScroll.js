@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { TILES, SCROLL_LENGTH } from './tiles/layout';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* Scroll engine for the collage (2026-10-22, revised the same day after the
-   owner's review: "entering but not exiting, all the same pace, and the cut
-   at the end feels like a mistake"). Each tile now gets its own vector, pace
-   and distance from a seeded random (deterministic per tile, so a reload
-   looks the same): it starts at its SSR position on the edge, aims at a
-   random point around the middle, and keeps going on that line until it is
-   fully off the opposite side. Starts are staggered, durations vary, and
-   every tile has left by 95% of the pin, so the stage empties on its own
-   and the headline comes back before the pin releases; no hard cut.
-   Translation only (x/y/rotation), never left/top. Same gate as the
-   services pan; everything else keeps the static sheet. */
+/* Scroll engine for a world's collage hero (2026-10-22, revised the same
+   day after the owner's review: "entering but not exiting, all the same
+   pace, and the cut at the end feels like a mistake"). Each tile gets its
+   own vector, pace and distance from a seeded random (deterministic per
+   tile, so a reload looks the same): it starts at its SSR position on the
+   edge, aims at a random point around the middle, and keeps going on that
+   line until it is fully off the opposite side. Starts are staggered,
+   durations vary, and every tile has left by 95% of the pin, so the stage
+   empties on its own and the headline comes back before the pin releases;
+   no hard cut. Translation only (x/y/rotation), never left/top. Same gate
+   as the services pan; everything else keeps the static sheet.
+   Shared by every world since the AI page (same day): `tiles` and the pin
+   length come in from the page's layout file. */
 const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
 // mulberry32: tiny seeded PRNG, so the choreography is stable per tile.
@@ -39,7 +40,7 @@ function exitPoint(t, aim, sizeX, sizeY) {
   return { x: t.sx + dx * k, y: t.sy + dy * k };
 }
 
-export default function useCollageScroll(stageRef) {
+export default function useCollageScroll(stageRef, tiles, scrollLength) {
   useEffect(() => {
     const stage = stageRef.current;
     if (!stage) return undefined;
@@ -50,14 +51,14 @@ export default function useCollageScroll(stageRef) {
         scrollTrigger: {
           trigger: stage,
           start: 'top top',
-          end: `+=${SCROLL_LENGTH}%`,
+          end: `+=${scrollLength}%`,
           pin: true,
           scrub: 0.6,
           anticipatePin: 1,
           invalidateOnRefresh: true,
         },
       });
-      TILES.forEach((t, i) => {
+      tiles.forEach((t, i) => {
         const el = stage.querySelector(`[data-tile="${t.id}"]`);
         if (!el) return;
         const r = rng(i * 7919 + 17);
@@ -107,5 +108,5 @@ export default function useCollageScroll(stageRef) {
       return () => tl.scrollTrigger && tl.scrollTrigger.kill();
     });
     return () => mm.revert();
-  }, [stageRef]);
+  }, [stageRef, tiles, scrollLength]);
 }

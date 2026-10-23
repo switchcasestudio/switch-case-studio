@@ -2,7 +2,7 @@
   "services": [
     {
       "id": "design-branding",
-      "title": "Brand Identity",
+      "title": "Graphic Design & Brand Identity",
       "subtitle": "Logo, system, guidelines, built to last.",
       "costGuide": { "slug": "how-much-does-a-logo-and-brand-identity-cost", "label": "What a logo and brand identity cost elsewhere" },
       "tiers": [
@@ -58,7 +58,7 @@
 
     {
       "id": "web-development",
-      "title": "Web Development",
+      "title": "Web Development & Mobile Apps",
       "subtitle": "Landing pages, sites, stores and mobile apps built to convert, then kept running.",
       "costGuide": { "slug": "how-much-does-a-small-business-website-cost", "label": "What a small business website costs elsewhere" },
       "tiers": [
