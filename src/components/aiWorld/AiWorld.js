@@ -1,13 +1,11 @@
 import { Suspense, lazy } from 'react';
-import Collage from '../worlds/Collage';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import VideoTile from '../worlds/VideoTile';
 import LiveArt from '../worlds/LiveArt';
-import FlowStage from './FlowStage';
+import WorkbenchHero from './WorkbenchHero';
 import Deliverables from './Deliverables';
-import { TILES, SCROLL_LENGTH } from './tiles/layout';
 import * as ART from './tiles/art';
 import * as LIVE from './tiles/live';
 import '../../styles/components/brandWorld.scss';
@@ -16,20 +14,13 @@ import '../../styles/components/aiWorld.scss';
 // three + fiber stay out of the page bundle until the stage is near.
 const AgentCard3D = lazy(() => import('./AgentCard3D'));
 
-/* The AI & Automation world (2026-10-22): the brand world's sibling, same
-   parts in the same order (collage, breath, the stage that shows the
-   craft, the pinned process, deliverables, client bubbles, circles, pill),
+/* The AI & Automation world (2026-10-22): the brand world's sibling,
    drawn in the owner's reference language instead of flat color plates:
    thick outlines on black, one accent (lavender), captions that open in
-   bold, and every drawing a machine that runs. The type stage of the brand
-   world becomes the workbench here. */
-const COPY = {
-  kicker: 'AI & automation',
-  title: 'It works the night shift.',
-  lede: 'Assistants trained on your docs, agents that do the follow-ups, workflows wired into the tools you already pay for. Built, hosted and watched like production software.',
-  cta: { label: 'Start an automation', to: '/contact' },
-};
-
+   bold, and every drawing a machine that runs. Since 2026-10-23 the hero is
+   the workbench (WorkbenchHero), live and answering the pointer; the
+   scroll collage stays the brand world's alone. Then the breath, the
+   pinned process, deliverables, client bubbles, circles, pill. */
 const live = (name, cls = 'aw-live') => () => <LiveArt Art={ART[name]} create={LIVE[name]} className={cls} />;
 
 const STATES = [
@@ -109,7 +100,7 @@ const STATES = [
 export default function AiWorld() {
   return (
     <div className="bw bw--ai">
-      <Collage tiles={TILES} scrollLength={SCROLL_LENGTH} art={ART} live={LIVE} label="AI and automation" copy={COPY} />
+      <WorkbenchHero />
 
       <section className="bw-breath" aria-label="About this page">
         <p>
@@ -118,7 +109,6 @@ export default function AiWorld() {
         </p>
       </section>
 
-      <FlowStage />
       <ProcessStage states={STATES} label="How an automation is built here" heading="How it gets built" />
       <Deliverables />
       <Bubbles title="Once it runs, clients say" offset={3} />

@@ -8,10 +8,6 @@
    SSR-safe, presentation attributes only; `data-p` hooks mark the parts
    tiles/live.js moves. The tile box provides the plate (aiWorld.scss),
    so these draw no background. */
-import { ScsLogo } from '../../brandWorld/tiles/concepts';
-
-export { ScsLogo };
-
 const INTER = "Inter, 'Inter Fallback', sans-serif";
 const LAVENDER = '#dab8ff';
 const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 16, strokeLinecap: 'round', strokeLinejoin: 'round' };
@@ -86,27 +82,6 @@ export function RunPill() {
   );
 }
 
-/* The circle with a slash: what stays human. */
-export function NoCircle() {
-  return (
-    <svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-      <circle cx="200" cy="200" r="150" {...S} />
-      <path data-p="slash" d="M94 94L306 306" {...S} />
-      <Label x={200} y={388} anchor="middle">KEPT HUMAN</Label>
-    </svg>
-  );
-}
-
-/* A long open arrow: the reference's connector. */
-export function LongArrow() {
-  return (
-    <svg viewBox="0 0 900 300" aria-hidden="true" focusable="false">
-      <path data-p="line" d="M60 150H790" {...S} strokeDasharray="730" strokeDashoffset="0" />
-      <path data-p="head" d="M690 86L800 150L690 214" {...S} />
-    </svg>
-  );
-}
-
 /* The clock: it runs at 3 am. */
 export function Clock() {
   return (
@@ -177,49 +152,6 @@ export function Stack() {
   );
 }
 
-/* The terminal: the log an agent writes, one line at a time. */
-export const LOG = [420, 300, 520, 260, 380];
-export function Terminal() {
-  return (
-    <svg viewBox="0 0 800 450" aria-hidden="true" focusable="false">
-      <rect x="24" y="24" width="752" height="402" rx="28" {...THIN} />
-      <path d="M24 100H776" {...THIN} />
-      {[70, 110, 150].map((x) => (
-        <circle key={x} cx={x} cy="62" r="10" fill="currentColor" />
-      ))}
-      <g data-p="log" {...THIN}>
-        {LOG.map((w, i) => (
-          <path key={w} d={`M70 ${150 + i * 50}H${70 + w}`} />
-        ))}
-      </g>
-      <rect data-p="cur" x="470" y="332" width="26" height="36" rx="4" fill={LAVENDER} />
-    </svg>
-  );
-}
-
-/* The switch: self-hosted or not. */
-export function Switch() {
-  return (
-    <svg viewBox="0 0 800 400" aria-hidden="true" focusable="false">
-      <rect data-p="track" x="100" y="110" width="600" height="160" rx="80" {...S} />
-      <circle data-p="knob" cx="180" cy="190" r="54" fill="currentColor" />
-      <Label x={100} y={340}>SELF-HOSTED</Label>
-      <text data-p="state" x="700" y="340" textAnchor="end" fill="currentColor" fontFamily={INTER} fontSize="14" fontWeight="500" letterSpacing="2">
-        OFF
-      </text>
-    </svg>
-  );
-}
-
-/* The trigger: a bolt, what starts the run. */
-export function Trigger() {
-  return (
-    <svg viewBox="0 0 400 400" aria-hidden="true" focusable="false">
-      <path data-p="bolt" d="M232 36L104 226H200L168 364L296 174H200z" {...S} />
-      <Label x={200} y={396} anchor="middle">TRIGGER</Label>
-    </svg>
-  );
-}
 
 /* The envelope: lifecycle mail. The flap lifts for the hand. */
 export function Envelope() {

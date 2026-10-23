@@ -23,24 +23,8 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 .bw--ai {
   color: $cream;
 
-  /* Tiles: outlined boxes, or free shapes on the field. */
-  .bw-tile {
-    background: #000;
-    border: $line solid $cream;
-    border-radius: 18px;
-    color: $cream;
-  }
-
-  .bw-tile--plain {
-    background: transparent;
-    border: 0;
-    border-radius: 0;
-    overflow: visible;
-  }
-
   // Drawings that run on the engine keep the field's color.
-  .aw-live,
-  .bw-tile__live {
+  .aw-live {
     display: flex;
     width: 100%;
     height: 100%;
@@ -155,12 +139,6 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 
   @media #{$bw-sheet} {
-    .bw-tile--trigger,
-    .bw-tile--log-video,
-    .bw-tile--arrow {
-      display: none;
-    }
-
     .bw-state {
       background: #000;
       color: $cream;
@@ -173,127 +151,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 }
 
-/* ---- The workbench ---- */
-.aw-flow {
-  margin: 0 $edge-pad;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
-  border-radius: 24px;
-  border: $line solid $cream;
-  background: #000;
-  color: $cream;
-
-  &__head {
-    display: grid;
-    gap: 1rem;
-    max-width: 60ch;
-  }
-
-  &__title {
-    @include aw-h2;
-    color: $cream;
-  }
-
-  &__lede {
-    margin: 0;
-    font-size: clamp(1rem, 1.3vw, 1.15rem);
-    line-height: 1.6;
-    color: rgba(254, 247, 237, 0.65);
-  }
-
-  &__bench {
-    position: relative;
-    margin-top: clamp(1.5rem, 3vw, 3rem);
-    aspect-ratio: 5 / 3;
-
-    > svg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  &__cap {
-    position: absolute;
-    width: 17%;
-    margin: 0;
-    font-size: clamp(0.72rem, 1.05vw, 1rem);
-    line-height: 1.4;
-
-    strong {
-      font-weight: 600;
-    }
-  }
-
-  &__run {
-    position: absolute;
-    border: 0;
-    border-radius: 999px;
-    background: transparent;
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: 3px solid $g5;
-      outline-offset: 4px;
-    }
-  }
-
-  &__meta {
-    display: flex;
-    justify-content: space-between;
-    margin-top: clamp(1rem, 2vw, 2rem);
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-
-  &__log {
-    list-style: none;
-    margin: 0.5rem 0 0;
-    padding: 0;
-    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: clamp(0.85rem, 1vw, 0.95rem);
-
-    li {
-      display: flex;
-      gap: 1.25rem;
-      padding: 0.35rem 0;
-      border-top: 1px solid rgba(254, 247, 237, 0.15);
-    }
-
-    time {
-      flex: 0 0 auto;
-      color: $g5;
-    }
-  }
-
-  @media #{$bw-sheet} {
-    &__bench {
-      aspect-ratio: auto;
-
-      > svg {
-        position: static;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 5 / 3;
-      }
-    }
-
-    &__caps {
-      display: grid;
-      gap: 0.75rem;
-      margin-top: 1rem;
-    }
-
-    &__cap {
-      position: static !important;
-      width: auto;
-      font-size: 0.95rem;
-    }
-  }
-}
+@import './aiHero';
 
 /* ---- Demos ---- */
 .aw-pill {

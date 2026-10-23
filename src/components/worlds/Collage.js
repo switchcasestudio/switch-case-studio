@@ -16,7 +16,7 @@ import LiveArt from './LiveArt';
    Tile kinds: `art` (an SVG from the art module, live when the live module
    has a create), `video`, `shot` (a real site in browser chrome), `poster`
    (a live service poster), or a key of `kinds`. `plain` tiles get no
-   plate (the AI world's free shapes). */
+   plate (free shapes on the field). */
 
 // A real client site in a drawn browser frame: the reference's "real life"
 // tiles. Images are the case-study previews the site already ships.

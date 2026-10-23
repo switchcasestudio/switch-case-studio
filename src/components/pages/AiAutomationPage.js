@@ -4,10 +4,10 @@ import servicesData from '../../data/services.json';
 import AiWorld from '../aiWorld/AiWorld';
 
 /* /services/ai-development (2026-10-22). The service page is the
-   experience; the price lives on /pricing/ai-development only. Like the
-   brand world it is exempt from the page-head rule on purpose: the
-   headline sits inside the collage and the drawings run over it. Its own
-   static route record in routes.js. */
+   experience; the price lives on /pricing/ai-development only. Exempt from
+   the page-head rule on purpose: the h1 sits in the workbench hero
+   (WorkbenchHero), beside the drawing that runs. Its own static route
+   record in routes.js. */
 const SLUG = 'ai-development';
 const PATH = `/services/${SLUG}`;
 const service = servicesData.find((s) => s.slug === SLUG);
