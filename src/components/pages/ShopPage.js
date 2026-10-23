@@ -4,8 +4,8 @@ import shop from '../../data/shop.json';
 import '../../styles/components/shop.scss';
 
 /**
- * /shop: things you can take home (themes) and time you can book (office
- * hours). Items live in src/data/shop.json. Static items (the Unhurried Pro
+ * /shop: things you can take home (themes, open-source tools) and time you
+ * can book (office hours). Items live in src/data/shop.json. Static items (the Unhurried Pro
  * sales page is a plain HTML file in public/) use <a>, not <Link>, so the
  * router does a full page load instead of looking for a React route.
  */
@@ -33,6 +33,7 @@ const ItemLink = ({ item }) => {
 
 const GROUPS = [
   { title: 'Themes', kind: 'WordPress theme', note: 'Built by the studio, released for everyone.' },
+  { title: 'Open source', kind: 'Open source', note: 'Free software from the studio. Run it yourself.' },
   {
     title: 'Office hours',
     kind: 'Office hours',
@@ -44,14 +45,14 @@ const ShopPage = () => (
   <div className="shop">
     <Seo
       title="Shop | Switch Case Studio"
-      description="WordPress themes by Switch Case Studio, and one-to-one office hours on SEO, design and code. Free student hours every month."
+      description="WordPress themes and open-source tools by Switch Case Studio, and one-to-one office hours on SEO, design and code. Free student hours every month."
       path="/shop"
     />
     <header className="shop__head">
       <p className="shop__kicker">Shop</p>
       <h1>Things we made, and time we share.</h1>
       <p className="shop__lede">
-        Themes you can install today, and an hour with the studio when you want
+        Themes and tools you can install today, and an hour with the studio when you want
         to learn how it is done.
       </p>
     </header>

@@ -1,0 +1,24 @@
+{
+  "inject": {
+    "slug": "directcut-open-source-ai-video",
+    "title": "Directcut: Free, Open-Source AI Video at the Model Price",
+    "core_topic": "We released Directcut, a free, open-source app that runs 14 AI video and image models (Seedance, Kling, Veo, Wan, Hailuo, Seedream, Nano Banana, GPT Image, Flux) on your own computer with your own OpenRouter key. You pay the model price per generation, with no subscription and no credits.",
+    "pillar": "Build Notes",
+    "intent": "sales_enablement",
+    "x": [
+      "AI video platforms resell the same models behind monthly plans and credit packs.\n\nWe built the screen without the markup and gave it away. It is called Directcut. Free, open source, runs on your own computer.",
+      "8 video models (Seedance, Kling, Veo, Wan, Hailuo) and 6 image models (Seedream, Nano Banana, GPT Image, Flux), one OpenRouter key.\n\nA 5s Seedance 2 Fast draft is about $0.23. You see the estimate before you click Generate.",
+      "Character, style, motion and voice references. A daily spend cap. Every file saved to your own disk. MIT licensed.\n\nSetup takes about five minutes: https://switchcasestudio.com/blog/directcut-open-source-ai-video"
+    ],
+    "ig_caption": "We built an AI video app for our own work and released it for free. Directcut runs on your own computer and talks straight to OpenRouter with your own key, so you pay the model price per video or image. No subscription, no credits. 8 video models (Seedance, Kling, Veo, Wan, Hailuo), 6 image models (Seedream, Nano Banana, GPT Image, Flux), character, style, motion and voice references, and a daily spend cap. Open source, MIT licensed. Setup steps: https://switchcasestudio.com/blog/directcut-open-source-ai-video",
+    "ig_slides": [
+      "AI video at the model price, on your own computer",
+      "14 models, one OpenRouter key",
+      "See the cost before you click Generate",
+      "Every file saved to your own disk",
+      "Free and open source: link in bio"
+    ],
+    "visual": "Landscape: https://switchcasestudio.com/images/journal/directcut-open-source-ai-video.jpg (the app with a prompt, cost estimate and gallery). Portrait 4:5: https://switchcasestudio.com/social/directcut-portrait.jpg . Video (16:9, 92s, silent): https://switchcasestudio.com/projects/directcut/demo.mp4",
+    "url": "https://switchcasestudio.com/blog/directcut-open-source-ai-video"
+  }
+}

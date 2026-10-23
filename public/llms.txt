@@ -17,6 +17,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 - [Unhurried](https://switchcasestudio.com/projects/unhurried): A free WordPress block theme for studios, spas and makers, and a $49 Pro add-on that styles the shop. Studio project. 27 block patterns in the free theme
 - [My Challah Dealer](https://switchcasestudio.com/projects/my-challah-dealer): Home Bakery · Portland, Oregon. 100 Lighthouse accessibility, best practices and SEO
 - [Renewed Bodyworks](https://switchcasestudio.com/projects/renewed-bodyworks): Massage Therapy · Eugene and Portland, Oregon. −79% homepage weight on mobile
+- [Directcut](https://switchcasestudio.com/projects/directcut): A free, self-hosted app for AI video and images. Bring your own OpenRouter key and pay the model price, not a platform's markup. Studio project. 14 video and image models, one key
 - [Florida Green Improvements](https://switchcasestudio.com/projects/florida-green-improvements): Licensed General Contractor · CGC1529180 · North Miami Beach, Florida. −94% homepage weight on mobile
 - [Zahav Medspa](https://switchcasestudio.com/projects/zahav-medspa): Medical Spa in North Scottsdale, Arizona. +37% Google Business Profile calls, Jun to Aug 2026
 - [Scout](https://switchcasestudio.com/projects/scout): Every commercial lease listing in one scored board, a retainer product for tenants hunting their next location. Studio project. 6 listing sources polled four times a day

@@ -69,7 +69,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l 'id="S:' build/**/*.html` matches nothing; `<h1` sits inside `<main>` on every page.
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
-- `find build -name '*.html' | wc -l` = route baseline (61 as of 2026-10-22); re-baseline in `.audit/rules.md` when routes change.
+- `find build -name '*.html' | wc -l` = route baseline (62 as of 2026-10-23, 63 once the scheduled Directcut post publishes 2026-10-24); re-baseline in `.audit/rules.md` when routes change.
 - `npm run check:us` (postbuild) is clean: US English only in every built page (`scripts/check-us-english.mjs`).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily); no post with empty `coverImage`.
