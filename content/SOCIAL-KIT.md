@@ -14,6 +14,7 @@ Moses asked for four blog posts about new studio products, published on a schedu
 | Fri 2026-10-02 | https://switchcasestudio.com/blog/office-hours-and-free-student-hours | `content/promo/2026-10-02-office-hours-and-free-student-hours.json` |
 | Tue 2026-10-06 | https://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link | `content/promo/2026-10-06-selling-a-wordpress-theme-with-a-stripe-payment-link.json` |
 | When WordPress.org approves Unhurried | https://switchcasestudio.com/blog/unhurried-is-in-the-wordpress-theme-directory | `content/promo/held-unhurried-is-in-the-wordpress-theme-directory.json` |
+| Sat 2026-10-24 | https://switchcasestudio.com/blog/directcut-open-source-ai-video | `content/promo/2026-10-24-directcut-open-source-ai-video.json` |
 
 ## What to do
 
@@ -39,6 +40,7 @@ Moses asked for four blog posts about new studio products, published on a schedu
 - **Student hour**: **free**, Wednesday and Friday, 18:00 to 19:00 Pacific time. Students give their school or course and their question when booking.
 - Everything is listed at https://switchcasestudio.com/shop .
 - Byline and name: **Moses Atia Poston**, Founder.
+- **Directcut** (added 2026-10-23) is a free, open-source (MIT) app by Switch Case Studio that runs AI video and image models on your own computer through OpenRouter with your own key: https://github.com/switchcasestudio/directcut . 8 video models (Seedance 2.5 and 2 Fast, Kling 3.0 Pro and Standard, Veo 3.1 and 3.1 Fast, Wan 3.0, Hailuo 3) and 6 image models (Seedream 5 Pro and Lite, Nano Banana Pro and 2, GPT Image 2, Flux 3). Prices are Directcut's own estimates (5s Seedance 2 Fast 480p about $0.23). Daily spend cap $10 by default. Only Seedance and Seedream were tested with real generations; never say every model is tested. Do not name competitor platforms. Case study: https://switchcasestudio.com/projects/directcut . LinkedIn copy is in `linkedin-posts/2026-10-directcut/post.md` (Moses posts that one himself).
 - Do not invent numbers (downloads, sales, bookings, reviews). There are none to report yet.
 
 ## Images (all public)
@@ -48,3 +50,4 @@ Moses asked for four blog posts about new studio products, published on a schedu
 - Selling a theme: https://switchcasestudio.com/social/selling-a-theme-og.jpg , https://switchcasestudio.com/social/selling-a-theme-portrait.jpg
 - Search Console post: https://switchcasestudio.com/images/journal/how-to-read-google-search-console-without-chasing-noise.jpg (landscape), https://switchcasestudio.com/social/search-console-portrait.jpg (4:5)
 - WordPress.org post: https://switchcasestudio.com/unhurried-pro/img/og.jpg
+- Directcut: https://switchcasestudio.com/images/journal/directcut-open-source-ai-video.jpg (landscape), https://switchcasestudio.com/social/directcut-portrait.jpg (4:5), video https://switchcasestudio.com/projects/directcut/demo.mp4 (16:9, 92s, silent)

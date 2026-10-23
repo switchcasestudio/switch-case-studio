@@ -19,6 +19,7 @@ export const GROUPS = [
     // stays short and the home preview can sit under it.
     types: [
       'WordPress Theme',
+      'Open-Source App',
       'SaaS Product',
       'E-Commerce',
       'Full-Stack + API',
