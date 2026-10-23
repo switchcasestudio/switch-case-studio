@@ -76,6 +76,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- Every deploy broke every open tab (2026-10-23): vite-react-ssg's loader manifest is named by a random per-build hash baked into the HTML, so the first in-app click from a pre-deploy tab fetched a missing JSON and died; `scripts/pin-ssg-hash.mjs` (postbuild) pins the hash to `latest`, and `RouteError.js` is the router `errorElement` that reloads a stale tab once.
 - A service world is built from the shared kit in `src/components/worlds/` (two worlds live: brand, AI), each world is its own static route record ahead of the `services/:serviceSlug` redirect, and a service card lands on its world via `servicePath()`; card titles sit on a reserved notebook row; `/services` is the services index (the only dropdown) and `/pricing` the pricing index (a plain link), and a world and its pricing page link each other (owner, 2026-10-22).
 - No highlighter plates on headings (a phrase on a coloured rounded box): it is a client's style, not the studio's (owner, 2026-10-22).
 - Read a reference site's own data (widget JSON, `__NEXT_DATA__`) before its pixels: the recording shows the result, the data shows the mechanism; and serve a static build with clean URLs when probing, or the `.html` becomes a route param (baseline 59 HTML files, 2026-10-22).

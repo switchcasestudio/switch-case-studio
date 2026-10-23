@@ -23,6 +23,7 @@ import Orb from './assets/images/orb.avif';
 import projects from './data/projects.json';
 import services from './data/services.json';
 import posts from './data/posts.json';
+import RouteError from './components/util/RouteError';
 import './styles/app.scss';
 
 // Route-only pages — lazy route records: vite-react-ssg resolves them during
@@ -145,7 +146,12 @@ export const routes = [
   {
     path: '/',
     element: <Layout />,
-    children: [
+    // Pathless record so the error boundary renders INSIDE Layout (header +
+    // footer stay); on the root record it would replace Layout. It catches
+    // stale-deploy failures and reloads the page: see RouteError.js.
+    children: [{
+      errorElement: <RouteError />,
+      children: [
       // Landing
       { index: true, element: <HomeContent /> },
 
@@ -266,6 +272,7 @@ export const routes = [
         path: '*',
         lazy: page(() => import('./components/pages/NotFoundPage')),
       },
-    ],
+      ],
+    }],
   },
 ];
