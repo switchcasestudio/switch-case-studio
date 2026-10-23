@@ -1,6 +1,7 @@
 import { Link, Navigate, useParams } from 'react-router-dom';
 import pricingData from '../../data/pricingData.json';
 import servicesData from '../../data/services.json';
+import { clampAtWord } from '../../utils/seoText';
 import Seo from '../util/Seo';
 import { ORG_REF } from '../../utils/schemaIds';
 import { PricingGuide } from './PricingGuide';
@@ -57,9 +58,13 @@ function PricingPage() {
     service?.title ||
     servicesIndex.find((s) => s.slug === serviceSlug)?.label ||
     'Pricing';
-  const description = service
-    ? `${service.title} pricing: ${service.subTitle.replace(/\.$/, '')}. Transparent packages from Switch Case Studio.`
-    : `${label} pricing and packages from Switch Case Studio.`;
+  // Clamped at a word (house rule, seoText.js): "Web Development & Mobile
+  // Apps" plus its subtitle runs 166 characters unclamped (2026-10-22).
+  const description = clampAtWord(
+    service
+      ? `${service.title} pricing: ${service.subTitle.replace(/\.$/, '')}. Transparent packages from Switch Case Studio.`
+      : `${label} pricing and packages from Switch Case Studio.`,
+  );
 
   return (
     <>
@@ -85,7 +90,7 @@ function PricingPage() {
               {
                 '@type': 'ListItem',
                 position: 1,
-                name: 'Services & Pricing',
+                name: 'Pricing',
                 item: 'https://switchcasestudio.com/pricing',
               },
               {
@@ -98,7 +103,7 @@ function PricingPage() {
           },
         ]}
       />
-      <PricingGuide serviceId={serviceId} />
+      <PricingGuide serviceId={serviceId} serviceSlug={serviceSlug} />
     </>
   );
 }

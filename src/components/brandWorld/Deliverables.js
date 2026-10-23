@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
-import VideoTile from './VideoTile';
+import VideoTile from '../worlds/VideoTile';
 import { HumPoster, LowtideMark, StickerSheet } from './tiles/concepts';
 
 gsap.registerPlugin(Draggable);

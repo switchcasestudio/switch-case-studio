@@ -23,6 +23,10 @@ const readJson = (rel) => JSON.parse(readFileSync(resolve(root, rel), 'utf8'));
 
 const projects = readJson('src/data/projects.json');
 const services = readJson('src/data/services.json');
+// Slugs with a service page (same file navigation.js reads): those link to
+// the page, the rest to their pricing page.
+const servicePages = readJson('src/data/servicePages.json');
+const servicePath = (slug) => (servicePages.includes(slug) ? `/services/${slug}` : `/pricing/${slug}`);
 const posts = readJson('src/data/posts.json')
   .slice()
   .sort((a, b) => (b.date || '').localeCompare(a.date || ''));
@@ -45,7 +49,7 @@ The studio offers ${services.length} services, each with published package price
 
 ## Services
 
-${services.map((s) => link(s.title, `/pricing/${s.slug}`, clean(s.subTitle))).join('\n')}
+${services.map((s) => link(s.title, servicePath(s.slug), clean(s.subTitle))).join('\n')}
 
 ## Case studies
 
@@ -56,8 +60,10 @@ ${projects.map((p) => link(p.title, `/projects/${p.slug}`, caseNote(p))).join('\
 ${[
   link('About', '/about', 'The team, how a project runs, and the stack'),
   link('Case studies', '/projects', 'Every project, grouped by type'),
-  link('Services and pricing', '/pricing', `All ${services.length} services and their packages`),
-  link('Brand identity service', '/services/brand-identity', 'What a brand identity from the studio looks like, shown not told'),
+  link('Services', '/services', `All ${services.length} services`),
+  link('Pricing', '/pricing', `Packages and prices for all ${services.length} services`),
+  link('Graphic design and brand identity service', '/services/brand-identity', 'What a brand identity from the studio looks like, shown not told'),
+  link('AI and automation service', '/services/ai-development', 'What an assistant, an agent and a workflow from the studio do, shown running'),
   link('Client reviews', '/testimonials'),
   link('Shop', '/shop', 'WordPress themes and one-to-one office hours'),
   link('Contact', '/contact', 'Book a strategy call or send a message'),

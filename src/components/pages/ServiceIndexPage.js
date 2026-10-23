@@ -11,22 +11,39 @@ import {
   cardVariants,
 } from '../../utils/motionVariants';
 import BookCallCta from '../ui/BookCallCta';
+import { SERVICE_PAGES, servicePath } from '../../data/navigation';
 import '../../styles/components/serviceIndexPage.scss';
 
-// Page copy + SEO. /services was retired 2026-09-10 (it duplicated this page;
-// it 301s here), so only the Services & Pricing copy remains.
+// Page copy + SEO. One grid, two indexes (2026-10-22): /services lands each
+// card on the service's page (its pricing page until it has one) and
+// /pricing on the packages, with the "from $X" line. /services was retired
+// into /pricing on 2026-09-10 and is back because the service pages needed
+// an index of their own; the two header menus each open theirs.
 const COPY = {
-  pricing: {
-    seoTitle: 'Services & Pricing | Switch Case Studio',
+  services: {
+    seoTitle: 'Services | Switch Case Studio',
     seoDescription:
-      "Explore Switch Case Studio's services: AI development, automation, web development, e-commerce, branding, and growth. Transparent pricing, fast delivery.",
-    path: '/pricing',
-    ariaLabel: 'Services and pricing',
-    kicker: 'Services & Pricing',
+      'Graphic design and brand identity, web development and mobile apps, AI and automation, SEO and AI search. Four services from a Portland studio, shown not told.',
+    path: '/services',
+    ariaLabel: 'Services',
+    kicker: 'Services',
     titleTop: 'What we do,',
-    titleBottom: 'and what it costs.',
-    lede: 'Pick a service to see what is included and what it costs. AI and automation included, hype not.',
+    titleBottom: 'shown not told.',
+    lede: 'Four services, one studio. Pick one to see the work; the packages and prices are a page away.',
     bottomHeading: 'Not sure which service you need?',
+    bottomBody: "Book a free call; we'll figure it out together.",
+  },
+  pricing: {
+    seoTitle: 'Pricing | Switch Case Studio',
+    seoDescription:
+      'Packages and prices for all four Switch Case Studio services: brand identity, web and mobile apps, AI and automation, SEO. Fixed prices, no hourly billing.',
+    path: '/pricing',
+    ariaLabel: 'Pricing',
+    kicker: 'Pricing',
+    titleTop: 'What it costs,',
+    titleBottom: 'package by package.',
+    lede: 'Pick a service to see what each package includes and what it costs. Every price is on the page.',
+    bottomHeading: 'Not sure which package you need?',
     bottomBody: "Book a free call; we'll figure it out together.",
   },
 };
@@ -62,12 +79,16 @@ const fromPrice = (slug) => {
    rows on mobile), so no new motion system is introduced for this page. */
 function PricingCard({ service, description, price, priced, variants }) {
   const itemRef = useRef(null);
+  // The services index lands on the service page where one exists (same
+  // rule as the home cards, navigation.js); the pricing index on the packages.
+  const to = priced ? `/pricing/${service.slug}` : servicePath(service.slug);
+  const cta = priced || !SERVICE_PAGES.includes(service.slug) ? 'See pricing' : 'See the work';
   return (
     <motion.li ref={itemRef} className="svi-card" variants={variants}>
-      <Link to={`/pricing/${service.slug}`} className="svi-card__link">
+      <Link to={to} className="svi-card__link">
         <span className="svi-card__meta">
           <span className="svi-card__kicker">{service.kicker}</span>
-          <span className="svi-card__cta">See pricing</span>
+          <span className="svi-card__cta">{cta}</span>
           <span className="svi-card__rule" aria-hidden="true" />
         </span>
         <span className="svi-card__body">
@@ -91,8 +112,8 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
   const reduced = useReducedMotion();
   const v = (motionVariant) => (reduced ? undefined : motionVariant);
   /* LC-26e: header is GSAP-revealed (static HTML ships visible) — see
-   * usePageHeaderReveal. This component serves BOTH /services and the
-   * /pricing overview, so the fix repairs both routes' headers. motion
+   * usePageHeaderReveal. This component serves BOTH /services and /pricing,
+   * so the fix repairs both routes' headers. motion
    * still owns the row list + CTA below. */
   const headerRef = useRef(null);
   usePageHeaderReveal(headerRef);

@@ -1,11 +1,11 @@
 [
   {
     "icon": "faPenNib",
-    "title": "Brand Identity",
+    "title": "Graphic Design & Brand Identity",
     "slug": "brand-identity",
     "kicker": "Design",
     "subTitle": "A visual system that makes your business unmistakable.",
-    "cta": "See pricing →",
+    "cta": "See the work →",
     "description": "Logo, color system, typography, and guidelines: a complete visual identity drawn by a designer. Made to work across web, print, and packaging.",
     "items": [
       "Logo Design",
@@ -15,7 +15,7 @@
   },
   {
     "icon": "faCode",
-    "title": "Web Development",
+    "title": "Web Development & Mobile Apps",
     "slug": "web-development",
     "kicker": "Code",
     "subTitle": "Landing pages, sites, stores and mobile apps built to convert, then kept running.",
@@ -36,7 +36,7 @@
     "slug": "ai-development",
     "kicker": "AI",
     "subTitle": "Assistants, agents, and workflows that run your operations.",
-    "cta": "See pricing →",
+    "cta": "See the work →",
     "description": "AI assistants trained on your business, custom agents that do real work, and workflows built in n8n, Zapier, Make, and GoHighLevel, wired into the tools you already use. Self-hosted on your infrastructure when it matters, monitored like the production software it is.",
     "items": [
       "AI roadmap: find where AI actually pays off",

@@ -2,6 +2,10 @@
 @import '../_mixins.scss';
 @import '../_page-head.scss';
 
+// The service name's size, shared by the title and the mask that reserves
+// its lines (see .svi-card__title-mask).
+$svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
+
 // Shared by /services and /pricing (ServiceIndexPage). Copy differs per
 // route; layout is identical.
 .service-index {
@@ -150,17 +154,35 @@
       }
     }
 
+    // The mask reserves the title's lines wherever cards sit in a row
+    // (owner, 2026-10-22: "titles in the same row, like a notebook"): two
+    // at two columns, three at four, where "Web Development & Mobile Apps"
+    // needs them. Subtitles and prices then start on the same line.
     &__title-mask {
       display: block;
       overflow: hidden;
       padding: 0.06em 0;
       margin: -0.06em 0;
+
+      @media (min-width: 768px) {
+        min-height: calc(2.2 * #{$svi-title-size});
+      }
+
+      // Four narrow columns from 1024 need three lines; from 1200 the
+      // longest name fits two again.
+      @media (min-width: 1024px) {
+        min-height: calc(3.25 * #{$svi-title-size});
+      }
+
+      @media (min-width: 1200px) {
+        min-height: calc(2.2 * #{$svi-title-size});
+      }
     }
 
     &__title {
       display: block;
       font-family: $font-text;
-      font-size: clamp(2rem, 2.6vw, 2.75rem);
+      font-size: $svi-title-size;
       font-weight: 600;
       line-height: 1.05;
       letter-spacing: -0.03em;

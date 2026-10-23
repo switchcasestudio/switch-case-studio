@@ -1,6 +1,10 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
+// The service name's size, shared by the title and the mask that reserves
+// its two lines (see &__item-title-mask).
+$svc-title-size: clamp(2rem, 2.4vw, 2.6rem);
+
 // Service menu (2026-09-09, owner's reference): two independent columns of
 // borderless entries. Each entry is a kicker row with its own hairline
 // (kicker left, "See pricing" right), the title, a strong one-liner, and a
@@ -169,11 +173,19 @@
 
   // Title rises out of this mask. A hair of padding keeps round glyphs
   // (O, C, &) from clipping at line-height 1.
+  // The mask reserves two title lines wherever cards sit in a row (owner,
+  // 2026-10-22: "titles in the same row, like a notebook"): "Graphic Design
+  // & Brand Identity" wraps to two lines, "SEO & AI Search" to one, and the
+  // subtitles under them still start on the same line.
   &__item-title-mask {
     display: block;
     overflow: hidden;
     padding: 0.06em 0;
     margin: -0.06em 0;
+
+    @media (min-width: 768px) {
+      min-height: calc(2.2 * #{$svc-title-size});
+    }
   }
 
   &__item-kicker,
@@ -212,9 +224,10 @@
     // the includes line quietest. Steps: ~2rem / 1.05rem / 0.9rem.
     // The service name dominates the card (owner, 2026-09-10): ~3rem at
     // 1440, one line in a 672px card for the longest name.
-    // Portrait cards are ~324px wide at 1440: ~2.4rem lets two-word names
-    // sit on two balanced lines ("Web / Development") and stay dominant.
-    font-size: clamp(2rem, 2.6vw, 2.75rem);
+    // Portrait cards are ~318px of text width at 1440: 2.4vw lets the
+    // longest name ("Graphic Design & Brand Identity") sit on two balanced
+    // lines and stay dominant.
+    font-size: $svc-title-size;
     font-weight: 600;
     line-height: 1.05;
     letter-spacing: -0.03em;

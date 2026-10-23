@@ -1,11 +1,13 @@
 @import '../_variables.scss';
 @import '../_page-head.scss';
 
-// The Brand Identity world (2026-10-22). Flat plates on the site's black,
-// SCS palette plus the poster flats. The collage hero and the process stage
-// pin and scrub on wide pointer screens (same gate as the services pan);
-// below 1024px or under reduced motion everything stacks, so the static
-// HTML is a complete page on its own.
+// The service worlds' shared sheet (2026-10-22): written for the Graphic
+// Design & Brand Identity world, and the AI & Automation world builds on it
+// (aiWorld.scss adds the outline look under `.bw--ai`). Flat plates on the
+// site's black, SCS palette plus the poster flats. The collage hero and the
+// process stage pin and scrub on wide pointer screens (same gate as the
+// services pan); below 1024px or under reduced motion everything stacks,
+// so the static HTML is a complete page on its own.
 $bw-palette: (
   'cream': $white-color,
   'ink': $promo-ink,
@@ -553,7 +555,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     top: clamp(5rem, 9vw, 7rem);
   }
 
-  &[data-state='colour'] .bw-state__art {
+  &--narrow .bw-state__art {
     width: min(22vw, 360px);
   }
 }
@@ -607,7 +609,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
       width: 50%;
     }
 
-    &[data-state='colour'] .bw-state__art {
+    &--narrow .bw-state__art {
       width: 60%;
     }
 
@@ -835,7 +837,9 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   text-decoration: none;
   transition: background-color 0.2s ease, color 0.2s ease;
 
-  &--orange {
+  // The brand world's pair: orange, then blue. The AI world recolors the
+  // same two slots in aiWorld.scss.
+  &--a {
     background: $orange-color;
     color: $promo-ink;
 
@@ -846,7 +850,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     }
   }
 
-  &--blue {
+  &--b {
     background: $blue-color;
     color: #fff;
 
@@ -864,6 +868,19 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   font-size: 1rem;
   line-height: 1.55;
   color: rgba(20, 20, 20, 0.7);
+}
+
+// The way to the service's pricing page, inside the note.
+.bw-circles__link {
+  color: inherit;
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+
+  &:hover,
+  &:focus-visible {
+    text-decoration-thickness: 2px;
+  }
 }
 
 /* ---- Pill CTA ---- */

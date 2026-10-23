@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import servicesData from "../../data/services.json";
+import { servicePath } from "../../data/navigation";
 import armSafetyNet from "../../animation/armSafetyNet";
 import ServicePoster from "../servicePoster/ServicePoster";
 import "../../styles/components/servicePoster.scss";
@@ -118,10 +119,13 @@ function ServiceItem({ service, index, delay = 0 }) {
 
   return (
     <div ref={itemRef} className="services__item">
+      {/* A card lands on the service's own page where one exists and on its
+          pricing page until then (owner, 2026-10-22); `cta` in services.json
+          says which. */}
       <Link
-        to={`/pricing/${service.slug}`}
+        to={servicePath(service.slug)}
         className="services__link cursor-black"
-        aria-label={`${service.title} pricing`}
+        aria-label={service.title}
         onMouseEnter={handleMouseEnter}
       >
         {/* Kicker row, then the service name as the dominant element and one
@@ -273,9 +277,9 @@ const Services = () => {
           ))}
           {/* Row end (the reference's "Explore more"): only in the desktop
               pan; the static grid hides it (CSS). */}
-          <Link to="/pricing" className="services__end">
+          <Link to="/services" className="services__end">
             <EndDeck />
-            <span className="services__end-label">All services &amp; pricing</span>
+            <span className="services__end-label">All services</span>
             <span className="services__end-arrow" aria-hidden="true">&rarr;</span>
           </Link>
         </div>

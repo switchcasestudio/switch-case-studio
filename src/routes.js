@@ -167,13 +167,28 @@ export const routes = [
       },
 
       // Service worlds (2026-10-22): a service page is the experience, the
-      // pricing page is the number. Only a service with a world is emitted;
-      // the others 301 to their pricing page in netlify.toml until theirs
-      // exists. Same slug on both sides: /services/<slug> + /pricing/<slug>.
+      // pricing page is the number. Each world is its own static record and
+      // chunk (two worlds in one param record would ship both in one bundle);
+      // the param record under them sends every other slug to its pricing
+      // page, the same fallback netlify.toml applies with a 301. Same slug on
+      // both sides: /services/<slug> + /pricing/<slug>. A new world: a record
+      // here, its slug in SERVICE_PAGES (navigation.js), an entry in
+      // generate-sitemap.mjs and generate-llms.mjs.
+      {
+        path: 'services',
+        lazy: page(() => import('./components/pages/ServicesPage')),
+      },
+      {
+        path: 'services/brand-identity',
+        lazy: page(() => import('./components/pages/BrandIdentityPage')),
+      },
+      {
+        path: 'services/ai-development',
+        lazy: page(() => import('./components/pages/AiAutomationPage')),
+      },
       {
         path: 'services/:serviceSlug',
-        lazy: page(() => import('./components/pages/BrandIdentityPage')),
-        getStaticPaths: () => ['/services/brand-identity'],
+        lazy: page(() => import('./components/pages/ServiceRedirect')),
       },
 
       // Pricing

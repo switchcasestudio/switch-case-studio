@@ -1,0 +1,483 @@
+@import '../_variables.scss';
+
+// The AI & Automation world (2026-10-22): the brand world's sheet
+// (brandWorld.scss) with the owner's reference language on top. Outlines
+// on black, cream strokes, one accent (lavender), no orange, no plates of
+// color. `.bw--ai` recolors the shared parts; `.aw-*` are this page's own.
+$cream: $white-color;
+$ink: $promo-ink;
+$line: 3px;
+
+@mixin aw-h2 {
+  font-family: $font-text;
+  font-size: clamp(2rem, 4.2vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+$bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
+
+.bw--ai {
+  color: $cream;
+
+  /* Tiles: outlined boxes, or free shapes on the field. */
+  .bw-tile {
+    background: #000;
+    border: $line solid $cream;
+    border-radius: 18px;
+    color: $cream;
+  }
+
+  .bw-tile--plain {
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    overflow: visible;
+  }
+
+  // Drawings that run on the engine keep the field's color.
+  .aw-live,
+  .bw-tile__live {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* Process stage: the field changes, the drawings follow it. */
+  .bw-stage {
+    background: #000;
+    color: $cream;
+  }
+
+  .bw-state__card {
+    background: transparent;
+    color: inherit;
+    border: $line solid currentColor;
+  }
+
+  .bw-state__art,
+  .bw-state__sticker {
+    color: inherit;
+    border-radius: 18px;
+  }
+
+  /* Deliverables: outlined cards on the field. */
+  .bw-grid {
+    background: #000;
+    color: $cream;
+    border: $line solid $cream;
+  }
+
+  .bw-grid__card {
+    background: #000;
+    color: $cream;
+    border: 2px solid $cream;
+  }
+
+  .bw-grid__demo {
+    background: #000;
+    border: 2px solid rgba(254, 247, 237, 0.4);
+    color: $cream;
+
+    &--tool {
+      display: block;
+    }
+  }
+
+  /* Bubbles: the accent field, ink bubbles. */
+  .bw-bubbles {
+    background: $g5;
+    color: $ink;
+  }
+
+  .bw-bubbles__title {
+    color: $ink;
+  }
+
+  .bw-bubble {
+    background: #000;
+    color: $cream;
+  }
+
+  /* The close: an outlined field, a lavender circle and an outlined one. */
+  .bw-circles {
+    background: #000;
+    color: $cream;
+    border: $line solid $cream;
+  }
+
+  .bw-circles__note {
+    color: rgba(254, 247, 237, 0.7);
+  }
+
+  .bw-circle--a {
+    background: $g5;
+    color: $ink;
+
+    &:hover,
+    &:focus-visible {
+      background: $g7;
+      color: $ink;
+    }
+  }
+
+  .bw-circle--b {
+    background: transparent;
+    color: $cream;
+    border: $line solid $cream;
+
+    &:hover,
+    &:focus-visible {
+      background: $cream;
+      color: $ink;
+    }
+  }
+
+  .bw-pill {
+    background: $g5;
+    color: $ink;
+
+    &:hover,
+    &:focus-visible {
+      background: $g7;
+      color: $ink;
+    }
+  }
+
+  @media #{$bw-sheet} {
+    .bw-tile--trigger,
+    .bw-tile--log-video,
+    .bw-tile--arrow {
+      display: none;
+    }
+
+    .bw-state {
+      background: #000;
+      color: $cream;
+      border: $line solid $cream;
+    }
+
+    .bw-state__card {
+      border: 0;
+    }
+  }
+}
+
+/* ---- The workbench ---- */
+.aw-flow {
+  margin: 0 $edge-pad;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
+  border-radius: 24px;
+  border: $line solid $cream;
+  background: #000;
+  color: $cream;
+
+  &__head {
+    display: grid;
+    gap: 1rem;
+    max-width: 60ch;
+  }
+
+  &__title {
+    @include aw-h2;
+    color: $cream;
+  }
+
+  &__lede {
+    margin: 0;
+    font-size: clamp(1rem, 1.3vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(254, 247, 237, 0.65);
+  }
+
+  &__bench {
+    position: relative;
+    margin-top: clamp(1.5rem, 3vw, 3rem);
+    aspect-ratio: 5 / 3;
+
+    > svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__cap {
+    position: absolute;
+    width: 17%;
+    margin: 0;
+    font-size: clamp(0.72rem, 1.05vw, 1rem);
+    line-height: 1.4;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+
+  &__run {
+    position: absolute;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 3px solid $g5;
+      outline-offset: 4px;
+    }
+  }
+
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    margin-top: clamp(1rem, 2vw, 2rem);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  &__log {
+    list-style: none;
+    margin: 0.5rem 0 0;
+    padding: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.85rem, 1vw, 0.95rem);
+
+    li {
+      display: flex;
+      gap: 1.25rem;
+      padding: 0.35rem 0;
+      border-top: 1px solid rgba(254, 247, 237, 0.15);
+    }
+
+    time {
+      flex: 0 0 auto;
+      color: $g5;
+    }
+  }
+
+  @media #{$bw-sheet} {
+    &__bench {
+      aspect-ratio: auto;
+
+      > svg {
+        position: static;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 5 / 3;
+      }
+    }
+
+    &__caps {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    &__cap {
+      position: static !important;
+      width: auto;
+      font-size: 0.95rem;
+    }
+  }
+}
+
+/* ---- Demos ---- */
+.aw-pill {
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  border: 2px solid rgba(254, 247, 237, 0.4);
+  border-radius: 999px;
+  background: transparent;
+  color: $cream;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: $g5;
+    color: $g5;
+  }
+
+  &.is-on {
+    background: $g5;
+    border-color: $g5;
+    color: $ink;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+}
+
+.aw-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.45;
+
+  &__q,
+  &__a {
+    margin: 0;
+    max-width: 85%;
+    padding: 0.55rem 0.85rem;
+  }
+
+  &__q {
+    align-self: flex-end;
+    border-radius: 16px 16px 4px 16px;
+    background: $g5;
+    color: $ink;
+  }
+
+  &__a {
+    align-self: flex-start;
+    min-height: 3.4em;
+    border: 2px solid $cream;
+    border-radius: 16px 16px 16px 4px;
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+}
+
+.aw-tasks {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.35rem 0;
+    transition: color 0.2s ease;
+
+    i {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      border: 2px solid $cream;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    &.is-done i {
+      background: $g5;
+      border-color: $g5;
+    }
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+}
+
+.aw-drag {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.aw-switch {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+  text-align: center;
+
+  button {
+    position: relative;
+    width: 150px;
+    height: 68px;
+    border: $line solid $cream;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: $cream;
+      transition: translate 0.25s ease, background-color 0.25s ease;
+    }
+
+    &[aria-checked='true'] {
+      background: $g5;
+
+      &::after {
+        translate: 82px 0;
+        background: $ink;
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid $g5;
+      outline-offset: 4px;
+    }
+  }
+
+  &__label {
+    margin: 0;
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  &__note {
+    margin: 0;
+    max-width: 24ch;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    color: rgba(254, 247, 237, 0.65);
+  }
+}
