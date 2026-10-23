@@ -17,21 +17,25 @@
   margin: 0 0 1rem;
 }
 
+// 2026-10-23 (owner: "not bold enough, the hierarchy is not there"): the
+// title went from Inter 500 at 56px to Inter 800 at 68px (1440), tracked
+// tighter; the lede stays quiet and a step smaller so the three levels read
+// as three. Kicker unchanged. Contact keeps its own, already 800, head.
 @mixin page-title {
   font-family: $font-text;
-  font-size: clamp(2rem, 4.2vw, 3.5rem);
-  font-weight: 500;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
+  font-size: clamp(2.25rem, 5.2vw, 4.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.035em;
   color: #fff;
-  max-width: 18ch;
+  max-width: 16ch;
   margin: 0;
   text-wrap: balance;
 }
 
 @mixin page-lede {
   font-family: $font-text;
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.6);
   max-width: 52ch;

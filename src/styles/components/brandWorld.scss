@@ -72,9 +72,9 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 .bw-collage__title {
   font-family: $font-text;
   font-size: clamp(2.4rem, 5.6vw, 5rem);
-  font-weight: 500;
+  font-weight: 800; // 2026-10-23, same weight as page-title (_page-head.scss)
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
   color: $white-color;
   max-width: 14ch;
   margin: 0;

@@ -120,7 +120,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - A client logo for the marquee is cut by `scripts/cut-client-logos.py`, not hand-exported — a hand-made one shipped as the only opaque asset in the set.
 - Lighthouse splits `--chrome-flags` on whitespace, so a flag whose VALUE contains a space silently never reaches Chrome.
 - A case study's capture viewport is an editorial choice and must not flatter the rebuild.
-- No page h1 uses the display face since 2026-09-26 (owner: "I love this header, let's normalise the rest"); every page hero is the `_page-head.scss` pattern.
+- No page h1 uses the display face since 2026-09-26 (owner: "I love this header, let's normalise the rest"); every page hero is the `_page-head.scss` pattern. Since 2026-10-23 that title is Inter 800 (owner: "not bold enough, the hierarchy is not there"); the worlds' collage title matches it.
 - Dead-code sweeps: prove death, then prove the removal changed nothing.
 - A `! grep -q` sweep that flags ~100% positives is a broken sweep, not a dead codebase.
 - A licensed component does NOT license the assets it references — verify font/asset provenance separately.
