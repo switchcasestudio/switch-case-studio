@@ -284,7 +284,7 @@
     "longWeb": "/projects/directcut/long.webp",
     "imageAlt": "The Directcut app: model, duration and resolution controls on the left, a prompt box, reference slots and a live cost estimate beside the Generate button.",
     "mediaMobile": "/projects/directcut/mobile.webp", "mediaMobileAlt": "Directcut on a phone: the video and image switch, the model picker and the duration, resolution and aspect ratio controls.",
-    "mediaCopy": "/projects/directcut/gallery.webp", "mediaCopyAlt": "The Directcut gallery: finished videos and images, each with its model, length, resolution, real cost and a reuse prompt button.",
+    "mediaCopy": "/projects/directcut/gallery.webp", "mediaCopyAlt": "The Directcut gallery with demo images: a black-and-white portrait, a risograph whale, a watercolor house, a chrome android and a claymation fox.",
     "mediaCta": "/projects/directcut/app.webp", "mediaCtaAlt": "A Directcut prompt for a paper boat on a pond, with the estimated cost of $0.550 for a 5 second Seedance 2.5 video.",
     "motion": { "mp4": "/projects/directcut/demo.mp4", "poster": "/projects/directcut/demo-poster.webp", "caption": "The 92 second how-to: the built-in tour, a shot built from character, style and voice references, and an image.", "note": "Recorded in the app itself. The same video ships in the GitHub README.", "alt": "The Directcut how-to video: the guided tour, building a shot with references, generating an image and the saved gallery" },
     "title": "Directcut",
@@ -297,7 +297,7 @@
       { "value": "$10", "label": "default daily spend cap, enforced by the server" },
       { "value": "36", "label": "server tests, all passing" }
     ],
-    "description": "Directcut is an open-source app that runs on your own computer and gives you one clean screen for the top AI video and image models on OpenRouter: Seedance, Kling, Veo, Wan and Hailuo for video, Seedream, Nano Banana, GPT Image and Flux for images. You bring your own key and pay per generation. There is no subscription and no credits, and every file is saved to your own disk. MIT licensed, made for the community.",
+    "description": "Directcut is an open-source app that runs on your own computer and gives you one clean screen for the top AI video and image models on OpenRouter: Seedance, Kling, Veo, Wan and Hailuo for video, Seedream, Nano Banana, GPT Image and Flux for images. You bring your own key and pay per generation. There is no subscription and no credits, and every file is saved to your own disk. MIT licensed, made for the community. Gallery images in the screenshots are for demonstration only.",
     "servicePages": ["ai-development", "web-development"],
     "services": [
       { "label": "#Product Design" },
