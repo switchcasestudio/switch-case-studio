@@ -50,4 +50,4 @@ Moses asked for four blog posts about new studio products, published on a schedu
 - Selling a theme: https://switchcasestudio.com/social/selling-a-theme-og.jpg , https://switchcasestudio.com/social/selling-a-theme-portrait.jpg
 - Search Console post: https://switchcasestudio.com/images/journal/how-to-read-google-search-console-without-chasing-noise.jpg (landscape), https://switchcasestudio.com/social/search-console-portrait.jpg (4:5)
 - WordPress.org post: https://switchcasestudio.com/unhurried-pro/img/og.jpg
-- Directcut: https://switchcasestudio.com/images/journal/directcut-open-source-ai-video.jpg (landscape), https://switchcasestudio.com/social/directcut-portrait.jpg (4:5), video https://switchcasestudio.com/projects/directcut/demo.mp4 (16:9, 92s, silent)
+- Directcut: https://switchcasestudio.com/images/journal/directcut-open-source-ai-video.jpg (landscape), https://switchcasestudio.com/social/directcut-portrait.jpg (4:5), video https://switchcasestudio.com/projects/directcut/demo.mp4 (16:9, 87s, silent)

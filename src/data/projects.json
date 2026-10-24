@@ -286,7 +286,7 @@
     "mediaMobile": "/projects/directcut/mobile.webp", "mediaMobileAlt": "Directcut on a phone: the video and image switch, the model picker and the duration, resolution and aspect ratio controls.",
     "mediaCopy": "/projects/directcut/gallery.webp", "mediaCopyAlt": "The Directcut gallery with demo images: a black-and-white portrait, a risograph whale, a watercolor house, a chrome android and a claymation fox.",
     "mediaCta": "/projects/directcut/app.webp", "mediaCtaAlt": "A Directcut prompt for a paper boat on a pond, with the estimated cost of $0.550 for a 5 second Seedance 2.5 video.",
-    "motion": { "mp4": "/projects/directcut/demo.mp4", "poster": "/projects/directcut/demo-poster.webp", "caption": "The 92 second how-to: the built-in tour, a shot built from character, style and voice references, and an image.", "note": "Recorded in the app itself. The same video ships in the GitHub README.", "alt": "The Directcut how-to video: the guided tour, building a shot with references, generating an image and the saved gallery" },
+    "motion": { "mp4": "/projects/directcut/demo.mp4", "poster": "/projects/directcut/demo-poster.webp", "caption": "The 90 second how-to: the built-in tour, a shot built from character, style and voice references, and an image.", "note": "Recorded in the app itself. The same video ships in the GitHub README.", "alt": "The Directcut how-to video: the guided tour, building a shot with references, setting up an image and the saved gallery" },
     "title": "Directcut",
     "subtitle": "A free, self-hosted app for AI video and images. Bring your own OpenRouter key and pay the model price, not a platform's markup.",
     "outcome": "",
@@ -313,7 +313,7 @@
       { "title": "References that write the prompt", "summary": "Start and end frames, plus character, style, motion and voice slots. Drop a file in and its @tag lands in your prompt." },
       { "title": "A spending guard", "summary": "A daily cap, $10 by default, is checked on the server before every job, so a typo or a runaway script cannot drain the balance." },
       { "title": "Your files stay yours", "summary": "Outputs download the moment they finish, because provider links expire. The gallery keeps the model, settings and cost for each one." },
-      { "title": "A tour, not a manual", "summary": "An 8 step guided tour on first launch and a 92 second how-to video. Setup asks for a password and a key, then you can generate." }
+      { "title": "A tour, not a manual", "summary": "An 8 step guided tour on first launch and a 90 second how-to video. Setup asks for a password and a key, then you can generate." }
     ],
     "result": "A studio tool released for everyone: the same models the paid platforms resell, on your own machine, at the price the model costs.",
     "kicker": "In depth on",
