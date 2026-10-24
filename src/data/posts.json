@@ -1,5 +1,118 @@
 [
   {
+    "slug": "directcut-open-source-ai-video",
+    "title": "Directcut: Free, Open-Source AI Video at the Model Price",
+    "excerpt": "We released Directcut, a free app that runs AI video and image models on your own computer with your own OpenRouter key. No subscription, no credits.",
+    "kicker": "AI & Automation",
+    "category": "AI & Automation",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-24",
+    "readingTime": "3 min read",
+    "coverImage": "/images/journal/directcut-open-source-ai-video.jpg",
+    "imageAlt": "The Directcut app: model controls on the left, a prompt for a paper boat on a pond, reference slots, a $0.550 cost estimate and a gallery of demo images.",
+    "tags": [
+      "AI Video",
+      "Open Source",
+      "OpenRouter",
+      "Self-Hosted"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "AI video platforms sell the same handful of models behind monthly plans and credit packs. You pay for the model, then you pay again for the screen around it, and the files live on their servers."
+      },
+      {
+        "type": "paragraph",
+        "text": "We wanted the screen without the markup, so we built one and gave it away. It is called Directcut. It runs on your own computer, talks straight to [OpenRouter](https://openrouter.ai) with your own key, and you pay the model price for each generation. Nothing else."
+      },
+      {
+        "type": "heading",
+        "text": "What you can make with it"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Video with 8 models: Seedance 2.5 and 2 Fast, Kling 3.0 Pro and Standard, Veo 3.1 and Veo 3.1 Fast, Wan 3.0 and Hailuo 3.",
+          "Images with 6 models: Seedream 5 Pro and Lite, Nano Banana Pro and Nano Banana 2, GPT Image 2 and Flux 3.",
+          "Start and end frames, plus character, style, motion and voice references. Drop a file in and its @tag is written into your prompt.",
+          "Enhance, which turns a rough idea into a detailed prompt through the same key. It never generates on its own.",
+          "A gallery that keeps every file on your disk, with the model, settings and real cost of each one."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "What it costs"
+      },
+      {
+        "type": "paragraph",
+        "text": "The app shows an estimate before you click Generate, and swaps in the real charge when OpenRouter reports it. These are Directcut's own estimates, kept on the high side on purpose, from the [price table in the README](https://github.com/switchcasestudio/directcut#why):"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A 5 second video at 480p on Seedance 2 Fast: about $0.23.",
+          "A 5 second video at 720p with sound on Kling 3.0 Pro: about $0.84.",
+          "A 6 second video at 1080p with sound on Veo 3.1 Fast: about $0.72.",
+          "A 1K image on Seedream 5 Pro: about $0.045."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "A daily spend cap, $10 by default, is checked on the server before every job, so a typo or a runaway script cannot drain your balance."
+      },
+      {
+        "type": "heading",
+        "text": "Set it up in about five minutes"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Install Node.js 22 or newer from [nodejs.org](https://nodejs.org).",
+          "Create an OpenRouter account, add a few dollars of credit and make a key at [openrouter.ai/keys](https://openrouter.ai/keys).",
+          "Download Directcut from GitHub, open a terminal in its folder and run npm run setup, then npm start.",
+          "Open localhost:3456, choose a password and paste your key. A short guided tour shows you the rest."
+        ]
+      },
+      {
+        "type": "link",
+        "url": "https://github.com/switchcasestudio/directcut",
+        "label": "Get Directcut on GitHub (free)",
+        "note": "MIT license, Node.js 22 or newer"
+      },
+      {
+        "type": "paragraph",
+        "text": "There is a 90 second how-to video in the README, and the same video plays on the [Directcut case study](/projects/directcut), next to screenshots of the app and the gallery."
+      },
+      {
+        "type": "heading",
+        "text": "What to know before you start"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Seedance and Seedream were tested end to end with real generations. The other models are wired from OpenRouter's published specs and covered by tests, but have not each had a real generation yet. If one misbehaves, open an issue.",
+          "Seedance rejects photo-realistic faces as references and start frames. For realistic people in video, use Kling 3.0.",
+          "It is a single-person tool on purpose: one password, no accounts, no teams, no billing.",
+          "It is free software, provided as is. Your key, your spending and what you make are your responsibility."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Why a studio gives this away"
+      },
+      {
+        "type": "paragraph",
+        "text": "We built Directcut for our own video work, and it was too useful to keep. Creators and small teams should be able to use these models at the price they cost, keep their files, and read the code that touches their key. If you want something like it built around your own business, that is what our [AI development work](/pricing/ai-development) is for."
+      },
+      {
+        "type": "paragraph",
+        "text": "Contributions are welcome, from a typo fix to a new model. Adding a model is one entry in one file, and the README explains how."
+      }
+    ]
+  },
+  {
     "slug": "how-to-write-an-about-page-that-builds-trust",
     "title": "How to Write an About Page That Builds Trust",
     "excerpt": "A useful About page replaces vague brand language with the facts, people, proof, and next step a potential customer needs to trust the business.",
