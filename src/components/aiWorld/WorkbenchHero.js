@@ -17,7 +17,7 @@ import { f, q, qa } from '../servicePoster/usePosterEngine';
      the human circle when the rule says a person decides. The log under
      the headline gets the agent's four lines per job. Purple current runs
      along the arrows. A Pause button stops all of it (WCAG 2.2.2).
-   - Reacting: the agent leans toward the pointer and glows as it nears,
+   - Reacting: the agent leans toward the pointer,
      its dot follows the pointer, hovering a part or its caption lights
      both, Run runs the next job, the trigger starts one, the human circle
      sends a refund through.
@@ -28,9 +28,10 @@ import { f, q, qa } from '../servicePoster/usePosterEngine';
    pressed runs are. */
 
 const INTER = "Inter, 'Inter Fallback', sans-serif";
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 18, strokeLinecap: 'round', strokeLinejoin: 'round' };
-const THIN = { ...S, strokeWidth: 12 };
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 8, strokeLinecap: 'round', strokeLinejoin: 'round' };
+const THIN = { ...S, strokeWidth: 5 };
 const LAVENDER = '#dab8ff';
+const ORANGE = '#ff834a';
 const STEP = 330 / 7;
 const AUTO_FIRST = 1700;
 const AUTO_GAP = 3600;
@@ -83,28 +84,16 @@ const JOBS = [
 ];
 const REFUND = 2;
 
+// Each caption sits in a zone no line crosses (viewBox 1600 x 960): above
+// the trigger, under the queue, between the "a" and the Run pill, under the
+// lower arrow, under Run. Short copy, because the type floors at 12px while
+// the drawing keeps shrinking.
 const CAPS = [
-  {
-    key: 'trigger',
-    l: 4.4,
-    t: 15,
-    text: ['Trigger.', 'A form, a missed call, a new row in the sheet. Anything that happens can start a run.'],
-  },
-  {
-    key: 'queue',
-    l: 62.5,
-    t: 53,
-    text: ['Queue.', 'Jobs wait their turn. Each step is written down before the next one starts.'],
-  },
-  {
-    key: 'agent',
-    l: 38.5,
-    t: 66,
-    w: 16.5,
-    text: ['Agent.', 'Reads the context, decides, drafts. It asks a person whenever the rule says so.'],
-  },
-  { key: 'human', l: 4.4, t: 80, w: 11, text: ['Kept human.', 'The refund, the apology, the hard call.'] },
-  { key: 'run', l: 56.5, t: 90, text: ['Run.', 'One press, a schedule, or an event. Then the log.'] },
+  { key: 'trigger', l: 4.4, t: 15, w: 30, text: ['Trigger.', 'A form, a missed call, a new row in a sheet.'] },
+  { key: 'queue', l: 62.5, t: 52, w: 33, text: ['Queue.', 'Jobs wait their turn. Every step is logged.'] },
+  { key: 'agent', l: 40.6, t: 45, w: 15.6, text: ['Agent.', 'Reads, decides, drafts. Asks a person when the rule says so.'] },
+  { key: 'human', l: 26, t: 87, w: 15, text: ['Kept human.', 'Refunds, apologies, hard calls.'] },
+  { key: 'run', l: 56.5, t: 89.5, w: 30, text: ['Run.', 'One press, a schedule or an event.'] },
 ];
 
 const stamp = (s) => {
@@ -264,7 +253,7 @@ export default function WorkbenchHero() {
     };
   }, []);
 
-  // The pointer: the agent leans toward it and glows as it nears, the dot
+  // The pointer: the agent leans toward it, the dot
   // follows it. quickTo tweens settle and stop on their own, so nothing
   // ticks while the pointer is still or away. Fine pointers only.
   useEffect(() => {
@@ -277,11 +266,9 @@ export default function WorkbenchHero() {
     ).matches;
     if (!ok) return undefined;
     const agent = q(svg, 'agent');
-    const glow = q(svg, 'glow');
     const dot = q(svg, 'dot');
     gsap.set(agent, { svgOrigin: `${AGENT.x} 640` });
     const lean = gsap.quickTo(agent, 'rotation', { duration: 0.8, ease: 'power3' });
-    const glowTo = gsap.quickTo(glow, 'opacity', { duration: 0.5, ease: 'power2' });
     const dx = gsap.quickTo(dot, 'x', { duration: 0.5, ease: 'power3' });
     const dy = gsap.quickTo(dot, 'y', { duration: 0.5, ease: 'power3' });
     const onMove = (e) => {
@@ -291,7 +278,6 @@ export default function WorkbenchHero() {
       const ax = p.x - AGENT.x;
       const ay = p.y - AGENT.y;
       lean(Math.max(-1, Math.min(1, ax / 800)) * 7);
-      glowTo(Math.max(0, 1 - Math.hypot(ax, ay) / 650) * 0.9);
       const ox = p.x - DOT.x;
       const oy = p.y - DOT.y;
       const d = Math.hypot(ox, oy) || 1;
@@ -301,7 +287,6 @@ export default function WorkbenchHero() {
     };
     const onLeave = () => {
       lean(0);
-      glowTo(0);
       dx(0);
       dy(0);
     };
@@ -310,7 +295,7 @@ export default function WorkbenchHero() {
     return () => {
       stage.removeEventListener('pointermove', onMove);
       stage.removeEventListener('pointerleave', onLeave);
-      gsap.killTweensOf([agent, glow, dot]);
+      gsap.killTweensOf([agent, dot]);
     };
   }, []);
 
@@ -359,21 +344,16 @@ export default function WorkbenchHero() {
                 <i aria-hidden="true" />
                 The workbench
               </p>
-              <div className="aw-hero__aura" aria-hidden="true" />
-              <div className="aw-hero__aura aw-hero__aura--think" aria-hidden="true" />
               <svg viewBox="0 0 1600 960" aria-hidden="true" focusable="false">
                 <defs>
                   <clipPath id="aw-hero-clip">
                     <rect x="1000" y="150" width="540" height="330" rx="44" />
                   </clipPath>
-                  <filter id="aw-hero-glow" x="-40%" y="-40%" width="180%" height="180%">
-                    <feGaussianBlur stdDeviation="16" />
-                  </filter>
                 </defs>
 
                 {/* The trigger: an outlined pill with its slot. */}
                 <g data-part="trigger">
-                  <rect x="70" y="340" width="140" height="360" rx="70" {...S} />
+                  <rect className="aw-hero__trig" x="70" y="340" width="140" height="360" rx="70" {...S} />
                   <rect
                     data-p="slot"
                     className="aw-hero__slot"
@@ -386,27 +366,10 @@ export default function WorkbenchHero() {
                   />
                 </g>
 
-                {/* The agent, its glow, and the dot that watches. */}
+                {/* The agent and the dot that watches. */}
                 <g data-part="agent">
                   <circle data-p="dot" cx={DOT.x} cy={DOT.y} r="28" {...THIN} />
                   <g data-p="agent">
-                    <text
-                      data-p="glow"
-                      x="360"
-                      y="640"
-                      fontFamily={INTER}
-                      fontSize="440"
-                      fontWeight="700"
-                      letterSpacing="-12"
-                      fill="none"
-                      stroke={LAVENDER}
-                      strokeWidth="34"
-                      strokeLinejoin="round"
-                      filter="url(#aw-hero-glow)"
-                      opacity="0"
-                    >
-                      a
-                    </text>
                     <text
                       className="aw-hero__a"
                       x="360"
@@ -417,7 +380,7 @@ export default function WorkbenchHero() {
                       letterSpacing="-12"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="14"
+                      strokeWidth="7"
                       strokeLinejoin="round"
                     >
                       a
@@ -428,8 +391,9 @@ export default function WorkbenchHero() {
                 {/* The queue: the lines advance one job per run. */}
                 <g data-part="queue">
                   <g clipPath="url(#aw-hero-clip)">
+                    <rect className="aw-hero__qbg" x="1000" y="150" width="540" height="330" />
                     <rect className="aw-hero__qnext" x="1000" y="150" width="540" height={STEP} fill={LAVENDER} />
-                    <g data-p="qlines" {...THIN}>
+                    <g data-p="qlines" className="aw-hero__qlines" {...THIN}>
                       {[1, 2, 3, 4, 5, 6, 7].map((k) => (
                         <path key={k} d={`M1000 ${150 + STEP * k}H1540`} />
                       ))}
@@ -445,7 +409,7 @@ export default function WorkbenchHero() {
                   <path className="aw-hero__draw" pathLength="1" d="M480 700C540 830 740 860 870 750" {...S} />
                   <path className="aw-hero__draw" pathLength="1" d="M788 761L870 750L846 829" {...S} />
                 </g>
-                <g className="aw-hero__currents" fill="none" stroke={LAVENDER} strokeWidth="9" strokeLinecap="round">
+                <g className="aw-hero__currents" fill="none" stroke={ORANGE} strokeWidth="5" strokeLinecap="round">
                   <path pathLength="1" d="M985 300L660 375" />
                   <path pathLength="1" d="M480 700C540 830 740 860 860 758" />
                 </g>
@@ -484,9 +448,9 @@ export default function WorkbenchHero() {
                 />
                 <path data-p="route-human" d="M540 500L470 690L330 850" fill="none" stroke="none" />
                 {[11, 8, 5].map((r) => (
-                  <circle key={r} data-p="trail" r={r} fill={LAVENDER} opacity="0" />
+                  <circle key={r} data-p="trail" r={r} fill={ORANGE} opacity="0" />
                 ))}
-                <circle data-p="pkt" r="18" fill={LAVENDER} opacity="0" />
+                <circle data-p="pkt" r="16" fill={ORANGE} opacity="0" />
 
                 {/* Hit areas: hover lights a part, the trigger and the human circle run a job. */}
                 <rect
@@ -545,8 +509,8 @@ export default function WorkbenchHero() {
               {CAPS.map((c, i) => (
                 <p
                   key={c.key}
-                  className={`aw-hero__cap${hot === c.key ? ' is-on' : ''}`}
-                  style={{ left: `${c.l}%`, top: `${c.t}%`, width: c.w ? `${c.w}%` : undefined, '--i': i }}
+                  className={`aw-hero__cap aw-hero__cap--${c.key}${hot === c.key ? ' is-on' : ''}`}
+                  style={{ left: `${c.l}%`, top: `${c.t}%`, width: `${c.w}%`, '--i': i }}
                   {...hover(c.key)}
                 >
                   <strong>{c.text[0]}</strong> {c.text[1]}

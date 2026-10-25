@@ -99,7 +99,7 @@ export function NodeGraph(svg, api) {
       else if (c < 0.55) pt = at(0, 1);
       else pt = at(1 + (n % 3), (c - 0.55) / 0.45);
       if (pt) pkt(`translate(${f(pt.x - 100)} ${f(pt.y - 200)})`);
-      agent(String(c > 0.4 && c < 0.55 ? 24 : 16));
+      agent(String(c > 0.4 && c < 0.55 ? 7 : 4.5));
     },
   };
 }

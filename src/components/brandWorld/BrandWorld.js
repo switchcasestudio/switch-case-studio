@@ -21,7 +21,7 @@ const Card3D = lazy(() => import('./Card3D'));
    is a flat plate, scroll is the clock, density breathes, hover flips
    color, media lives in tiles. Palette stays SCS: ink, cream, lavender,
    blue, orange, plus the poster flats (terra, mint, pink). Order: collage,
-   breath, type stage, process stage, deliverables, client bubbles, circles,
+   type stage, process stage, deliverables, client bubbles, circles,
    pill. The collage, the process stage, the bubbles and the close are the
    shared world parts (components/worlds); this file is the brand content. */
 const COPY = {
@@ -111,13 +111,6 @@ export default function BrandWorld() {
   return (
     <div className="bw">
       <Collage tiles={TILES} scrollLength={SCROLL_LENGTH} art={ART} live={LIVE} kinds={KINDS} label="Brand identity" copy={COPY} />
-
-      <section className="bw-breath" aria-label="About the concepts">
-        <p>
-          Five made-up Portland businesses live on this page. Scroll and their pieces come apart; every one is a vector
-          you can push around. An identity has to survive being moved.
-        </p>
-      </section>
 
       <TypeStage />
       <ProcessStage states={STATES} label="How a brand identity is made here" heading="How it gets made" />

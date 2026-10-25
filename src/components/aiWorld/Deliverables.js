@@ -8,7 +8,7 @@ import { Envelope as envelopeLive } from './tiles/live';
 
 gsap.registerPlugin(Draggable);
 
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 10, strokeLinecap: 'round', strokeLinejoin: 'round' };
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 4.5, strokeLinecap: 'round', strokeLinejoin: 'round' };
 const reduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* The deliverables grid (2026-10-22): cards whose demos are the thing, the
@@ -139,7 +139,7 @@ function DragDemo() {
       <path data-p="w2" d="M255 150C282.5 150 282.5 150 310 150" {...S} />
       <rect x="310" y="120" width="60" height="60" rx="14" {...S} />
       <g data-p="node" style={{ cursor: 'grab' }}>
-        <rect x="145" y="115" width="110" height="70" rx="18" fill="#000" {...S} />
+        <rect x="145" y="115" width="110" height="70" rx="18" fill="#fff" {...S} />
         <text x="200" y="166" textAnchor="middle" fill="currentColor" fontFamily="Inter, 'Inter Fallback', sans-serif" fontSize="44" fontWeight="700">
           a
         </text>
@@ -171,7 +171,7 @@ export default function Deliverables() {
       <ul className="bw-grid__cards">
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo bw-grid__demo--tool" style={{ aspectRatio: '4/3' }}>
+            <div className="bw-grid__demo bw-grid__demo--tool aw-tone--mint" style={{ aspectRatio: '4/3' }}>
               <ChatDemo />
             </div>
           </div>
@@ -181,7 +181,7 @@ export default function Deliverables() {
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo bw-grid__demo--tool" style={{ aspectRatio: '4/3' }}>
+            <div className="bw-grid__demo bw-grid__demo--tool aw-tone--orange" style={{ aspectRatio: '4/3' }}>
               <TaskDemo />
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function Deliverables() {
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo" style={{ aspectRatio: '4/3' }}>
+            <div className="bw-grid__demo aw-tone--pink" style={{ aspectRatio: '4/3' }}>
               <DragDemo />
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function Deliverables() {
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo bw-grid__demo--tool" style={{ aspectRatio: '4/3' }}>
+            <div className="bw-grid__demo bw-grid__demo--tool aw-tone--blue" style={{ aspectRatio: '4/3' }}>
               <HostDemo />
             </div>
           </div>
@@ -221,7 +221,7 @@ export default function Deliverables() {
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo" style={{ aspectRatio: '4/3' }}>
+            <div className="bw-grid__demo aw-tone--lilac" style={{ aspectRatio: '4/3' }}>
               <LiveArt Art={Envelope} create={envelopeLive} className="aw-live" />
             </div>
           </div>

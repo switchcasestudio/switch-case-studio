@@ -69,13 +69,14 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l 'id="S:' build/**/*.html` matches nothing; `<h1` sits inside `<main>` on every page.
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
-- `find build -name '*.html' | wc -l` = route baseline (62 as of 2026-10-23, 63 once the scheduled Directcut post publishes 2026-10-24); re-baseline in `.audit/rules.md` when routes change.
+- `find build -name '*.html' | wc -l` = route baseline (63 as of 2026-10-24); re-baseline in `.audit/rules.md` when routes change.
 - `npm run check:us` (postbuild) is clean: US English only in every built page (`scripts/check-us-english.mjs`).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily); no post with empty `coverImage`.
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- Text never sits where a drawing can run under it (AI world, 2026-10-24: "some elements hovering text, impossible to read"): hero captions live in line-free zones of the viewBox with a halo, process cards are filled and the art steps 6% away; outlines are 2px, strokes hero 8/5 and tiles 4.5/4 viewBox units, no glow; the AI world wears the full studio palette (orange, mint, blue, pink, lavender), the hero's workbench uses orange as its only accent on cream and black (owner picked it from four rendered palettes; show options as images when color feedback repeats).
 - The AI world's hero is the workbench (`WorkbenchHero.js`, 2026-10-23): 100svh minus the 78px header on 1024+, live (auto-runs jobs while on screen, Pause stops it) and reacting (pointer, hover, clicks); the scroll collage is the brand world's alone. Entrances use `animation-fill-mode: backwards` so hover dimming still applies; CSS owns colors, GSAP only transforms.
 - Every deploy broke every open tab (2026-10-23): vite-react-ssg's loader manifest is named by a random per-build hash baked into the HTML, so the first in-app click from a pre-deploy tab fetched a missing JSON and died; `scripts/pin-ssg-hash.mjs` (postbuild) pins the hash to `latest`, and `RouteError.js` is the router `errorElement` that reloads a stale tab once.
 - A service world is built from the shared kit in `src/components/worlds/` (two worlds live: brand, AI; the collage hero is the brand world's only), each world is its own static route record ahead of the `services/:serviceSlug` redirect, and a service card lands on its world via `servicePath()`; card titles sit on a reserved notebook row; `/services` is the services index (the only dropdown) and `/pricing` the pricing index (a plain link), and a world and its pricing page link each other (owner, 2026-10-22).

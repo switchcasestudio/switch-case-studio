@@ -105,6 +105,7 @@ export default function ProcessStage({ states, label, heading }) {
           key={s.key}
           className={`bw-state bw-state--${s.side} bw-state--${s.corner}${s.narrow ? ' bw-state--narrow' : ''}`}
           data-state={s.key}
+          style={{ '--bw-field': s.field, '--bw-ink': s.ink }}
         >
           <p className="bw-state__title">
             <span className="bw-state__n">0{i + 1}</span> {s.title}

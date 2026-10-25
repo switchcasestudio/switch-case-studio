@@ -1,12 +1,17 @@
 @import '../_variables.scss';
 
 // The AI & Automation world (2026-10-22): the brand world's sheet
-// (brandWorld.scss) with the owner's reference language on top. Outlines
-// on black, cream strokes, one accent (lavender), no orange, no plates of
-// color. `.bw--ai` recolors the shared parts; `.aw-*` are this page's own.
+// (brandWorld.scss) with the owner's reference language on top. Outlines,
+// one accent (lavender), no orange. `.bw--ai` recolors the shared parts;
+// `.aw-*` are this page's own. Since 2026-10-24 (owner: "strokes still too
+// thick", "I am missing colors, it's only black-purple") outlines are 2px,
+// drawings are thin, and the page wears the full studio palette: orange,
+// mint, blue, pink and lavender on cream and ink. The demos draw in
+// currentColor so they read on any field.
 $cream: $white-color;
 $ink: $promo-ink;
-$line: 3px;
+$line: 2px;
+$soft-line: rgba(20, 20, 20, 0.22);
 
 @mixin aw-h2 {
   font-family: $font-text;
@@ -19,6 +24,7 @@ $line: 3px;
 }
 
 $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
+$bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
 .bw--ai {
   color: $cream;
@@ -37,16 +43,34 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     }
   }
 
-  /* Process stage: the field changes, the drawings follow it. */
+  /* Process stage: the field changes, the drawings follow it. The first
+     field (orange) is the static one, so the SSR paint matches the pinned
+     start. */
   .bw-stage {
-    background: #000;
-    color: $cream;
+    background: $orange-color;
+    color: $ink;
   }
 
+  // The card is filled with its own field and the art steps away from it,
+  // so no drawing ever runs under the copy.
   .bw-state__card {
-    background: transparent;
+    background: var(--bw-field, transparent);
     color: inherit;
     border: $line solid currentColor;
+  }
+
+  @media #{$bw-pin} {
+    .bw-state--right .bw-state__art {
+      left: 44%;
+    }
+
+    .bw-state--left .bw-state__art {
+      left: 56%;
+    }
+
+    .bw-state--narrow .bw-state__art {
+      left: 50%;
+    }
   }
 
   .bw-state__art,
@@ -55,76 +79,89 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     border-radius: 18px;
   }
 
-  /* Deliverables: outlined cards on the field. */
+  /* Deliverables: outlined cards on cream. */
   .bw-grid {
-    background: #000;
-    color: $cream;
-    border: $line solid $cream;
+    background: $cream;
+    color: $ink;
   }
 
   .bw-grid__card {
-    background: #000;
-    color: $cream;
-    border: 2px solid $cream;
+    background: transparent;
+    color: $ink;
+    border: $line solid $ink;
   }
 
   .bw-grid__demo {
-    background: #000;
-    border: 2px solid rgba(254, 247, 237, 0.4);
-    color: $cream;
+    background: #fff;
+    border: 1px solid $soft-line;
+    color: $ink;
 
     &--tool {
       display: block;
     }
+
+    // One studio color per demo; the drawing and the text follow it.
+    &.aw-tone--mint {
+      background: $promo-mint;
+    }
+
+    &.aw-tone--orange {
+      background: $orange-color;
+    }
+
+    &.aw-tone--pink {
+      background: $g4;
+    }
+
+    &.aw-tone--blue {
+      background: $blue-color;
+      color: $cream;
+    }
+
+    &.aw-tone--lilac {
+      background: $g5;
+    }
+
+    // On a phone the HTML demos take their own height: at 4:3 the chat
+    // clipped its answer under its buttons.
+    @media (max-width: 599px) {
+      &--tool {
+        aspect-ratio: auto !important;
+      }
+
+      .aw-chat {
+        height: auto;
+      }
+
+      .aw-chat__a {
+        min-height: calc(4 * 1.45em + 1.1rem);
+      }
+    }
   }
 
-  /* Bubbles: the accent field, ink bubbles. */
+  /* Bubbles: blue field, cream bubbles. */
   .bw-bubbles {
-    background: $g5;
-    color: $ink;
+    background: $blue-color;
+    color: $cream;
   }
 
   .bw-bubbles__title {
-    color: $ink;
+    color: $cream;
   }
 
   .bw-bubble {
-    background: #000;
-    color: $cream;
+    background: $cream;
+    color: $ink;
   }
 
-  /* The close: an outlined field, a lavender circle and an outlined one. */
+  /* The close: cream, the brand world's orange and blue circles. */
   .bw-circles {
-    background: #000;
-    color: $cream;
-    border: $line solid $cream;
+    background: $cream;
+    color: $ink;
   }
 
   .bw-circles__note {
-    color: rgba(254, 247, 237, 0.7);
-  }
-
-  .bw-circle--a {
-    background: $g5;
-    color: $ink;
-
-    &:hover,
-    &:focus-visible {
-      background: $g7;
-      color: $ink;
-    }
-  }
-
-  .bw-circle--b {
-    background: transparent;
-    color: $cream;
-    border: $line solid $cream;
-
-    &:hover,
-    &:focus-visible {
-      background: $cream;
-      color: $ink;
-    }
+    color: rgba(20, 20, 20, 0.7);
   }
 
   .bw-pill {
@@ -138,11 +175,11 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     }
   }
 
+  // Stacked: each state keeps its own field, as on the pinned stage.
   @media #{$bw-sheet} {
     .bw-state {
-      background: #000;
-      color: $cream;
-      border: $line solid $cream;
+      background: var(--bw-field, $cream);
+      color: var(--bw-ink, $ink);
     }
 
     .bw-state__card {
@@ -157,10 +194,10 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 .aw-pill {
   min-height: 44px;
   padding: 0.5rem 0.9rem;
-  border: 2px solid rgba(254, 247, 237, 0.4);
+  border: 1.5px solid color-mix(in srgb, currentColor 40%, transparent);
   border-radius: 999px;
   background: transparent;
-  color: $cream;
+  color: inherit;
   font: inherit;
   font-size: 0.85rem;
   font-weight: 500;
@@ -169,8 +206,8 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 
   &:hover,
   &:focus-visible {
-    border-color: $g5;
-    color: $g5;
+    border-color: currentColor;
+    background: rgba(218, 184, 255, 0.35);
   }
 
   &.is-on {
@@ -211,7 +248,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   &__a {
     align-self: flex-start;
     min-height: 3.4em;
-    border: 2px solid $cream;
+    border: 1.5px solid currentColor;
     border-radius: 16px 16px 16px 4px;
   }
 
@@ -247,14 +284,14 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
       flex: 0 0 auto;
       width: 18px;
       height: 18px;
-      border: 2px solid $cream;
+      border: 1.5px solid currentColor;
       border-radius: 50%;
       transition: background-color 0.2s ease, border-color 0.2s ease;
     }
 
     &.is-done i {
       background: $g5;
-      border-color: $g5;
+      border-color: currentColor;
     }
   }
 
@@ -291,9 +328,10 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     position: relative;
     width: 150px;
     height: 68px;
-    border: $line solid $cream;
+    border: $line solid currentColor;
     border-radius: 999px;
     background: transparent;
+    color: inherit;
     cursor: pointer;
     transition: background-color 0.25s ease;
 
@@ -305,7 +343,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
       width: 50px;
       height: 50px;
       border-radius: 50%;
-      background: $cream;
+      background: currentColor;
       transition: translate 0.25s ease, background-color 0.25s ease;
     }
 
@@ -336,6 +374,6 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     max-width: 24ch;
     font-size: 0.85rem;
     line-height: 1.45;
-    color: rgba(254, 247, 237, 0.65);
+    opacity: 0.65;
   }
 }

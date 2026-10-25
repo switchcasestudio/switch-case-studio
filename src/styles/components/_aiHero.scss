@@ -7,17 +7,19 @@
 // to the space by container units. Under 1024px it stacks and the
 // captions become a list under the drawing.
 // Motion: entrances are CSS keyframes from first paint; the ambient layer
-// (purple current on the arrows, the breathing aura, the live dot) runs
-// only while the hero has `.is-live` (on screen, not paused, tab visible).
-// Phase classes (`is-fire`, `is-queue`, `is-think`, `is-land`, `is-human`)
-// come from the job timeline; `is-hot-<part>` from hover. CSS owns every
-// color and fill here; GSAP only writes transforms, the packet's position
-// and the glow's opacity.
+// (orange current on the arrows, the live dot) runs only while the hero
+// has `.is-live` (on screen, not paused, tab visible). Phase classes
+// (`is-fire`, `is-queue`, `is-think`, `is-land`, `is-human`) come from the
+// job timeline; `is-hot-<part>` from hover. CSS owns every color and fill
+// here; GSAP only writes transforms and the packet's position. Since
+// 2026-10-24 there is no glow: the parts are flat studio colors.
 
 $aw-wide: '(min-width: 1024px)';
 $aw-narrow: '(max-width: 1023px)';
 $aw-move: '(prefers-reduced-motion: no-preference)';
-$aw-glow: rgba(218, 184, 255, 0.5);
+$aw-ping: rgba(255, 131, 74, 0.5);
+$aw-field: #000;
+$aw-orange: $orange-color;
 
 .aw-hero {
   // The sticky header's height (57px logo row, 10px padding, 1px border).
@@ -45,10 +47,7 @@ $aw-glow: rgba(218, 184, 255, 0.5);
     padding: clamp(1.5rem, 3vw, 3rem);
     border: $line solid $cream;
     border-radius: 24px;
-    background:
-      radial-gradient(50% 60% at 62% 55%, rgba(218, 184, 255, 0.1), rgba(218, 184, 255, 0) 70%),
-      radial-gradient(40% 50% at 8% 100%, rgba(218, 184, 255, 0.07), rgba(218, 184, 255, 0) 70%),
-      #000;
+    background: $aw-field;
     overflow: hidden;
 
     @media #{$aw-wide} {
@@ -184,93 +183,105 @@ $aw-glow: rgba(218, 184, 255, 0.5);
   }
 
   &.is-live &__tag i {
-    background: $g5;
+    background: $aw-orange;
   }
 
-  // The agent's aura: a soft purple light behind the "a". The second one
-  // comes up while the agent thinks.
-  &__aura {
-    position: absolute;
-    left: 33%;
-    top: 52%;
-    width: 44%;
-    aspect-ratio: 1;
-    translate: -50% -50%;
-    border-radius: 50%;
-    background: radial-gradient(closest-side, rgba(218, 184, 255, 0.2), rgba(218, 184, 255, 0));
-    pointer-events: none;
-
-    &--think {
-      width: 34%;
-      background: radial-gradient(closest-side, rgba(218, 184, 255, 0.5), rgba(218, 184, 255, 0));
-      opacity: 0;
-      transition: opacity 0.35s ease;
-    }
-  }
-
-  &.is-think &__aura--think {
-    opacity: 1;
-  }
-
-  /* Parts: cream lines, the agent in purple, a part lights up when hovered
-     or when the job reaches it. */
+  /* Parts: thin cream outlines, one accent (owner, 2026-10-24, after
+     trying four palettes on screen: "orange only"). Trigger and Run are
+     solid orange, the agent solid cream, the queue cream lines on black,
+     kept-human an outline. A part turns cream when hovered or reached
+     (the agent and the queue turn orange). No glow anywhere. */
   [data-part] {
-    transition: color 0.25s ease;
+    color: $cream;
   }
 
-  [data-part='agent'] {
-    color: $g5;
-  }
-
-  &.is-hot-trigger [data-part='trigger'],
-  &.is-hot-queue [data-part='queue'],
-  &.is-hot-human [data-part='human'],
-  &.is-hot-run [data-part='run'],
-  &.is-fire [data-part='trigger'],
-  &.is-land [data-part='run'],
-  &.is-human [data-part='human'] {
-    color: $g5;
-  }
-
-  &.is-hot-agent [data-part='agent'],
-  &.is-think [data-part='agent'] {
-    color: $g7;
-  }
-
-  &__slot,
+  &__trig,
+  &__a,
+  &__qbg,
   &__pill,
   &__no,
-  &__runword {
+  &__runword,
+  &__slot {
     transition: fill 0.3s ease;
   }
 
-  &.is-fire &__slot {
-    fill: $g5;
+  &__trig {
+    fill: $aw-orange;
+  }
+
+  &__slot {
+    fill: $aw-field;
+  }
+
+  &__a {
+    fill: $cream;
+  }
+
+  &__qbg {
+    fill: transparent;
+  }
+
+  &__qlines {
+    color: $cream;
   }
 
   &__qnext {
+    fill: $cream;
     opacity: 0;
     transition: opacity 0.3s ease;
   }
 
+  &__pill {
+    fill: $aw-orange;
+  }
+
+  &__runword {
+    fill: $ink;
+  }
+
+  &__no {
+    fill: transparent;
+  }
+
+  &.is-hot-trigger &__trig,
+  &.is-fire &__trig {
+    fill: $cream;
+  }
+
+  &.is-fire &__slot {
+    fill: $aw-orange;
+  }
+
+  &.is-hot-agent &__a,
+  &.is-think &__a {
+    fill: $aw-orange;
+  }
+
+  &.is-hot-queue &__qbg {
+    fill: $aw-orange;
+  }
+
   &.is-queue &__qnext {
-    opacity: 0.85;
+    opacity: 1;
   }
 
-  &.is-hot-run &__pill {
-    fill: rgba(218, 184, 255, 0.14);
+  &.is-hot-queue &__qnext {
+    fill: $ink;
   }
 
+  &.is-hot-run &__pill,
   &.is-land &__pill {
-    fill: $g5;
+    fill: $cream;
   }
 
+  &.is-hot-run &__runword,
   &.is-land &__runword {
     fill: $ink;
   }
 
+  &.is-hot-human &__no,
   &.is-human &__no {
-    fill: rgba(218, 184, 255, 0.22);
+    fill: $cream;
   }
 
   &__hit {
@@ -311,13 +322,19 @@ $aw-glow: rgba(218, 184, 255, 0.5);
     }
   }
 
+  // The halo keeps a caption readable where an arrow or the packet's trail
+  // passes behind it.
   &__cap {
     position: absolute;
     width: 17%;
     margin: 0;
-    font-size: clamp(11px, 1.3cqw, 15px);
+    font-size: clamp(12px, 1.25cqw, 15px);
     line-height: 1.4;
     color: rgba(254, 247, 237, 0.88);
+    text-shadow:
+      0 0 2px #000,
+      0 0 6px #000,
+      0 0 12px #000;
     pointer-events: auto;
     transition:
       opacity 0.25s ease,
@@ -330,16 +347,18 @@ $aw-glow: rgba(218, 184, 255, 0.5);
     }
   }
 
+  // The orange parts' captions lead in orange.
+  &__cap--trigger strong,
+  &__cap--run strong {
+    color: $aw-orange;
+  }
+
   &.is-hot &__cap {
     opacity: 0.35;
   }
 
   &.is-hot &__cap.is-on {
     opacity: 1;
-
-    strong {
-      color: $g5;
-    }
   }
 
   /* ---- The log ---- */
@@ -413,7 +432,7 @@ $aw-glow: rgba(218, 184, 255, 0.5);
 
     time {
       flex: none;
-      color: $g5;
+      color: $aw-orange;
     }
 
     span {
@@ -504,18 +523,6 @@ $aw-glow: rgba(218, 184, 255, 0.5);
       animation-delay: calc(0.8s + var(--i) * 0.12s);
     }
 
-    &__aura {
-      animation: aw-breathe 5s ease-in-out infinite paused;
-    }
-
-    &__aura--think {
-      animation: none;
-    }
-
-    &.is-live &__aura {
-      animation-play-state: running;
-    }
-
     &.is-live &__currents path {
       opacity: 1;
       animation: aw-current 1.3s linear infinite;
@@ -553,24 +560,12 @@ $aw-glow: rgba(218, 184, 255, 0.5);
   }
 }
 
-@keyframes aw-breathe {
-  0%,
-  100% {
-    scale: 0.9;
-    opacity: 0.7;
-  }
-  50% {
-    scale: 1.08;
-    opacity: 1;
-  }
-}
-
 @keyframes aw-ping {
   from {
-    box-shadow: 0 0 0 0 $aw-glow;
+    box-shadow: 0 0 0 0 $aw-ping;
   }
   to {
-    box-shadow: 0 0 0 10px rgba(218, 184, 255, 0);
+    box-shadow: 0 0 0 10px rgba(255, 131, 74, 0);
   }
 }
 
