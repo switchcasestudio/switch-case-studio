@@ -20,8 +20,6 @@ $aw-move: '(prefers-reduced-motion: no-preference)';
 $aw-ping: rgba(255, 131, 74, 0.5);
 $aw-field: #000;
 $aw-orange: $orange-color;
-$aw-mint: $promo-mint;
-$aw-blue: $blue-color;
 
 .aw-hero {
   // The sticky header's height (57px logo row, 10px padding, 1px border).
@@ -188,11 +186,11 @@ $aw-blue: $blue-color;
     background: $aw-orange;
   }
 
-  /* Parts: thin cream outlines over flat studio colors (owner, 2026-10-24:
-     "I am missing colors"): trigger orange, queue mint, Run blue. The
-     agent is solid cream and kept-human an outline: no pink or lavender
-     on the parts (owner, same day). A part turns cream when hovered or
-     reached (the agent turns orange). No glow anywhere. */
+  /* Parts: thin cream outlines, one accent (owner, 2026-10-24, after
+     trying four palettes on screen: "orange only"). Trigger and Run are
+     solid orange, the agent solid cream, the queue cream lines on black,
+     kept-human an outline. A part turns cream when hovered or reached
+     (the agent and the queue turn orange). No glow anywhere. */
   [data-part] {
     color: $cream;
   }
@@ -220,11 +218,11 @@ $aw-blue: $blue-color;
   }
 
   &__qbg {
-    fill: $aw-mint;
+    fill: transparent;
   }
 
   &__qlines {
-    color: $aw-field;
+    color: $cream;
   }
 
   &__qnext {
@@ -234,11 +232,11 @@ $aw-blue: $blue-color;
   }
 
   &__pill {
-    fill: $aw-blue;
+    fill: $aw-orange;
   }
 
   &__runword {
-    fill: $cream;
+    fill: $ink;
   }
 
   &__no {
@@ -260,7 +258,7 @@ $aw-blue: $blue-color;
   }
 
   &.is-hot-queue &__qbg {
-    fill: $cream;
+    fill: $aw-orange;
   }
 
   &.is-queue &__qnext {
@@ -268,7 +266,7 @@ $aw-blue: $blue-color;
   }
 
   &.is-hot-queue &__qnext {
-    fill: $aw-mint;
+    fill: $ink;
   }
 
   &.is-hot-run &__pill,
@@ -278,7 +276,7 @@ $aw-blue: $blue-color;
 
   &.is-hot-run &__runword,
   &.is-land &__runword {
-    fill: $aw-field;
+    fill: $ink;
   }
 
   &.is-hot-human &__no,
@@ -349,18 +347,10 @@ $aw-blue: $blue-color;
     }
   }
 
-  // Each caption's lead word wears its part's color (blue lifted for
-  // contrast on black).
-  &__cap--trigger strong {
-    color: $aw-orange;
-  }
-
-  &__cap--queue strong {
-    color: $aw-mint;
-  }
-
+  // The orange parts' captions lead in orange.
+  &__cap--trigger strong,
   &__cap--run strong {
-    color: #8aa4ff;
+    color: $aw-orange;
   }
 
   &.is-hot &__cap {
@@ -442,7 +432,7 @@ $aw-blue: $blue-color;
 
     time {
       flex: none;
-      color: $aw-mint;
+      color: $aw-orange;
     }
 
     span {
