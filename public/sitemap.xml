@@ -36,6 +36,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://switchcasestudio.com/services/web-development</loc>
+    <lastmod>2026-10-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://switchcasestudio.com/services/marketing-ads</loc>
+    <lastmod>2026-10-24</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://switchcasestudio.com/testimonials</loc>
     <lastmod>2026-10-14</lastmod>
     <priority>0.7</priority>
@@ -197,7 +207,7 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/pricing/web-development</loc>
-    <lastmod>2026-10-22</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
@@ -207,7 +217,7 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/pricing/marketing-ads</loc>
-    <lastmod>2026-10-09</lastmod>
+    <lastmod>2026-10-25</lastmod>
     <priority>0.6</priority>
   </url>
   <url>
