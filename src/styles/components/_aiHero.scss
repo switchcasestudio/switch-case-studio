@@ -22,7 +22,6 @@ $aw-field: #000;
 $aw-orange: $orange-color;
 $aw-mint: $promo-mint;
 $aw-blue: $blue-color;
-$aw-pink: $g4;
 
 .aw-hero {
   // The sticky header's height (57px logo row, 10px padding, 1px border).
@@ -189,9 +188,11 @@ $aw-pink: $g4;
     background: $aw-orange;
   }
 
-  /* Parts: thin cream outlines over flat studio colors, one per part
-     (owner, 2026-10-24: "I am missing colors"). A part turns cream when
-     it is hovered or the job reaches it. No glow anywhere. */
+  /* Parts: thin cream outlines over flat studio colors (owner, 2026-10-24:
+     "I am missing colors"): trigger orange, queue mint, Run blue. The
+     agent is solid cream and kept-human an outline: no pink or lavender
+     on the parts (owner, same day). A part turns cream when hovered or
+     reached (the agent turns orange). No glow anywhere. */
   [data-part] {
     color: $cream;
   }
@@ -215,7 +216,7 @@ $aw-pink: $g4;
   }
 
   &__a {
-    fill: $g5;
+    fill: $cream;
   }
 
   &__qbg {
@@ -241,7 +242,7 @@ $aw-pink: $g4;
   }
 
   &__no {
-    fill: $aw-pink;
+    fill: transparent;
   }
 
   &.is-hot-trigger &__trig,
@@ -255,7 +256,7 @@ $aw-pink: $g4;
 
   &.is-hot-agent &__a,
   &.is-think &__a {
-    fill: $cream;
+    fill: $aw-orange;
   }
 
   &.is-hot-queue &__qbg {
@@ -356,14 +357,6 @@ $aw-pink: $g4;
 
   &__cap--queue strong {
     color: $aw-mint;
-  }
-
-  &__cap--agent strong {
-    color: $g5;
-  }
-
-  &__cap--human strong {
-    color: $aw-pink;
   }
 
   &__cap--run strong {
