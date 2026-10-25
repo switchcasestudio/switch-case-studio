@@ -102,7 +102,7 @@ const STATES = [
 
 export default function AiWorld() {
   return (
-    <div className="bw bw--ai">
+    <div className="bw bw--outline bw--ai">
       <WorkbenchHero />
 
       <ProcessStage states={STATES} label="How an automation is built here" heading="How it gets built" />

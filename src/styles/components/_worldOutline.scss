@@ -1,0 +1,357 @@
+@import '../_variables.scss';
+
+// The outline worlds' shared sheet (2026-10-24): what the AI, SEO and Web
+// worlds have in common on top of brandWorld.scss. A world's root carries
+// `bw bw--outline bw--<world>`; `.bw--outline` holds the language (thin
+// outlines, filled process cards, cream deliverables with one studio color
+// per demo, the cream close, the lavender pill), `.bw--<world>` only its
+// first stage field and its bubbles field. The demo controls below
+// (`.aw-pill`, `.aw-chat`, `.aw-tasks`, `.aw-drag`, `.aw-switch`, `.aw-live`)
+// kept the AI world's prefix when they became shared. Owner rules behind it
+// (2026-10-24): strokes thin, no glow, text never under a drawing, the full
+// studio palette outside the hero, one accent (orange) inside it.
+$cream: $white-color;
+$ink: $promo-ink;
+$line: 2px;
+$soft-line: rgba(20, 20, 20, 0.22);
+
+$bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
+$bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
+
+.bw--outline {
+  color: $cream;
+
+  // Drawings that run on the engine keep the field's color.
+  .aw-live {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  // The card is filled with its own field and the art steps away from it,
+  // so no drawing ever runs under the copy.
+  .bw-state__card {
+    background: var(--bw-field, transparent);
+    color: inherit;
+    border: $line solid currentColor;
+  }
+
+  @media #{$bw-pin} {
+    .bw-state--right .bw-state__art {
+      left: 44%;
+    }
+
+    .bw-state--left .bw-state__art {
+      left: 56%;
+    }
+
+    .bw-state--narrow .bw-state__art {
+      left: 50%;
+    }
+  }
+
+  .bw-state__art,
+  .bw-state__sticker {
+    color: inherit;
+    border-radius: 18px;
+  }
+
+  /* Deliverables: outlined cards on cream. */
+  .bw-grid {
+    background: $cream;
+    color: $ink;
+  }
+
+  .bw-grid__card {
+    background: transparent;
+    color: $ink;
+    border: $line solid $ink;
+  }
+
+  .bw-grid__demo {
+    background: #fff;
+    border: 1px solid $soft-line;
+    color: $ink;
+
+    // A control demo is 4:3 until its content needs more: not clipping
+    // lets the aspect ratio's automatic minimum grow it, and the demo
+    // inside fills it with a min-height (a 100% height would pin it to the
+    // ratio). At 1024 the three columns are 257px wide and every HTML demo
+    // cut off its own buttons.
+    &--tool {
+      display: block;
+      overflow: visible;
+
+      > * {
+        height: auto;
+        min-height: 100%;
+      }
+    }
+
+    // One studio color per demo; the drawing and the text follow it.
+    &.aw-tone--mint {
+      background: $promo-mint;
+    }
+
+    &.aw-tone--orange {
+      background: $orange-color;
+    }
+
+    &.aw-tone--pink {
+      background: $g4;
+    }
+
+    &.aw-tone--blue {
+      background: $blue-color;
+      color: $cream;
+    }
+
+    &.aw-tone--lilac {
+      background: $g5;
+    }
+
+    // On a phone the HTML demos take their own height: at 4:3 the chat
+    // clipped its answer under its buttons.
+    @media (max-width: 599px) {
+      &--tool {
+        aspect-ratio: auto !important;
+      }
+
+      .aw-chat {
+        height: auto;
+      }
+
+      .aw-chat__a {
+        min-height: calc(4 * 1.45em + 1.1rem);
+      }
+    }
+  }
+
+  /* The close: cream, the brand world's orange and blue circles. */
+  .bw-circles {
+    background: $cream;
+    color: $ink;
+  }
+
+  .bw-circles__note {
+    color: rgba(20, 20, 20, 0.7);
+  }
+
+  .bw-pill {
+    background: $g5;
+    color: $ink;
+
+    &:hover,
+    &:focus-visible {
+      background: $g7;
+      color: $ink;
+    }
+  }
+
+  // Stacked: each state keeps its own field, as on the pinned stage.
+  @media #{$bw-sheet} {
+    .bw-state {
+      background: var(--bw-field, $cream);
+      color: var(--bw-ink, $ink);
+    }
+
+    .bw-state__card {
+      border: 0;
+    }
+  }
+}
+
+/* ---- Demos ---- */
+.aw-pill {
+  min-height: 44px;
+  padding: 0.5rem 0.9rem;
+  border: 1.5px solid color-mix(in srgb, currentColor 40%, transparent);
+  border-radius: 999px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    border-color: currentColor;
+    background: rgba(218, 184, 255, 0.35);
+  }
+
+  &.is-on {
+    background: $g5;
+    border-color: $g5;
+    color: $ink;
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.7;
+  }
+}
+
+.aw-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  line-height: 1.45;
+
+  &__q,
+  &__a {
+    margin: 0;
+    max-width: 85%;
+    padding: 0.55rem 0.85rem;
+  }
+
+  &__q {
+    align-self: flex-end;
+    border-radius: 16px 16px 4px 16px;
+    background: $g5;
+    color: $ink;
+  }
+
+  &__a {
+    align-self: flex-start;
+    min-height: 3.4em;
+    border: 1.5px solid currentColor;
+    border-radius: 16px 16px 16px 4px;
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+  }
+}
+
+.aw-tasks {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1rem;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.35rem 0;
+    transition: color 0.2s ease;
+
+    i {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+
+    &.is-done i {
+      background: $g5;
+      border-color: currentColor;
+    }
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+}
+
+.aw-drag {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+}
+
+.aw-switch {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+  text-align: center;
+
+  button {
+    position: relative;
+    width: 150px;
+    height: 68px;
+    border: $line solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 6px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: currentColor;
+      transition: translate 0.25s ease, background-color 0.25s ease;
+    }
+
+    &[aria-checked='true'] {
+      background: $g5;
+
+      &::after {
+        translate: 82px 0;
+        background: $ink;
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid $g5;
+      outline-offset: 4px;
+    }
+  }
+
+  &__label {
+    margin: 0;
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  &__note {
+    margin: 0;
+    max-width: 24ch;
+    font-size: 0.85rem;
+    line-height: 1.45;
+    opacity: 0.65;
+  }
+}

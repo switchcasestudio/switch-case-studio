@@ -105,6 +105,8 @@ const urls = [
   // Service worlds: one entry per emitted world (routes.js getStaticPaths).
   { loc: '/services/brand-identity', lastmod: lastmodOf('src/components/pages/BrandIdentityPage.js', 'src/components/brandWorld', 'src/components/worlds'), priority: '0.8' },
   { loc: '/services/ai-development', lastmod: lastmodOf('src/components/pages/AiAutomationPage.js', 'src/components/aiWorld', 'src/components/worlds'), priority: '0.8' },
+  { loc: '/services/web-development', lastmod: lastmodOf('src/components/pages/WebDevelopmentPage.js', 'src/components/webWorld', 'src/components/worlds'), priority: '0.8' },
+  { loc: '/services/marketing-ads', lastmod: lastmodOf('src/components/pages/SeoAiSearchPage.js', 'src/components/seoWorld', 'src/components/worlds'), priority: '0.8' },
   { loc: '/testimonials', lastmod: page('ReviewsPage.js', 'src/data/testimonials.json'), priority: '0.7' },
   { loc: '/contact', lastmod: page('ContactPage.js', 'src/components/sections/Contact.js'), priority: '0.7' },
   { loc: '/blog', lastmod: newestPost, priority: '0.7' },

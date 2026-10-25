@@ -193,6 +193,14 @@ export const routes = [
         lazy: page(() => import('./components/pages/AiAutomationPage')),
       },
       {
+        path: 'services/web-development',
+        lazy: page(() => import('./components/pages/WebDevelopmentPage')),
+      },
+      {
+        path: 'services/marketing-ads',
+        lazy: page(() => import('./components/pages/SeoAiSearchPage')),
+      },
+      {
         path: 'services/:serviceSlug',
         lazy: page(() => import('./components/pages/ServiceRedirect')),
       },

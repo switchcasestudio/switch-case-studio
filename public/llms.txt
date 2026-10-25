@@ -7,9 +7,9 @@ The studio offers 4 services, each with published package prices. Where a case s
 ## Services
 
 - [Graphic Design & Brand Identity](https://switchcasestudio.com/services/brand-identity): A visual system that makes your business unmistakable
-- [Web Development & Mobile Apps](https://switchcasestudio.com/pricing/web-development): Landing pages, sites, stores and mobile apps built to convert, then kept running
+- [Web Development & Mobile Apps](https://switchcasestudio.com/services/web-development): Landing pages, sites, stores and mobile apps built to convert, then kept running
 - [AI & Automation](https://switchcasestudio.com/services/ai-development): Assistants, agents, and workflows that run your operations
-- [SEO & AI Search](https://switchcasestudio.com/pricing/marketing-ads): Found on Google and in AI answers, then turned into revenue
+- [SEO & AI Search](https://switchcasestudio.com/services/marketing-ads): Found on Google and in AI answers, then turned into revenue
 
 ## Case studies
 

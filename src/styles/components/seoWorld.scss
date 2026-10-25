@@ -1,0 +1,414 @@
+@import '../_variables.scss';
+
+// The SEO & AI Search world (2026-10-24): the brand world's sheet
+// (brandWorld.scss) plus the outline worlds' shared sheet
+// (_worldOutline.scss). This file keeps the SEO world's own: its first
+// stage field (mint), its bubbles field (mint, ink bubbles), the search
+// desk hero and the demo pieces the other worlds do not have (`.sw-*`).
+// The demos draw in currentColor, so each reads on its card's studio color.
+@import './worldOutline';
+@import './worldHero';
+
+.bw--seo {
+  /* Process stage: the first field (mint) is the static one, so the SSR
+     paint matches the pinned start. */
+  .bw-stage {
+    background: $promo-mint;
+    color: $ink;
+  }
+
+  /* Bubbles: mint field, ink bubbles. */
+  .bw-bubbles {
+    background: $promo-mint;
+    color: $ink;
+  }
+
+  .bw-bubbles__title {
+    color: $ink;
+  }
+
+  .bw-bubble {
+    background: $ink;
+    color: $cream;
+  }
+
+  // The HTML demos size their type to the card, not the window: three
+  // columns at 1024 are narrower than two at 1000.
+  .bw-grid__demo--tool {
+    container-type: inline-size;
+  }
+}
+
+@import './seoHero';
+
+/* ---- Demos ---- */
+$mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+// A search result: url, title, description, cut where results cut them.
+.sw-result {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid $soft-line;
+  border-radius: 10px;
+  background: $cream;
+  color: $ink;
+
+  &__url {
+    font-size: 0.72rem;
+    opacity: 0.7;
+    overflow-wrap: anywhere;
+  }
+
+  &__title {
+    color: $blue-color;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.3;
+  }
+
+  &__desc {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+}
+
+// The snippet editor: the counter sits inside its field, so the preview
+// keeps the room.
+.sw-snip {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  height: 100%;
+  padding: 0.75rem;
+
+  &__field {
+    position: relative;
+    display: block;
+
+    > span {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      z-index: 1;
+      padding: 0.1rem 0.45rem;
+      border-radius: 999px;
+      background: $ink;
+      color: $cream;
+      font-size: 0.68rem;
+      font-weight: 500;
+      line-height: 1.5;
+      pointer-events: none;
+
+      b {
+        font-weight: 600;
+
+        &.is-over {
+          color: $orange-color;
+        }
+      }
+    }
+
+    input,
+    textarea {
+      display: block;
+      width: 100%;
+      min-height: 44px;
+      padding: 0.6rem 8.5rem 0.6rem 0.7rem;
+      border: 1.5px solid currentColor;
+      border-radius: 10px;
+      background: $cream;
+      color: $ink;
+      font: inherit;
+      font-size: 0.85rem;
+      line-height: 1.35;
+      resize: none;
+
+      &:focus-visible {
+        outline: 2px solid $ink;
+        outline-offset: 2px;
+      }
+    }
+
+    textarea {
+      height: 3.6em;
+    }
+  }
+
+  .sw-result {
+    margin-top: auto;
+  }
+
+  @container (max-width: 300px) {
+    &__field > span {
+      font-size: 0.62rem;
+    }
+
+    &__field input,
+    &__field textarea {
+      padding-right: 7.25rem;
+      font-size: 0.8rem;
+    }
+
+    .sw-result__desc {
+      font-size: 0.7rem;
+    }
+  }
+}
+
+// The AI answer: the citation chip lands when the answer finishes.
+.sw-answer {
+  .aw-chat__q,
+  .aw-chat__a {
+    font-size: 0.88rem;
+  }
+
+  .aw-chat__a {
+    max-width: 92%;
+  }
+
+  .aw-pill {
+    min-height: 40px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  @media (pointer: coarse) {
+    .aw-pill {
+      min-height: 44px;
+    }
+  }
+}
+
+.sw-cite {
+  display: block;
+  width: fit-content;
+  margin-top: 0.4rem;
+  padding: 0.12rem 0.55rem;
+  border: 1.5px solid $ink;
+  border-radius: 999px;
+  background: $ink;
+  color: $cream;
+  font-size: 0.7rem;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+
+  &.is-on {
+    opacity: 1;
+  }
+
+  &--none {
+    border-style: dashed;
+    background: transparent;
+    color: $ink;
+  }
+}
+
+// A switch with its name beside it.
+.sw-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+
+  button {
+    position: relative;
+    flex: 0 0 auto;
+    width: 80px;
+    height: 44px;
+    border: 2px solid currentColor;
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: currentColor;
+      transition:
+        translate 0.25s ease,
+        background-color 0.25s ease;
+    }
+
+    &[aria-checked='true'] {
+      background: $ink;
+
+      &::after {
+        translate: 36px 0;
+        background: $cream;
+      }
+    }
+
+    &:focus-visible {
+      outline: 3px solid currentColor;
+      outline-offset: 3px;
+    }
+  }
+}
+
+.sw-code {
+  margin: 0;
+  padding: 0.55rem 0.75rem;
+  border-radius: 10px;
+  background: $ink;
+  color: $cream;
+  font-family: $mono;
+  font-size: 0.72rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+// Structured data: the switch, the result it changes, the markup.
+.sw-schema,
+.sw-robots {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 0.9rem;
+}
+
+.sw-schema .sw-code {
+  margin-top: auto;
+}
+
+.sw-robots {
+  .sw-code {
+    flex: 1 1 auto;
+  }
+
+  &__note {
+    margin: 0;
+    min-height: 2.8em;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+}
+
+// Speed: an LCP readout on a bar with Google's two lines on it.
+.sw-vitals {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 0.9rem;
+
+  &__read {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: clamp(1.6rem, 12cqw, 2.4rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+
+    span {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+    }
+
+    em {
+      align-self: center;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      background: $ink;
+      color: $cream;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+  }
+
+  &__bar {
+    position: relative;
+    height: 16px;
+    border: 1.5px solid currentColor;
+    border-radius: 999px;
+    overflow: hidden;
+
+    b {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: $ink;
+      transition: width 0.4s ease;
+    }
+
+    i {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      width: 2px;
+      margin-left: -1px;
+      background: $cream;
+    }
+  }
+
+  &__scale {
+    position: relative;
+    height: 1rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+
+    span {
+      position: absolute;
+      top: 0;
+      translate: -50% 0;
+
+      &:first-child {
+        left: 0;
+        translate: none;
+      }
+    }
+  }
+
+  &__fixes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: auto;
+
+    .aw-pill {
+      min-height: 40px;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+    }
+
+    @media (pointer: coarse) {
+      .aw-pill {
+        min-height: 44px;
+      }
+    }
+  }
+
+  &__note {
+    margin: 0;
+    font-size: 0.72rem;
+    opacity: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sw-cite,
+  .sw-toggle button,
+  .sw-toggle button::after,
+  .sw-vitals__bar b {
+    transition: none;
+  }
+}
