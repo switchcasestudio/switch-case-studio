@@ -1,0 +1,466 @@
+@import '../_page-head.scss';
+
+// The outline worlds' hero (2026-10-24), lifted out of the AI world's
+// workbench (_aiHero.scss) so the SEO and Web worlds share its frame: one
+// framed viewport on 1024px and up (100svh minus the sticky header), the
+// headline, lede, CTAs and the machine's log on the left, the drawing on
+// the right sized by container units at 5:3, captions placed by percentage
+// over it in zones no line crosses (with a halo), and under 1024px a stack
+// with the captions as a list. Motion: entrances are CSS keyframes from
+// first paint (`backwards`, never `both`, so hover dimming still applies);
+// the ambient layer (the current on the arrows, the live dot) runs only
+// under `.is-live`. A world's hero: `.xx-hero { @include world-hero; }`,
+// then its own parts (fills, phase and hover classes) and arrow timings.
+// One accent inside the hero (owner, 2026-10-24: "orange only"); no glow.
+// Class contract (BEM on the including block): __frame __copy __kicker
+// __title __lede __ctas __cta __more __bench __stage __plate __tag __hit
+// __currents __run __caps __cap __logbox __meta __count __pause __log
+// __draw; state classes is-live, is-hot, is-hot-<part>, is-<phase>.
+
+$wh-wide: '(min-width: 1024px)';
+$wh-narrow: '(max-width: 1023px)';
+$wh-move: '(prefers-reduced-motion: no-preference)';
+$wh-ping: rgba(255, 131, 74, 0.5);
+$wh-line: 2px;
+
+@mixin world-hero($accent: $orange-color, $field: #000) {
+  // The sticky header's height (57px logo row, 10px padding, 1px border).
+  --wh-header: 78px;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  min-height: calc(100svh - var(--wh-header));
+  padding: clamp(8px, 1vw, 16px) $edge-pad clamp(12px, 1.4vw, 20px);
+  color: $white-color;
+
+  @media #{$wh-wide} {
+    height: calc(100svh - var(--wh-header));
+    min-height: 620px;
+  }
+
+  &__frame {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'copy' 'bench' 'log';
+    gap: 2rem;
+    padding: clamp(1.5rem, 3vw, 3rem);
+    border: $wh-line solid $white-color;
+    border-radius: 24px;
+    background: $field;
+    overflow: hidden;
+
+    @media #{$wh-wide} {
+      grid-template-columns: minmax(0, 32fr) minmax(0, 68fr);
+      grid-template-rows: minmax(0, 1fr) auto;
+      grid-template-areas: 'copy bench' 'log bench';
+      column-gap: clamp(2rem, 3.5vw, 4rem);
+      row-gap: 1.5rem;
+    }
+  }
+
+  /* ---- Copy ---- */
+  &__copy {
+    grid-area: copy;
+    min-width: 0;
+  }
+
+  &__kicker {
+    @include page-kicker;
+  }
+
+  &__title {
+    font-family: $font-text;
+    font-size: clamp(2.4rem, 3.9vw, 4rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.035em;
+    color: $white-color;
+    max-width: 12ch;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  &__lede {
+    margin: 1.25rem 0 0;
+    max-width: 40ch;
+    font-size: clamp(1rem, 1.15vw, 1.15rem);
+    line-height: 1.6;
+    color: rgba(254, 247, 237, 0.65);
+  }
+
+  &__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+    margin-top: 1.75rem;
+  }
+
+  // The button is the worlds' lavender pill (.bw-collage__cta); only its
+  // top margin is the collage's.
+  &__cta.bw-collage__cta {
+    margin-top: 0;
+  }
+
+  &__more {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: $white-color;
+    font-weight: 500;
+    text-decoration: underline;
+    text-decoration-color: rgba(218, 184, 255, 0.6);
+    text-underline-offset: 4px;
+    transition: color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      color: $g5;
+    }
+  }
+
+  /* ---- The drawing ---- */
+  &__bench {
+    grid-area: bench;
+    min-width: 0;
+    min-height: 0;
+
+    @media #{$wh-wide} {
+      container-type: size;
+      display: grid;
+      place-items: center;
+    }
+  }
+
+  &__stage {
+    position: relative;
+    width: 100%;
+    container-type: inline-size;
+
+    @media #{$wh-wide} {
+      // As large as the cell allows at the drawing's 5:3.
+      width: min(100cqw, 166.66cqh);
+      aspect-ratio: 5 / 3;
+    }
+  }
+
+  &__plate {
+    position: relative;
+    aspect-ratio: 5 / 3;
+
+    > svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+  }
+
+  &__tag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(254, 247, 237, 0.6);
+
+    i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(254, 247, 237, 0.35);
+      transition: background-color 0.3s ease;
+    }
+  }
+
+  &.is-live &__tag i {
+    background: $accent;
+  }
+
+  &__hit {
+    pointer-events: all;
+
+    &--act {
+      cursor: pointer;
+    }
+  }
+
+  // The current: dots that run along the arrows while the bench is
+  // live. Invisible in the static HTML and under reduced motion.
+  &__currents path {
+    stroke-dasharray: 0.001 0.055;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  &__run {
+    position: absolute;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 3px solid $g5;
+      outline-offset: 4px;
+    }
+  }
+
+  /* ---- Captions ---- */
+  &__caps {
+    @media #{$wh-wide} {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+  }
+
+  // The halo keeps a caption readable where an arrow or the packet's trail
+  // passes behind it.
+  &__cap {
+    position: absolute;
+    width: 17%;
+    margin: 0;
+    font-size: clamp(12px, 1.25cqw, 15px);
+    line-height: 1.4;
+    color: rgba(254, 247, 237, 0.88);
+    text-shadow:
+      0 0 2px #000,
+      0 0 6px #000,
+      0 0 12px #000;
+    pointer-events: auto;
+    transition:
+      opacity 0.25s ease,
+      color 0.25s ease;
+
+    strong {
+      font-weight: 600;
+      color: $white-color;
+      transition: color 0.25s ease;
+    }
+  }
+
+  &.is-hot &__cap {
+    opacity: 0.35;
+  }
+
+  &.is-hot &__cap.is-on {
+    opacity: 1;
+  }
+
+  /* ---- The log ---- */
+  &__logbox {
+    grid-area: log;
+    min-width: 0;
+  }
+
+  // Labels never break inside; on a phone the count and Pause drop to
+  // their own row, right-aligned, instead of "THE CRAWL / LOG".
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    white-space: nowrap;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(254, 247, 237, 0.7);
+  }
+
+  &__count {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: auto;
+  }
+
+  &__pause {
+    padding: 0.3rem 0.75rem;
+    border: 1px solid rgba(218, 184, 255, 0.5);
+    border-radius: 999px;
+    background: none;
+    color: $g5;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: rgba(218, 184, 255, 0.14);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g5;
+      outline-offset: 2px;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+      padding-inline: 1rem;
+    }
+  }
+
+  &__log {
+    list-style: none;
+    margin: 0.6rem 0 0;
+    padding: 0;
+    // Four lines reserved, so a new job never moves anything above it.
+    min-height: calc(4 * (1.45em + 0.6rem + 1px));
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.78rem, 0.9vw, 0.9rem);
+
+    li {
+      display: flex;
+      gap: 1rem;
+      padding: 0.3rem 0;
+      border-top: 1px solid rgba(254, 247, 237, 0.14);
+      line-height: 1.45;
+    }
+
+    time {
+      flex: none;
+      color: $accent;
+    }
+
+    span {
+      min-width: 0;
+    }
+
+    // One line per entry beside the drawing, so the log never grows into
+    // the headline above it.
+    @media #{$wh-wide} {
+      span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+    }
+  }
+
+  /* ---- Narrow: stacked, captions as a list ---- */
+  @media #{$wh-narrow} {
+    &__tag {
+      position: static;
+      margin-bottom: 0.75rem;
+    }
+
+    &__plate {
+      position: relative;
+    }
+
+    &__caps {
+      display: grid;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    &__cap {
+      position: static !important;
+      width: auto !important;
+      font-size: 0.95rem;
+    }
+  }
+
+  /* ---- Motion ---- */
+  @media #{$wh-move} {
+    &__kicker,
+    &__title,
+    &__lede,
+    &__ctas {
+      animation: wh-rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+    }
+
+    &__title {
+      animation-delay: 0.08s;
+    }
+
+    &__lede {
+      animation-delay: 0.16s;
+    }
+
+    &__ctas {
+      animation-delay: 0.24s;
+    }
+
+    // The arrows draw themselves, shaft then head.
+    &__draw {
+      stroke-dasharray: 1;
+      animation: wh-draw 0.8s cubic-bezier(0.6, 0, 0.2, 1) backwards;
+      animation-delay: 0.35s;
+    }
+
+    // `backwards`, not `both`: a hold after the end would override the
+    // hover dimming.
+    &__cap {
+      animation: wh-rise 0.6s ease-out backwards;
+      animation-delay: calc(0.8s + var(--i) * 0.12s);
+    }
+
+    &.is-live &__currents path {
+      opacity: 1;
+      animation: wh-current 1.3s linear infinite;
+    }
+
+    &.is-live &__tag i {
+      animation: wh-ping 1.8s ease-out infinite;
+    }
+
+    &__log li {
+      animation: wh-line 0.35s ease-out backwards;
+    }
+  }
+}
+
+@keyframes wh-rise {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+}
+
+@keyframes wh-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes wh-current {
+  to {
+    stroke-dashoffset: -0.056;
+  }
+}
+
+@keyframes wh-ping {
+  from {
+    box-shadow: 0 0 0 0 $wh-ping;
+  }
+  to {
+    box-shadow: 0 0 0 10px rgba(255, 131, 74, 0);
+  }
+}
+
+@keyframes wh-line {
+  from {
+    opacity: 0;
+    translate: -8px 0;
+  }
+}

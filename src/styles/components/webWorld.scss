@@ -1,0 +1,419 @@
+@import '../_variables.scss';
+
+// The Web Development & Mobile Apps world (2026-10-24): the brand world's
+// sheet (brandWorld.scss) plus the outline worlds' shared sheet
+// (_worldOutline.scss). This file keeps the Web world's own: its first
+// stage field (blue), its bubbles field (pink), the build hero and the
+// demo pieces the AI world does not have (`.ww-*`). The demos draw in
+// currentColor, so each reads on its card's studio color.
+@import './worldOutline';
+@import './worldHero';
+
+.bw--web {
+  /* Process stage: the first field (blue, cream ink) is the static one, so
+     the SSR paint matches the pinned start. */
+  .bw-stage {
+    background: $blue-color;
+    color: $cream;
+  }
+
+  /* Bubbles: pink field, ink bubbles. */
+  .bw-bubbles {
+    background: $g4;
+    color: $ink;
+  }
+
+  .bw-bubbles__title {
+    color: $ink;
+  }
+
+  .bw-bubble {
+    background: $ink;
+    color: $cream;
+  }
+
+  // The HTML demos lay out by the card's width, not the window's: three
+  // columns at 1024 are narrower than two at 1000.
+  .bw-grid__demo--tool {
+    container-type: inline-size;
+  }
+}
+
+@import './webHero';
+
+/* ---- Demos ---- */
+
+// Responsive: a page in a room; the slider is the window's edge.
+.ww-resp {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__room {
+    flex: 1 1 auto;
+    min-height: 120px;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__page {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 6px;
+    padding: 8px;
+    border: 1.5px solid currentColor;
+    border-radius: 10px;
+    background: rgba(254, 247, 237, 0.55);
+    transition: width 0.15s ease;
+  }
+
+  &__bar {
+    height: 10px;
+    border-radius: 4px;
+    border: 1.5px solid currentColor;
+  }
+
+  &__hero {
+    min-height: 34px;
+    border-radius: 6px;
+    background: $ink;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr));
+    gap: 6px;
+
+    i {
+      height: 28px;
+      border: 1.5px solid currentColor;
+      border-radius: 6px;
+    }
+  }
+
+  &__ctl {
+    display: grid;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+
+    b {
+      font-weight: 600;
+    }
+
+    input {
+      width: 100%;
+      min-height: 44px;
+      accent-color: $ink;
+      cursor: ew-resize;
+    }
+  }
+}
+
+// A phone with three tabs.
+.ww-app {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 0.75rem;
+
+  // Sized by the card's height (a 4:3 card is short), never past it.
+  &__phone {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 240px;
+    width: auto;
+    max-width: 80%;
+    aspect-ratio: 10 / 15;
+    border: 2px solid currentColor;
+    border-radius: 22px;
+    background: $cream;
+    color: $ink;
+    overflow: hidden;
+  }
+
+  &__screen {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding: 0.9rem 0.75rem 0.5rem;
+  }
+
+  &__h {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+
+  &__big {
+    margin: 0 0 0.25rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  &__note {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  &__slots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem;
+    width: 100%;
+
+    .aw-pill {
+      min-height: 36px;
+      padding: 0.25rem;
+    }
+  }
+
+  &__tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: 1.5px solid currentColor;
+
+    button {
+      min-height: 44px;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+      font-size: 0.75rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .is-on {
+      background: $g5;
+      font-weight: 600;
+    }
+
+    button:focus-visible {
+      outline: 2px solid $ink;
+      outline-offset: -4px;
+    }
+  }
+}
+
+// A store card: the cart counts, checkout knows when it can run.
+.ww-store {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__name {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  &__cart {
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+
+    b {
+      display: inline-grid;
+      place-items: center;
+      min-width: 1.6rem;
+      height: 1.6rem;
+      margin-left: 0.3rem;
+      border-radius: 999px;
+      background: $ink;
+      color: $cream;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__shot {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+
+    svg {
+      width: auto;
+      height: 100%;
+      max-height: 110px;
+    }
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  &__msg {
+    margin: 0;
+    min-height: 1.4em;
+    font-size: 0.85rem;
+  }
+}
+
+// A form with live validation; nothing is sent anywhere.
+.ww-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__field {
+    display: grid;
+    gap: 0.2rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+
+    input {
+      min-height: 44px;
+      padding: 0 0.75rem;
+      border: 1.5px solid currentColor;
+      border-radius: 10px;
+      background: $cream;
+      color: $ink;
+      font: inherit;
+      font-size: 1rem;
+      font-weight: 400;
+
+      &[aria-invalid='true'] {
+        border-color: #b3261e;
+        border-width: 2px;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $ink;
+        outline-offset: 2px;
+      }
+    }
+  }
+
+  &__msg {
+    min-height: 1.2em;
+    margin: 0;
+    font-size: 0.85rem;
+    font-weight: 600;
+
+    &.is-bad {
+      color: #8c1d18;
+    }
+  }
+
+  .aw-pill {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  &--sent {
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  &__done {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  &__note {
+    margin: 0 0 0.5rem;
+    font-size: 0.9rem;
+  }
+}
+
+// One set of tokens, light and dark.
+.ww-theme {
+  --t-bg: #{$cream};
+  --t-ink: #{$ink};
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem;
+  height: 100%;
+  padding: 1rem;
+
+  &.is-dark {
+    --t-bg: #{$ink};
+    --t-ink: #{$cream};
+  }
+
+  // A narrow card: the switch goes under the menu card, which keeps the
+  // width to read in.
+  @container (max-width: 320px) {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+
+    &__card {
+      justify-self: stretch;
+    }
+  }
+
+  &__card {
+    padding: 1rem;
+    border: 1.5px solid $ink;
+    border-radius: 14px;
+    background: var(--t-bg);
+    color: var(--t-ink);
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  &__h {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  &__p {
+    margin: 0.3rem 0 0.8rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    opacity: 0.8;
+  }
+
+  &__btn {
+    display: inline-block;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: $orange-color;
+    color: $ink;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  // The shared switch, a size down to sit beside the card.
+  &__switch button {
+    width: 96px;
+    height: 48px;
+
+    &::after {
+      width: 34px;
+      height: 34px;
+      left: 5px;
+      top: 5px;
+    }
+
+    &[aria-checked='true']::after {
+      translate: 48px 0;
+    }
+  }
+}
