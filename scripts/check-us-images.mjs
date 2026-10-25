@@ -19,6 +19,13 @@ if (!has('tesseract') || !has('ffmpeg')) {
   process.exit(0);
 }
 
+// A client's own site text, shown in our screenshots of it. Owner, 2026-10-25:
+// leave Florida Green's live "LICENCE" / "organising" as they are. Only these
+// words, only under these folders; anything else there still fails.
+const CLIENT_TEXT = { 'public/projects/florida-green/': ['licence', 'organising'] };
+const allowed = (file, word) =>
+  Object.entries(CLIENT_TEXT).some(([dir, words]) => file.startsWith(dir) && words.includes(word.toLowerCase()));
+
 const IMAGE = new Set(['.jpg', '.jpeg', '.png', '.webp', '.gif', '.avif']);
 const VIDEO = new Set(['.mp4', '.webm', '.mov']);
 function* walk(p) {
@@ -49,7 +56,7 @@ for (const root of process.argv.slice(2).length ? process.argv.slice(2) : ['publ
     } catch {
       console.warn(`check:us:images: could not read ${file}`);
     }
-    for (const m of text.matchAll(BRITISH_RE())) hits.push(`${file}: ${m[0]}`);
+    for (const m of text.matchAll(BRITISH_RE())) if (!allowed(file, m[0])) hits.push(`${file}: ${m[0]}`);
   }
 }
 rmSync(tmp, { recursive: true, force: true });
