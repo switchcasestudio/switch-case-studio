@@ -2223,7 +2223,7 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Route baseline **63** (the Directcut post published 2026-10-24). Standing checks clean. Rules: `.audit/rules.md` (text never sits where a drawing can run under it).
 - **Open:** hero CTA / kicker / Pause still lavender (owner may want orange); re-render the three AI loops at the thinner weight.
 
-### 2026-10-25 — Web Development & Mobile Apps and SEO & AI Search worlds (committed on `feat/seo-web-worlds`, awaiting merge)
+### 2026-10-25 — Web Development & Mobile Apps and SEO & AI Search worlds (LIVE on main, merge 6c35734)
 - Owner: "generate two service pages for SEO & AI Search and Web Development & Mobile Apps ... go with this line" (the AI world's vector-animation design). All four services now have a world; route baseline **65**.
 - **Shared first.** The AI world's sheet split into `_worldOutline.scss` (the outline worlds' language and demo controls) and `_worldHero.scss` (`@mixin world-hero`); the AI page compiled identically before and after (every selector's declarations compared).
 - **Web** (`/services/web-development`): hero "Built to load fast. Kept running.", a live build line (commit, build, preview on desktop and phone, Deploy, uptime monitor) with an orange packet and a deploy log; stage blue / cream / orange / mint / pink; six demos (responsive slider, phone app tabs, store cart, form validation, deploy steps, light/dark theme); pink bubbles.
@@ -2231,4 +2231,4 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Wiring: static routes ahead of `services/:serviceSlug`, `servicePages.json`, sitemap entries, cards "See the work", the two `/services` → `/pricing` 301s removed.
 - **Interrupted session (2026-10-24 night):** the auto-mode permission checker failed every shell command, the SEO fork stopped before writing `seoWorld.scss`, and the session ended unverified. Finished 2026-10-25: the SEO sheet (fields, hero import, `sw-*` demos), demos that grow instead of clipping at 1024 on all three outline worlds, the Web theme demo stacking on narrow cards, the hero log header wrapping by row on phones. Rule: `.audit/rules.md`.
 - Verified on the production build (clean-URL server) and the dev server: heroes at 1024 / 1280 / 1512 / 1920, every stage state at 1440, deliverables at 1024 / 1280 / 1440 / 390 with no clipped control, full phone pass at 390 (no horizontal scroll), zero console errors; one h1 inside main, titles 36 and 50, descriptions 153 and 151; standing checks clean.
-- **Open:** owner review of both pages; Chrome pass on a real phone.
+- **Open:** owner review of both pages on the live site; Chrome pass on a real phone; hero CTA / kicker / Pause are still lavender on all three outline worlds (owner may want orange).
