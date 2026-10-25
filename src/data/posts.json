@@ -2221,7 +2221,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Run PageSpeed Insights at least twice on a warmed-up page and treat a single run as noise; one of our own measurements this month read 15 seconds on the first run and 5 on the next two. Mobile is where the problems show, because mobile is where the throttling is. If you have field data, read that first; the lab score is a proxy."
+        "text": "Run PageSpeed Insights at least twice on a warmed-up page and treat a single run as noise; one of our own measurements this month read 15 seconds on the first run and 5 on the next two. Mobile is where the problems show, because mobile is where the throttling is. If you have field data, read that first; the lab score is a proxy. To keep measuring after launch, [Apogee Watcher](https://apogeewatcher.com) re-runs PageSpeed tests across your pages on a schedule, with field data beside them."
       },
       {
         "type": "paragraph",
