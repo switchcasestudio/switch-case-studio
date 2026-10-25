@@ -17,18 +17,19 @@ const AgentCard3D = lazy(() => import('./AgentCard3D'));
 /* The AI & Automation world (2026-10-22): the brand world's sibling,
    drawn in the owner's reference language instead of flat color plates:
    outlines, one accent (lavender), captions that open in bold, and every
-   drawing a machine that runs. Since 2026-10-24 (owner: "too black-purple")
-   cream carries most fields: the stage runs cream, lavender, cream, ink,
-   cream, and the deliverables and the close are cream; black is the hero's. Since 2026-10-23 the hero is
+   drawing a machine that runs. Since 2026-10-24 (owner: "I am missing
+   colors, it's only black-purple") it wears the full studio palette: the
+   stage runs orange, mint, cream, blue, pink; the hero's parts each have
+   their own color; black is only the hero's field. Since 2026-10-23 the hero is
    the workbench (WorkbenchHero), live and answering the pointer; the
-   scroll collage stays the brand world's alone. Then the breath, the
+   scroll collage stays the brand world's alone. Then the
    pinned process, deliverables, client bubbles, circles, pill. */
 const live = (name, cls = 'aw-live') => () => <LiveArt Art={ART[name]} create={LIVE[name]} className={cls} />;
 
 const STATES = [
   {
     key: 'roadmap',
-    field: '#fef7ed',
+    field: '#ff834a',
     ink: '#141414',
     title: 'Roadmap',
     copy: 'A week inside your tools, finding the hours that leak between them. The sprint ends with one automation running, not a slide deck.',
@@ -41,7 +42,7 @@ const STATES = [
   },
   {
     key: 'assistant',
-    field: '#dab8ff',
+    field: '#79ccb6',
     ink: '#141414',
     title: 'The assistant',
     copy: "A chatbot that answers from your docs, your site and your FAQs. When it doesn't know, it says so and hands the question to a person.",
@@ -68,7 +69,7 @@ const STATES = [
   },
   {
     key: 'wiring',
-    field: '#141414',
+    field: '#1748ef',
     ink: '#fef7ed',
     title: 'The wiring',
     copy: 'n8n, Zapier, Make or GoHighLevel, wired into the tools you already pay for. Nothing new to log into.',
@@ -81,7 +82,7 @@ const STATES = [
   },
   {
     key: 'hosted',
-    field: '#fef7ed',
+    field: '#eaa8c6',
     ink: '#141414',
     title: 'Hosted and watched',
     copy: 'On your own VPS when the data should stay yours. Monitored like production software, because that is what it is.',
@@ -103,13 +104,6 @@ export default function AiWorld() {
   return (
     <div className="bw bw--ai">
       <WorkbenchHero />
-
-      <section className="bw-breath" aria-label="About this page">
-        <p>
-          Everything on this page runs. Press the buttons, drag the nodes, read the logs. An automation you cannot
-          inspect is a liability, so ours are built to be looked at.
-        </p>
-      </section>
 
       <ProcessStage states={STATES} label="How an automation is built here" heading="How it gets built" />
       <Deliverables />

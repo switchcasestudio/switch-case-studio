@@ -3,10 +3,11 @@
 // The AI & Automation world (2026-10-22): the brand world's sheet
 // (brandWorld.scss) with the owner's reference language on top. Outlines,
 // one accent (lavender), no orange. `.bw--ai` recolors the shared parts;
-// `.aw-*` are this page's own. Since 2026-10-24 (owner: "strokes a little
-// too thick", "too black-purple") lines are 2px and cream carries the
-// deliverables, the close and three of the five stage fields; the demos
-// draw in currentColor so they read on either field.
+// `.aw-*` are this page's own. Since 2026-10-24 (owner: "strokes still too
+// thick", "I am missing colors, it's only black-purple") outlines are 2px,
+// drawings are thin, and the page wears the full studio palette: orange,
+// mint, blue, pink and lavender on cream and ink. The demos draw in
+// currentColor so they read on any field.
 $cream: $white-color;
 $ink: $promo-ink;
 $line: 2px;
@@ -43,9 +44,10 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
   }
 
   /* Process stage: the field changes, the drawings follow it. The first
-     field is the static one, so the SSR paint matches the pinned start. */
+     field (orange) is the static one, so the SSR paint matches the pinned
+     start. */
   .bw-stage {
-    background: $cream;
+    background: $orange-color;
     color: $ink;
   }
 
@@ -98,6 +100,28 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
       display: block;
     }
 
+    // One studio color per demo; the drawing and the text follow it.
+    &.aw-tone--mint {
+      background: $promo-mint;
+    }
+
+    &.aw-tone--orange {
+      background: $orange-color;
+    }
+
+    &.aw-tone--pink {
+      background: $g4;
+    }
+
+    &.aw-tone--blue {
+      background: $blue-color;
+      color: $cream;
+    }
+
+    &.aw-tone--lilac {
+      background: $g5;
+    }
+
     // On a phone the HTML demos take their own height: at 4:3 the chat
     // clipped its answer under its buttons.
     @media (max-width: 599px) {
@@ -115,22 +139,22 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
     }
   }
 
-  /* Bubbles: the accent field, ink bubbles. */
+  /* Bubbles: blue field, cream bubbles. */
   .bw-bubbles {
-    background: $g5;
-    color: $ink;
-  }
-
-  .bw-bubbles__title {
-    color: $ink;
-  }
-
-  .bw-bubble {
-    background: $ink;
+    background: $blue-color;
     color: $cream;
   }
 
-  /* The close: cream, a lavender circle and an outlined one. */
+  .bw-bubbles__title {
+    color: $cream;
+  }
+
+  .bw-bubble {
+    background: $cream;
+    color: $ink;
+  }
+
+  /* The close: cream, the brand world's orange and blue circles. */
   .bw-circles {
     background: $cream;
     color: $ink;
@@ -138,29 +162,6 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
   .bw-circles__note {
     color: rgba(20, 20, 20, 0.7);
-  }
-
-  .bw-circle--a {
-    background: $g5;
-    color: $ink;
-
-    &:hover,
-    &:focus-visible {
-      background: $g7;
-      color: $ink;
-    }
-  }
-
-  .bw-circle--b {
-    background: transparent;
-    color: $ink;
-    border: $line solid $ink;
-
-    &:hover,
-    &:focus-visible {
-      background: $ink;
-      color: $cream;
-    }
   }
 
   .bw-pill {
