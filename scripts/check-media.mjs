@@ -8,7 +8,9 @@
  * fix 12) is a broken image inside srcset, which has no fallback; a missing
  * `preview-600.webp` is the same on /projects; a dead `imageSrc` ships a 404
  * social card; an AVIF `imageSrc` is a blank card on Facebook, X and LinkedIn
- * (CLAUDE.md, "Adding a project" rule). Exits 1 and names each problem.
+ * (CLAUDE.md, "Adding a project" rule). A blog post with no cover ships the
+ * category plate, which is a fallback, not a cover (2026-10-25: two weekly
+ * posts did). Exits 1 and names each problem.
  */
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
@@ -34,7 +36,12 @@ for (const p of readJson('src/data/projects.json')) {
   if (p.imageSrc && !/\.(jpe?g|png|webp)$/i.test(p.imageSrc)) problems.push(`${who}: imageSrc ${p.imageSrc} is the og:image and must be JPEG, PNG or WebP`);
 }
 for (const t of readJson('src/data/team.json')) need(`team/${t.name}`, 'photo', t.photo);
-for (const post of readJson('src/data/posts.json')) need(`blog/${post.slug}`, 'coverImage', post.coverImage);
+for (const post of readJson('src/data/posts.json')) {
+  const who = `blog/${post.slug}`;
+  if (!post.coverImage) { problems.push(`${who}: no coverImage (add a 1600x900 cover in public/images/journal/)`); continue; }
+  need(who, 'coverImage', post.coverImage);
+  if (!/\.(jpe?g|png|webp)$/i.test(post.coverImage)) problems.push(`${who}: coverImage ${post.coverImage} is the og:image and must be JPEG, PNG or WebP`);
+}
 
 if (problems.length) {
   console.error(`check:media — ${problems.length} problem(s):\n  ${problems.join('\n  ')}`);

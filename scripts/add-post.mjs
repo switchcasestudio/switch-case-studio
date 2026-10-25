@@ -41,12 +41,14 @@
  *                 aliases ("Automation", "UX & Web Design") are folded in
  *   kicker       string  (default: category)
  *   readingTime  string  (default: derived from word count)
- *   coverImage   string  (default "" — the list page renders a branded fallback)
- *   imageAlt     string  (default "")
+ *   coverImage   string, root-absolute .webp/.jpg/.png under public/ (required since
+ *                 2026-10-25: two posts shipped on the category plate; the file
+ *                 must be committed before this runs, 1600x900)
+ *   imageAlt     string, what the cover shows (required; it is og:image:alt)
  *   tags         string[] (default [])
  *   featured     boolean (default false)
  */
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 // The renderer's own link parser, so the gate and the page agree.
@@ -153,6 +155,19 @@ if (post.seoTitle !== undefined && (typeof post.seoTitle !== 'string' || !post.s
 if (post.updated && !/^\d{4}-\d{2}-\d{2}$/.test(post.updated))
   die(`updated "${post.updated}" must be YYYY-MM-DD`);
 
+/* ── cover: required, on disk, a format social scrapers decode ──
+   Rejects even unattended (the scheduler leaves the post in content/scheduled
+   and the run fails loudly): the category plate is a fallback, not a cover. */
+const cover = post.coverImage;
+if (typeof cover !== 'string' || !cover.startsWith('/'))
+  die('coverImage is required: a root-absolute path such as /images/journal/<slug>.webp (1600x900)');
+if (!/\.(webp|jpe?g|png)$/i.test(cover))
+  die(`coverImage ${cover} must be .webp, .jpg or .png (it is also the og:image)`);
+if (!existsSync(resolve(root, 'public', cover.slice(1))))
+  die(`coverImage ${cover} does not exist under public/; add the file before publishing`);
+if (typeof post.imageAlt !== 'string' || !post.imageAlt.trim())
+  die('imageAlt is required: say what the cover shows (it feeds og:image:alt)');
+
 /* ── category: fold known aliases, warn on anything else (never reject) ── */
 const category = normalizeCategory(post.category);
 if (category !== post.category)
@@ -199,8 +214,8 @@ const normalized = {
   date: post.date || todayPT(),
   ...(post.updated ? { updated: post.updated } : {}),
   readingTime: post.readingTime || readingTimeFrom(post.body),
-  coverImage: post.coverImage || '',
-  imageAlt: post.imageAlt || '',
+  coverImage: cover,
+  imageAlt: post.imageAlt,
   tags: Array.isArray(post.tags) ? post.tags : [],
   featured: Boolean(post.featured),
   body: post.body,
