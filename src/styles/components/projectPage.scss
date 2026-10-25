@@ -123,7 +123,7 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
   }
 
   // Page-head pattern (_page-head.scss, 2026-09-26); the lede below keeps
-  // its own brighter colour, it carries the outcome line.
+  // its own brighter color, it carries the outcome line.
   &__kicker {
     @include page-kicker;
   }
@@ -659,7 +659,7 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
       grid-template-columns: 1fr;
     }
 
-    // A lone supporting shot stays contained + centred rather than huge.
+    // A lone supporting shot stays contained + centered rather than huge.
     &[data-count='1'] {
       grid-template-columns: minmax(0, 680px);
       justify-content: center;

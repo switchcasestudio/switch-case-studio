@@ -9,7 +9,7 @@ export const WORDMARK = "/brand/switch-case-studio-logo-square-lilac.svg";
 
 export const Wordmark = (p) => <image href={WORDMARK} preserveAspectRatio="xMidYMid meet" {...p} />;
 
-// N-point star, centred on 0,0.
+// N-point star, centered on 0,0.
 export const starPoints = (outer, inner, n = 8) => {
   const pts = [];
   for (let i = 0; i < n * 2; i++) {

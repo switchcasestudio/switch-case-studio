@@ -90,7 +90,7 @@ const LIGHT_ROUTES = /^\/(privacy|terms|accessibility)(\/|$)/;
  *
  * .route-backdrop is a non-fading layer behind the page, tinted to match
  * the destination page's theme. This is what kills the white flash: each
- * page paints #000 (or light grey), but <body>/<main> are light grey, so
+ * page paints #000 (or light gray), but <body>/<main> are light gray, so
  * while .page-fade animates from opacity 0 the page is transparent and the
  * backdrop shows through. If the backdrop matches the page, fading in
  * changes no color — only the content appears.

@@ -116,8 +116,8 @@
 
 // Black canvas: iOS Safari tints its status bar and home-indicator strips,
 // and paints every overscroll (pull-down, sideways bounce), from the
-// html/body background. Grey here showed as white bars on a black site.
-// <main> keeps its own grey, and .route-backdrop themes each page.
+// html/body background. Gray here showed as white bars on a black site.
+// <main> keeps its own gray, and .route-backdrop themes each page.
 // overflow-x: clip on BOTH: iOS ignores hidden on <html> alone and lets a
 // wider child (a Polaroid sticker) drag the page sideways; clip, unlike
 // hidden, makes no scroll container, so sticky/pinned sections still work.
@@ -240,7 +240,7 @@ video {
 main {
   position: relative;
   z-index: 1;
-  background: $grey-color; // must be opaque to hide the footer beneath
+  background: $gray-color; // must be opaque to hide the footer beneath
 }
 
 /* ==================================================================
@@ -248,7 +248,7 @@ main {
  *
  * THE FLASH FIX — .route-backdrop is a non-fading layer behind the page,
  *   tinted to match the destination page's theme. <body>/<main> are light
- *   grey, but pages paint #000; while .page-fade animates from opacity 0
+ *   gray, but pages paint #000; while .page-fade animates from opacity 0
  *   the page is transparent and that light backdrop showed through as a
  *   white flash. Matching the backdrop to the page means fading in changes
  *   no background color — only the content appears. (Route theme is set in
@@ -270,7 +270,7 @@ main {
   }
 
   &.is-light {
-    background: $grey-color;
+    background: $gray-color;
   }
 }
 

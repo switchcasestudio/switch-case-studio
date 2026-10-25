@@ -13,7 +13,7 @@ import '../../styles/components/projectsPage.scss';
  * register. The real site shot is the tile's top, full bleed; under it the
  * type and year, the title, the index line and the project's one measured
  * figure (`indexMetric`, value verbatim from its `metrics[]`) in lavender.
- * The sites bring their own colour; the page adds none. Groups from
+ * The sites bring their own color; the page adds none. Groups from
  * projectGroups.js (shared with the home index), three across. Static HTML
  * is complete; hover is CSS. */
 const grouped = groupProjects(projectsData);

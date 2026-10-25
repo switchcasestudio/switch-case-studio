@@ -1,7 +1,7 @@
 @import '../_variables.scss';
 
 // Live service posters (2026-09-11). The SVG fills the card's open middle
-// zone; its own background colour fills the letterbox around the square.
+// zone; its own background color fills the letterbox around the square.
 // Fills live here as classes so the poster palette stays on tokens.
 $poster-palette: (
   'cream': $white-color,

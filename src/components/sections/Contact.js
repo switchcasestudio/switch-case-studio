@@ -218,7 +218,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
-      {/* InkFill background: desktop gets the 16:9 re-frame (logo centred,
+      {/* InkFill background: desktop gets the 16:9 re-frame (logo centered,
           ~40% of the frame, cover); <=768px gets the vertical cut shown
           whole (contain) on the video's own #141414 field, so the logo is
           never cropped on a tall phone section. Scrim + edge fades live in

@@ -59,7 +59,7 @@ const LandingPageProof = () => {
 
       // Word-by-word brightness scrub on the heading (the About-heading
       // pattern, monochrome): words sit at 35% white and reach full white
-      // as the heading crosses the viewport. Colour on the word spans, never
+      // as the heading crosses the viewport. Color on the word spans, never
       // on the h2 the reveal owns, so the two never share a property.
       const words = gsap.utils.toArray('.lpp__word', sectionRef.current);
       gsap.set(words, { color: 'rgba(255,255,255,0.35)' });

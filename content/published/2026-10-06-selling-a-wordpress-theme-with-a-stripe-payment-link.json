@@ -1,7 +1,7 @@
 {
   "slug": "selling-a-wordpress-theme-with-a-stripe-payment-link",
   "title": "How We Sell a WordPress Theme With a Stripe Payment Link",
-  "excerpt": "No store plugin and no licence server: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip.",
+  "excerpt": "No store plugin and no license server: a Stripe Payment Link, a static thank-you page and one small serverless function that checks the payment before it hands over the zip.",
   "category": "Web Development",
   "date": "2026-10-06",
   "tags": [
@@ -62,7 +62,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Stripe's normal card fees, plus a small fee for its automatic tax calculation. There is no plugin licence, no store subscription and no server to maintain; the function runs only when someone clicks Download."
+      "text": "Stripe's normal card fees, plus a small fee for its automatic tax calculation. There is no plugin license, no store subscription and no server to maintain; the function runs only when someone clicks Download."
     },
     {
       "type": "heading",
@@ -70,7 +70,7 @@
     },
     {
       "type": "paragraph",
-      "text": "If you sell many products, need licence keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function."
+      "text": "If you sell many products, need license keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function."
     },
     {
       "type": "link",

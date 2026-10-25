@@ -3,12 +3,12 @@
 /* ==================================================================
  * /30-off promo landing page — FLAT SWISS (design-src/promo/ad-30.svg)
  *
- * Solid colour blocks, NO outline borders or hard-edge card frames.
+ * Solid color blocks, NO outline borders or hard-edge card frames.
  * Terracotta field; lilac↔terracotta morphing module grid behind the
  * content; cream / mint / ink solid blocks carry the text with generous
  * padding so contrast holds while the grid animates underneath.
  *
- * Tokens only — zero hardcoded colour literals. Cream = $white-color.
+ * Tokens only — zero hardcoded color literals. Cream = $white-color.
  * Mobile-first; desktop overrides at the bottom.
  * ================================================================== */
 
@@ -195,7 +195,7 @@
     color: color-mix(in srgb, $promo-terra, $promo-ink 40%);
   }
 
-  /* "(optional)" hint — de-emphasised, still ≥4.5:1 on cream. */
+  /* "(optional)" hint — de-emphasized, still ≥4.5:1 on cream. */
   &__optional {
     font-weight: 400;
     color: color-mix(in srgb, $promo-ink, $white-color 35%);

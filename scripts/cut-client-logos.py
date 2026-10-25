@@ -2,7 +2,7 @@
 """Cut client logos for the "Trusted by" strip out of the cover tiles.
 
 For every project in src/data/projects.json that is `featured` and not a
-`studioProject`, open its `coverTile` (a logo centred on black), key the
+`studioProject`, open its `coverTile` (a logo centered on black), key the
 BACKGROUND black to alpha by flood-filling from the four corners (so black
 ink inside a logo, e.g. text on the JO-11 disc, survives), crop to the ink,
 pad 4%, and save a 96px-tall 2x WebP with alpha to public/clients/<slug>.webp.

@@ -6,14 +6,14 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* A world's process stage (2026-10-22): what the reference builds from 67
    fixed layers. One pinned viewport, five states; per state the field color
-   fades over the last, the artefact scales in, the text card lands on the
+   fades over the last, the artifact scales in, the text card lands on the
    other side, the sticker comes in from the other corner. Timeline on a
    pinned ScrollTrigger (house pattern), same gate as the collage. Under
    1024px or reduced motion the states stack as plain sections.
    Shared by the worlds: `states` come from the page. A state:
      { key, field, ink, title, copy, side: 'left'|'right', corner: 'tr'|'bl',
        Art, Sticker, artRatio, stickerRatio, narrow?, lazy? }
-   `narrow` keeps a portrait artefact from filling the stage; `lazy` mounts
+   `narrow` keeps a portrait artifact from filling the stage; `lazy` mounts
    the Art only once the stage is within a viewport (a three.js piece). */
 const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 

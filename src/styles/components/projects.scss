@@ -14,7 +14,7 @@
   // wordmark heads the index instead of spanning the page.
   width: clamp(320px, 40vw, 640px);
   margin: 5rem 0 0 $edge-pad;
-  align-self: flex-start; // .projects centres its children
+  align-self: flex-start; // .projects centers its children
   // Reserve height so the IO-gated wordmark can't shift the index below when
   // it lazy-mounts: the warp's font-size tracks container width (~0.247 of
   // it), so 40vw wide reserves ~9.9vw. Column (mobile) reserved below.

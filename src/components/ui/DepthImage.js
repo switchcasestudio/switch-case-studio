@@ -27,7 +27,7 @@ const updateColor = (target, value) => {
   try {
     target.setStyle(value, THREE.LinearSRGBColorSpace);
   } catch {
-    /* keep previous colour */
+    /* keep previous color */
   }
 };
 
@@ -249,9 +249,9 @@ const loadTexture = (src, anisotropy, onDone) => {
   const image = new Image();
   image.crossOrigin = 'anonymous';
   image.decoding = 'async';
-  let cancelled = false;
+  let canceled = false;
   image.onload = () => {
-    if (cancelled) return;
+    if (canceled) return;
     const texture = new THREE.Texture(image);
     texture.colorSpace = THREE.NoColorSpace;
     texture.wrapS = THREE.ClampToEdgeWrapping;
@@ -264,11 +264,11 @@ const loadTexture = (src, anisotropy, onDone) => {
     onDone({ texture, width: image.naturalWidth, height: image.naturalHeight });
   };
   image.onerror = () => {
-    if (!cancelled) onDone(null);
+    if (!canceled) onDone(null);
   };
   image.src = src;
   return () => {
-    cancelled = true;
+    canceled = true;
   };
 };
 

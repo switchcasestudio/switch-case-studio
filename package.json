@@ -36,6 +36,7 @@
     "build": "vite-react-ssg build",
     "postbuild": "node scripts/pin-ssg-hash.mjs build && node scripts/check-us-english.mjs build",
     "check:us": "node scripts/check-us-english.mjs build",
+    "check:us:images": "node scripts/check-us-images.mjs",
     "preview": "vite preview"
   },
   "overrides": {

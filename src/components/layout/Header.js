@@ -49,10 +49,10 @@ const Header = () => {
     const textInner = textInnerRef.current;
     if (!plusH || !plusV || !icon || !textInner) return;
 
-    // The icon lines are centred by a CSS translate(-50%, -50%). GSAP must
+    // The icon lines are centered by a CSS translate(-50%, -50%). GSAP must
     // claim the FULL transform (percent + px + rotate) here, not just rotate:
     // on the home route this effect runs while the header is display:none,
-    // and a partial set makes GSAP parse the centring from a box that does
+    // and a partial set makes GSAP parse the centering from a box that does
     // not exist (it came back as translate(-195px, -1px): -50% of the
     // viewport, the icon sat 190px left of its label after the hero).
     gsap.set(plusH, { transformOrigin: "50% 50%", xPercent: -50, yPercent: -50, x: 0, y: 0, rotate: 0 });

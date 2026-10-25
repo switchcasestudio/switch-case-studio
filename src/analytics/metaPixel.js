@@ -75,7 +75,7 @@ export function trackPixelPageView() {
 
 /**
  * Meta STANDARD event (Schedule, Contact, Lead, …) — standard names get
- * proper ad-optimisation treatment; don't invent custom ones here.
+ * proper ad-optimization treatment; don't invent custom ones here.
  */
 export function trackPixelEvent(name, params = {}) {
   if (!pixelEnabled || typeof window === "undefined" || !window.fbq) return;

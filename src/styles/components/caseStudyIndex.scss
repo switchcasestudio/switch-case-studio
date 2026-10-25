@@ -13,7 +13,7 @@
   // heading, and a full rest before the statement section that follows.
   // Bottom trimmed 2026-09-11 (owner): the About statement below sat under
   // a band of dead black; it now starts closer and keeps its air BELOW it.
-  // Columns centred with equal side padding; the preview rises into the
+  // Columns centered with equal side padding; the preview rises into the
   // title row on the right (owner, 2026-09-12).
   --slot-w: clamp(260px, 19vw, 380px);
   // No bottom padding: the logos strip follows closely (owner, 2026-09-12).
@@ -164,7 +164,7 @@
     box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
   }
 
-  // The seal ring, centred on the slot's top-left corner. Same row-1 trick
+  // The seal ring, centered on the slot's top-left corner. Same row-1 trick
   // as the slot: negative margins pull it up/left onto the corner without
   // growing the row. Motion owns the ring's transform, so placement is
   // margins only.

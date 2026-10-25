@@ -72,12 +72,13 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
 - `find build -name '*.html' | wc -l` = route baseline (65 as of 2026-10-24, with the Web and SEO worlds); re-baseline in `.audit/rules.md` when routes change.
-- `npm run check:us` (postbuild) is clean: US English only in every built page (`scripts/check-us-english.mjs`).
+- `npm run check:us` (postbuild) is clean: US English only in built pages (text, alt/title/aria/meta, JSON-LD), in `src/`, `public/`, `content/` (comments too) and in `public/` file names (`scripts/check-us-english.mjs`, words in `scripts/british-words.mjs`). After adding an image or video with text: `npm run check:us:images` (OCR, local).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily). A post with no cover can no longer ship: `add-post.mjs` refuses it and `check:media` (prebuild) fails.
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- US spelling ONLY, pixels included (owner, 2026-10-25): the 10-22 check read only visible page text, so "licence" shipped on three share images, "colour" on four brand boards and an alt, "normalise" in a case study and a diagram; `check:us` now also reads attributes, JSON-LD, source comments and file names, and `check:us:images` OCRs every image and video. A client's own screenshot is reported, not edited.
 - Every blog post ships a cover (2026-10-25): Beau's instructions said "Leave `coverImage` empty", so its 10-15 and 10-22 posts wore the category plate; `add-post.mjs` now refuses a post without a cover file and `imageAlt`, `check:media` fails the build on one, and every cover is a 1600x900 WebP (all 23 JPGs converted the same day, 4.6 MB to 2.5 MB; Beau pulls them already cropped from the Unsplash CDN: `?w=1600&h=900&fit=crop&fm=webp&q=80`).
 - A service slug is its title, kebab-cased, and the same string is its pricing id (owner, 2026-10-25): `graphic-design-brand-identity`, `web-development-mobile-apps`, `ai-automation`, `seo-ai-search`; no slug→id tables (one drifted and hid the brand package board for three days); a rename 301s both sides, no chains.
 - A control demo in a 4:3 deliverables tile grows, never clips (2026-10-25): `.bw-grid__demo--tool` is `overflow: visible` and its child `min-height: 100%` (a 100% height pins it to the ratio); at 1024 every HTML demo on the outline worlds had cut off its own controls.

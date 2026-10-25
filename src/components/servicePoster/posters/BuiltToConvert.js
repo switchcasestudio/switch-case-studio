@@ -11,8 +11,8 @@ const CURSOR = { x: 350, y: 532 };
 const CTA = { x: 295, y: 520 };
 const TOAST = { x: 750, y: 812 };
 
-// Block centres, for the hover lean (distance to the cursor).
-const CENTRES = [
+// Block centers, for the hover lean (distance to the cursor).
+const CENTERS = [
   [500, 241],
   [380, 351],
   [350, 441],
@@ -102,8 +102,8 @@ export function create(svg, api) {
     el,
     y: 0,
     o: 1,
-    cx: CENTRES[i][0],
-    cy: CENTRES[i][1],
+    cx: CENTERS[i][0],
+    cy: CENTERS[i][1],
     w: writer(el),
     wo: writer(el, "opacity"),
   }));

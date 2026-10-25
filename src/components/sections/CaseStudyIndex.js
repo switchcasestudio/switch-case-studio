@@ -51,7 +51,7 @@ const CaseStudyIndex = () => {
      the whole index rather than per entry: the columns start on one line, so
      per-entry triggers would all fire in the same frame anyway. Idempotent,
      with the in-view fallback AND the timed net (the repo records both
-     behaviours for an already-passed `once` trigger). */
+     behaviors for an already-passed `once` trigger). */
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return undefined;

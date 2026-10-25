@@ -205,7 +205,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     font-size: 0.6rem;
     letter-spacing: 0.04em;
     color: rgba(20, 20, 20, 0.55);
-    background: $grey-color;
+    background: $gray-color;
 
     i {
       width: 7px;
@@ -637,7 +637,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     }
   }
 
-  // Every card is a column: the demo sits centred in the room it has, the
+  // Every card is a column: the demo sits centered in the room it has, the
   // caption is grounded at the bottom so a row's captions line up like a
   // notebook (owner, 2026-10-22).
   &__card {
