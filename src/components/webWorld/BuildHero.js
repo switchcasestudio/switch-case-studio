@@ -343,7 +343,7 @@ export default function BuildHero() {
             <Link to="/contact" className="bw-collage__cta ww-hero__cta">
               Start a project
             </Link>
-            <Link to="/pricing/web-development" className="ww-hero__more">
+            <Link to="/pricing/web-development-mobile-apps" className="ww-hero__more">
               Packages and prices
             </Link>
           </div>

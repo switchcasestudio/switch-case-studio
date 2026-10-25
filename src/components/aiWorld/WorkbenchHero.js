@@ -331,7 +331,7 @@ export default function WorkbenchHero() {
             <Link to="/contact" className="bw-collage__cta aw-hero__cta">
               Start an automation
             </Link>
-            <Link to="/pricing/ai-development" className="aw-hero__more">
+            <Link to="/pricing/ai-automation" className="aw-hero__more">
               Packages and prices
             </Link>
           </div>

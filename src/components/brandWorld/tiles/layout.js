@@ -21,7 +21,7 @@ export const TILES = [
   { id: 'studio-note', art: 'StudioNote', ratio: '4/3', w: 22, sx: 0, sy: 100, z: 5 },
   { id: 'seal', art: 'SealStar', ratio: '1', w: 12, sx: 78, sy: -2, z: 14 },
   { id: 'scs-logo', art: 'ScsLogo', ratio: '4/3', w: 18, sx: -12, sy: 42, z: 11 },
-  { id: 'register', kind: 'poster', slug: 'brand-identity', ratio: '1', w: 19, sx: 100, sy: -6, z: 12 },
+  { id: 'register', kind: 'poster', slug: 'graphic-design-brand-identity', ratio: '1', w: 19, sx: 100, sy: -6, z: 12 },
   { id: 'shot-sha', kind: 'shot', src: '/projects/sha-design-studio/preview-600.webp', label: 'Sha Design Studio, a site by the studio', caption: 'shadesignstudio.com', ratio: '8/5', w: 22, sx: -14, sy: 18, z: 4 },
   { id: 'shot-prodani', kind: 'shot', src: '/projects/prodani/preview-600.webp', label: 'Prodani, a site by the studio', caption: 'prodani.com', ratio: '8/5', w: 22, sx: 104, sy: 30, z: 4 },
   { id: 'ident-video', kind: 'video', src: '/ident/ident-1x1.mp4', poster: '/ident/ident-1x1-poster.webp', label: 'Switch Case Studio ident', ratio: '1', w: 14, sx: 22, sy: -22, z: 13 },

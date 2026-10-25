@@ -84,8 +84,6 @@ const max = (...ds) => ds.filter(Boolean).sort().pop() || TODAY;
 
 const projectDates = entryDates('src/data/projects.json', (p) => p.slug);
 const serviceDates = entryDates('src/data/services.json', (s) => s.slug);
-// pricingData keys services by id; one legacy id differs from its slug.
-const PRICING_ID = { 'marketing-ads': 'marketing-advertisement', 'brand-identity': 'design-branding' };
 const pricingDates = entryDates('src/data/pricingData.json', (s) => s.id);
 const newestPost = max(...posts.flatMap((p) => [p.date, p.updated]));
 
@@ -103,10 +101,10 @@ const urls = [
   { loc: '/services', lastmod: page('ServiceIndexPage.js', 'src/data/services.json'), priority: '0.8' },
   { loc: '/pricing', lastmod: page('ServiceIndexPage.js', 'src/data/services.json', 'src/data/pricingData.json'), priority: '0.8' },
   // Service worlds: one entry per emitted world (routes.js getStaticPaths).
-  { loc: '/services/brand-identity', lastmod: lastmodOf('src/components/pages/BrandIdentityPage.js', 'src/components/brandWorld', 'src/components/worlds'), priority: '0.8' },
-  { loc: '/services/ai-development', lastmod: lastmodOf('src/components/pages/AiAutomationPage.js', 'src/components/aiWorld', 'src/components/worlds'), priority: '0.8' },
-  { loc: '/services/web-development', lastmod: lastmodOf('src/components/pages/WebDevelopmentPage.js', 'src/components/webWorld', 'src/components/worlds'), priority: '0.8' },
-  { loc: '/services/marketing-ads', lastmod: lastmodOf('src/components/pages/SeoAiSearchPage.js', 'src/components/seoWorld', 'src/components/worlds'), priority: '0.8' },
+  { loc: '/services/graphic-design-brand-identity', lastmod: lastmodOf('src/components/pages/BrandIdentityPage.js', 'src/components/brandWorld', 'src/components/worlds'), priority: '0.8' },
+  { loc: '/services/ai-automation', lastmod: lastmodOf('src/components/pages/AiAutomationPage.js', 'src/components/aiWorld', 'src/components/worlds'), priority: '0.8' },
+  { loc: '/services/web-development-mobile-apps', lastmod: lastmodOf('src/components/pages/WebDevelopmentPage.js', 'src/components/webWorld', 'src/components/worlds'), priority: '0.8' },
+  { loc: '/services/seo-ai-search', lastmod: lastmodOf('src/components/pages/SeoAiSearchPage.js', 'src/components/seoWorld', 'src/components/worlds'), priority: '0.8' },
   { loc: '/testimonials', lastmod: page('ReviewsPage.js', 'src/data/testimonials.json'), priority: '0.7' },
   { loc: '/contact', lastmod: page('ContactPage.js', 'src/components/sections/Contact.js'), priority: '0.7' },
   { loc: '/blog', lastmod: newestPost, priority: '0.7' },
@@ -119,7 +117,7 @@ const urls = [
   })),
   ...services.map((s) => ({
     loc: `/pricing/${s.slug}`,
-    lastmod: max(serviceDates.get(s.slug), pricingDates.get(PRICING_ID[s.slug] || s.slug)),
+    lastmod: max(serviceDates.get(s.slug), pricingDates.get(s.slug)),
     priority: '0.6',
   })),
   ...projects.map((p) => ({

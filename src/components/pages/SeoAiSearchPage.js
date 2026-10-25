@@ -3,13 +3,13 @@ import { ORG_REF } from '../../utils/schemaIds';
 import servicesData from '../../data/services.json';
 import SeoWorld from '../seoWorld/SeoWorld';
 
-/* /services/marketing-ads (2026-10-24), the SEO & AI Search world (the
+/* /services/seo-ai-search (2026-10-24), the SEO & AI Search world (the
    slug predates the rename and stays, like its pricing page's). The service
-   page is the experience; the price lives on /pricing/marketing-ads only.
+   page is the experience; the price lives on /pricing/seo-ai-search only.
    Exempt from the page-head rule on purpose: the h1 sits in the search
    hero, beside the drawing that runs. Its own static route record in
    routes.js. */
-const SLUG = 'marketing-ads';
+const SLUG = 'seo-ai-search';
 const PATH = `/services/${SLUG}`;
 const service = servicesData.find((s) => s.slug === SLUG);
 

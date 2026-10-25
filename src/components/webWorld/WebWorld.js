@@ -96,7 +96,7 @@ export default function WebWorld() {
       <WorldClose
         title="Your build is next."
         note="Every build starts with a free call. This page is what we build; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/web-development' }}
+        pricing={{ label: 'See packages and prices.', to: '/pricing/web-development-mobile-apps' }}
         primary={{ label: 'Start a project', to: '/contact' }}
         secondary={{ label: 'See client work', to: '/projects' }}
         pill={{ label: 'Book a free call', to: '/contact' }}

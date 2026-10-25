@@ -148,27 +148,73 @@
 # /services -> /pricing 301s are gone). The Brand Identity slug changed
 # from design-branding to brand-identity the same day (it was live, in the
 # sitemap and linked from three posts).
+#
+# Since 2026-10-25 every slug is its service title (owner: "make sure the
+# permalinks align with the service title"), so /services/marketing-ads no
+# longer sells SEO & AI Search. Each old slug 301s straight to the new one on
+# both sides; older retired slugs point at the final URL, never through a
+# chain.
+[[redirects]]
+  from = "/services/brand-identity"
+  to = "/services/graphic-design-brand-identity"
+  status = 301
+
+[[redirects]]
+  from = "/pricing/brand-identity"
+  to = "/pricing/graphic-design-brand-identity"
+  status = 301
+
+[[redirects]]
+  from = "/services/web-development"
+  to = "/services/web-development-mobile-apps"
+  status = 301
+
+[[redirects]]
+  from = "/pricing/web-development"
+  to = "/pricing/web-development-mobile-apps"
+  status = 301
+
+[[redirects]]
+  from = "/services/ai-development"
+  to = "/services/ai-automation"
+  status = 301
+
+[[redirects]]
+  from = "/pricing/ai-development"
+  to = "/pricing/ai-automation"
+  status = 301
+
+[[redirects]]
+  from = "/services/marketing-ads"
+  to = "/services/seo-ai-search"
+  status = 301
+
+[[redirects]]
+  from = "/pricing/marketing-ads"
+  to = "/pricing/seo-ai-search"
+  status = 301
+
 [[redirects]]
   from = "/pricing/design-branding"
-  to = "/pricing/brand-identity"
+  to = "/pricing/graphic-design-brand-identity"
   status = 301
 
 [[redirects]]
   from = "/services/design-branding"
-  to = "/services/brand-identity"
+  to = "/services/graphic-design-brand-identity"
   status = 301
 
 [[redirects]]
   from = "/pricing/automation-integrations"
-  to = "/pricing/ai-development"
+  to = "/pricing/ai-automation"
   status = 301
 
 [[redirects]]
   from = "/pricing/email-marketing"
-  to = "/pricing/marketing-ads"
+  to = "/pricing/seo-ai-search"
   status = 301
 
 [[redirects]]
   from = "/pricing/hosting-maintenance"
-  to = "/pricing/web-development"
+  to = "/pricing/web-development-mobile-apps"
   status = 301

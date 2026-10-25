@@ -3,13 +3,13 @@ import { ORG_REF } from '../../utils/schemaIds';
 import servicesData from '../../data/services.json';
 import BrandWorld from '../brandWorld/BrandWorld';
 
-/* /services/brand-identity (2026-10-22). The service page is the experience;
-   the price lives on /pricing/brand-identity only (owner). This page is
+/* /services/graphic-design-brand-identity (2026-10-22). The service page is the experience;
+   the price lives on /pricing/graphic-design-brand-identity only (owner). This page is
    exempt from the page-head rule on purpose: it exists to show graphic
    design, so the headline sits inside the collage and the tiles run over
    it. Its own static route record in routes.js; a service without a world
    goes to its pricing page (ServiceRedirect + netlify.toml). */
-const SLUG = 'brand-identity';
+const SLUG = 'graphic-design-brand-identity';
 const PATH = `/services/${SLUG}`;
 const service = servicesData.find((s) => s.slug === SLUG);
 

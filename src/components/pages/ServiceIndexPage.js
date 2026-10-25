@@ -49,17 +49,11 @@ const COPY = {
 };
 
 // "from $X" for the /pricing variant — the lowest tier price per service,
-// derived from pricingData (same slug→id map as PricingPage) so the index
-// stays in sync with real pricing instead of a duplicated hardcoded number.
-const SLUG_TO_ID = {
-  'brand-identity': 'design-branding',
-  'web-development': 'web-development',
-  'ai-development': 'ai-development',
-  'marketing-ads': 'marketing-advertisement',
-};
+// derived from pricingData (keyed by the same slug) so the index stays in
+// sync with real pricing instead of a duplicated hardcoded number.
 
 const fromPrice = (slug) => {
-  const svc = pricingData.services.find((s) => s.id === SLUG_TO_ID[slug]);
+  const svc = pricingData.services.find((s) => s.id === slug);
   const prices = (svc?.tiers || [])
     .filter((t) => t.group !== 'Care') // care plans are add-ons, see above
     .map((t) => t.price)

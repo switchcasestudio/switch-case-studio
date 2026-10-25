@@ -26,10 +26,10 @@ import "../../styles/components/packageBoard.scss";
      TIERS     { [tier]: { for, process, examples: [{ slug, label }] } }
      NOTE      an optional line under the last board. */
 const BOARDS = {
-  "brand-identity": brandIdentity,
-  "web-development": webDevelopment,
-  "ai-development": aiAutomation,
-  "marketing-advertisement": seoSearch,
+  "graphic-design-brand-identity": brandIdentity,
+  "web-development-mobile-apps": webDevelopment,
+  "ai-automation": aiAutomation,
+  "seo-ai-search": seoSearch,
 };
 
 export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);

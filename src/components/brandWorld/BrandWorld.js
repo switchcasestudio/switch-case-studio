@@ -119,7 +119,7 @@ export default function BrandWorld() {
       <WorldClose
         title="Your mark is next."
         note="Every identity starts with a free call. This page is the work; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/brand-identity' }}
+        pricing={{ label: 'See packages and prices.', to: '/pricing/graphic-design-brand-identity' }}
         primary={{ label: 'Start a brand', to: '/contact' }}
         secondary={{ label: 'See client work', to: '/projects' }}
         pill={{ label: 'Book a free call', to: '/contact' }}

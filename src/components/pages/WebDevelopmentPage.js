@@ -3,12 +3,12 @@ import { ORG_REF } from '../../utils/schemaIds';
 import servicesData from '../../data/services.json';
 import WebWorld from '../webWorld/WebWorld';
 
-/* /services/web-development (2026-10-24), the Web Development & Mobile
+/* /services/web-development-mobile-apps (2026-10-24), the Web Development & Mobile
    Apps world. The service page is the experience; the price lives on
-   /pricing/web-development only. Exempt from the page-head rule on
+   /pricing/web-development-mobile-apps only. Exempt from the page-head rule on
    purpose: the h1 sits in the build hero, beside the drawing that runs.
    Its own static route record in routes.js. */
-const SLUG = 'web-development';
+const SLUG = 'web-development-mobile-apps';
 const PATH = `/services/${SLUG}`;
 const service = servicesData.find((s) => s.slug === SLUG);
 

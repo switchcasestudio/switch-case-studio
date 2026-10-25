@@ -3,12 +3,12 @@ import { ORG_REF } from '../../utils/schemaIds';
 import servicesData from '../../data/services.json';
 import AiWorld from '../aiWorld/AiWorld';
 
-/* /services/ai-development (2026-10-22). The service page is the
-   experience; the price lives on /pricing/ai-development only. Exempt from
+/* /services/ai-automation (2026-10-22). The service page is the
+   experience; the price lives on /pricing/ai-automation only. Exempt from
    the page-head rule on purpose: the h1 sits in the workbench hero
    (WorkbenchHero), beside the drawing that runs. Its own static route
    record in routes.js. */
-const SLUG = 'ai-development';
+const SLUG = 'ai-automation';
 const PATH = `/services/${SLUG}`;
 const service = servicesData.find((s) => s.slug === SLUG);
 

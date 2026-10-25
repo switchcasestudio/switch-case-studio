@@ -96,7 +96,7 @@ export default function SeoWorld() {
       <WorldClose
         title="Your first fix is next."
         note="Every SEO engagement starts with a free call. This page is what the work does; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/marketing-ads' }}
+        pricing={{ label: 'See packages and prices.', to: '/pricing/seo-ai-search' }}
         primary={{ label: 'Start with an audit', to: '/contact' }}
         secondary={{ label: "See Zahav's calls", to: '/projects/zahav-medspa' }}
         pill={{ label: 'Book a free call', to: '/contact' }}
