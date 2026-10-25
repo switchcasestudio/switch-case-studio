@@ -305,23 +305,11 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 }
 
-/* ---- Breath ---- */
-.bw-breath {
-  padding: clamp(6rem, 28vh, 16rem) $edge-pad;
-
-  p {
-    max-width: 52ch;
-    margin: 0 auto;
-    text-align: center;
-    font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-    line-height: 1.6;
-    color: rgba(254, 247, 237, 0.65);
-  }
-}
-
 /* ---- Type stage ---- */
+// The breath section that sat above it was removed (owner, 2026-10-24),
+// so the type stage keeps the worlds' section gap itself.
 .bw-type {
-  margin: 0 $edge-pad;
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
   padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
   border-radius: 24px;
   background: $promo-ink;
