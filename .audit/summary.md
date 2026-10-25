@@ -2242,3 +2242,10 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Live check: new URLs 200, every old URL 301s to its new one with the query string kept, the brand board renders on production.
 - Done the same day: Search Console sitemap resubmitted (it had last been read 2026-06-18, 24 pages); the four GBP products now link `/pricing/<new slug>` with their UTM tags (one still pointed at `design-branding`; Google shows them pending review); Beau's `JOURNAL-QUEST.md` on the VPS lists the four service and pricing paths (backup kept). The three GBP posts link a blog guide and two case studies, so they were left alone.
 - **Open:** the paused Smart campaign in Google Ads was not checked (it serves nothing while paused; the 301s cover it if revived).
+
+### 2026-10-25 — Journal covers required (LIVE on main)
+- Owner: "we are missing hero images for some blog posts... that's an issue". Two of 26 posts had no cover (10-15 onboarding, 10-22 About page), both from Beau, whose instructions said "Leave `coverImage` empty".
+- Covers added as 1600x900 WebP (owner: "convert it to web-friendly image format"): name tags and markers by Jon Tyson, a steaming mug by Thomas Park (Unsplash), 95 KB and 47 KB, with `imageAlt`.
+- `add-post.mjs` refuses a post with no cover file or no `imageAlt` (dry-run tested on five cases); `check:media` fails the build on an empty cover (tested, then restored).
+- Beau's `JOURNAL-QUEST.md`: cover recipe through the Unsplash CDN (crop + WebP in the URL, no local tools), the image committed with `posts.json`, and the 2026-10-09 post rules that had never reached it (categories, excerpt 160, `seoTitle`, inline source links, one service and one case-study link, `updated`). Backup of the old file kept.
+- **Open:** the other 24 covers are still JPG (could move to WebP: about half the bytes).

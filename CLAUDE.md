@@ -55,8 +55,10 @@ cascade) plus a CSS `journal-enter` keyframe for title/lede/intro — see the ru
   <post.json>` (validates schema + unique slug, fills date/readingTime/author, inserts newest-first,
   rejects malformed posts). Adding a block type means updating BOTH `add-post.mjs`'s `BLOCK_TYPES`
   and `blogBlocks.js`'s `Block` switch, or posts using it silently render blank.
-- `coverImage` is optional and currently unused by the reader (it still feeds `og:image` and the
-  BlogPosting JSON-LD); the split reader shows no cover, by design.
+- `coverImage` + `imageAlt` are required (2026-10-25): a 1600x900 WebP (or JPG/PNG) under
+  `public/images/journal/<slug>`, committed before `add-post.mjs` runs. It is the reader's 16:9
+  cover, the `og:image` and the BlogPosting image; `add-post.mjs` refuses a post without one and
+  `check:media` fails the build.
 - The sitemap generator (`generate-sitemap.mjs`) already emits `/blog` + every post; it derives
   from `posts.json`, so new posts appear automatically. Both pages render `<Seo>` (Blog /
   BlogPosting + breadcrumb JSON-LD) — keep that.
@@ -72,10 +74,11 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `find build -name '*.html' | wc -l` = route baseline (65 as of 2026-10-24, with the Web and SEO worlds); re-baseline in `.audit/rules.md` when routes change.
 - `npm run check:us` (postbuild) is clean: US English only in every built page (`scripts/check-us-english.mjs`).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
-- Before blog work: fetch + rebase (scheduler pushes to main daily); no post with empty `coverImage`.
+- Before blog work: fetch + rebase (scheduler pushes to main daily). A post with no cover can no longer ship: `add-post.mjs` refuses it and `check:media` (prebuild) fails.
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- Every blog post ships a cover (2026-10-25): Beau's instructions said "Leave `coverImage` empty", so its 10-15 and 10-22 posts wore the category plate; `add-post.mjs` now refuses a post without a cover file and `imageAlt`, `check:media` fails the build on one, and new covers are 1600x900 WebP (Beau pulls them already cropped from the Unsplash CDN: `?w=1600&h=900&fit=crop&fm=webp&q=80`).
 - A service slug is its title, kebab-cased, and the same string is its pricing id (owner, 2026-10-25): `graphic-design-brand-identity`, `web-development-mobile-apps`, `ai-automation`, `seo-ai-search`; no slug→id tables (one drifted and hid the brand package board for three days); a rename 301s both sides, no chains.
 - A control demo in a 4:3 deliverables tile grows, never clips (2026-10-25): `.bw-grid__demo--tool` is `overflow: visible` and its child `min-height: 100%` (a 100% height pins it to the ratio); at 1024 every HTML demo on the outline worlds had cut off its own controls.
 - All four services have a world (2026-10-24): brand (collage hero), AI, Web and SEO (outline worlds). An outline world's root is `bw bw--outline bw--<world>`; `_worldOutline.scss` holds the shared language and demo controls, `_worldHero.scss` the hero frame as `@include world-hero`; a world file keeps only its first stage field, its bubbles field, its hero parts and its own demos. Create a new Sass partial before the `@import` that names it: Vite's Sass compiler caches the miss until `touch vite.config.js` restarts it.
