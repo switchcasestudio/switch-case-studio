@@ -185,19 +185,19 @@ export const routes = [
         lazy: page(() => import('./components/pages/ServicesPage')),
       },
       {
-        path: 'services/brand-identity',
+        path: 'services/graphic-design-brand-identity',
         lazy: page(() => import('./components/pages/BrandIdentityPage')),
       },
       {
-        path: 'services/ai-development',
+        path: 'services/ai-automation',
         lazy: page(() => import('./components/pages/AiAutomationPage')),
       },
       {
-        path: 'services/web-development',
+        path: 'services/web-development-mobile-apps',
         lazy: page(() => import('./components/pages/WebDevelopmentPage')),
       },
       {
-        path: 'services/marketing-ads',
+        path: 'services/seo-ai-search',
         lazy: page(() => import('./components/pages/SeoAiSearchPage')),
       },
       {

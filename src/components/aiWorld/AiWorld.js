@@ -111,7 +111,7 @@ export default function AiWorld() {
       <WorldClose
         title="Your first automation is next."
         note="Every automation starts with a free call. This page is what they do; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/ai-development' }}
+        pricing={{ label: 'See packages and prices.', to: '/pricing/ai-automation' }}
         primary={{ label: 'Start an automation', to: '/contact' }}
         secondary={{ label: 'See Scout, a studio product', to: '/projects/scout' }}
         pill={{ label: 'Book a free call', to: '/contact' }}

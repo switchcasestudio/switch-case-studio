@@ -6,13 +6,6 @@ import Seo from '../util/Seo';
 import { ORG_REF } from '../../utils/schemaIds';
 import { PricingGuide } from './PricingGuide';
 
-const slugToServiceId = {
-  'brand-identity': 'design-branding',
-  'web-development': 'web-development',
-  'ai-development': 'ai-development',
-  'marketing-ads': 'marketing-advertisement',
-};
-
 // Derived from services.json — another hand-written mirror of the service
 // list that could drift on a rename (same failure class as the old Footer
 // SERVICES_LINKS copy).
@@ -45,10 +38,8 @@ function PricingPage() {
     );
   }
 
-  // Resolve slug → service id
-  const serviceId = slugToServiceId[serviceSlug];
-  if (!serviceId) return <Navigate to="/pricing" replace />;
-
+  // A service's pricing id is its slug.
+  const serviceId = serviceSlug;
   const exists = pricingData.services.some((s) => s.id === serviceId);
   if (!exists) return <Navigate to="/pricing" replace />;
 

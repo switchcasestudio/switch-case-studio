@@ -2,7 +2,7 @@
   {
     "icon": "faPenNib",
     "title": "Graphic Design & Brand Identity",
-    "slug": "brand-identity",
+    "slug": "graphic-design-brand-identity",
     "kicker": "Design",
     "subTitle": "A visual system that makes your business unmistakable.",
     "cta": "See the work →",
@@ -16,7 +16,7 @@
   {
     "icon": "faCode",
     "title": "Web Development & Mobile Apps",
-    "slug": "web-development",
+    "slug": "web-development-mobile-apps",
     "kicker": "Code",
     "subTitle": "Landing pages, sites, stores and mobile apps built to convert, then kept running.",
     "cta": "See the work →",
@@ -33,7 +33,7 @@
   {
     "icon": "faRobot",
     "title": "AI & Automation",
-    "slug": "ai-development",
+    "slug": "ai-automation",
     "kicker": "AI",
     "subTitle": "Assistants, agents, and workflows that run your operations.",
     "cta": "See the work →",
@@ -50,7 +50,7 @@
   {
     "icon": "faSearchengin",
     "title": "SEO & AI Search",
-    "slug": "marketing-ads",
+    "slug": "seo-ai-search",
     "kicker": "Growth",
     "subTitle": "Found on Google and in AI answers, then turned into revenue.",
     "cta": "See the work →",

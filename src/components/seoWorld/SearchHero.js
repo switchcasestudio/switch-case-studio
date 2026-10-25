@@ -386,7 +386,7 @@ export default function SearchHero() {
             <Link to="/contact" className="bw-collage__cta sw-hero__cta">
               Start with an audit
             </Link>
-            <Link to="/pricing/marketing-ads" className="sw-hero__more">
+            <Link to="/pricing/seo-ai-search" className="sw-hero__more">
               Packages and prices
             </Link>
           </div>

@@ -3,7 +3,7 @@
  * define the site, so it cannot drift from what is routable or claimed.
  * Runs before every build (package.json "prebuild"), like the sitemap.
  *
- * Why (SEO audit fix 13, 2026-10-09): /pricing/marketing-ads sells llms.txt
+ * Why (SEO audit fix 13, 2026-10-09): /pricing/seo-ai-search sells llms.txt
  * as part of AI-search readiness while switchcasestudio.com/llms.txt was a
  * 404. Google says it does not need the file; other AI tools read it, and a
  * studio that sells it should ship one.
@@ -62,8 +62,8 @@ ${[
   link('Case studies', '/projects', 'Every project, grouped by type'),
   link('Services', '/services', `All ${services.length} services`),
   link('Pricing', '/pricing', `Packages and prices for all ${services.length} services`),
-  link('Graphic design and brand identity service', '/services/brand-identity', 'What a brand identity from the studio looks like, shown not told'),
-  link('AI and automation service', '/services/ai-development', 'What an assistant, an agent and a workflow from the studio do, shown running'),
+  link('Graphic design and brand identity service', '/services/graphic-design-brand-identity', 'What a brand identity from the studio looks like, shown not told'),
+  link('AI and automation service', '/services/ai-automation', 'What an assistant, an agent and a workflow from the studio do, shown running'),
   link('Client reviews', '/testimonials'),
   link('Shop', '/shop', 'WordPress themes and one-to-one office hours'),
   link('Contact', '/contact', 'Book a strategy call or send a message'),

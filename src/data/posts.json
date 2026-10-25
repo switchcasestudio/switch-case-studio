@@ -104,7 +104,7 @@
       },
       {
         "type": "paragraph",
-        "text": "We built Directcut for our own video work, and it was too useful to keep. Creators and small teams should be able to use these models at the price they cost, keep their files, and read the code that touches their key. If you want something like it built around your own business, that is what our [AI development work](/pricing/ai-development) is for."
+        "text": "We built Directcut for our own video work, and it was too useful to keep. Creators and small teams should be able to use these models at the price they cost, keep their files, and read the code that touches their key. If you want something like it built around your own business, that is what our [AI development work](/pricing/ai-automation) is for."
       },
       {
         "type": "paragraph",
@@ -381,7 +381,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "SEO is sold three ways: by the month, by the hour and by the project. Each has a market rate, and the rates are better documented than most marketing prices because one large survey asked the people who sell it. This guide uses that survey, explains what moves a quote up or down, and shows where [our SEO and AI search packages](/pricing/marketing-ads) sit."
+        "text": "SEO is sold three ways: by the month, by the hour and by the project. Each has a market rate, and the rates are better documented than most marketing prices because one large survey asked the people who sell it. This guide uses that survey, explains what moves a quote up or down, and shows where [our SEO and AI search packages](/pricing/seo-ai-search) sit."
       },
       {
         "type": "paragraph",
@@ -492,7 +492,7 @@
       },
       {
         "type": "link",
-        "url": "/pricing/marketing-ads",
+        "url": "/pricing/seo-ai-search",
         "label": "See the SEO & AI Search packages",
         "note": "Published prices, sprint from $3,500"
       }
@@ -519,7 +519,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "An AI chatbot can cost $20 a month or $150,000 to build, and both prices are real. The difference is whether you rent a finished product, assemble one from platforms, or pay someone to build it around your business. Each path has a build cost and a running cost, and the running cost is the one most quotes leave vague. This guide prices all of them from published rate cards and shows where [our AI and automation packages](/pricing/ai-development) sit."
+        "text": "An AI chatbot can cost $20 a month or $150,000 to build, and both prices are real. The difference is whether you rent a finished product, assemble one from platforms, or pay someone to build it around your business. Each path has a build cost and a running cost, and the running cost is the one most quotes leave vague. This guide prices all of them from published rate cards and shows where [our AI and automation packages](/pricing/ai-automation) sit."
       },
       {
         "type": "heading",
@@ -645,7 +645,7 @@
       },
       {
         "type": "link",
-        "url": "/pricing/ai-development",
+        "url": "/pricing/ai-automation",
         "label": "See the AI & Automation packages",
         "note": "Published prices, from $500"
       }
@@ -672,7 +672,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "Ask what a logo costs and you will hear numbers from $20 to five figures. Most of that spread comes from one confusion: a logo, a brand identity and a brand system are three different things, and quotes rarely say which one they price. This guide separates them, puts sourced ranges on each, and shows what [our brand identity packages](/pricing/brand-identity) include."
+        "text": "Ask what a logo costs and you will hear numbers from $20 to five figures. Most of that spread comes from one confusion: a logo, a brand identity and a brand system are three different things, and quotes rarely say which one they price. This guide separates them, puts sourced ranges on each, and shows what [our brand identity packages](/pricing/graphic-design-brand-identity) include."
       },
       {
         "type": "heading",
@@ -787,7 +787,7 @@
       },
       {
         "type": "link",
-        "url": "/pricing/brand-identity",
+        "url": "/pricing/graphic-design-brand-identity",
         "label": "See the Brand Identity packages",
         "note": "Published prices, from $750"
       }
@@ -814,7 +814,7 @@
     "body": [
       {
         "type": "paragraph",
-        "text": "A small business website can cost nothing or tens of thousands of dollars, and both numbers are honest. The spread comes from who does the work, how much of it is custom, and what the site has to do after someone lands on it. This guide puts real ranges on each option, names where every number comes from, and shows where [our own packages](/pricing/web-development) sit."
+        "text": "A small business website can cost nothing or tens of thousands of dollars, and both numbers are honest. The spread comes from who does the work, how much of it is custom, and what the site has to do after someone lands on it. This guide puts real ranges on each option, names where every number comes from, and shows where [our own packages](/pricing/web-development-mobile-apps) sit."
       },
       {
         "type": "paragraph",
@@ -937,11 +937,11 @@
       },
       {
         "type": "paragraph",
-        "text": "A quote that answers all six in writing is easier to trust than a lower total that answers none. If you want to see the line items for ours, [the Web Development page](/pricing/web-development) lists every package side by side."
+        "text": "A quote that answers all six in writing is easier to trust than a lower total that answers none. If you want to see the line items for ours, [the Web Development page](/pricing/web-development-mobile-apps) lists every package side by side."
       },
       {
         "type": "link",
-        "url": "/pricing/web-development",
+        "url": "/pricing/web-development-mobile-apps",
         "label": "See the Web Development packages",
         "note": "Published prices, from $800"
       }
@@ -1060,7 +1060,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the [brand job](/pricing/brand-identity). The rest is usability. Good website typography handles both without making the customer work for either. For an identity and site designed as one system, see [My Challah Dealer](/projects/my-challah-dealer)."
+        "text": "Finally, remove the logo from the page and look again. The typography should still feel consistent with the business: calm or energetic, established or experimental, technical or personal. That is the [brand job](/pricing/graphic-design-brand-identity). The rest is usability. Good website typography handles both without making the customer work for either. For an identity and site designed as one system, see [My Challah Dealer](/projects/my-challah-dealer)."
       }
     ]
   },
@@ -1143,7 +1143,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If you sell many products, need license keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function. The same setup for your own product is a small [web development](/pricing/web-development) job."
+        "text": "If you sell many products, need license keys, or want automatic update notices inside WordPress, a dedicated digital-sales platform will serve you better. For one product with an occasional new version, a payment link and a single function is plenty. A new version is a new private release and a one-line change to the function. The same setup for your own product is a small [web development](/pricing/web-development-mobile-apps) job."
       },
       {
         "type": "link",
@@ -1193,9 +1193,9 @@
       {
         "type": "list",
         "items": [
-          "[SEO](/pricing/marketing-ads): search visibility, Search Console, site structure, local pages.",
-          "[Design](/pricing/brand-identity): layout, type, hierarchy, a second pair of eyes on something you made.",
-          "[Code](/pricing/web-development): front end, WordPress themes and blocks, small automations.",
+          "[SEO](/pricing/seo-ai-search): search visibility, Search Console, site structure, local pages.",
+          "[Design](/pricing/graphic-design-brand-identity): layout, type, hierarchy, a second pair of eyes on something you made.",
+          "[Code](/pricing/web-development-mobile-apps): front end, WordPress themes and blocks, small automations.",
           "WordPress: setup, themes, WooCommerce, and what is worth a plugin."
         ]
       },
@@ -1328,7 +1328,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This is also the moment to check link language. “Learn more” repeated across a page reveals little about the destination. A descriptive link such as “[review our web development services](/pricing/web-development)” makes the next step easier to predict. Clarity helps people first, which is a good standard for the architecture as a whole."
+        "text": "This is also the moment to check link language. “Learn more” repeated across a page reveals little about the destination. A descriptive link such as “[review our web development services](/pricing/web-development-mobile-apps)” makes the next step easier to predict. Clarity helps people first, which is a good standard for the architecture as a whole."
       },
       {
         "type": "heading",
@@ -1468,7 +1468,7 @@
       },
       {
         "type": "paragraph",
-        "text": "[We build custom sites for clients](/pricing/web-development), and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colors, we can do that for you."
+        "text": "[We build custom sites for clients](/pricing/web-development-mobile-apps), and the work that goes into a good one does not all have to stay locked inside one project. A free theme lets a small business start with a site that already feels considered, and it gives us a public, working example of how we think about type, spacing and pace. If you want Unhurried set up with your own content, photos and colors, we can do that for you."
       },
       {
         "type": "link",
@@ -1573,7 +1573,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A [monthly review](/pricing/marketing-ads) is enough for many small businesses. Record the date range, the few changes that matter, and the action each one supports. One page may need a clearer title. Another may need better service details, internal links, or a stronger contact path. A third may simply need more time. Avoid changing ten variables at once, because you will lose the ability to learn from the result."
+        "text": "A [monthly review](/pricing/seo-ai-search) is enough for many small businesses. Record the date range, the few changes that matter, and the action each one supports. One page may need a clearer title. Another may need better service details, internal links, or a stronger contact path. A third may simply need more time. Avoid changing ten variables at once, because you will lose the ability to learn from the result."
       },
       {
         "type": "paragraph",
@@ -1606,7 +1606,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. [Ours run from one page to fifteen](/pricing/brand-identity), depending on what the team will open. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
+        "text": "A useful brand guide is a decision system. It gives employees, contractors, and partners enough direction to make consistent choices without asking for permission every time. It does not need to be a hundred pages. [Ours run from one page to fifteen](/pricing/graphic-design-brand-identity), depending on what the team will open. For a small team, a focused guide that gets opened is more valuable than a beautiful document that becomes archival material on arrival."
       },
       {
         "type": "heading",
@@ -1782,7 +1782,7 @@
       },
       {
         "type": "paragraph",
-        "text": "Google gives similar advice for links: anchor text should be descriptive, reasonably concise, and relevant to the destination. “[View our Portland web design services](/pricing/web-development)” carries more meaning than “Learn more,” especially when the link is read away from the surrounding paragraph. This is not permission to stuff keywords into every menu item. It is a reason to make link text specific enough to stand on its own."
+        "text": "Google gives similar advice for links: anchor text should be descriptive, reasonably concise, and relevant to the destination. “[View our Portland web design services](/pricing/web-development-mobile-apps)” carries more meaning than “Learn more,” especially when the link is read away from the surrounding paragraph. This is not permission to stuff keywords into every menu item. It is a reason to make link text specific enough to stand on its own."
       },
       {
         "type": "heading",
@@ -2111,7 +2111,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If the answer is no, the fix is not a floating button. The fix is better design, [cleaner code](/pricing/web-development), clearer content, and a team willing to test the thing people actually use."
+        "text": "If the answer is no, the fix is not a floating button. The fix is better design, [cleaner code](/pricing/web-development-mobile-apps), clearer content, and a team willing to test the thing people actually use."
       }
     ]
   },
@@ -2164,7 +2164,7 @@
       },
       {
         "type": "paragraph",
-        "text": "We measure every [rebuild](/pricing/web-development) with the same instrument on the same day, before and after. So instead of industry averages, here is what moved on our own projects."
+        "text": "We measure every [rebuild](/pricing/web-development-mobile-apps) with the same instrument on the same day, before and after. So instead of industry averages, here is what moved on our own projects."
       },
       {
         "type": "list",
@@ -2225,7 +2225,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If your site is slow, the fix is rarely one trick. It is measuring, cutting what the first screen does not need, then measuring again. That is also what the case studies above are, and what a [website rebuild](/pricing/web-development) with us includes."
+        "text": "If your site is slow, the fix is rarely one trick. It is measuring, cutting what the first screen does not need, then measuring again. That is also what the case studies above are, and what a [website rebuild](/pricing/web-development-mobile-apps) with us includes."
       }
     ]
   },
@@ -2321,7 +2321,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful AI-era [SEO audit](/pricing/marketing-ads) starts with a blunt question: if a machine had to explain this business in four sentences, what would it get wrong?"
+        "text": "A useful AI-era [SEO audit](/pricing/seo-ai-search) starts with a blunt question: if a machine had to explain this business in four sentences, what would it get wrong?"
       },
       {
         "type": "paragraph",
@@ -2389,7 +2389,7 @@
       },
       {
         "type": "paragraph",
-        "text": "That surprises people, given [what we sell](/pricing/ai-development). So this post explains the reasoning, and then gives you the workflow. It is a JSON file. Import it into any n8n instance, edit two nodes, and it runs."
+        "text": "That surprises people, given [what we sell](/pricing/ai-automation). So this post explains the reasoning, and then gives you the workflow. It is a JSON file. Import it into any n8n instance, edit two nodes, and it runs."
       },
       {
         "type": "download",
@@ -2588,7 +2588,7 @@
       },
       {
         "type": "paragraph",
-        "text": "If you are considering [AI automation](/pricing/ai-development), draw the workflow as it works today. Not the aspirational version. The real one. Include the inboxes, spreadsheets, sticky notes, forgotten callbacks, and the person everyone pings when the process gets weird."
+        "text": "If you are considering [AI automation](/pricing/ai-automation), draw the workflow as it works today. Not the aspirational version. The real one. Include the inboxes, spreadsheets, sticky notes, forgotten callbacks, and the person everyone pings when the process gets weird."
       },
       {
         "type": "paragraph",
@@ -2729,7 +2729,7 @@
       },
       {
         "type": "paragraph",
-        "text": "The internal side matters too. A form that sends a bare email with no structure is easy to miss and hard to track. Better intake creates a clean subject line, includes the source page, preserves the visitor's answers, routes to the right person, and gives the team a consistent next action. That can be as simple as a CRM entry, a Slack alert, or a tagged inbox rule, the smallest kind of [automation](/pricing/ai-development) we build. [My Challah Dealer](/projects/my-challah-dealer)'s order form does it with a Google Sheet and two emails per order: a confirmation to the customer, an alert to the owner. The sophistication should match the business."
+        "text": "The internal side matters too. A form that sends a bare email with no structure is easy to miss and hard to track. Better intake creates a clean subject line, includes the source page, preserves the visitor's answers, routes to the right person, and gives the team a consistent next action. That can be as simple as a CRM entry, a Slack alert, or a tagged inbox rule, the smallest kind of [automation](/pricing/ai-automation) we build. [My Challah Dealer](/projects/my-challah-dealer)'s order form does it with a Google Sheet and two emails per order: a confirmation to the customer, an alert to the owner. The sophistication should match the business."
       },
       {
         "type": "heading",
@@ -2843,7 +2843,7 @@
       },
       {
         "type": "paragraph",
-        "text": "A useful [AI build](/pricing/ai-development) begins with a boring sentence: when this happens, we need this to happen next. New inquiry comes in, qualify it, route it, create the record, send the right response, and flag anything that needs a human. New review appears, classify it, draft a response, notify the owner if it is negative. New project starts, create the folder, checklist, kickoff note, and internal summary."
+        "text": "A useful [AI build](/pricing/ai-automation) begins with a boring sentence: when this happens, we need this to happen next. New inquiry comes in, qualify it, route it, create the record, send the right response, and flag anything that needs a human. New review appears, classify it, draft a response, notify the owner if it is negative. New project starts, create the folder, checklist, kickoff note, and internal summary."
       },
       {
         "type": "paragraph",
@@ -3044,7 +3044,7 @@
       },
       {
         "type": "paragraph",
-        "text": "This is where restraint helps. Good [local SEO](/pricing/marketing-ads) is not about sounding like a directory listing. It is about giving a specific buyer enough useful information to make the next decision."
+        "text": "This is where restraint helps. Good [local SEO](/pricing/seo-ai-search) is not about sounding like a directory listing. It is about giving a specific buyer enough useful information to make the next decision."
       },
       {
         "type": "heading",
@@ -3169,7 +3169,7 @@
       },
       {
         "type": "paragraph",
-        "text": "For small businesses, this does not mean everyone needs a dedicated AI keyboard. Most do not. It means the tooling layer around AI is maturing. The useful work is moving from, can the model do this, to, can a human safely direct, inspect, approve, and repeat this work without babysitting every step. That is the bar we hold our own [AI and automation](/pricing/ai-development) builds to."
+        "text": "For small businesses, this does not mean everyone needs a dedicated AI keyboard. Most do not. It means the tooling layer around AI is maturing. The useful work is moving from, can the model do this, to, can a human safely direct, inspect, approve, and repeat this work without babysitting every step. That is the bar we hold our own [AI and automation](/pricing/ai-automation) builds to."
       },
       {
         "type": "paragraph",
@@ -3279,7 +3279,7 @@
       },
       {
         "type": "paragraph",
-        "text": "When we [build a brand identity](/pricing/brand-identity), we start with the promise and work outward, and the logo is the last thing we design. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark. If you are pricing the work, our [guide to what a logo and brand identity cost](/blog/how-much-does-a-logo-and-brand-identity-cost) lays out the market and our packages."
+        "text": "When we [build a brand identity](/pricing/graphic-design-brand-identity), we start with the promise and work outward, and the logo is the last thing we design. [My Challah Dealer](/projects/my-challah-dealer) shows the whole stack: promise, system, print, site, then the mark. If you are pricing the work, our [guide to what a logo and brand identity cost](/blog/how-much-does-a-logo-and-brand-identity-cost) lays out the market and our packages."
       }
     ]
   }
