@@ -1,7 +1,7 @@
 @import '../_variables.scss';
 @import '../_mixins.scss';
 
-// Video hero (2026-09-09). Black field, lavender type, the ident centred and
+// Video hero (2026-09-09). Black field, lavender type, the ident centered and
 // four corners of copy, after the "a good design practice" layout in
 // ~/Desktop/structure.png. The header is display:none while the hero is on
 // screen (header.scss `.is-home.is-hero`), so the hero IS the first viewport.
@@ -87,7 +87,7 @@ $hero-pad-y: 1.5rem;
   // ── Hero nav, top-right under the DEVELOPMENT line (owner's sketch,
   // 2026-09-11): a right-aligned stack, so it can never collide with the
   // headline however wide the word runs. GSAP owns its opacity/transform
-  // (entrance + scroll drift), so hovers here touch colour and the ARROW.
+  // (entrance + scroll drift), so hovers here touch color and the ARROW.
   .hero-nav {
     position: absolute;
     top: calc(#{$hero-pad-y} + clamp(2.5rem, 6.4vw, 7.5rem) * 0.74 + 2.5rem);

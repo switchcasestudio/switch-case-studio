@@ -21,7 +21,7 @@ $svc-title-size: clamp(2rem, 2.4vw, 2.6rem);
   isolation: isolate;
   // One screen PLUS the fixed header (110px desktop, 81px phone), so the
   // content still gets a full screen once the header overlays its top.
-  // Generous padding top and bottom; content centred in whatever is left.
+  // Generous padding top and bottom; content centered in whatever is left.
   min-height: calc(100dvh + 110px);
   // Top clears the fixed header (110px) and THEN breathes; bottom breathes
   // on its own. Owner asked for "serious" room on both ends.
@@ -363,7 +363,7 @@ $svc-title-size: clamp(2rem, 2.4vw, 2.6rem);
     min-height: 0;
     padding-top: calc(110px + 2rem);
     padding-bottom: 2rem;
-    // Heading + card row centred as one group in the screen below the
+    // Heading + card row centered as one group in the screen below the
     // header (owner, 2026-09-24). Cards cap at 680px, so on tall screens the
     // spare height used to pile up under the row; now it splits above and
     // below. At 1440x900 the group already fills the screen: no change there.

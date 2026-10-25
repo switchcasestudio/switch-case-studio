@@ -36,13 +36,13 @@ export default function GradientStripe({
     // Claim the whole transform in GSAP terms before any tween runs: the
     // CSS translate(-50%,-50%) parses into a PIXEL matrix (CLAUDE.md
     // StaggeredMenu rule), so a later yPercent tween silently drops the
-    // vertical centering. xPercent -50 centres the orb for real (it was 0,
+    // vertical centering. xPercent -50 centers the orb for real (it was 0,
     // which parked its LEFT edge at 50% and let it leave the band, 2026-09-11).
     gsap.set(orb, { xPercent: -50, x: 0, yPercent: -50, y: 0 });
 
     const build = () => {
       // Edge to edge INSIDE the band (owner, 2026-09-11: never half gone).
-      // The orb is centred at 50%, so its centre may travel ±(W - orb) / 2.
+      // The orb is centered at 50%, so its center may travel ±(W - orb) / 2.
       // The orb is height:100% at 1:1, so its width IS the band's height;
       // offsetWidth alone read 0 before layout and let it leave the frame.
       const size = Math.max(orb.offsetWidth, stripe.clientHeight);

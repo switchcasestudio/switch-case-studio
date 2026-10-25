@@ -62,7 +62,7 @@ const CaseStudyPage = () => {
   // null = closed. Holds the src of the image being zoomed (any media tile).
   const [zoomSrc, setZoomSrc] = useState(null);
 
-  // Find project + compute neighbour for "View next →"
+  // Find project + compute neighbor for "View next →"
   const { project, nextProject } = useMemo(() => {
     const idx = projectsData.findIndex((p) => p.slug === slug);
     if (idx === -1) return { project: null, nextProject: null };
@@ -78,7 +78,7 @@ const CaseStudyPage = () => {
   // page's LCP (Zahav: 764KB, LCP 8.4s). Every longWeb needs the sibling on
   // disk and tracked in git: srcset has no fallback, so a missing sibling is
   // a broken image on phones, and the error gate below removes the band.
-  // The original is labelled 1150w, the narrowest original width, so DPR-3
+  // The original is labeled 1150w, the narrowest original width, so DPR-3
   // phones and every desktop still pick it.
   const longWebSrcSet = publicLongWeb?.endsWith('/long.webp')
     ? `${publicLongWeb.replace(/long\.webp$/, 'long-700.webp')} 700w, ${publicLongWeb} 1150w`
@@ -196,7 +196,7 @@ const CaseStudyPage = () => {
     diagram,
     diagramAlt,
     // Optional before/after comparison band. Same law as `diagram` and for the
-    // same reason: a labelled side-by-side has to be READ, so it gets a
+    // same reason: a labeled side-by-side has to be READ, so it gets a
     // contain-fit scroll frame, never a 4/3 cover tile that would crop the
     // labels off. Absent → the whole section doesn't exist.
     comparisons = [],
@@ -461,7 +461,7 @@ const CaseStudyPage = () => {
               ))}
 
               {/* One button per public repo. A single repo reads "View the
-                  code"; several are labelled by their role in the build so the
+                  code"; several are labeled by their role in the build so the
                   row tells the pipeline story (scraper → API → front end). */}
               {repos.map((repo) => (
                 <a

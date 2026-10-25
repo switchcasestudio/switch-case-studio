@@ -171,7 +171,7 @@ export function trackEvent(name, params = {}) {
  *   - email_click      → mailto: links
  *   - phone_click      → tel: links
  *   - file_download    → any anchor carrying the download attribute
- * Centralised so the 13+ scattered "Book a Free Call" CTAs need no edits and
+ * Centralized so the 13+ scattered "Book a Free Call" CTAs need no edits and
  * any future CTA is covered automatically. Returns a cleanup function.
  */
 export function initInteractionTracking() {
@@ -189,7 +189,7 @@ export function initInteractionTracking() {
 
     if (href.includes(BOOKING_URL_MATCH)) {
       trackEvent("book_call_click", shared);
-      // Meta STANDARD event names (Schedule/Contact) so ad optimisation can
+      // Meta STANDARD event names (Schedule/Contact) so ad optimization can
       // use them; no-ops until the pixel is consented+loaded.
       trackPixelEvent("Schedule");
     } else if (href.startsWith("mailto:")) {

@@ -20,7 +20,7 @@
 # When that accepts ^7, DELETE the two ignore rules below and do the coordinated
 # bump (router + SSG together).
 #
-# `open-pull-requests-limit: 0` keeps this repo's current behaviour — security
+# `open-pull-requests-limit: 0` keeps this repo's current behavior — security
 # updates only, no routine version-bump PRs.
 #
 # The ignore rules use `versions`, NOT `update-types`. GitHub's docs: "`update-types`

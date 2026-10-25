@@ -57,7 +57,7 @@
       border-radius: 4px;
     }
 
-    // Touch / coarse pointer: restore default pointer behaviour
+    // Touch / coarse pointer: restore default pointer behavior
     // (the "Next" pill is hidden via its own JS hover state)
     @media (hover: none), (pointer: coarse) {
       cursor: pointer;

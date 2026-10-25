@@ -72,7 +72,7 @@ const handleAnchorClick = (e, hash) => {
     const el = document.querySelector(hash);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-  // If on another route, the <Link to="/#services"> default behaviour
+  // If on another route, the <Link to="/#services"> default behavior
   // navigates home; ScrollToTop + the browser's hash handling pick it up.
 };
 

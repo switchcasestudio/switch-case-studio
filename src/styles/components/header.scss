@@ -29,7 +29,7 @@
   }
   // display:none → block restarts a CSS animation, so the return after the
   // hero slides in instead of popping. `both` leaves transform: none, so the
-  // bar is not a containing block for anything afterwards (the menu panel is
+  // bar is not a containing block for anything afterward (the menu panel is
   // a sibling anyway). CSS-owned: no GSAP touches the header's transform.
   &.is-home:not(.is-hero) {
     animation: header-return $dur-med $ease-out both;
@@ -45,15 +45,15 @@
 
   // One row (owner, 2026-09-09): nav links, then the booking pill right
   // next to them, right-aligned. min-height keeps the bar as tall as the
-  // fixed logo so the row centres on it; the logo itself is .site-brand.
+  // fixed logo so the row centers on it; the logo itself is .site-brand.
   // Three columns (owner, 2026-09-11): an empty left column (the fixed logo
-  // floats there), the nav centred, the booking button alone on the right.
-  // Equal 1fr sides keep the nav on the true centre of the bar.
+  // floats there), the nav centered, the booking button alone on the right.
+  // Equal 1fr sides keep the nav on the true center of the bar.
   &_inner {
     max-width: none;
     margin: 0 auto;
     padding-inline: 32px;
-    min-height: 57px; // = logo height, so the 10px padding centres it
+    min-height: 57px; // = logo height, so the 10px padding centers it
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     align-items: center;

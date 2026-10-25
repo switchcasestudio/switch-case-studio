@@ -2,7 +2,7 @@ import gsap from "gsap";
 import { f, q, qa, writer } from "../usePosterEngine";
 
 /* Poster 01, Brand Identity: "In register." Two plates of one giant "Aa",
-   terra multiplied over pink. The cursor pulls them out of register; centre
+   terra multiplied over pink. The cursor pulls them out of register; center
    it and they lock, the crosshairs pulse and the headline says so. */
 const SANS = "Inter, 'Inter Fallback', sans-serif";
 const SERIF = "'SCS Display', 'SCS Display Fallback', sans-serif";

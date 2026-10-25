@@ -6,7 +6,7 @@ const SPRING_CONFIG = { damping: 100, stiffness: 400 };
 
 /**
  * MagneticButton — pulls its contents toward the cursor while hovered, then
- * springs back to centre on leave. Adapted from a framer-motion/TS/Tailwind
+ * springs back to center on leave. Adapted from a framer-motion/TS/Tailwind
  * snippet to this project's motion/react + plain-JS setup.
  *
  * Reduced-motion safe: renders a static wrapper with no movement.
@@ -44,7 +44,7 @@ const MagneticButton = ({ children, distance = 0.6, className = '' }) => {
     return () => document.removeEventListener('mousemove', onMove);
   }, [isHovered, reduced, distance, x, y]);
 
-  // Snap back to centre when the cursor leaves.
+  // Snap back to center when the cursor leaves.
   useEffect(() => {
     if (!isHovered) {
       x.set(0);

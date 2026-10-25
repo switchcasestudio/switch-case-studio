@@ -117,10 +117,10 @@ const TextLoop = ({
     const measureEl = measureRef.current;
     if (!pathEl || !measureEl) return undefined;
 
-    let cancelled = false;
+    let canceled = false;
 
     const measure = () => {
-      if (cancelled) return;
+      if (canceled) return;
       let length = 0;
       let unitWidth = 0;
       try {
@@ -143,7 +143,7 @@ const TextLoop = ({
     }
 
     return () => {
-      cancelled = true;
+      canceled = true;
     };
   }, [d, unit, fontSize, fontWeight, letterSpacing]);
 

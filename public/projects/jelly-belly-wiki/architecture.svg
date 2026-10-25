@@ -33,7 +33,7 @@
   <text class="n-title" x="285" y="128">Python</text>
   <text class="n-body"  x="285" y="158">Selenium WebDriver</text>
   <text class="n-body"  x="285" y="180">BeautifulSoup</text>
-  <text class="n-body"  x="285" y="202">Normalised JSON</text>
+  <text class="n-body"  x="285" y="202">Normalized JSON</text>
 
   <!-- 03 Store -->
   <rect class="n-box" x="498" y="60" width="205" height="180" rx="14"/>

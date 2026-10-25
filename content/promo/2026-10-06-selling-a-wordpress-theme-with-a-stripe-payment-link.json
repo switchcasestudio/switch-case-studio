@@ -6,7 +6,7 @@
     "pillar": "Build Notes",
     "intent": "authority",
     "x": [
-      "We sell a WordPress theme without a store plugin or a licence server.\n\nA Stripe Payment Link, a static thank-you page, and one small serverless function.",
+      "We sell a WordPress theme without a store plugin or a license server.\n\nA Stripe Payment Link, a static thank-you page, and one small serverless function.",
       "The function asks Stripe two things: is this session paid, and did it come from our payment link? Only then does it stream the zip from a private GitHub release.",
       "The mistake it avoids: our site's code is in a public repo. A paid zip at a secret path there would have been free to anyone who looked.\n\nhttps://switchcasestudio.com/blog/selling-a-wordpress-theme-with-a-stripe-payment-link"
     ],

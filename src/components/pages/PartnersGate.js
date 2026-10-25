@@ -47,7 +47,7 @@ const sha256Hex = async (input) => {
 
 const PartnersGate = () => {
   // 'checking' renders the same lock screen the server pre-rendered, so there's
-  // no hydration divergence; an effect then honours a prior unlock. 'ok' swaps
+  // no hydration divergence; an effect then honors a prior unlock. 'ok' swaps
   // in the offer. sessionStorage / crypto only touched client-side (effects +
   // the submit handler), never during the Node static build.
   const [status, setStatus] = useState('checking');

@@ -146,7 +146,7 @@
     "brandKit": [
       { "src": "/projects/my-challah-dealer/brand/01-cover.webp", "srcSmall": "/projects/my-challah-dealer/brand/01-cover-1200.webp", "alt": "The primary badge on dough: a braided challah in an orange disc, ringed by My Challah Dealer and First one's on me" },
       { "src": "/projects/my-challah-dealer/brand/02-logo-system.webp", "srcSmall": "/projects/my-challah-dealer/brand/02-logo-system-1200.webp", "alt": "The logo system: primary badge, braid mark, horizontal lockup, stacked lockup, wordmark and die-cut sticker" },
-      { "src": "/projects/my-challah-dealer/brand/03-colour-variants.webp", "srcSmall": "/projects/my-challah-dealer/brand/03-colour-variants-1200.webp", "alt": "The badge on five grounds: full color, on black, on orange, one color on kraft, one color cream" },
+      { "src": "/projects/my-challah-dealer/brand/03-color-variants.webp", "srcSmall": "/projects/my-challah-dealer/brand/03-color-variants-1200.webp", "alt": "The badge on five grounds: full color, on black, on orange, one color on kraft, one color cream" },
       { "src": "/projects/my-challah-dealer/brand/04-palette.webp", "srcSmall": "/projects/my-challah-dealer/brand/04-palette-1200.webp", "alt": "The palette: Dough, Ink, Safety Orange and Kraft, with HEX, RGB, CMYK and Pantone values" },
       { "src": "/projects/my-challah-dealer/brand/05-type.webp", "srcSmall": "/projects/my-challah-dealer/brand/05-type-1200.webp", "alt": "Type: Anton for display, Archivo for body, with specimens" },
       { "src": "/projects/my-challah-dealer/brand/06-bread-clip.webp", "srcSmall": "/projects/my-challah-dealer/brand/06-bread-clip-1200.webp", "alt": "The bread clip secondary mark, and the die-cut clip business card, front and back" },
@@ -740,7 +740,7 @@
     "highlights": [
       {
         "title": "1 · Collection · Python",
-        "summary": "Selenium and BeautifulSoup scrape flavors, recipes, facts and milestones from the official Jelly Belly site, then normalise the result to clean JSON ready to seed."
+        "summary": "Selenium and BeautifulSoup scrape flavors, recipes, facts and milestones from the official Jelly Belly site, then normalize the result to clean JSON ready to seed."
       },
       {
         "title": "2 · Data model · MySQL",

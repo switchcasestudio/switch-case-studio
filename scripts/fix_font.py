@@ -3,7 +3,7 @@ from fontTools.ttLib import TTFont
 from fontTools.pens.boundsPen import BoundsPen
 
 # Source of truth = the full OTF. We fix metrics on a COPY; the original is
-# never written. The woff2 subset is regenerated from the fixed OTF afterwards.
+# never written. The woff2 subset is regenerated from the fixed OTF afterward.
 # NOTE: `fonts-src/` is gitignored (local only) — this repo is public and the
 # unsubsetted brand face is not for redistribution. Only the subset woff2 in
 # public/fonts/ ships. Clone ≠ has the input; get the OTF from the owner.

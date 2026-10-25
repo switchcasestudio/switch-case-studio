@@ -15,7 +15,7 @@ import '../../styles/components/clientStrip.scss';
  * DERIVED from projects.json (2026-08-29) — same law as PRICING_LINKS/
  * PROJECT_LINKS: a component-local copy WILL drift, and this one did
  * (Florida Green shipped 2026-08-26 and never made it here). `featured`
- * AND not `studioProject`: a strip labelled "Trusted by" lists clients,
+ * AND not `studioProject`: a strip labeled "Trusted by" lists clients,
  * not our own products (Scout, Jelly Belly Wiki) or non-client work
  * (Birth of Venus). Adding a featured client updates the marquee
  * automatically. The loop is

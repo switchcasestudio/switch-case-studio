@@ -10,7 +10,7 @@ import { initMetaPixel, trackPixelPageView } from "./metaPixel";
 import { logVisit } from "./visitLog";
 
 /**
- * Mount once inside the Router. Initialises GA4 + interaction tracking on first
+ * Mount once inside the Router. Initializes GA4 + interaction tracking on first
  * render, then sends a page_view on every route change. Renders nothing.
  *
  * Title timing: pages are lazy-loaded and set their <title> via

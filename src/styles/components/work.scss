@@ -146,7 +146,7 @@
         color: $white-color;
       }
 
-      // Left-aligned, outlined phrases flow INLINE (2026-09-12: centred
+      // Left-aligned, outlined phrases flow INLINE (2026-09-12: centered
       // text + inline-block phrases forced each phrase onto its own line
       // and ragged the paragraph, which read as distorted).
       p {
@@ -162,7 +162,7 @@
     }
 
     // The booking CTA sits INSIDE the statue (owner, 2026-09-12): pinned
-    // bottom-centre over the photo on desktop; in flow, last, on phones
+    // bottom-center over the photo on desktop; in flow, last, on phones
     // (see the 768px block) so it can never overlap the stacked columns.
     .work-cta {
       position: absolute;

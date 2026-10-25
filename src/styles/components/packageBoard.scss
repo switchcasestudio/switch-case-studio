@@ -295,7 +295,7 @@
   // page is lang="en"); overflow-wrap: break-word is deliberately absent,
   // because it split words with no hyphen where hyphenation found no point
   // ("Unlimite / d"). A few cells still run into their own padding, as they
-  // did before at the smaller sizes; none collides with a neighbour.
+  // did before at the smaller sizes; none collides with a neighbor.
   @media (max-width: 720px) {
     padding: 1rem 0.75rem;
 
