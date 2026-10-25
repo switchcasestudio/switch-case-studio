@@ -10,8 +10,8 @@
    so these draw no background. */
 const INTER = "Inter, 'Inter Fallback', sans-serif";
 const LAVENDER = '#dab8ff';
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 16, strokeLinecap: 'round', strokeLinejoin: 'round' };
-const THIN = { ...S, strokeWidth: 12 };
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 7, strokeLinecap: 'round', strokeLinejoin: 'round' };
+const THIN = { ...S, strokeWidth: 6 };
 
 export const Label = ({ x, y, children, anchor = 'start' }) => (
   <text x={x} y={y} textAnchor={anchor} fill="currentColor" fontFamily={INTER} fontSize="14" fontWeight="500" letterSpacing="2">
@@ -34,7 +34,7 @@ export function AgentA() {
         letterSpacing="-10"
         fill="none"
         stroke="currentColor"
-        strokeWidth="12"
+        strokeWidth="6"
         strokeLinejoin="round"
         paintOrder="stroke"
       >
@@ -74,7 +74,7 @@ export function RunPill() {
   return (
     <svg viewBox="0 0 800 320" aria-hidden="true" focusable="false">
       <rect data-p="pill" x="24" y="24" width="752" height="272" rx="136" {...S} />
-      <rect data-p="runner" x="24" y="24" width="752" height="272" rx="136" fill="none" stroke={LAVENDER} strokeWidth="16" strokeDasharray="90 1800" strokeLinecap="round" />
+      <rect data-p="runner" x="24" y="24" width="752" height="272" rx="136" fill="none" stroke={LAVENDER} strokeWidth="7" strokeDasharray="90 1800" strokeLinecap="round" />
       <text data-p="txt" x="400" y="212" textAnchor="middle" fill="currentColor" fontFamily={INTER} fontSize="150" fontWeight="500" letterSpacing="-4">
         Run
       </text>
@@ -146,7 +146,7 @@ export function Stack() {
       {depth.map((d) => (
         <rect key={d} data-p="layer" x="90" y="110" width="220" height="220" rx="36" {...THIN} transform={`translate(${d * 14} ${-d * 14})`} />
       ))}
-      <rect data-p="top" x="90" y="110" width="220" height="220" rx="36" fill={LAVENDER} stroke="currentColor" strokeWidth="12" />
+      <rect data-p="top" x="90" y="110" width="220" height="220" rx="36" fill={LAVENDER} stroke="currentColor" strokeWidth="6" />
       <Label x={28} y={380}>YOUR VPS, FOUR LAYERS</Label>
     </svg>
   );

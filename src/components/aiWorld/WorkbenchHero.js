@@ -28,8 +28,8 @@ import { f, q, qa } from '../servicePoster/usePosterEngine';
    pressed runs are. */
 
 const INTER = "Inter, 'Inter Fallback', sans-serif";
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 18, strokeLinecap: 'round', strokeLinejoin: 'round' };
-const THIN = { ...S, strokeWidth: 12 };
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 12, strokeLinecap: 'round', strokeLinejoin: 'round' };
+const THIN = { ...S, strokeWidth: 8 };
 const LAVENDER = '#dab8ff';
 const STEP = 330 / 7;
 const AUTO_FIRST = 1700;
@@ -83,28 +83,16 @@ const JOBS = [
 ];
 const REFUND = 2;
 
+// Each caption sits in a zone no line crosses (viewBox 1600 x 960): above
+// the trigger, under the queue, between the "a" and the Run pill, under the
+// lower arrow, under Run. Short copy, because the type floors at 12px while
+// the drawing keeps shrinking.
 const CAPS = [
-  {
-    key: 'trigger',
-    l: 4.4,
-    t: 15,
-    text: ['Trigger.', 'A form, a missed call, a new row in the sheet. Anything that happens can start a run.'],
-  },
-  {
-    key: 'queue',
-    l: 62.5,
-    t: 53,
-    text: ['Queue.', 'Jobs wait their turn. Each step is written down before the next one starts.'],
-  },
-  {
-    key: 'agent',
-    l: 38.5,
-    t: 66,
-    w: 16.5,
-    text: ['Agent.', 'Reads the context, decides, drafts. It asks a person whenever the rule says so.'],
-  },
-  { key: 'human', l: 4.4, t: 80, w: 11, text: ['Kept human.', 'The refund, the apology, the hard call.'] },
-  { key: 'run', l: 56.5, t: 90, text: ['Run.', 'One press, a schedule, or an event. Then the log.'] },
+  { key: 'trigger', l: 4.4, t: 15, w: 30, text: ['Trigger.', 'A form, a missed call, a new row in a sheet.'] },
+  { key: 'queue', l: 62.5, t: 52, w: 33, text: ['Queue.', 'Jobs wait their turn. Every step is logged.'] },
+  { key: 'agent', l: 40.6, t: 45, w: 15.6, text: ['Agent.', 'Reads, decides, drafts. Asks a person when the rule says so.'] },
+  { key: 'human', l: 26, t: 87, w: 15, text: ['Kept human.', 'Refunds, apologies, hard calls.'] },
+  { key: 'run', l: 56.5, t: 89.5, w: 30, text: ['Run.', 'One press, a schedule or an event.'] },
 ];
 
 const stamp = (s) => {
@@ -400,7 +388,7 @@ export default function WorkbenchHero() {
                       letterSpacing="-12"
                       fill="none"
                       stroke={LAVENDER}
-                      strokeWidth="34"
+                      strokeWidth="26"
                       strokeLinejoin="round"
                       filter="url(#aw-hero-glow)"
                       opacity="0"
@@ -417,7 +405,7 @@ export default function WorkbenchHero() {
                       letterSpacing="-12"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="14"
+                      strokeWidth="10"
                       strokeLinejoin="round"
                     >
                       a
@@ -445,7 +433,7 @@ export default function WorkbenchHero() {
                   <path className="aw-hero__draw" pathLength="1" d="M480 700C540 830 740 860 870 750" {...S} />
                   <path className="aw-hero__draw" pathLength="1" d="M788 761L870 750L846 829" {...S} />
                 </g>
-                <g className="aw-hero__currents" fill="none" stroke={LAVENDER} strokeWidth="9" strokeLinecap="round">
+                <g className="aw-hero__currents" fill="none" stroke={LAVENDER} strokeWidth="7" strokeLinecap="round">
                   <path pathLength="1" d="M985 300L660 375" />
                   <path pathLength="1" d="M480 700C540 830 740 860 860 758" />
                 </g>
@@ -546,7 +534,7 @@ export default function WorkbenchHero() {
                 <p
                   key={c.key}
                   className={`aw-hero__cap${hot === c.key ? ' is-on' : ''}`}
-                  style={{ left: `${c.l}%`, top: `${c.t}%`, width: c.w ? `${c.w}%` : undefined, '--i': i }}
+                  style={{ left: `${c.l}%`, top: `${c.t}%`, width: `${c.w}%`, '--i': i }}
                   {...hover(c.key)}
                 >
                   <strong>{c.text[0]}</strong> {c.text[1]}

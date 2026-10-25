@@ -19,10 +19,10 @@ function paintFront(ctx, w, h) {
   ctx.fillStyle = '#000';
   ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = '#fef7ed';
-  ctx.lineWidth = h * 0.012;
+  ctx.lineWidth = h * 0.008;
   roundRect(ctx, h * 0.06, h * 0.06, w - h * 0.12, h - h * 0.12, h * 0.08);
   ctx.stroke();
-  ctx.lineWidth = h * 0.02;
+  ctx.lineWidth = h * 0.014;
   ctx.lineJoin = 'round';
   ctx.font = `700 ${h * 0.62}px Inter, sans-serif`;
   ctx.strokeText('a', w * 0.1, h * 0.74);
@@ -41,7 +41,7 @@ function paintBack(ctx, w, h) {
   ctx.fillStyle = '#dab8ff';
   ctx.fillRect(0, 0, w, h);
   ctx.strokeStyle = '#141414';
-  ctx.lineWidth = h * 0.012;
+  ctx.lineWidth = h * 0.008;
   ctx.lineCap = 'round';
   ctx.fillStyle = '#141414';
   ctx.font = `700 ${h * 0.11}px Inter, sans-serif`;
@@ -61,8 +61,8 @@ const Still = () => (
   <svg viewBox="0 0 700 400" aria-hidden="true" focusable="false" className="bw-card3d__still">
     <rect width="700" height="400" fill="#000" />
     <g transform="rotate(-6 350 230)">
-      <rect x="87" y="80" width="525" height="300" rx="20" fill="#000" stroke="#fef7ed" strokeWidth="6" />
-      <text x="130" y="330" fontFamily="Inter, sans-serif" fontSize="240" fontWeight="700" fill="none" stroke="#fef7ed" strokeWidth="8">
+      <rect x="87" y="80" width="525" height="300" rx="20" fill="#000" stroke="#fef7ed" strokeWidth="4" />
+      <text x="130" y="330" fontFamily="Inter, sans-serif" fontSize="240" fontWeight="700" fill="none" stroke="#fef7ed" strokeWidth="6">
         a
       </text>
       <text x="400" y="180" fontFamily="Inter, sans-serif" fontSize="20" fontWeight="500" letterSpacing="2" fill="#fef7ed">

@@ -16,8 +16,10 @@ const AgentCard3D = lazy(() => import('./AgentCard3D'));
 
 /* The AI & Automation world (2026-10-22): the brand world's sibling,
    drawn in the owner's reference language instead of flat color plates:
-   thick outlines on black, one accent (lavender), captions that open in
-   bold, and every drawing a machine that runs. Since 2026-10-23 the hero is
+   outlines, one accent (lavender), captions that open in bold, and every
+   drawing a machine that runs. Since 2026-10-24 (owner: "too black-purple")
+   cream carries most fields: the stage runs cream, lavender, cream, ink,
+   cream, and the deliverables and the close are cream; black is the hero's. Since 2026-10-23 the hero is
    the workbench (WorkbenchHero), live and answering the pointer; the
    scroll collage stays the brand world's alone. Then the breath, the
    pinned process, deliverables, client bubbles, circles, pill. */
@@ -26,8 +28,8 @@ const live = (name, cls = 'aw-live') => () => <LiveArt Art={ART[name]} create={L
 const STATES = [
   {
     key: 'roadmap',
-    field: '#000000',
-    ink: '#fef7ed',
+    field: '#fef7ed',
+    ink: '#141414',
     title: 'Roadmap',
     copy: 'A week inside your tools, finding the hours that leak between them. The sprint ends with one automation running, not a slide deck.',
     side: 'right',
@@ -66,8 +68,8 @@ const STATES = [
   },
   {
     key: 'wiring',
-    field: '#f0d7ff',
-    ink: '#141414',
+    field: '#141414',
+    ink: '#fef7ed',
     title: 'The wiring',
     copy: 'n8n, Zapier, Make or GoHighLevel, wired into the tools you already pay for. Nothing new to log into.',
     side: 'left',
@@ -79,8 +81,8 @@ const STATES = [
   },
   {
     key: 'hosted',
-    field: '#141414',
-    ink: '#fef7ed',
+    field: '#fef7ed',
+    ink: '#141414',
     title: 'Hosted and watched',
     copy: 'On your own VPS when the data should stay yours. Monitored like production software, because that is what it is.',
     side: 'right',

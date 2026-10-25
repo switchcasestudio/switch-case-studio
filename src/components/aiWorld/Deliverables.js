@@ -8,7 +8,7 @@ import { Envelope as envelopeLive } from './tiles/live';
 
 gsap.registerPlugin(Draggable);
 
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 10, strokeLinecap: 'round', strokeLinejoin: 'round' };
+const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 7, strokeLinecap: 'round', strokeLinejoin: 'round' };
 const reduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* The deliverables grid (2026-10-22): cards whose demos are the thing, the
@@ -139,7 +139,7 @@ function DragDemo() {
       <path data-p="w2" d="M255 150C282.5 150 282.5 150 310 150" {...S} />
       <rect x="310" y="120" width="60" height="60" rx="14" {...S} />
       <g data-p="node" style={{ cursor: 'grab' }}>
-        <rect x="145" y="115" width="110" height="70" rx="18" fill="#000" {...S} />
+        <rect x="145" y="115" width="110" height="70" rx="18" fill="#fff" {...S} />
         <text x="200" y="166" textAnchor="middle" fill="currentColor" fontFamily="Inter, 'Inter Fallback', sans-serif" fontSize="44" fontWeight="700">
           a
         </text>

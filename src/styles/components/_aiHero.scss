@@ -311,13 +311,19 @@ $aw-glow: rgba(218, 184, 255, 0.5);
     }
   }
 
+  // The halo keeps a caption readable where an arrow or the packet's trail
+  // passes behind it.
   &__cap {
     position: absolute;
     width: 17%;
     margin: 0;
-    font-size: clamp(11px, 1.3cqw, 15px);
+    font-size: clamp(12px, 1.25cqw, 15px);
     line-height: 1.4;
     color: rgba(254, 247, 237, 0.88);
+    text-shadow:
+      0 0 2px #000,
+      0 0 6px #000,
+      0 0 12px #000;
     pointer-events: auto;
     transition:
       opacity 0.25s ease,
