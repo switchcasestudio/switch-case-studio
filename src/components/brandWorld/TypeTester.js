@@ -4,8 +4,8 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
 /* 03 Type as a type tester (2026-10-25, owner: "something like this
    screenshot, interactive, dynamic and responsive", a foundry's tester
    with fewer visuals). One face, Roboto Flex (self-hosted, OFL), and five
-   presets: the voice each made-up Portland business on this page got from
-   the same variable file. A row of controls (preset, size, weight, width,
+   presets, one per job type does (headline, body text, caption, signage,
+   display), each with the reason it is set that way. A row of controls (preset, size, weight, width,
    spacing, line height, alignment, Breathe, reset), one big line anyone
    can click and type over, and the facts under it, read from the font
    file itself (13 axes, 221 glyphs).
@@ -17,64 +17,72 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
    under reduced motion.
    Responsive: the size follows the tester's width until the visitor sets
    it; the row of controls wraps; stacked, it is a plain card. The SSR
-   markup is the Hatch preset at rest. */
+   markup is the Headline preset at rest. */
 
+// Five presets, one per job a typeface does (owner, 2026-10-25: type in
+// general, not the Portland concepts). `fit` scales the size from the
+// tester's width, because body text and captions only make sense small.
 // Straight quotes only: the subset has no curly ones.
 const PRESETS = [
   {
-    key: 'hatch',
-    name: 'Hatch',
-    why: 'Condensed and black, like mugs packed on a kiln shelf.',
-    text: 'Fired twice, glazed by hand, gone by Friday.',
-    wght: 900,
-    wdth: 35,
+    key: 'headline',
+    name: 'Headline',
+    why: 'Heavy and tight. It is read in one look, so it can afford to be loud.',
+    text: 'Good type makes the first second count.',
+    fit: 1,
+    wght: 800,
+    wdth: 100,
     slnt: 0,
-    track: -1,
-    lh: 0.95,
-  },
-  {
-    key: 'lowtide',
-    name: 'Lowtide',
-    why: 'Light and wide, like water going out.',
-    text: 'Low tide, slow pour. Open at six.',
-    wght: 250,
-    wdth: 140,
-    slnt: 0,
-    track: 2,
-    lh: 1.1,
-  },
-  {
-    key: 'meridian',
-    name: 'Meridian',
-    why: 'Bold and slanted: it leans like a rider in a turn.',
-    text: 'Fixed at 7 am. Rolling by noon.',
-    wght: 700,
-    wdth: 90,
-    slnt: -10,
-    track: 0,
+    track: -2,
     lh: 1,
   },
   {
-    key: 'fieldnote',
-    name: 'Fieldnote',
-    why: 'A book weight, set to be read for an hour.',
-    text: 'Every book on this shelf was read by someone first.',
-    wght: 420,
+    key: 'body',
+    name: 'Body text',
+    why: 'Regular weight, open lines, short measure: built to be read for minutes, not seconds.',
+    text: 'Body text is read for minutes, not seconds. It wants a calm weight, a line height near one and a half, and lines that stop before they get long.',
+    fit: 0.3,
+    wght: 400,
     wdth: 100,
     slnt: 0,
     track: 0,
-    lh: 1.15,
+    lh: 1.5,
   },
   {
-    key: 'hum',
-    name: 'Hum',
-    why: 'As wide and as loud as the font goes.',
-    text: 'Bring the song. We bring the room.',
+    key: 'caption',
+    name: 'Caption',
+    why: 'Small and a little open: tight spacing closes up at small sizes.',
+    text: 'Fig. 3. The same mark at 16, 32 and 64 pixels. Small type gets a little more space between letters.',
+    fit: 0.22,
+    wght: 500,
+    wdth: 100,
+    slnt: 0,
+    track: 1,
+    lh: 1.4,
+  },
+  {
+    key: 'signage',
+    name: 'Signage',
+    why: 'Condensed and bold: more letters fit the sign, and each still reads from across the street.',
+    text: 'OPEN 7 DAYS. PARKING IN BACK.',
+    fit: 1,
+    wght: 700,
+    wdth: 60,
+    slnt: 0,
+    track: 2,
+    lh: 1,
+  },
+  {
+    key: 'display',
+    name: 'Display',
+    why: 'As wide and as heavy as the font goes, for a few words at a large size.',
+    text: 'Big, wide, few.',
+    fit: 1.15,
     wght: 1000,
     wdth: 151,
     slnt: 0,
-    track: -2,
-    lh: 0.95,
+    track: -3,
+    lh: 0.92,
   },
 ];
 
@@ -88,8 +96,9 @@ const RANGES = {
 const SLIDERS = ['size', 'wght', 'wdth', 'track', 'lh'];
 const ALIGNS = ['left', 'center', 'right'];
 
-// The size the line starts at: about a tenth of the tester's width.
-const autoSize = (w) => Math.round(Math.min(170, Math.max(44, w * 0.1)));
+// The size a preset starts at: a tenth of the tester's width, times its
+// fit, with a floor that keeps body text and captions readable.
+const autoSize = (w, fit = 1) => Math.round(Math.min(190, Math.max(fit < 1 ? 16 : 44, w * 0.1 * fit)));
 const pick = ({ wght, wdth, slnt, track, lh }) => ({ wght, wdth, slnt, track, lh });
 
 // Breathe: weight only, 160 either side of where it starts, once every 10s
@@ -119,6 +128,7 @@ export default function TypeTester() {
   const labels = useRef({});
   const live = useRef({ wght: PRESETS[0].wght });
   const sizeAuto = useRef(true);
+  const fitRef = useRef(PRESETS[0].fit);
   const edited = useRef(false);
   const [initialText] = useState(PRESETS[0].text);
   const [preset, setPreset] = useState(0);
@@ -141,7 +151,7 @@ export default function TypeTester() {
     const fit = () => {
       if (!sizeAuto.current || el.clientWidth === width) return;
       width = el.clientWidth;
-      setVals((v) => ({ ...v, size: autoSize(width) }));
+      setVals((v) => ({ ...v, size: autoSize(width, fitRef.current) }));
     };
     fit();
     const ro = new ResizeObserver(fit);
@@ -229,7 +239,11 @@ export default function TypeTester() {
     setBreathe(false);
     setPreset(i);
     live.current = { wght: PRESETS[i].wght };
-    setVals((s) => ({ ...s, ...pick(PRESETS[i]) }));
+    // A preset sets its own size; the visitor's Size wins only until then.
+    sizeAuto.current = true;
+    fitRef.current = PRESETS[i].fit;
+    const w = sampleRef.current ? sampleRef.current.clientWidth : 1200;
+    setVals((s) => ({ ...s, size: autoSize(w, PRESETS[i].fit), ...pick(PRESETS[i]) }));
     setSample(PRESETS[i].text);
   };
 
@@ -238,7 +252,8 @@ export default function TypeTester() {
     sizeAuto.current = true;
     const p = PRESETS[preset];
     live.current = { wght: p.wght };
-    setVals({ size: autoSize(sampleRef.current ? sampleRef.current.clientWidth : 1200), ...pick(p) });
+    fitRef.current = p.fit;
+    setVals({ size: autoSize(sampleRef.current ? sampleRef.current.clientWidth : 1200, p.fit), ...pick(p) });
     setAlign('left');
     setSample(p.text);
     setBreathe(false);
@@ -264,7 +279,7 @@ export default function TypeTester() {
     >
       <div className="bw-tester__bar">
         <div className="bw-tester__ctl bw-tester__ctl--face">
-          <label className="bw-tester__lab" htmlFor={`${uid}-preset`}>
+          <label className="bw-ui__lab" htmlFor={`${uid}-preset`}>
             Roboto Flex
           </label>
           <select id={`${uid}-preset`} className="bw-tester__select" value={preset} onChange={onPreset}>
@@ -281,11 +296,11 @@ export default function TypeTester() {
           const v = shown(k);
           return (
             <div key={k} className="bw-tester__ctl">
-              <label className="bw-tester__lab" htmlFor={`${uid}-${k}`}>
+              <label className="bw-ui__lab" htmlFor={`${uid}-${k}`}>
                 {r.label}
               </label>
               <span
-                className="bw-tester__val"
+                className="bw-ui__val"
                 aria-hidden="true"
                 ref={(el) => {
                   labels.current[k] = el;
@@ -298,7 +313,7 @@ export default function TypeTester() {
                 ref={(el) => {
                   inputs.current[k] = el;
                 }}
-                className="bw-tester__range"
+                className="bw-ui__range"
                 type="range"
                 min={r.min}
                 max={r.max}
@@ -312,13 +327,13 @@ export default function TypeTester() {
         })}
 
         <div className="bw-tester__ctl bw-tester__ctl--tools">
-          <span className="bw-tester__lab">Align</span>
+          <span className="bw-ui__lab">Align</span>
           <div className="bw-tester__aligns" role="group" aria-label="Alignment">
             {ALIGNS.map((a) => (
               <button
                 key={a}
                 type="button"
-                className={`bw-tester__icon${align === a ? ' is-on' : ''}`}
+                className={`bw-ui__icon${align === a ? ' is-on' : ''}`}
                 aria-pressed={align === a}
                 aria-label={`Align ${a}`}
                 onClick={() => setAlign(a)}
@@ -339,7 +354,7 @@ export default function TypeTester() {
                 Breathe
               </button>
             )}
-            <button type="button" className="bw-tester__icon" aria-label="Reset the tester" onClick={reset}>
+            <button type="button" className="bw-ui__icon" aria-label="Reset the tester" onClick={reset}>
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path d="M19 12a7 7 0 1 1-2.05-4.95M19 4v4h-4" />
               </svg>
@@ -366,7 +381,7 @@ export default function TypeTester() {
 
       <div className="bw-tester__foot">
         <p className="bw-tester__about">
-          Type does half the talking. One variable font gave each concept its own voice: pick one, push the sliders, or
+          Type does half the talking. One variable font, set five ways for five jobs: pick a job, push the sliders, or
           click the line and type your own.
         </p>
         <ul className="bw-tester__facts">

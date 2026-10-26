@@ -6,7 +6,7 @@ import BrandWorld from '../brandWorld/BrandWorld';
 /* /services/graphic-design-brand-identity (2026-10-22). The service page is the experience;
    the price lives on /pricing/graphic-design-brand-identity only (owner). Exempt from the
    page-head rule on purpose: the h1 sits in the brand hero (BrandHero),
-   beside one mark on six touchpoints. Its own static route record in
+   beside the five kinds of logo on six touchpoints. Its own static route record in
    routes.js; a service without a world goes to its pricing page
    (ServiceRedirect + netlify.toml). */
 const SLUG = 'graphic-design-brand-identity';
@@ -18,7 +18,7 @@ export default function BrandIdentityPage() {
     <>
       <Seo
         title="Graphic Design & Brand Identity | Switch Case Studio"
-        description="Logo, color, type and the rules that keep them together. Five studio concepts you can push around, by the designer who draws them."
+        description="Logo, type, color, rhythm and composition, each shown live: what a brand identity is made of, and how we draw one for web, print and packaging."
         path={PATH}
         jsonLd={[
           {

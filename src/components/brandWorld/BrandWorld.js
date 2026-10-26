@@ -1,56 +1,42 @@
-import { Suspense, lazy } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
-import VideoTile from '../worlds/VideoTile';
 import BrandHero from './BrandHero';
 import TypeTester from './TypeTester';
 import Deliverables from './Deliverables';
 import PixelTile from './PixelTile';
-import { LowtideColour, SealStar, StudioNote } from './tiles/concepts';
+import { LogoSize, ColorMix, TypeScale, Composition, PaletteCard, SpacingScale, ReadingOrder } from './lessons';
 import '../../styles/components/brandWorld.scss';
 import '../../styles/components/brandHero.scss';
-
-// three + fiber stay out of the page bundle until the stage is near.
-const Card3D = lazy(() => import('./Card3D'));
 
 /* The Graphic Design & Brand Identity world (2026-10-22). Principles from
    the reference analysis (.audit/brand-identity-reference.md): everything
    is a flat plate, density breathes, hover flips color, media lives in
    tiles. Palette stays SCS: ink, cream, lavender, blue, orange, plus the
-   poster flats (terra, mint, pink). Since 2026-10-25 (owner: "the
-   graphic design page structure similar to the other services") it runs
-   in the other worlds' order: the hero (BrandHero, one mark on six
-   touchpoints, in place of the scroll collage), the pinned process (the
-   type stage is 03 Type, a type tester), deliverables, client bubbles,
-   circles, pill. The process stage, the bubbles and the close are the
-   shared world parts (components/worlds); this file is the brand content. */
+   poster flats (terra, mint, pink). Since 2026-10-25 it runs in the other
+   worlds' order (owner: "the graphic design page structure similar to the
+   other services"), and it teaches instead of showing made-up clients
+   (owner, same day: "We are authority in what we're doing ... let's talk
+   about logo in general, fonts in general, type in general"): the hero
+   runs the five kinds of logo on six touchpoints, and the pinned stage is
+   five lessons, each with a demo to touch (01 Logo, 02 Type, 03 Color,
+   04 Rhythm, 05 Composition). Then deliverables, client bubbles, circles,
+   pill. The stage, the bubbles and the close are the shared world parts
+   (components/worlds); this file is the brand content. */
 const STATES = [
   {
-    key: 'discovery',
+    key: 'logo',
     field: '#fef7ed',
     ink: '#141414',
-    title: 'Discovery',
-    copy: 'We start with what the business sells, who buys it and what they need to feel before they pay. The logo waits.',
+    title: 'Logo',
+    copy: 'A logo is the smallest part of an identity and the most used. It has to hold at 16 pixels and at 13 feet, so it ships in cuts, each drawn for its size, with the clear space written down.',
     side: 'right',
     corner: 'bl',
-    Art: () => <StudioNote />,
+    Art: () => <LogoSize />,
     Sticker: () => <PixelTile />,
-    artRatio: '4/3',
+    artRatio: '16/10',
     stickerRatio: '1',
-  },
-  {
-    key: 'mark',
-    field: '#ff834a',
-    ink: '#141414',
-    title: 'The mark',
-    copy: 'Three directions, drawn by hand first. One survives being shrunk to a favicon and stretched across a van.',
-    side: 'left',
-    corner: 'tr',
-    Art: () => <VideoTile src="/brand-world/hatch-loop.mp4" poster="/brand-world/hatch-loop.jpg" label="Hatch mark, drawn then recolored" />,
-    Sticker: () => <SealStar />,
-    artRatio: '16/9',
-    stickerRatio: '776/748',
+    tool: true,
   },
   {
     key: 'type',
@@ -67,32 +53,42 @@ const STATES = [
     field: '#1748ef',
     ink: '#fef7ed',
     title: 'Color',
-    copy: 'Five swatches with names and codes, tested on a bad printer and a cheap phone before they are final.',
+    copy: 'Color is a proportion, not a list. One color carries most of the surface, one supports it, one is the accent, and every text pairing passes WCAG contrast before it ships.',
     side: 'left',
     corner: 'tr',
-    Art: () => <VideoTile src="/brand-world/lowtide-sticker.mp4" poster="/brand-world/lowtide-sticker.jpg" label="Lowtide, the sun over the tide" />,
-    Sticker: () => <LowtideColour />,
-    artRatio: '9/16',
+    Art: () => <ColorMix />,
+    Sticker: () => <PaletteCard />,
+    artRatio: '16/10',
     stickerRatio: '4/3',
-    narrow: true,
+    tool: true,
   },
   {
-    key: 'system',
-    field: '#141414',
-    ink: '#fef7ed',
-    title: 'The system',
-    copy: 'Cards, stickers, a sound for the door. Rules a new hire can follow on day one without asking.',
+    key: 'rhythm',
+    field: '#ff834a',
+    ink: '#141414',
+    title: 'Rhythm',
+    copy: 'Rhythm is one interval, repeated. Type sizes step by one ratio and spacing by one unit, so a page reads as one voice instead of twenty guesses.',
     side: 'right',
     corner: 'bl',
-    Art: () => (
-      <Suspense fallback={null}>
-        <Card3D />
-      </Suspense>
-    ),
-    Sticker: () => <VideoTile src="/brand-world/hum-loop.mp4" poster="/brand-world/hum-loop.jpg" label="Hum, ripples in time" />,
-    artRatio: '7/4',
-    stickerRatio: '1',
-    lazy: true,
+    Art: () => <TypeScale />,
+    Sticker: () => <SpacingScale />,
+    artRatio: '4/3',
+    stickerRatio: '4/3',
+    tool: true,
+  },
+  {
+    key: 'composition',
+    field: '#141414',
+    ink: '#fef7ed',
+    title: 'Composition',
+    copy: 'Composition decides where the eye lands first, second and third. A grid holds the edges, the thirds place the focus, and empty space is what lets anything stand out.',
+    side: 'left',
+    corner: 'tr',
+    Art: () => <Composition />,
+    Sticker: () => <ReadingOrder />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
 ];
 
@@ -100,7 +96,7 @@ export default function BrandWorld() {
   return (
     <div className="bw">
       <BrandHero />
-      <ProcessStage states={STATES} label="How a brand identity is made here" heading="How it gets made" />
+      <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" />
       <Deliverables />
       <Bubbles title="Once it ships, clients say" />
       <WorldClose

@@ -2,36 +2,33 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { detectMode } from '../servicePoster/usePosterEngine';
 
-/* The favicon test (2026-10-22): a mark has to survive 16 pixels. This tile
-   draws the Hatch mark into an N×N canvas and blows it up with
-   image-rendering: pixelated, so the viewer watches it fall apart and come
-   back. Idle: N breathes between 10 and 64; the pointer's x sets N directly;
-   the label reads the live size. SSR ships the SVG mark; the canvas paints
-   over it after mount and is skipped under reduced motion. */
+/* The favicon test (2026-10-22; redrawn 2026-10-25 for "Your brand"): a
+   mark has to survive 16 pixels. The tile draws the symbol into an N x N
+   canvas and blows it up with image-rendering: pixelated, so the viewer
+   sees what a browser tab really gets. Under 32 px it draws the small cut
+   (the wider door), the way the shipped favicon would be. It rests at 16;
+   the pointer's x sets N while it is over the tile, and it settles back to
+   16 when the pointer leaves (no idle motion, owner: "doing too much").
+   SSR ships the SVG mark; the canvas paints over it after mount and is
+   skipped under reduced motion. */
 const MIN = 8;
 const MAX = 72;
+const REST = 16;
+const ARCH = 'M14 90V48A36 36 0 0 1 86 48V90Z';
+const DOOR = 'M39 90V63A11 11 0 0 1 61 63V90Z';
+const DOOR_SMALL = 'M33 90V60A17 17 0 0 1 67 60V90Z';
 
+// Cream on an ink plate, the mark at 72% and lifted, so the label under
+// it never sits on the drawing.
 function drawMark(ctx, n) {
-  const u = n / 400; // design units: the 400-box the SVG tiles use
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   ctx.clearRect(0, 0, n, n);
-  ctx.fillStyle = '#fef7ed';
-  ctx.fillRect(0, 0, n, n);
   ctx.fillStyle = '#141414';
-  ctx.beginPath();
-  ctx.arc(200 * u, 200 * u, 150 * u, 0, Math.PI * 2);
-  ctx.fill();
+  ctx.fillRect(0, 0, n, n);
+  const k = (n / 100) * 0.72;
+  ctx.setTransform(k, 0, 0, k, n * 0.14, n * 0.02);
   ctx.fillStyle = '#fef7ed';
-  ctx.fillRect(118 * u, 110 * u, 34 * u, 180 * u);
-  ctx.fillRect(248 * u, 110 * u, 34 * u, 180 * u);
-  ctx.strokeStyle = '#fef7ed';
-  ctx.lineWidth = Math.max(1, 7 * u);
-  for (let i = 0; i < 4; i += 1) {
-    const y = (176 + i * 14) * u;
-    ctx.beginPath();
-    ctx.moveTo(152 * u, y);
-    ctx.lineTo(248 * u, y);
-    ctx.stroke();
-  }
+  ctx.fill(new Path2D(`${ARCH}${n < 32 ? DOOR_SMALL : DOOR}`), 'evenodd');
 }
 
 export default function PixelTile() {
@@ -47,7 +44,7 @@ export default function PixelTile() {
     if (mode === 'static') return undefined;
 
     const ctx = canvas.getContext('2d');
-    const state = { n: 24, target: 24, hover: 0 };
+    const state = { n: REST };
     let last = -1;
     let rect = null;
     const paint = (n) => {
@@ -63,14 +60,8 @@ export default function PixelTile() {
 
     const nTo = gsap.quickTo(state, 'n', { duration: 0.35, ease: 'power2.out' });
     let running = false;
-    const tick = (time) => {
-      if (state.hover < 0.5) {
-        // Idle: a slow breath between MIN and MAX.
-        const t = time / 1000;
-        nTo(MIN + ((Math.sin(t * 0.6) + 1) / 2) * (MAX - MIN));
-      }
-      paint(Math.round(state.n));
-    };
+    let stop = 0;
+    const tick = () => paint(Math.round(state.n));
     const run = () => {
       if (!running) {
         running = true;
@@ -83,21 +74,23 @@ export default function PixelTile() {
         gsap.ticker.remove(tick);
       }
     };
-    const io = new IntersectionObserver(([e]) => (e.intersectionRatio >= 0.15 ? run() : halt()), { threshold: [0, 0.15] });
-    io.observe(wrap);
-
     const onMove = (e) => {
       if (!rect) rect = wrap.getBoundingClientRect();
       const x = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
       nTo(MIN + x * (MAX - MIN));
     };
+    // The ticker runs only while the pointer is over the tile and the
+    // tween back to rest is settling.
     const onEnter = (e) => {
+      clearTimeout(stop);
       rect = wrap.getBoundingClientRect();
-      state.hover = 1;
+      run();
       onMove(e);
     };
     const onLeave = () => {
-      state.hover = 0;
+      nTo(REST);
+      clearTimeout(stop);
+      stop = setTimeout(halt, 500);
     };
     if (mode === 'pointer') {
       wrap.addEventListener('pointerenter', onEnter, { passive: true });
@@ -106,7 +99,7 @@ export default function PixelTile() {
     }
     return () => {
       halt();
-      io.disconnect();
+      clearTimeout(stop);
       wrap.removeEventListener('pointerenter', onEnter);
       wrap.removeEventListener('pointermove', onMove);
       wrap.removeEventListener('pointerleave', onLeave);
@@ -115,16 +108,13 @@ export default function PixelTile() {
 
   return (
     <div ref={wrapRef} className="bw-pixel">
-      <svg viewBox="0 0 400 400" aria-hidden="true" focusable="false" className="bw-pixel__still">
-        <rect width="400" height="400" className="bw-f-cream" />
-        <circle cx="200" cy="200" r="150" className="bw-f-ink" />
-        <rect x="118" y="110" width="34" height="180" className="bw-f-cream" />
-        <rect x="248" y="110" width="34" height="180" className="bw-f-cream" />
-        <path d="M152 176H248M152 190H248M152 204H248M152 218H248" className="bw-s-cream" strokeWidth="7" />
+      <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false" className="bw-pixel__still">
+        <rect width="100" height="100" className="bw-f-ink" />
+        <path d={`${ARCH}${DOOR_SMALL}`} fillRule="evenodd" className="bw-f-cream" transform="translate(14 2) scale(0.72)" />
       </svg>
-      <canvas ref={canvasRef} className="bw-pixel__canvas" width="24" height="24" aria-hidden="true" />
+      <canvas ref={canvasRef} className="bw-pixel__canvas" width={REST} height={REST} aria-hidden="true" />
       <span className="bw-pixel__label">
-        <span ref={labelRef}>24 px</span>
+        <span ref={labelRef}>{REST} px</span>
       </span>
     </div>
   );

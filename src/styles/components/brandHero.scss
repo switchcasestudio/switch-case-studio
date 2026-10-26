@@ -1,32 +1,36 @@
 @import '../_variables.scss';
 @import './worldHero';
 
-// The brand world's hero: one mark on six touchpoints (BrandHero.js,
-// 2026-10-25). The frame, copy, captions, log and motion are the worlds'
-// shared hero (_worldHero.scss, `world-hero`); this file holds the brand
-// parts in the brand world's language: flat plates, no outlines, lavender
-// as the accent, on the same black field inside the same cream frame as
-// the other worlds (owner, 2026-10-25). `is-c-<concept>` on the root sets the
-// field every plate wears and shows that concept's marks and words; each
-// touchpoint's `--d` delays its flip, smallest first, so a switch runs
-// from the favicon up to the van. CSS owns every color; GSAP only drifts.
+// The brand world's hero: the five kinds of logo on six touchpoints
+// (BrandHero.js, 2026-10-25). The frame, copy, captions, log and motion
+// are the worlds' shared hero (_worldHero.scss, `world-hero`); this file
+// holds the brand parts in the brand world's language: flat plates, no
+// outlines, lavender as the accent, on the same black field inside the
+// same cream frame as the other worlds (owner, 2026-10-25). `is-c-<kind>`
+// on the root sets the plate and ink every touchpoint wears and shows
+// that kind; each touchpoint's `--d` delays its flip, smallest first, so a
+// switch runs from the favicon up to the van. CSS owns every color; GSAP
+// only drifts.
 
 $bh-field: #000;
-$bh-concepts: (
-  'hatch': $white-color,
-  'lowtide': $blue-color,
-  'meridian': $g5,
-  'fieldnote': $promo-mint,
-  'hum': $g4,
+// Plate and ink per kind of logo.
+$bh-kinds: (
+  'wordmark': ($white-color, $promo-ink),
+  'lettermark': ($blue-color, $white-color),
+  'symbol': ($g5, $promo-ink),
+  'emblem': ($promo-mint, $promo-ink),
+  'combination': ($g4, $promo-ink),
 );
 
 .bh-hero {
   @include world-hero($g5, $bh-field);
   --bh-plate: #{$white-color};
+  --bh-ink: #{$promo-ink};
 
-  @each $key, $color in $bh-concepts {
+  @each $key, $pair in $bh-kinds {
     &.is-c-#{$key} {
-      --bh-plate: #{$color};
+      --bh-plate: #{nth($pair, 1)};
+      --bh-ink: #{nth($pair, 2)};
     }
 
     &.is-c-#{$key} .bh-hero__v--#{$key} {
@@ -44,6 +48,16 @@ $bh-concepts: (
     transition: opacity 0.35s ease var(--d, 0s);
   }
 
+  // Marks and names draw in currentColor: the kind's ink.
+  &__k {
+    color: var(--bh-ink);
+    transition: color 0.45s ease var(--d, 0s);
+  }
+
+  &__k text {
+    font-family: $font-text;
+  }
+
   // Fixed parts: the sign's bracket, the tab's close, the van's window
   // and wheel arches (cut in the field's black, so they read as holes),
   // and tires a step off black so they still read on it.
@@ -58,7 +72,7 @@ $bh-concepts: (
     stroke-linecap: round;
   }
 
-  &.is-c-lowtide &__x {
+  &.is-c-lettermark &__x {
     stroke: rgba(254, 247, 237, 0.6);
   }
 
