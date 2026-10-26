@@ -2293,3 +2293,10 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Merged as 0dae6b2 and pushed (owner: "push"); `fix/ios-clear-space` deleted.
 - **Open:** a pass on a physical phone for touch.
 
+### 2026-10-26 — Full iPhone test (iOS 27 Simulator) and fixes (branch `fix/ios-full-test`, committed, not pushed)
+- Owner: "run a full test of the website on Xcode". All 65 routes through a probe on the iPhone 17 simulator: 0 JS errors, 0 failed requests, 0 broken media, no horizontal scroll, one h1 each. 26 pages scrolled top to bottom (292 screens), reviewed in parallel, every finding confirmed on the full-resolution screenshot.
+- Fixed: empty pricing thumbnails in iOS Safari; home service titles breaking mid-word; testimonial pager off the screen; "POPU-LAR" badge; case-study Results rows out of line; legal-page link contrast (2.1:1 to 5.6:1); the SEO snippet field clipping its second line; the Web phone mock's tab bar; "Menu −" before the script runs; `/unhurried-pro` copy under the status bar and its sideways-scrolling table; the world heroes' tag over the drawing on phones.
+- Verified in Chrome at 1440 and 402 (thumbnails, Results rows, titles); the iOS re-check of the fixes (pass 3) stopped when the MacBook went to sleep mid-run.
+- **For the owner:** /30-off still says "Ends June 30, 2026"; "Hover me" does nothing on touch; a few cosmetic items listed in `.audit/rules.md`.
+- **Open:** pass 3 on iOS once the MacBook is awake; push.
+

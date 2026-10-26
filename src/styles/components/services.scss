@@ -259,6 +259,12 @@ $svc-title-size: clamp(2rem, 2.4vw, 2.6rem);
   &__title-char {
     display: inline-block;
   }
+
+  // A word never breaks inside itself; lines break at the spaces.
+  &__title-word {
+    display: inline-block;
+    white-space: nowrap;
+  }
 }
 
 // Portrait cards (owner, 2026-09-10): four in a row from 1024px, two from

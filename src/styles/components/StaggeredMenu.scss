@@ -364,6 +364,12 @@
   will-change: transform;
 }
 
+// The vertical stroke is turned in CSS too, so the first paint (before
+// Header.js's gsap.set) is a "+", not a "−" (iOS pass, 2026-10-26).
+.sm-icon-line-v {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
 /* ═══════════════════════════════════════════════
    Responsive
    ═══════════════════════════════════════════════ */

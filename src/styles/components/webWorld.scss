@@ -177,18 +177,21 @@
     }
   }
 
+  // minmax(0, 1fr) and no browser padding: on an iPhone "Account" filled
+  // its third of the narrow phone and touched the frame (2026-10-26).
   &__tabs {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     border-top: 1.5px solid currentColor;
 
     button {
       min-height: 44px;
+      padding: 0 0.15rem;
       border: 0;
       background: none;
       color: inherit;
       font: inherit;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 500;
       cursor: pointer;
     }

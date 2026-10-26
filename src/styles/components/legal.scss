@@ -51,8 +51,10 @@
     }
   }
 
+  // Studio blue, not orange: orange on this light page measured 2.1:1,
+  // under WCAG AA's 4.5:1; blue measures 5.6:1 (iOS pass, 2026-10-26).
   a {
-    color: $orange-color; // Or your brand link color
+    color: $blue-color;
     text-decoration: underline;
 
     &:hover {

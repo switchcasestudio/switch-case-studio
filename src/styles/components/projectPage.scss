@@ -530,10 +530,20 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     }
   }
 
+  // A media tile fills its row: an aspect-ratio grid item is not stretched
+  // by default, so the 4:3 image ended short of the taller metric card
+  // beside it (Sha by about 65pt, iOS 27 simulator pass, 2026-10-26).
+  // Alone in a row it keeps its 4:3.
+  &__results-grid > &__tile--media {
+    align-self: stretch;
+  }
+
+  // Content sits at the top, so the numbers of a row line up whatever the
+  // length of their labels (centered, Sha's 100 and 97 sat 12pt apart).
   &__metric {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 1.5rem;
     background: $pp-tile-bg;
 

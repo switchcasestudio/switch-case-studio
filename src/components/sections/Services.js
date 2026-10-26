@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -104,17 +104,30 @@ function ServiceItem({ service, index, delay = 0 }) {
       );
   };
 
-  const chars = service.title.split("").map((char, i) => (
-    <span
-      key={i}
-      ref={(el) => {
-        if (el) charsRef.current[i] = el;
-      }}
-      className="services__title-char"
-      style={{ whiteSpace: char === " " ? "pre" : undefined }}
-    >
-      {char}
-    </span>
+  // Letters sit in a no-wrap span per word: every inline-block letter is a
+  // line-break opportunity, so a long name broke mid-word on a phone
+  // ("Web Developme / nt", iOS 27 simulator pass, 2026-10-26).
+  let ci = 0;
+  const chars = service.title.split(" ").map((word, w) => (
+    <Fragment key={w}>
+      {w > 0 && " "}
+      <span className="services__title-word">
+        {word.split("").map((char) => {
+          const i = ci++;
+          return (
+            <span
+              key={i}
+              ref={(el) => {
+                if (el) charsRef.current[i] = el;
+              }}
+              className="services__title-char"
+            >
+              {char}
+            </span>
+          );
+        })}
+      </span>
+    </Fragment>
   ));
 
   return (

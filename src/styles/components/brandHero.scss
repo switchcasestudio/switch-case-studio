@@ -111,19 +111,6 @@ $bh-kinds: (
     animation-name: bh-ping;
   }
 
-  // Stacked, the tag sits above the drawing: the sign's bracket owns the
-  // drawing's top-left corner.
-  @media #{$wh-narrow} {
-    &__stage {
-      margin-top: 1.75rem;
-    }
-
-    &__tag {
-      position: absolute;
-      bottom: 100%;
-      margin-bottom: 0.6rem;
-    }
-  }
 
   /* ---- The size column of the log ---- */
   &__log b {

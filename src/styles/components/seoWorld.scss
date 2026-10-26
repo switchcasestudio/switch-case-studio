@@ -131,8 +131,10 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       }
     }
 
+    // Two lines of text plus the padding and border; at 3.6em the second
+    // line ran into the bottom border (iOS 27 simulator, 2026-10-26).
     textarea {
-      height: 3.6em;
+      height: calc(2 * 1.35em + 1.2rem + 3px);
     }
   }
 
