@@ -4,7 +4,7 @@ import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import VideoTile from '../worlds/VideoTile';
 import BrandHero from './BrandHero';
-import { TypeWord, WeightRamp } from './TypeArt';
+import TypeTester from './TypeTester';
 import Deliverables from './Deliverables';
 import PixelTile from './PixelTile';
 import { LowtideColour, SealStar, StudioNote } from './tiles/concepts';
@@ -22,7 +22,7 @@ const Card3D = lazy(() => import('./Card3D'));
    graphic design page structure similar to the other services") it runs
    in the other worlds' order: the hero (BrandHero, one mark on six
    touchpoints, in place of the scroll collage), the pinned process (the
-   type stage now lives in 03 Type), deliverables, client bubbles,
+   type stage is 03 Type, a type tester), deliverables, client bubbles,
    circles, pill. The process stage, the bubbles and the close are the
    shared world parts (components/worlds); this file is the brand content. */
 const STATES = [
@@ -57,13 +57,10 @@ const STATES = [
     field: '#dab8ff',
     ink: '#141414',
     title: 'Type',
-    copy: 'Type does half the talking. One face for headlines, one for everything else, and the sizes written down so nobody guesses later. Push the word around.',
     side: 'right',
     corner: 'bl',
-    Art: () => <TypeWord />,
-    Sticker: () => <WeightRamp />,
-    artRatio: '16/9',
-    stickerRatio: '4/3',
+    Art: () => <TypeTester />,
+    full: true,
   },
   {
     key: 'color',

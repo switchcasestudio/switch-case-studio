@@ -149,107 +149,334 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 }
 
-/* ---- 03 Type: the word and the weight ramp ---- */
-// The type stage moved into the process stage (owner, 2026-10-25): the
-// word and its pills are the state's art, ink on the lavender field; the
-// ramp is its sticker, an ink plate.
-.bw-typeword {
+/* ---- 03 Type: the type tester ---- */
+// A foundry's tester with fewer visuals (owner, 2026-10-25): one color
+// (the state's ink, so it reads on the lavender field and on the stacked
+// cream card), thin rules between the controls, ring-thumb sliders, one
+// big line. TypeTester.js writes the --t-* variables.
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('/fonts/RobotoFlex.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-display: swap;
+}
+
+$t-rule: rgba(20, 20, 20, 0.18);
+
+.bw-tester {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(0.75rem, 2vw, 1.5rem);
-  width: 100%;
+  gap: clamp(1rem, 2.4vh, 1.75rem);
   height: 100%;
-  padding: 4%;
-  box-sizing: border-box;
+  min-height: 0;
 
-  &__word {
-    width: 100%;
+  &__bar {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    row-gap: 1rem;
 
-    .text-pressure-title {
-      color: $promo-ink;
+    @media (max-width: 1279px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  &__pills {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.5rem;
+  &__ctl {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: start;
+    align-items: center;
+    gap: 0.45rem 0.5rem;
+    min-width: 0;
+    padding: 0 0.9rem;
+    border-left: 1px solid $t-rule;
+
+    // The first control of every row opens flush, with no rule.
+    &:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    @media (max-width: 1279px) {
+      &:nth-child(4n + 1) {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 767px) {
+      &:nth-child(n) {
+        padding-left: 0.9rem;
+        border-left: 1px solid $t-rule;
+      }
+
+      &:nth-child(2n + 1) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      &--tools {
+        grid-column: 1 / -1;
+      }
+    }
   }
 
-  &__pill {
-    min-height: 44px;
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(20, 20, 20, 0.35);
-    border-radius: 999px;
-    background: transparent;
-    color: $promo-ink;
-    font: inherit;
+  &__lab {
+    font-size: 0.8rem;
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__val {
+    min-width: 3.6em;
+    padding: 0.1rem 0.55rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  &__select {
+    grid-column: 1 / -1;
+    min-height: 34px;
+    padding: 0.3rem 2rem 0.3rem 0.8rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: transparent
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23141414' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")
+      no-repeat right 0.8rem center / 0.7rem;
+    color: inherit;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    appearance: none;
     cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+
+  // Ring thumb on a hairline, in the state's ink; the ring is filled with
+  // the state's field so the line does not run through it.
+  &__range {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 26px;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    &::-webkit-slider-thumb {
+      width: 18px;
+      height: 18px;
+      margin-top: -8.25px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      background: var(--bw-field, #{$g5});
+      appearance: none;
+    }
+
+    &::-moz-range-track {
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    &::-moz-range-thumb {
+      box-sizing: border-box;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      background: var(--bw-field, #{$g5});
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (pointer: coarse) {
+      height: 44px;
+    }
+  }
+
+  &__aligns,
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__aligns {
+    justify-self: end;
+  }
+
+  &__row {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: inherit;
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
 
     &:hover,
-    &:focus-visible {
-      border-color: $promo-ink;
+    &.is-on {
+      opacity: 1;
     }
 
     &:focus-visible {
-      outline: 2px solid $promo-ink;
+      outline: 2px solid currentColor;
+      outline-offset: 1px;
+      opacity: 1;
+    }
+
+    @media (pointer: coarse) {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  &__breathe {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 32px;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    i {
+      width: 8px;
+      height: 8px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+    }
+
+    &.is-on i {
+      background: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
       outline-offset: 2px;
     }
 
-    &.is-on {
-      background: $promo-ink;
-      border-color: $promo-ink;
-      color: $g5;
-    }
-  }
-}
-
-// Same face as the word (Roboto Flex, loaded by TextPressure), sized by
-// the sticker's own width.
-.bw-ramp {
-  container-type: inline-size;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  box-sizing: border-box;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0 8%;
-  list-style: none;
-  background: $promo-ink;
-  color: $white-color;
-  font-family: 'Roboto Flex', $font-text;
-  line-height: 1.25;
-
-  // cqw resolves against the nearest container ABOVE an element, so the
-  // size sits on the rows, not on the list that is the container.
-  li {
-    font-size: 8.5cqw;
-    display: flex;
-    gap: 0.6em;
-    align-items: baseline;
-    padding: 0.18em 0;
-    border-bottom: 1px solid rgba(254, 247, 237, 0.1);
-    white-space: nowrap;
-
-    &:last-child {
-      border-bottom: 0;
+    @media (pointer: coarse) {
+      min-height: 44px;
     }
   }
 
-  &__w {
-    flex: 0 0 2.6em;
-    font-family: $font-text;
-    font-size: 0.6em;
-    font-weight: 500;
-    letter-spacing: 0.12em;
-    color: $g5;
+  // The line. Every axis comes from a --t-* variable; no faux bold or
+  // italic, the font has the real ones.
+  &__sample {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    font-family: 'Roboto Flex', $font-text;
+    font-weight: 400;
+    font-synthesis: none;
+    font-size: var(--t-size);
+    font-variation-settings:
+      'wght' var(--t-wght),
+      'wdth' var(--t-wdth),
+      'slnt' var(--t-slnt);
+    letter-spacing: var(--t-track);
+    line-height: var(--t-lh);
+    text-align: var(--t-align);
+    overflow-wrap: anywhere;
+    caret-color: currentColor;
+    cursor: text;
+    outline: none;
+    // Lines past the bottom fade instead of cutting.
+    mask-image: linear-gradient(to bottom, #000 82%, transparent);
+
+    &:focus-visible {
+      outline: 1.5px dashed $t-rule;
+      outline-offset: 10px;
+    }
+  }
+
+  &__foot {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr);
+    padding-top: 1rem;
+    border-top: 1px solid $t-rule;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    > * {
+      margin: 0;
+      padding: 0 0.9rem;
+      border-left: 1px solid $t-rule;
+    }
+
+    > :first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+      font-size: 1rem;
+
+      > * {
+        padding: 0;
+        border-left: 0;
+      }
+    }
+  }
+
+  &__about {
+    max-width: 46ch;
+  }
+
+  &__facts {
+    list-style: none;
   }
 }
 
@@ -376,9 +603,13 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     width: min(22vw, 360px);
   }
 
-  // The word is text: it steps away from its card so no letter runs under it.
-  &[data-state='type'] .bw-state__art {
-    left: 44%;
+  // A full state: the Art takes the stage under the title row.
+  &__full {
+    position: absolute;
+    top: clamp(5rem, 8vw, 7rem);
+    right: clamp(2.5rem, 5vw, 5rem);
+    bottom: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(2.5rem, 5vw, 5rem);
   }
 }
 
@@ -414,6 +645,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 
     &__title,
     &__art,
+    &__full,
     &__card,
     &__sticker {
       position: static;
@@ -439,9 +671,14 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
       aspect-ratio: 7 / 4;
     }
 
-    // The word and its pills set the height on a phone (5 pills wrap).
-    &[data-state='type'] .bw-state__art {
-      aspect-ratio: auto !important;
+    // Stacked, the tester is as tall as its content.
+    .bw-tester {
+      height: auto;
+    }
+
+    .bw-tester__sample {
+      overflow: visible;
+      mask-image: none;
     }
   }
 }

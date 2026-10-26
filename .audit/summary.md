@@ -2269,3 +2269,9 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - **Found, not fixed:** without WebGL the 05 System 3D card throws and takes the whole route to the error page (pre-existing, also likely on the AI world's agent card).
 - **Open:** owner review; push and merge; a real phone pass.
 
+### 2026-10-25 (later) — 03 Type is a type tester (branch `feat/brand-hero`, committed, not pushed)
+- Owner sent a foundry's type tester and asked for "something like this ... interactive, dynamic and responsive", with fewer visuals.
+- `TypeTester.js` replaces the TextPressure word and the weight ramp in 03 Type, as a full-stage state: Roboto Flex with five concept presets, sliders for size, weight, width, spacing and height, alignment, Breathe (weight and width cycle while on screen), reset, an editable line, and facts read from the font file (13 axes, 221 glyphs).
+- Verified on the production build at 1440 and 1024 (pinned) and 390 (stacked): no clipped control, no horizontal scroll; Breathe runs and stops on any slider; presets and typing work; reduced motion has no Breathe and still axes.
+- **Found, not fixed:** stacked (under 1024), the 04 Color sticker cuts off its hex codes at the right edge (pre-existing).
+
