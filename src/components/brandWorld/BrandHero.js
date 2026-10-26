@@ -2,230 +2,200 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import gsap from 'gsap';
 import { q } from '../servicePoster/usePosterEngine';
+import { Arch, At, Emblem, Lettermark, Name, WordmarkStack } from './marks';
 
 /* The brand world's hero (2026-10-25, owner: "the graphic design page
-   structure similar to the other services"). It replaced the scroll
-   collage, the last page that used it; the frame, copy, captions, log and
-   Pause are the other worlds' hero (`world-hero`, _worldHero.scss), the
-   drawing stays in this world's language: flat plates, no outlines.
+   structure similar to the other services"; the same day: "leave the five
+   Portland made up brand idea aside ... talk about logo in general"). The
+   frame, copy, captions, log and Pause are the other worlds' hero
+   (`world-hero`, _worldHero.scss); the drawing stays in this world's
+   language: flat plates, no outlines.
 
-   The drawing is one mark on six touchpoints at once: a browser tab (the
-   favicon at its real 16px), an app icon, a social avatar, a business
-   card, a shop sign and the side of a van. It is a machine that runs:
-   - Live: while the hero is on screen it switches concept every few
-     seconds (Hatch, Lowtide, Meridian, Fieldnote, Hum). The plates flip
-     color smallest first, so the change runs from the favicon up to the
-     van; the brand log gets four lines per concept, one per size checked.
-     The favicon is each mark's small cut (fewer parts), which the log
-     names. Pause stops all of it (WCAG 2.2.2).
+   The drawing is one brand, "Your brand", on six touchpoints at once: a
+   browser tab (the favicon at its real 16px), an app icon, a social
+   avatar, a business card, a shop sign and the side of a van. It runs
+   through the five kinds of logo (wordmark, lettermark, symbol, emblem,
+   combination mark), each drawn the way that kind behaves at each size,
+   and the log says what each kind does well and where it struggles:
+   - Live: while the hero is on screen it shows the next kind every few
+     seconds. The plates flip color smallest first, so the change runs
+     from the favicon up to the van; four log lines per kind. Pause stops
+     it (WCAG 2.2.2).
    - Reacting: the touchpoints drift toward the pointer, the small ones
      more; hovering a touchpoint or its caption lifts it and dims the rest;
-     a click on one shows the next concept; the concept pills pick one.
-   The SSR markup is the rest state (Hatch) and is complete; entrances are
-   CSS keyframes from first paint. CSS owns every color and which concept
-   shows (`is-c-<key>` on the root, a `--d` delay per touchpoint); GSAP
-   writes only the drift transforms. Under reduced motion nothing switches
-   on its own. Auto switches are not announced; picked ones are. */
+     a click on one shows the next kind; the pills pick one.
+   The SSR markup is the rest state (the wordmark) and is complete;
+   entrances are CSS keyframes from first paint. CSS owns every color and
+   which kind shows (`is-c-<kind>` on the root, a `--d` delay per
+   touchpoint); GSAP writes only the drift transforms. Under reduced motion
+   nothing switches on its own. Auto switches are not announced; picked
+   ones are. */
 
-const INTER = "Inter, 'Inter Fallback', sans-serif";
 const AUTO_FIRST = 2200;
 const AUTO_GAP = 4200;
 
-// Fields per concept live in brandHero.scss (`$bh-concepts`).
-const CONCEPTS = [
+// Plate and ink per kind live in brandHero.scss (`$bh-kinds`).
+// Log lines stay short: beside the drawing, each is one line.
+const KINDS = [
   {
-    key: 'hatch',
-    name: 'Hatch',
-    full: 'Hatch Ceramics',
-    word: 'bw-f-ink',
+    key: 'wordmark',
+    name: 'Wordmark',
+    label: 'WORDMARK',
     lines: [
-      ['mark', 'Hatch Ceramics: the H in a kiln shelf'],
-      ['16 px', 'favicon: hatching dropped, the H stays'],
-      ['3.5 in', 'card: printed on a bad printer, holds'],
-      ['13 ft', 'van side: read at 30 mph, logged'],
+      ['kind', 'wordmark: the name is the mark'],
+      ['16 px', 'too small for a name: one letter'],
+      ['190 px', 'the name stacks to fit a square'],
+      ['13 ft', 'a long van suits a wordmark'],
     ],
   },
   {
-    key: 'lowtide',
-    name: 'Lowtide',
-    full: 'Lowtide Coffee',
-    word: 'bw-f-cream',
+    key: 'lettermark',
+    name: 'Lettermark',
+    label: 'LETTERMARK',
     lines: [
-      ['mark', 'Lowtide Coffee: a sun over the tide'],
-      ['16 px', 'favicon: two waves cut to one'],
-      ['190 px', 'app icon and avatar: centered for the crop'],
-      ['13 ft', 'van side: the blue holds in daylight, logged'],
+      ['kind', 'lettermark: initials, for long names'],
+      ['16 px', 'two letters still read'],
+      ['190 px', 'initials fill a square or a circle'],
+      ['13 ft', 'letters alone assume people know you'],
     ],
   },
   {
-    key: 'meridian',
-    name: 'Meridian',
-    full: 'Meridian Bike Repair',
-    word: 'bw-f-ink',
+    key: 'symbol',
+    name: 'Symbol',
+    label: 'SYMBOL',
     lines: [
-      ['mark', 'Meridian Bike Repair: a chainring, one line'],
-      ['16 px', 'favicon: the teeth go solid, the line stays'],
-      ['24 in', 'shop sign: reads from across the street'],
-      ['13 ft', 'van side: lavender matched to the vinyl, logged'],
+      ['kind', 'symbol: a shape, earned by being seen'],
+      ['16 px', 'the door widens so it stays open'],
+      ['24 in', 'once known, it needs no words'],
+      ['13 ft', 'a new business still needs its name'],
     ],
   },
   {
-    key: 'fieldnote',
-    name: 'Fieldnote',
-    full: 'Fieldnote Books',
-    word: 'bw-f-ink',
+    key: 'emblem',
+    name: 'Emblem',
+    label: 'EMBLEM',
     lines: [
-      ['mark', 'Fieldnote Books: the ribbon is the mark'],
-      ['16 px', 'favicon: the rules go, the ribbon grows'],
-      ['3.5 in', 'card: the ruled lines print at half a point'],
-      ['13 ft', 'van side: mint and terra on one plate, logged'],
+      ['kind', 'emblem: the name inside a shape'],
+      ['16 px', 'the words go, the ring stays'],
+      ['3.5 in', 'small type needs a good printer'],
+      ['24 in', 'at home on a sign, read up close'],
     ],
   },
   {
-    key: 'hum',
-    name: 'Hum',
-    full: 'Hum Sound Studio',
-    word: 'bw-f-ink',
+    key: 'combination',
+    name: 'Combination',
+    label: 'COMBINATION MARK',
     lines: [
-      ['mark', 'Hum Sound Studio: rings leaving an h'],
-      ['16 px', 'favicon: three rings cut to one'],
-      ['190 px', 'avatar: the rings centered for the circle crop'],
-      ['13 ft', 'van side: pink holds next to traffic, logged'],
+      ['kind', 'combination: symbol and name, locked'],
+      ['16 px', 'the symbol goes alone'],
+      ['3.5 in', 'the full lockup, side by side'],
+      ['13 ft', 'the most flexible kind of logo'],
     ],
   },
 ];
 
-/* Each mark in a 100 x 100 box, drawn from the concept tiles; `small` is
-   the favicon cut. Colors are the concept's own (its plate is the field). */
-function Hatch({ small }) {
-  return (
+/* Each slot draws every kind; CSS shows the current one. A slot's art per
+   kind: the square slots (icon, avatar), the favicon, and the three
+   lockups (card, sign, van), each kind the way it is really used there. */
+const SQUARE = {
+  wordmark: () => <WordmarkStack />,
+  lettermark: () => <Lettermark />,
+  symbol: () => <Arch />,
+  emblem: () => <Emblem />,
+  combination: () => <Arch />,
+};
+const FAVICON = {
+  wordmark: () => <Lettermark size={84} y={80} text="Y" />,
+  lettermark: () => <Lettermark size={56} y={70} />,
+  symbol: () => <Arch small />,
+  emblem: () => <Emblem small />,
+  combination: () => <Arch small />,
+};
+const CARD = {
+  wordmark: () => <Name x={1212} y={236} size={54} />,
+  lettermark: () => <Name x={1212} y={240} size={100} text="YB" />,
+  symbol: () => (
+    <At x={1206} y={104} size={140}>
+      <Arch />
+    </At>
+  ),
+  emblem: () => (
+    <At x={1206} y={96} size={160}>
+      <Emblem />
+    </At>
+  ),
+  combination: () => (
     <>
-      <circle cx="50" cy="50" r="44" className="bw-f-ink" />
-      <rect x="30" y="28" width="8" height="44" className="bw-f-cream" />
-      <rect x="62" y="28" width="8" height="44" className="bw-f-cream" />
-      {small ? (
-        <rect x="38" y="45" width="24" height="10" className="bw-f-cream" />
-      ) : (
-        <path d="M38 43H62M38 48.5H62M38 54H62" className="bw-s-cream" strokeWidth="2.6" />
-      )}
+      <At x={1206} y={84} size={96}>
+        <Arch />
+      </At>
+      <Name x={1212} y={246} size={44} />
     </>
-  );
-}
-
-function Lowtide({ small }) {
-  return (
+  ),
+};
+const SIGN = {
+  wordmark: () => (
     <>
-      <circle cx="68" cy="30" r={small ? 13 : 11} className="bw-f-cream" />
-      <rect x="26" y="20" width="12" height="52" rx="1.5" className="bw-f-cream" />
-      <path
-        d="M26 74c8 0 8-6 16-6s8 6 16 6 8-6 16-6"
-        fill="none"
-        className="bw-s-cream"
-        strokeWidth={small ? 8 : 5.5}
-        strokeLinecap="round"
-      />
-      {!small && (
-        <path
-          d="M38 87c6.5 0 6.5-4.5 13-4.5s6.5 4.5 13 4.5 6.5-4.5 13-4.5"
-          fill="none"
-          className="bw-s-cream"
-          strokeWidth="3.5"
-          strokeLinecap="round"
-          opacity="0.6"
-        />
-      )}
+      <Name x={190} y={282} size={50} anchor="middle" text="Your" />
+      <Name x={190} y={332} size={50} anchor="middle" text="brand" />
     </>
-  );
-}
-
-function Meridian({ small }) {
-  return (
+  ),
+  lettermark: () => <Name x={190} y={330} size={118} anchor="middle" text="YB" />,
+  symbol: () => (
+    <At x={105} y={196} size={170}>
+      <Arch />
+    </At>
+  ),
+  emblem: () => (
+    <At x={88} y={186} size={204}>
+      <Emblem />
+    </At>
+  ),
+  combination: () => (
     <>
-      <circle
-        cx="50"
-        cy="50"
-        r="30"
-        fill="none"
-        className="bw-s-ink"
-        strokeWidth={small ? 11 : 8}
-        strokeDasharray={small ? undefined : '6 4'}
-      />
-      <circle cx="50" cy="50" r="11" className="bw-f-ink" />
-      <rect x="47" y="6" width="6" height="88" rx="3" className="bw-f-ink" />
+      <At x={125} y={180} size={130}>
+        <Arch />
+      </At>
+      <Name x={190} y={376} size={30} anchor="middle" />
     </>
-  );
-}
-
-function Fieldnote({ small }) {
-  return (
+  ),
+};
+const VAN = {
+  wordmark: () => <Name x={680} y={680} size={120} />,
+  lettermark: () => <Name x={680} y={690} size={220} text="YB" />,
+  symbol: () => (
+    <At x={690} y={452} size={250}>
+      <Arch />
+    </At>
+  ),
+  emblem: () => (
+    <At x={700} y={466} size={244}>
+      <Emblem />
+    </At>
+  ),
+  combination: () => (
     <>
-      <rect x="12" y="22" width="76" height="56" rx="5" className="bw-f-cream" />
-      {!small && (
-        <>
-          <path d="M20 42H80M20 52H80M20 62H80" className="bw-s-mint" strokeWidth="1.8" />
-          <path d="M28 22V78" className="bw-s-terra" strokeWidth="1.4" />
-        </>
-      )}
-      <path d={small ? 'M54 22h22v40l-11-9-11 9z' : 'M62 22h13v27l-6.5-5.5-6.5 5.5z'} className="bw-f-terra" />
+      <At x={668} y={472} size={230}>
+        <Arch />
+      </At>
+      <Name x={924} y={690} size={96} />
     </>
-  );
-}
+  ),
+};
 
-function Hum({ small }) {
+function Slot({ art, x = 0, y = 0, size = 100 }) {
   return (
-    <>
-      <g fill="none" className="bw-s-ink">
-        {small ? (
-          <circle cx="50" cy="50" r="38" strokeWidth="7" />
-        ) : (
-          <>
-            <circle cx="50" cy="50" r="24" strokeWidth="3.5" />
-            <circle cx="50" cy="50" r="35" strokeWidth="3.5" opacity="0.6" />
-            <circle cx="50" cy="50" r="46" strokeWidth="3.5" opacity="0.3" />
-          </>
-        )}
-      </g>
-      <text x="50" y="68" textAnchor="middle" className="bw-f-ink" fontFamily={INTER} fontSize={small ? 60 : 50} fontWeight="700">
-        h
-      </text>
-    </>
-  );
-}
-
-const MARKS = { hatch: Hatch, lowtide: Lowtide, meridian: Meridian, fieldnote: Fieldnote, hum: Hum };
-
-// All five marks sit in every slot; CSS shows the current concept's.
-function Mark({ x, y, size, small = false }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${size / 100})`}>
-      {CONCEPTS.map((c) => {
-        const M = MARKS[c.key];
+    <At x={x} y={y} size={size}>
+      {KINDS.map((k) => {
+        const Draw = art[k.key];
         return (
-          <g key={c.key} className={`bh-hero__v bh-hero__v--${c.key}`}>
-            <M small={small} />
+          <g key={k.key} className={`bh-hero__k bh-hero__v bh-hero__v--${k.key}`}>
+            <Draw />
           </g>
         );
       })}
-    </g>
+    </At>
   );
-}
-
-function Words({ x, y, size, weight = 700, anchor = 'start', full = false, spacing = 0 }) {
-  return CONCEPTS.map((c) => (
-    <text
-      key={c.key}
-      className={`bh-hero__v bh-hero__v--${c.key} ${c.word}`}
-      x={x}
-      y={y}
-      textAnchor={anchor}
-      fontFamily={INTER}
-      fontSize={size}
-      fontWeight={weight}
-      letterSpacing={spacing}
-    >
-      {full ? c.full : c.name}
-    </text>
-  ));
 }
 
 // The touchpoints, smallest first: that is the order the plates flip in
@@ -243,14 +213,13 @@ const CAPS = [
   { key: 'van', l: 56.25, t: 92.5, w: 40, text: ['Van.', '13 feet long, read at 30 mph.'] },
 ];
 
-const lineItems = (c, n) => c.lines.map(([size, text], i) => ({ size, text, id: `${n}-${i}` }));
+const lineItems = (k, n) => k.lines.map(([size, text], i) => ({ size, text, id: `${n}-${i}` }));
 
 export default function BrandHero() {
   const rootRef = useRef(null);
   const engineRef = useRef(null);
-  const [concept, setConcept] = useState(0);
-  const [runs, setRuns] = useState(1);
-  const [log, setLog] = useState(() => lineItems(CONCEPTS[0], 1));
+  const [kind, setKind] = useState(0);
+  const [log, setLog] = useState(() => lineItems(KINDS[0], 1));
   const [hot, setHot] = useState(null);
   const [live, setLive] = useState(false);
   const [paused, setPaused] = useState(false);
@@ -278,13 +247,12 @@ export default function BrandHero() {
     function show(index, manual) {
       clearTimeout(st.timer);
       if (st.tl) st.tl.kill();
-      const i = index % CONCEPTS.length;
-      st.next = (i + 1) % CONCEPTS.length;
+      const i = index % KINDS.length;
+      st.next = (i + 1) % KINDS.length;
       st.runs += 1;
-      setRuns(st.runs);
       setAnnounce(manual);
-      setConcept(i);
-      const lines = lineItems(CONCEPTS[i], st.runs);
+      setKind(i);
+      const lines = lineItems(KINDS[i], st.runs);
       if (reduced) {
         setLog(lines);
         return;
@@ -396,7 +364,7 @@ export default function BrandHero() {
     ...hover(key),
   });
 
-  const cls = ['bh-hero', `is-c-${CONCEPTS[concept].key}`];
+  const cls = ['bh-hero', `is-c-${KINDS[kind].key}`];
   if (live) cls.push('is-live');
   if (hot) cls.push('is-hot', `is-hot-${hot}`);
 
@@ -427,15 +395,17 @@ export default function BrandHero() {
             <div className="bh-hero__plate">
               <p className="bh-hero__tag">
                 <i aria-hidden="true" />
-                One mark, six places
+                Five kinds of logo
               </p>
               <svg viewBox="0 0 1600 960" aria-hidden="true" focusable="false">
                 {/* The browser tab: the favicon at its real size. */}
                 <g data-p="drift-tab">
                   <g {...tp('tab')}>
                     <rect className="bh-hero__fill" x="40" y="600" width="520" height="92" rx="22" />
-                    <Mark x={70} y={631} size={30} small />
-                    <Words x={118} y={656} size={28} weight={500} full />
+                    <Slot art={FAVICON} x={70} y={631} size={30} />
+                    <g className="bh-hero__k">
+                      <Name x={118} y={656} size={28} weight={500} />
+                    </g>
                     <path className="bh-hero__x" d="M514 634L538 658M538 634L514 658" />
                   </g>
                 </g>
@@ -444,7 +414,7 @@ export default function BrandHero() {
                 <g data-p="drift-icon">
                   <g {...tp('icon')}>
                     <rect className="bh-hero__fill" x="640" y="60" width="190" height="190" rx="44" />
-                    <Mark x={670} y={90} size={130} />
+                    <Slot art={SQUARE} x={670} y={90} size={130} />
                   </g>
                 </g>
 
@@ -452,7 +422,7 @@ export default function BrandHero() {
                 <g data-p="drift-avatar">
                   <g {...tp('avatar')}>
                     <circle className="bh-hero__fill" cx="1000" cy="155" r="95" />
-                    <Mark x={935} y={90} size={130} />
+                    <Slot art={SQUARE} x={935} y={90} size={130} />
                   </g>
                 </g>
 
@@ -460,9 +430,14 @@ export default function BrandHero() {
                 <g data-p="drift-card">
                   <g {...tp('card')}>
                     <rect className="bh-hero__fill" x="1180" y="60" width="380" height="217" rx="14" />
-                    <Mark x={1212} y={90} size={86} />
-                    <Words x={1212} y={246} size={44} spacing={-1.5} />
-                    <Words x={1530} y={108} size={15} weight={500} anchor="end" spacing={1} full />
+                    <Slot art={CARD} />
+                    {KINDS.map((k) => (
+                      <g key={k.key} className={`bh-hero__k bh-hero__v bh-hero__v--${k.key}`}>
+                        <text x="1530" y="100" textAnchor="end" fill="currentColor" fontSize="13" fontWeight="600" letterSpacing="2">
+                          {k.label}
+                        </text>
+                      </g>
+                    ))}
                   </g>
                 </g>
 
@@ -473,8 +448,7 @@ export default function BrandHero() {
                     <rect className="bh-hero__hw" x="128" y="86" width="8" height="64" />
                     <rect className="bh-hero__hw" x="244" y="86" width="8" height="64" />
                     <circle className="bh-hero__fill" cx="190" cy="288" r="140" />
-                    <Mark x={125} y={186} size={130} />
-                    <Words x={190} y={376} size={34} anchor="middle" spacing={-1} />
+                    <Slot art={SIGN} />
                   </g>
                 </g>
 
@@ -493,8 +467,7 @@ export default function BrandHero() {
                         <circle className="bh-hero__hub" cx={cx} cy="800" r="24" />
                       </g>
                     ))}
-                    <Mark x={668} y={484} size={220} />
-                    <Words x={924} y={690} size={96} spacing={-4} />
+                    <Slot art={VAN} />
                   </g>
                 </g>
               </svg>
@@ -513,13 +486,13 @@ export default function BrandHero() {
               ))}
             </div>
 
-            <div className="bh-hero__picks" role="group" aria-label="Show a concept">
-              {CONCEPTS.map((c, i) => (
+            <div className="bh-hero__picks" role="group" aria-label="Show a kind of logo">
+              {KINDS.map((c, i) => (
                 <button
                   key={c.key}
                   type="button"
-                  className={`bh-hero__pick${i === concept ? ' is-on' : ''}`}
-                  aria-pressed={i === concept}
+                  className={`bh-hero__pick${i === kind ? ' is-on' : ''}`}
+                  aria-pressed={i === kind}
                   onClick={() => pick(i)}
                 >
                   {c.name}
@@ -531,9 +504,9 @@ export default function BrandHero() {
 
         <div className="bh-hero__logbox">
           <div className="bh-hero__meta">
-            <span>The brand log</span>
+            <span>The logo log</span>
             <span className="bh-hero__count">
-              {`${runs} mark${runs > 1 ? 's' : ''} tested`}
+              {`Kind ${kind + 1} of ${KINDS.length}`}
               <button type="button" className="bh-hero__pause" onClick={togglePause} aria-pressed={paused}>
                 {paused ? 'Resume' : 'Pause'}
               </button>

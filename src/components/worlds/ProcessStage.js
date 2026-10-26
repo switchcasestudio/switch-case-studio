@@ -16,7 +16,9 @@ gsap.registerPlugin(ScrollTrigger);
    `narrow` keeps a portrait artifact from filling the stage; `lazy` mounts
    the Art only once the stage is within a viewport (a three.js piece);
    `full` gives the Art the whole stage under the title, with no card and
-   no sticker (the brand world's type tester, 2026-10-25). */
+   no sticker (the brand world's type tester, 2026-10-25); `tool` marks an
+   Art with controls in it: it steps away from its card so no control sits
+   under it, and stacked it takes the height its content needs. */
 const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
 export default function ProcessStage({ states, label, heading }) {
@@ -109,7 +111,7 @@ export default function ProcessStage({ states, label, heading }) {
           key={s.key}
           className={`bw-state bw-state--${s.side} bw-state--${s.corner}${s.narrow ? ' bw-state--narrow' : ''}${
             s.full ? ' bw-state--full' : ''
-          }`}
+          }${s.tool ? ' bw-state--tool' : ''}`}
           data-state={s.key}
           style={{ '--bw-field': s.field, '--bw-ink': s.ink }}
         >

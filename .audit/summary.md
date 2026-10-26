@@ -2276,3 +2276,12 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Owner, same day: "constantly shaking and moving... doing toooo much". Breathe now waits for a press and moves only the weight, slowly; width (which re-wrapped the lines) stays put. Measured: off, nothing changes for 3s; on, weight only, line height constant.
 - **Found, not fixed:** stacked (under 1024), the 04 Color sticker cuts off its hex codes at the right edge (pre-existing).
 - Merged to main as d9fe508 and pushed (owner: "log commit push to main"); `feat/brand-hero` deleted, main is the only branch again.
+
+### 2026-10-25 (night) — Brand world teaches logo, type, color, rhythm, composition (branch `feat/brand-lessons`, committed, not pushed)
+- Owner: leave the five made-up Portland brands aside; the studio is the authority, so talk about logo, fonts, type, color, rhythm and composition in general. Owner's picks: the stage becomes five lessons, the hero runs the kinds of logo, the tester's presets are jobs, numbers only where data proves them.
+- Hero: the five kinds of logo (wordmark, lettermark, symbol, emblem, combination mark) for "Your brand" on the six touchpoints, each drawn the way that kind behaves at that size, with a log of what it does well and where it struggles.
+- Stage "What we know": 01 Logo (size and cuts, clear space, pixel test), 02 Type (the tester, presets Headline, Body text, Caption, Signage, Display), 03 Color (60/30/10 with live WCAG contrast), 04 Rhythm (type scale from one ratio, 8 px grid), 05 Composition (thirds, 12 columns, a focal point that snaps). Nothing moves until the visitor acts.
+- Deliverables redrawn as "Your brand" pieces; the Portland concept tiles, the 3D card and all eleven `public/brand-world/` videos and posters are gone. The brand page no longer loads three.js, so the WebGL crash cannot happen on it (it can still on the AI page).
+- Verified on the production build: 65 pages, standing checks, US English and check:media clean; every lesson driven in headless Chrome at 1440, 1024 and 390, with no tile overflow and no horizontal scroll.
+- **Open:** owner review; push; real phone pass; the AI page's 3D card without WebGL.
+

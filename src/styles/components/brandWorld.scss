@@ -24,6 +24,8 @@ $bw-palette: (
 @each $name, $color in $bw-palette {
   .bw-f-#{$name} { fill: $color; }
   .bw-s-#{$name} { stroke: $color; }
+  // For the marks (marks.js), which draw in currentColor.
+  .bw-c-#{$name} { color: $color; }
 }
 
 $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
@@ -78,7 +80,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   position: relative;
   width: 100%;
   height: 100%;
-  background: $white-color;
+  background: $promo-ink;
   overflow: hidden;
 
   &__still,
@@ -109,7 +111,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     font-weight: 500;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: $promo-ink;
+    color: $white-color;
   }
 }
 
@@ -163,6 +165,120 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 }
 
 $t-rule: rgba(20, 20, 20, 0.18);
+
+// Shared controls for the lessons' demos (2026-10-25): label, value pill,
+// ring-thumb slider, icon button. One color, the host's currentColor; the
+// thumb ring is filled with --ui-fill (the plate it sits on) or the
+// state's field.
+.bw-ui {
+  &__lab {
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  &__val {
+    min-width: 3.6em;
+    padding: 0.1rem 0.55rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+  // Ring thumb on a hairline, in the state's ink; the ring is filled with
+  // the state's field so the line does not run through it.
+  &__range {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 26px;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    &::-webkit-slider-thumb {
+      width: 18px;
+      height: 18px;
+      margin-top: -8.25px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      background: var(--ui-fill, var(--bw-field, #{$g5}));
+      appearance: none;
+    }
+
+    &::-moz-range-track {
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    &::-moz-range-thumb {
+      box-sizing: border-box;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      background: var(--ui-fill, var(--bw-field, #{$g5}));
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (pointer: coarse) {
+      height: 44px;
+    }
+  }
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: inherit;
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    &:hover,
+    &.is-on {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 1px;
+      opacity: 1;
+    }
+
+    @media (pointer: coarse) {
+      width: 44px;
+      height: 44px;
+    }
+  }
+}
 
 .bw-tester {
   display: flex;
@@ -225,23 +341,7 @@ $t-rule: rgba(20, 20, 20, 0.18);
     }
   }
 
-  &__lab {
-    font-size: 0.8rem;
-    font-weight: 500;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 
-  &__val {
-    min-width: 3.6em;
-    padding: 0.1rem 0.55rem;
-    border: 1px solid currentColor;
-    border-radius: 999px;
-    font-size: 0.8rem;
-    font-variant-numeric: tabular-nums;
-    text-align: center;
-  }
 
   &__select {
     grid-column: 1 / -1;
@@ -265,57 +365,6 @@ $t-rule: rgba(20, 20, 20, 0.18);
     }
   }
 
-  // Ring thumb on a hairline, in the state's ink; the ring is filled with
-  // the state's field so the line does not run through it.
-  &__range {
-    grid-column: 1 / -1;
-    width: 100%;
-    height: 26px;
-    margin: 0;
-    background: transparent;
-    color: inherit;
-    appearance: none;
-    cursor: pointer;
-
-    &::-webkit-slider-runnable-track {
-      height: 1.5px;
-      background: currentColor;
-    }
-
-    &::-webkit-slider-thumb {
-      width: 18px;
-      height: 18px;
-      margin-top: -8.25px;
-      border: 1.5px solid currentColor;
-      border-radius: 50%;
-      background: var(--bw-field, #{$g5});
-      appearance: none;
-    }
-
-    &::-moz-range-track {
-      height: 1.5px;
-      background: currentColor;
-    }
-
-    &::-moz-range-thumb {
-      box-sizing: border-box;
-      width: 18px;
-      height: 18px;
-      border: 1.5px solid currentColor;
-      border-radius: 50%;
-      background: var(--bw-field, #{$g5});
-    }
-
-    &:focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: 3px;
-      border-radius: 4px;
-    }
-
-    @media (pointer: coarse) {
-      height: 44px;
-    }
-  }
 
   &__aligns,
   &__row {
@@ -333,46 +382,6 @@ $t-rule: rgba(20, 20, 20, 0.18);
     justify-content: space-between;
   }
 
-  &__icon {
-    display: grid;
-    place-items: center;
-    width: 34px;
-    height: 34px;
-    padding: 0;
-    border: 0;
-    border-radius: 8px;
-    background: none;
-    color: inherit;
-    opacity: 0.45;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-
-    svg {
-      width: 22px;
-      height: 22px;
-      fill: none;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    &:hover,
-    &.is-on {
-      opacity: 1;
-    }
-
-    &:focus-visible {
-      outline: 2px solid currentColor;
-      outline-offset: 1px;
-      opacity: 1;
-    }
-
-    @media (pointer: coarse) {
-      width: 44px;
-      height: 44px;
-    }
-  }
 
   &__breathe {
     display: inline-flex;
@@ -477,6 +486,526 @@ $t-rule: rgba(20, 20, 20, 0.18);
 
   &__facts {
     list-style: none;
+  }
+}
+
+/* ---- The lessons' demos (lessons.js) ---- */
+// One plate per demo: dark (ink, cream) or light (cream, ink), so it reads
+// on any state field. Controls are the shared .bw-ui set plus two pills.
+.bw-lesson {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: clamp(0.9rem, 1.6vw, 1.4rem);
+  font-family: $font-text;
+  text-align: left;
+
+  &--dark {
+    --ui-fill: #{$promo-ink};
+    background: $promo-ink;
+    color: $white-color;
+  }
+
+  &--light {
+    --ui-fill: #{$white-color};
+    background: $white-color;
+    color: $promo-ink;
+  }
+
+  &__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.75rem;
+  }
+
+  &__ctl {
+    flex: 1 1 12rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.35rem 0.5rem;
+  }
+
+  &__toggle,
+  &__chip {
+    min-height: 32px;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+    }
+  }
+
+  &--dark .is-on {
+    background: $white-color;
+    border-color: $white-color;
+    color: $promo-ink;
+  }
+
+  &--light .is-on {
+    background: $promo-ink;
+    border-color: $promo-ink;
+    color: $white-color;
+  }
+
+  // Two lines reserved, so a longer note never moves the demo above it.
+  &__note {
+    margin: 0;
+    min-height: 2.9em;
+    font-size: 0.85rem;
+    line-height: 1.45;
+
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+// 01 Logo: the lockup at a real pixel size.
+.bw-logo {
+  &__stage {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  &__lockup {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--s) * 0.2);
+    padding: calc(var(--s) * 0.25);
+    // Drawn inside the box, so the stage's clip never cuts it.
+    outline: 1.5px dashed transparent;
+    outline-offset: -1.5px;
+    transition: outline-color 0.2s ease;
+
+    svg {
+      display: block;
+      flex: none;
+    }
+
+    &.is-space {
+      outline-color: rgba(254, 247, 237, 0.45);
+    }
+  }
+
+  &__name {
+    font-size: calc(var(--s) * 0.5);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+}
+
+// 03 Color: a page painted 60/30/10, the roles and the contrast checks.
+.bw-color {
+  flex-direction: row;
+  gap: 1rem;
+
+  &__mock {
+    position: relative;
+    flex: 1.3 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 1rem;
+    border-radius: 10px;
+    overflow: hidden;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  &__panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30%;
+    transition: background-color 0.3s ease;
+  }
+
+  &__head,
+  &__body,
+  &__btn {
+    position: relative;
+  }
+
+  &__head {
+    max-width: 66%;
+    margin: 0;
+    font-size: clamp(1.05rem, 1.7vw, 1.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  &__body {
+    max-width: 66%;
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  &__btn {
+    align-self: flex-start;
+    margin-top: 0.3rem;
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    transition:
+      background-color 0.3s ease,
+      color 0.3s ease;
+  }
+
+  &__side {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.55rem;
+  }
+
+  &__role {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  &__swatches {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  &__swatch {
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    border: 1.5px solid rgba(20, 20, 20, 0.25);
+    border-radius: 50%;
+    cursor: pointer;
+
+    &.is-on {
+      outline: 2px solid $promo-ink;
+      outline-offset: 2px;
+    }
+
+    &:focus-visible {
+      outline: 2px dashed $promo-ink;
+      outline-offset: 3px;
+    }
+
+    @media (pointer: coarse) {
+      width: 36px;
+      height: 36px;
+    }
+  }
+
+  &__bar {
+    display: flex;
+    height: 10px;
+    border: 1px solid rgba(20, 20, 20, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+
+    i {
+      display: block;
+      transition: background-color 0.3s ease;
+    }
+  }
+
+  &__checks {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+    font-size: 0.8rem;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    dt {
+      opacity: 0.7;
+    }
+
+    dd {
+      margin: 0;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+  }
+
+  @media (max-width: 599px) {
+    flex-direction: column;
+
+    &__mock {
+      min-height: 190px;
+    }
+  }
+}
+
+// 04 Rhythm: the scale, sized from one ratio, on the 8 px grid. --k
+// shrinks it when the tile is too short, and the note says so.
+.bw-scale {
+  &__ratios {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    flex: 1 1 auto;
+  }
+
+  &__list {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow: hidden;
+
+    &.is-grid {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        rgba(254, 247, 237, 0.13) 0 1px,
+        transparent 1px calc(8px * var(--k, 1))
+      );
+    }
+
+    li {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      font-size: calc(var(--px) * var(--k, 1));
+      line-height: 1.15;
+      white-space: nowrap;
+      transition: font-size 0.3s ease;
+    }
+  }
+
+  &__tag {
+    flex: 0 0 5.2rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    opacity: 0.7;
+
+    b {
+      margin-left: 0.3em;
+      font-weight: 600;
+    }
+  }
+
+  &__word {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+}
+
+// 05 Composition: a poster, its thirds and grid, a focal point to drag.
+.bw-comp {
+  &__frame {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 160px;
+    border: 1px solid rgba(20, 20, 20, 0.2);
+    border-radius: 10px;
+    background: rgba(20, 20, 20, 0.04);
+    overflow: hidden;
+    touch-action: none;
+  }
+
+  &__grid {
+    position: absolute;
+    inset: 0 4%;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.2%;
+
+    i {
+      background: rgba(255, 131, 74, 0.16);
+    }
+  }
+
+  &__thirds {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+
+    path {
+      fill: none;
+      stroke: $orange-color;
+      stroke-width: 1.5;
+      stroke-dasharray: 4 4;
+      vector-effect: non-scaling-stroke;
+    }
+  }
+
+  &__copy {
+    position: absolute;
+    left: 6%;
+    bottom: 10%;
+    display: grid;
+    gap: 6px;
+    width: 34%;
+
+    i {
+      height: 7px;
+      border-radius: 4px;
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    i:first-child {
+      height: 13px;
+      width: 90%;
+      opacity: 1;
+    }
+
+    i:last-child {
+      width: 70%;
+    }
+  }
+
+  &__focal {
+    position: absolute;
+    width: 17%;
+    aspect-ratio: 1;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    translate: -50% -50%;
+    cursor: grab;
+    touch-action: none;
+    transition:
+      left 0.25s ease,
+      top 0.25s ease;
+
+    svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $orange-color;
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+  }
+
+  &__frame.is-drag &__focal {
+    cursor: grabbing;
+    transition: none;
+  }
+}
+
+// Deliverables: the logo loop, which plays only when pressed.
+.bw-motion {
+  display: block;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 0;
+  cursor: pointer;
+
+  &__mark,
+  &__name {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  &.is-play &__mark {
+    animation: bw-build 3.2s cubic-bezier(0.6, 0, 0.2, 1) infinite;
+  }
+
+  &.is-play &__name {
+    animation: bw-name 3.2s ease infinite;
+  }
+
+  &__hint {
+    position: absolute;
+    left: 7%;
+    bottom: 6%;
+    font-family: $font-text;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: $white-color;
+    opacity: 0.7;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $g5;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &.is-play &__mark,
+    &.is-play &__name {
+      animation: none;
+    }
+  }
+}
+
+@keyframes bw-build {
+  0% {
+    scale: 0.4;
+    opacity: 0;
+  }
+  25%,
+  75% {
+    scale: 1;
+    opacity: 1;
+  }
+  100% {
+    scale: 1;
+    opacity: 0;
+  }
+}
+
+@keyframes bw-name {
+  0%,
+  20% {
+    opacity: 0;
+    translate: 0 16px;
+  }
+  40%,
+  75% {
+    opacity: 1;
+    translate: 0 0;
+  }
+  100% {
+    opacity: 0;
   }
 }
 
@@ -603,6 +1132,16 @@ $t-rule: rgba(20, 20, 20, 0.18);
     width: min(22vw, 360px);
   }
 
+  // An Art with controls steps away from its card (the AI world's rule:
+  // no text or control sits where the art can run under it).
+  &--tool.bw-state--right .bw-state__art {
+    left: 44%;
+  }
+
+  &--tool.bw-state--left .bw-state__art {
+    left: 56%;
+  }
+
   // A full state: the Art takes the stage under the title row.
   &__full {
     position: absolute;
@@ -669,6 +1208,11 @@ $t-rule: rgba(20, 20, 20, 0.18);
 
     &[data-state='system'] .bw-state__art {
       aspect-ratio: 7 / 4;
+    }
+
+    // Stacked, a demo with controls is as tall as its content.
+    &--tool .bw-state__art {
+      aspect-ratio: auto !important;
     }
 
     // Stacked, the tester is as tall as its content.
@@ -758,6 +1302,12 @@ $t-rule: rgba(20, 20, 20, 0.18);
     &--drag {
       background: $g5;
       touch-action: none;
+    }
+
+    // A drawn page: paper, with a hairline instead of the ink box.
+    &--paper {
+      background: $white-color;
+      border: 1px solid rgba(20, 20, 20, 0.15);
     }
 
     &--hover {
