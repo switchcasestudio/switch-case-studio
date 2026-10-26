@@ -2259,3 +2259,20 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - `check:us` widened (attributes, JSON-LD, src/public/content, file names; list in `scripts/british-words.mjs`); new `npm run check:us:images` (OCR, local).
 - Build: 65 pages, check:us clean, check:media OK; check:us:images clean except Florida Green.
 - Florida Green's live rebuild says "LICENCE CGC1529180" and "organising": owner chose to leave it (2026-10-25); `check-us-images.mjs` allows exactly those two words under `public/projects/florida-green/`. Vendor strings (GSAP "initialised", three.js "grey" key) stay. LIVE on main.
+
+### 2026-10-25 — Brand world in the other worlds' order: new hero, type stage into 03 (branch `feat/brand-hero`, committed, not pushed)
+- Owner: "I would want to have the 'graphic design' page structure similar to the other services"; the type section's content "can replace the 5th section '03 Type'". Answers to my questions: hero and type in one round, flat-plate look kept, the word as 03's art, the Meridian clock dropped, current hero copy kept.
+- Hero (`BrandHero.js`): one mark on six touchpoints (favicon tab, app icon, avatar, card, shop sign, van), switching concept every ~4s with a brand log and Pause; pills, click, hover and pointer drift. The scroll collage and its code are deleted.
+- Same day, owner: the other heroes have a frame and a pure black field. The brand hero now has both (it had been an unbordered ink plate).
+- 03 Type: the TextPressure word and concept pills are the art, the weight ramp the sticker, the type stage's headline joined the card copy.
+- Verified on the production build: 65 pages, standing checks clean, US English clean; headless captures at 1440, 1024 and 390 (hover, Pause, reduced motion, 03 with Hatch and Fieldnote); no console errors with WebGL available.
+- **Found, not fixed:** without WebGL the 05 System 3D card throws and takes the whole route to the error page (pre-existing, also likely on the AI world's agent card).
+- **Open:** owner review; push and merge; a real phone pass.
+
+### 2026-10-25 (later) — 03 Type is a type tester (branch `feat/brand-hero`, committed, not pushed)
+- Owner sent a foundry's type tester and asked for "something like this ... interactive, dynamic and responsive", with fewer visuals.
+- `TypeTester.js` replaces the TextPressure word and the weight ramp in 03 Type, as a full-stage state: Roboto Flex with five concept presets, sliders for size, weight, width, spacing and height, alignment, Breathe (weight and width cycle while on screen), reset, an editable line, and facts read from the font file (13 axes, 221 glyphs).
+- Verified on the production build at 1440 and 1024 (pinned) and 390 (stacked): no clipped control, no horizontal scroll; Breathe runs and stops on any slider; presets and typing work; reduced motion has no Breathe and still axes.
+- Owner, same day: "constantly shaking and moving... doing toooo much". Breathe now waits for a press and moves only the weight, slowly; width (which re-wrapped the lines) stays put. Measured: off, nothing changes for 3s; on, weight only, line height constant.
+- **Found, not fixed:** stacked (under 1024), the 04 Color sticker cuts off its hex codes at the right edge (pre-existing).
+

@@ -2,12 +2,13 @@
 @import '../_page-head.scss';
 
 // The service worlds' shared sheet (2026-10-22): written for the Graphic
-// Design & Brand Identity world, and the AI & Automation world builds on it
-// (aiWorld.scss adds the outline look under `.bw--ai`). Flat plates on the
-// site's black, SCS palette plus the poster flats. The collage hero and the
-// process stage pin and scrub on wide pointer screens (same gate as the
-// services pan); below 1024px or under reduced motion everything stacks,
-// so the static HTML is a complete page on its own.
+// Design & Brand Identity world, and the outline worlds build on it
+// (_worldOutline.scss adds their look under `.bw--outline`). Flat plates on
+// the site's black, SCS palette plus the poster flats. The process stage
+// pins and scrubs on wide pointer screens (same gate as the services pan);
+// below 1024px or under reduced motion everything stacks, so the static
+// HTML is a complete page on its own. Each world's hero has its own sheet
+// (brandHero.scss here).
 $bw-palette: (
   'cream': $white-color,
   'ink': $promo-ink,
@@ -45,54 +46,10 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 }
 
 
-/* ---- Collage hero ---- */
-.bw-collage {
-  position: relative;
-  height: 100svh;
-  min-height: 640px;
-  overflow: hidden;
-}
-
-.bw-collage__copy {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 0 $edge-pad;
-}
-
-.bw-collage__kicker {
-  @include page-kicker;
-}
-
-.bw-collage__title {
-  font-family: $font-text;
-  font-size: clamp(2.4rem, 5.6vw, 5rem);
-  font-weight: 800; // 2026-10-23, same weight as page-title (_page-head.scss)
-  line-height: 1;
-  letter-spacing: -0.035em;
-  color: $white-color;
-  max-width: 14ch;
-  margin: 0;
-  text-wrap: balance;
-}
-
-.bw-collage__lede {
-  font-family: $font-text;
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
-  line-height: 1.6;
-  color: rgba(254, 247, 237, 0.65);
-  max-width: 44ch;
-  margin: 1.25rem 0 0;
-}
-
-.bw-collage__cta {
+/* ---- The worlds' button ---- */
+// The lavender pill every world hero leads with.
+.bw-cta {
   display: inline-block;
-  margin-top: 2rem;
   padding: 0.9rem 1.6rem;
   min-height: 44px;
   border-radius: 999px;
@@ -108,125 +65,12 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 }
 
-.bw-collage__tiles {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.bw-tile {
-  position: absolute;
-  left: var(--sx);
-  top: var(--sy);
-  width: var(--w);
-  border-radius: 12px;
-  overflow: hidden;
-  pointer-events: auto;
-  will-change: transform;
-
-  svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.bw-tile__live,
-.bw-tile__poster {
-  display: flex;
-  width: 100%;
-  height: 100%;
-
-  .service-poster {
-    flex: 1 1 auto;
-    aspect-ratio: auto;
-    border-radius: 0;
-  }
-}
-
 .bw-video {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   background: $promo-ink;
-}
-
-// Sheet mode: phones, tablets, reduced motion. No pin, no absolute tiles.
-@media #{$bw-sheet} {
-  .bw-collage {
-    height: auto;
-    min-height: 0;
-    padding: 7rem 0 1rem;
-  }
-
-  .bw-collage__copy {
-    position: static;
-    min-height: 50svh;
-  }
-
-  .bw-collage__tiles {
-    position: static;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-    padding: 2rem $edge-pad 0;
-  }
-
-  .bw-tile {
-    position: static;
-    width: 100%;
-    will-change: auto;
-    transform: none !important;
-  }
-
-  .bw-tile--fieldnote-sticker,
-  .bw-tile--badge,
-  .bw-tile--lowtide-video {
-    display: none;
-  }
-}
-
-/* ---- Site shots: real client work in browser chrome ---- */
-.bw-shot {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  background: $white-color;
-
-  &__bar {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    font-family: $font-text;
-    font-size: 0.6rem;
-    letter-spacing: 0.04em;
-    color: rgba(20, 20, 20, 0.55);
-    background: $gray-color;
-
-    i {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(20, 20, 20, 0.25);
-    }
-
-    span {
-      margin-left: 6px;
-    }
-  }
-
-  img {
-    display: block;
-    flex: 1 1 auto;
-    width: 100%;
-    min-height: 0;
-    object-fit: cover;
-    object-position: top;
-  }
 }
 
 /* ---- Pixel test ---- */
@@ -305,122 +149,334 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 }
 
-/* ---- Type stage ---- */
-// The breath section that sat above it was removed (owner, 2026-10-24),
-// so the type stage keeps the worlds' section gap itself.
-.bw-type {
-  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem) clamp(2rem, 4vw, 3rem);
-  border-radius: 24px;
-  background: $promo-ink;
-  color: $white-color;
+/* ---- 03 Type: the type tester ---- */
+// A foundry's tester with fewer visuals (owner, 2026-10-25): one color
+// (the state's ink, so it reads on the lavender field and on the stacked
+// cream card), thin rules between the controls, ring-thumb sliders, one
+// big line. TypeTester.js writes the --t-* variables.
+@font-face {
+  font-family: 'Roboto Flex';
+  src: url('/fonts/RobotoFlex.woff2') format('woff2');
+  font-weight: 100 1000;
+  font-stretch: 25% 151%;
+  font-display: swap;
+}
 
-  &__head {
+$t-rule: rgba(20, 20, 20, 0.18);
+
+.bw-tester {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2.4vh, 1.75rem);
+  height: 100%;
+  min-height: 0;
+
+  &__bar {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    max-width: 60ch;
-  }
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    row-gap: 1rem;
 
-  &__title {
-    @include bw-h2;
-    color: $white-color;
-  }
-
-  &__lede {
-    margin: 0;
-    font-size: clamp(1rem, 1.3vw, 1.15rem);
-    line-height: 1.6;
-    color: rgba(254, 247, 237, 0.65);
-  }
-
-  &__pills {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-  }
-
-  &__pill {
-    min-height: 44px;
-    padding: 0.5rem 1rem;
-    border: 1px solid rgba(254, 247, 237, 0.3);
-    border-radius: 999px;
-    background: transparent;
-    color: $white-color;
-    font: inherit;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-
-    &:hover,
-    &:focus-visible {
-      border-color: $g5;
-      color: $g5;
+    @media (max-width: 1279px) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
     }
-
-    &.is-on {
-      background: $g5;
-      border-color: $g5;
-      color: $promo-ink;
-    }
-  }
-
-  &__word {
-    margin: clamp(1rem, 3vw, 2.5rem) auto;
-
-    .text-pressure-title {
-      color: $white-color;
-    }
-  }
-
-  &__faces {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: start;
-    padding-top: 2rem;
-    border-top: 1px solid rgba(254, 247, 237, 0.15);
 
     @media (max-width: 767px) {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
-  // Same face as the big word above (Roboto Flex, loaded by TextPressure),
-  // never the SCS display face here (owner, 2026-10-22).
-  &__display {
-    margin: 0;
-    font-family: 'Roboto Flex', $font-text;
-    font-variation-settings: 'wght' 800, 'wdth' 125;
-    font-size: clamp(3rem, 8vw, 7rem);
-    line-height: 1;
-    color: $g5;
-  }
+  &__ctl {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-content: start;
+    align-items: center;
+    gap: 0.45rem 0.5rem;
+    min-width: 0;
+    padding: 0 0.9rem;
+    border-left: 1px solid $t-rule;
 
-  &__weights {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto Flex', $font-text;
-    font-size: clamp(1.1rem, 1.8vw, 1.6rem);
-    line-height: 1.3;
+    // The first control of every row opens flush, with no rule.
+    &:first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
 
-    li {
-      display: flex;
-      gap: 1rem;
-      align-items: baseline;
-      padding: 0.35em 0;
-      border-bottom: 1px solid rgba(254, 247, 237, 0.08);
+    @media (max-width: 1279px) {
+      &:nth-child(4n + 1) {
+        padding-left: 0;
+        border-left: 0;
+      }
+    }
+
+    @media (max-width: 767px) {
+      &:nth-child(n) {
+        padding-left: 0.9rem;
+        border-left: 1px solid $t-rule;
+      }
+
+      &:nth-child(2n + 1) {
+        padding-left: 0;
+        border-left: 0;
+      }
+
+      &--tools {
+        grid-column: 1 / -1;
+      }
     }
   }
 
-  &__w {
-    flex: 0 0 3.5ch;
-    font-size: 0.7rem;
+  &__lab {
+    font-size: 0.8rem;
     font-weight: 500;
-    letter-spacing: 0.12em;
-    color: rgba(254, 247, 237, 0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__val {
+    min-width: 3.6em;
+    padding: 0.1rem 0.55rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+  }
+
+  &__select {
+    grid-column: 1 / -1;
+    min-height: 34px;
+    padding: 0.3rem 2rem 0.3rem 0.8rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: transparent
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23141414' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E")
+      no-repeat right 0.8rem center / 0.7rem;
+    color: inherit;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 500;
+    appearance: none;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+
+  // Ring thumb on a hairline, in the state's ink; the ring is filled with
+  // the state's field so the line does not run through it.
+  &__range {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 26px;
+    margin: 0;
+    background: transparent;
+    color: inherit;
+    appearance: none;
+    cursor: pointer;
+
+    &::-webkit-slider-runnable-track {
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    &::-webkit-slider-thumb {
+      width: 18px;
+      height: 18px;
+      margin-top: -8.25px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      background: var(--bw-field, #{$g5});
+      appearance: none;
+    }
+
+    &::-moz-range-track {
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    &::-moz-range-thumb {
+      box-sizing: border-box;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+      background: var(--bw-field, #{$g5});
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    @media (pointer: coarse) {
+      height: 44px;
+    }
+  }
+
+  &__aligns,
+  &__row {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  &__aligns {
+    justify-self: end;
+  }
+
+  &__row {
+    grid-column: 1 / -1;
+    justify-content: space-between;
+  }
+
+  &__icon {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 8px;
+    background: none;
+    color: inherit;
+    opacity: 0.45;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+
+    svg {
+      width: 22px;
+      height: 22px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    &:hover,
+    &.is-on {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 1px;
+      opacity: 1;
+    }
+
+    @media (pointer: coarse) {
+      width: 44px;
+      height: 44px;
+    }
+  }
+
+  &__breathe {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 32px;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+
+    i {
+      width: 8px;
+      height: 8px;
+      border: 1.5px solid currentColor;
+      border-radius: 50%;
+    }
+
+    &.is-on i {
+      background: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+    }
+  }
+
+  // The line. Every axis comes from a --t-* variable; no faux bold or
+  // italic, the font has the real ones.
+  &__sample {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: hidden;
+    font-family: 'Roboto Flex', $font-text;
+    font-weight: 400;
+    font-synthesis: none;
+    font-size: var(--t-size);
+    font-variation-settings:
+      'wght' var(--t-wght),
+      'wdth' var(--t-wdth),
+      'slnt' var(--t-slnt);
+    letter-spacing: var(--t-track);
+    line-height: var(--t-lh);
+    text-align: var(--t-align);
+    overflow-wrap: anywhere;
+    caret-color: currentColor;
+    cursor: text;
+    outline: none;
+    // Lines past the bottom fade instead of cutting.
+    mask-image: linear-gradient(to bottom, #000 82%, transparent);
+
+    &:focus-visible {
+      outline: 1.5px dashed $t-rule;
+      outline-offset: 10px;
+    }
+  }
+
+  &__foot {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) minmax(0, 2fr);
+    padding-top: 1rem;
+    border-top: 1px solid $t-rule;
+    font-size: 0.9rem;
+    line-height: 1.5;
+
+    > * {
+      margin: 0;
+      padding: 0 0.9rem;
+      border-left: 1px solid $t-rule;
+    }
+
+    > :first-child {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    @media (max-width: 767px) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.75rem;
+      font-size: 1rem;
+
+      > * {
+        padding: 0;
+        border-left: 0;
+      }
+    }
+  }
+
+  &__about {
+    max-width: 46ch;
+  }
+
+  &__facts {
+    list-style: none;
   }
 }
 
@@ -546,6 +602,15 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   &--narrow .bw-state__art {
     width: min(22vw, 360px);
   }
+
+  // A full state: the Art takes the stage under the title row.
+  &__full {
+    position: absolute;
+    top: clamp(5rem, 8vw, 7rem);
+    right: clamp(2.5rem, 5vw, 5rem);
+    bottom: clamp(1.5rem, 3vw, 2.5rem);
+    left: clamp(2.5rem, 5vw, 5rem);
+  }
 }
 
 // Stacked states: phones, tablets, reduced motion.
@@ -580,6 +645,7 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 
     &__title,
     &__art,
+    &__full,
     &__card,
     &__sticker {
       position: static;
@@ -603,6 +669,16 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
 
     &[data-state='system'] .bw-state__art {
       aspect-ratio: 7 / 4;
+    }
+
+    // Stacked, the tester is as tall as its content.
+    .bw-tester {
+      height: auto;
+    }
+
+    .bw-tester__sample {
+      overflow: visible;
+      mask-image: none;
     }
   }
 }

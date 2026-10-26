@@ -1,0 +1,194 @@
+@import '../_variables.scss';
+@import './worldHero';
+
+// The brand world's hero: one mark on six touchpoints (BrandHero.js,
+// 2026-10-25). The frame, copy, captions, log and motion are the worlds'
+// shared hero (_worldHero.scss, `world-hero`); this file holds the brand
+// parts in the brand world's language: flat plates, no outlines, lavender
+// as the accent, on the same black field inside the same cream frame as
+// the other worlds (owner, 2026-10-25). `is-c-<concept>` on the root sets the
+// field every plate wears and shows that concept's marks and words; each
+// touchpoint's `--d` delays its flip, smallest first, so a switch runs
+// from the favicon up to the van. CSS owns every color; GSAP only drifts.
+
+$bh-field: #000;
+$bh-concepts: (
+  'hatch': $white-color,
+  'lowtide': $blue-color,
+  'meridian': $g5,
+  'fieldnote': $promo-mint,
+  'hum': $g4,
+);
+
+.bh-hero {
+  @include world-hero($g5, $bh-field);
+  --bh-plate: #{$white-color};
+
+  @each $key, $color in $bh-concepts {
+    &.is-c-#{$key} {
+      --bh-plate: #{$color};
+    }
+
+    &.is-c-#{$key} .bh-hero__v--#{$key} {
+      opacity: 1;
+    }
+  }
+
+  &__fill {
+    fill: var(--bh-plate);
+    transition: fill 0.45s ease var(--d, 0s);
+  }
+
+  &__v {
+    opacity: 0;
+    transition: opacity 0.35s ease var(--d, 0s);
+  }
+
+  // Fixed parts: the sign's bracket, the tab's close, the van's window
+  // and wheel arches (cut in the field's black, so they read as holes),
+  // and tires a step off black so they still read on it.
+  &__hw {
+    fill: rgba(254, 247, 237, 0.35);
+  }
+
+  &__x {
+    fill: none;
+    stroke: rgba(20, 20, 20, 0.45);
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  &.is-c-lowtide &__x {
+    stroke: rgba(254, 247, 237, 0.6);
+  }
+
+  &__cut {
+    fill: $bh-field;
+  }
+
+  &__wheel {
+    fill: #2b2b2b;
+  }
+
+  &__hub {
+    fill: $white-color;
+  }
+
+  // Hover lifts one touchpoint and dims the rest; its caption lights too.
+  &__tp {
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      scale 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  &.is-hot &__tp {
+    opacity: 0.4;
+  }
+
+  &.is-hot &__tp.is-on {
+    opacity: 1;
+    scale: 1.03;
+  }
+
+  &.is-live &__tag i {
+    animation-name: bh-ping;
+  }
+
+  // Stacked, the tag sits above the drawing: the sign's bracket owns the
+  // drawing's top-left corner.
+  @media #{$wh-narrow} {
+    &__stage {
+      margin-top: 1.75rem;
+    }
+
+    &__tag {
+      position: absolute;
+      bottom: 100%;
+      margin-bottom: 0.6rem;
+    }
+  }
+
+  /* ---- The size column of the log ---- */
+  &__log b {
+    flex: 0 0 4.5em;
+    font-weight: 400;
+    color: $g5;
+  }
+
+  /* ---- Concept pills, in the strip under the tab ---- */
+  &__picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    @media #{$wh-wide} {
+      position: absolute;
+      left: 2.5%;
+      top: 84%;
+      width: 36%;
+    }
+
+    @media #{$wh-narrow} {
+      margin-top: 1rem;
+    }
+  }
+
+  &__pick {
+    min-height: 32px;
+    padding: 0.3em 0.9em;
+    border: 1px solid rgba(254, 247, 237, 0.3);
+    border-radius: 999px;
+    background: none;
+    color: $white-color;
+    font: inherit;
+    font-size: clamp(12px, 1.25cqw, 14px);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $g5;
+      color: $g5;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g5;
+      outline-offset: 2px;
+    }
+
+    &.is-on {
+      background: $g5;
+      border-color: $g5;
+      color: $promo-ink;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+      padding-inline: 1.1em;
+    }
+  }
+
+  /* ---- Motion: the plates rise in, smallest first ---- */
+  @media #{$wh-move} {
+    &__tp {
+      animation: wh-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+      animation-delay: calc(0.3s + var(--i) * 0.08s);
+    }
+  }
+}
+
+@keyframes bh-ping {
+  from {
+    box-shadow: 0 0 0 0 rgba(218, 184, 255, 0.5);
+  }
+  to {
+    box-shadow: 0 0 0 10px rgba(218, 184, 255, 0);
+  }
+}

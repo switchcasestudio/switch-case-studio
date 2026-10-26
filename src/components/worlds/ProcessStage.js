@@ -14,7 +14,9 @@ gsap.registerPlugin(ScrollTrigger);
      { key, field, ink, title, copy, side: 'left'|'right', corner: 'tr'|'bl',
        Art, Sticker, artRatio, stickerRatio, narrow?, lazy? }
    `narrow` keeps a portrait artifact from filling the stage; `lazy` mounts
-   the Art only once the stage is within a viewport (a three.js piece). */
+   the Art only once the stage is within a viewport (a three.js piece);
+   `full` gives the Art the whole stage under the title, with no card and
+   no sticker (the brand world's type tester, 2026-10-25). */
 const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
 export default function ProcessStage({ states, label, heading }) {
@@ -64,10 +66,12 @@ export default function ProcessStage({ states, label, heading }) {
       tl.to({}, { duration: 0.01 }, states.length);
       els.forEach((el, i) => {
         const s = states[i];
-        const art = el.querySelector('.bw-state__art');
+        const art = el.querySelector('.bw-state__art, .bw-state__full');
+        // A full state has no card and no sticker.
         const card = el.querySelector('.bw-state__card');
         const sticker = el.querySelector('.bw-state__sticker');
         const title = el.querySelector('.bw-state__title');
+        const parts = [art, card, title].filter(Boolean);
         const at = i;
         const cardX = s.side === 'right' ? 80 : -80;
         const stX = s.corner === 'tr' ? 120 : -120;
@@ -77,18 +81,18 @@ export default function ProcessStage({ states, label, heading }) {
           // leaves. (A scrubbed entrance at progress 0 is a blank stage.)
           gsap.set(stage, { backgroundColor: s.field, color: s.ink });
           gsap.set(el, { autoAlpha: 1, pointerEvents: 'auto' });
-          gsap.set([art, card, title, sticker], { autoAlpha: 1 });
+          gsap.set([...parts, sticker].filter(Boolean), { autoAlpha: 1 });
         } else {
           tl.to(stage, { backgroundColor: s.field, color: s.ink, duration: 0.3 }, at);
           tl.set(el, { autoAlpha: 1, pointerEvents: 'auto' }, at);
           tl.fromTo(art, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.3 }, at);
-          tl.fromTo(card, { autoAlpha: 0, x: cardX }, { autoAlpha: 1, x: 0, duration: 0.3 }, at + 0.05);
+          if (card) tl.fromTo(card, { autoAlpha: 0, x: cardX }, { autoAlpha: 1, x: 0, duration: 0.3 }, at + 0.05);
           tl.fromTo(title, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.25 }, at + 0.05);
-          tl.fromTo(sticker, { autoAlpha: 0, x: stX, y: stY }, { autoAlpha: 1, x: 0, y: 0, duration: 0.35 }, at + 0.15);
+          if (sticker) tl.fromTo(sticker, { autoAlpha: 0, x: stX, y: stY }, { autoAlpha: 1, x: 0, y: 0, duration: 0.35 }, at + 0.15);
         }
         if (i < states.length - 1) {
-          tl.to([art, card, title], { autoAlpha: 0, duration: 0.2 }, at + 0.8);
-          tl.to(sticker, { autoAlpha: 0, x: -stX, y: -stY, duration: 0.2 }, at + 0.8);
+          tl.to(parts, { autoAlpha: 0, duration: 0.2 }, at + 0.8);
+          if (sticker) tl.to(sticker, { autoAlpha: 0, x: -stX, y: -stY, duration: 0.2 }, at + 0.8);
           tl.set(el, { pointerEvents: 'none' }, at + 1);
         }
       });
@@ -103,22 +107,32 @@ export default function ProcessStage({ states, label, heading }) {
       {states.map((s, i) => (
         <article
           key={s.key}
-          className={`bw-state bw-state--${s.side} bw-state--${s.corner}${s.narrow ? ' bw-state--narrow' : ''}`}
+          className={`bw-state bw-state--${s.side} bw-state--${s.corner}${s.narrow ? ' bw-state--narrow' : ''}${
+            s.full ? ' bw-state--full' : ''
+          }`}
           data-state={s.key}
           style={{ '--bw-field': s.field, '--bw-ink': s.ink }}
         >
           <p className="bw-state__title">
             <span className="bw-state__n">0{i + 1}</span> {s.title}
           </p>
-          <div className="bw-state__art" style={{ aspectRatio: s.artRatio }}>
-            {s.lazy ? near && <s.Art /> : <s.Art />}
-          </div>
-          <div className="bw-state__card">
-            <p>{s.copy}</p>
-          </div>
-          <div className="bw-state__sticker" style={{ aspectRatio: s.stickerRatio }}>
-            <s.Sticker />
-          </div>
+          {s.full ? (
+            <div className="bw-state__full">
+              <s.Art />
+            </div>
+          ) : (
+            <>
+              <div className="bw-state__art" style={{ aspectRatio: s.artRatio }}>
+                {s.lazy ? near && <s.Art /> : <s.Art />}
+              </div>
+              <div className="bw-state__card">
+                <p>{s.copy}</p>
+              </div>
+              <div className="bw-state__sticker" style={{ aspectRatio: s.stickerRatio }}>
+                <s.Sticker />
+              </div>
+            </>
+          )}
         </article>
       ))}
     </section>

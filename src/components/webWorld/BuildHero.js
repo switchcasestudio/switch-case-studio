@@ -340,7 +340,7 @@ export default function BuildHero() {
             is running now: press Deploy, or click a part.
           </p>
           <div className="ww-hero__ctas">
-            <Link to="/contact" className="bw-collage__cta ww-hero__cta">
+            <Link to="/contact" className="bw-cta ww-hero__cta">
               Start a project
             </Link>
             <Link to="/pricing/web-development-mobile-apps" className="ww-hero__more">

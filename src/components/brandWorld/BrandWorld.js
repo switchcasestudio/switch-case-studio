@@ -1,36 +1,30 @@
 import { Suspense, lazy } from 'react';
-import Collage from '../worlds/Collage';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import VideoTile from '../worlds/VideoTile';
-import TypeStage from './TypeStage';
+import BrandHero from './BrandHero';
+import TypeTester from './TypeTester';
 import Deliverables from './Deliverables';
 import PixelTile from './PixelTile';
-import { TILES, SCROLL_LENGTH } from './tiles/layout';
-import * as ART from './tiles/concepts';
-import * as LIVE from './tiles/live';
-import { LowtideColour, SealStar, MeridianType, StudioNote } from './tiles/concepts';
+import { LowtideColour, SealStar, StudioNote } from './tiles/concepts';
 import '../../styles/components/brandWorld.scss';
+import '../../styles/components/brandHero.scss';
 
 // three + fiber stay out of the page bundle until the stage is near.
 const Card3D = lazy(() => import('./Card3D'));
 
 /* The Graphic Design & Brand Identity world (2026-10-22). Principles from
    the reference analysis (.audit/brand-identity-reference.md): everything
-   is a flat plate, scroll is the clock, density breathes, hover flips
-   color, media lives in tiles. Palette stays SCS: ink, cream, lavender,
-   blue, orange, plus the poster flats (terra, mint, pink). Order: collage,
-   type stage, process stage, deliverables, client bubbles, circles,
-   pill. The collage, the process stage, the bubbles and the close are the
+   is a flat plate, density breathes, hover flips color, media lives in
+   tiles. Palette stays SCS: ink, cream, lavender, blue, orange, plus the
+   poster flats (terra, mint, pink). Since 2026-10-25 (owner: "the
+   graphic design page structure similar to the other services") it runs
+   in the other worlds' order: the hero (BrandHero, one mark on six
+   touchpoints, in place of the scroll collage), the pinned process (the
+   type stage is 03 Type, a type tester), deliverables, client bubbles,
+   circles, pill. The process stage, the bubbles and the close are the
    shared world parts (components/worlds); this file is the brand content. */
-const COPY = {
-  kicker: 'Graphic design & brand identity',
-  title: 'A mark that holds up when it moves.',
-  lede: 'Logo, color, type and the rules that keep them together. Drawn by a designer, built for web, print and packaging.',
-  cta: { label: 'Start a brand', to: '/contact' },
-};
-
 const STATES = [
   {
     key: 'discovery',
@@ -63,13 +57,10 @@ const STATES = [
     field: '#dab8ff',
     ink: '#141414',
     title: 'Type',
-    copy: 'One face for headlines, one for everything else, and the sizes written down so nobody guesses later.',
     side: 'right',
     corner: 'bl',
-    Art: () => <VideoTile src="/brand-world/meridian-loop.mp4" poster="/brand-world/meridian-loop.jpg" label="Meridian clock, 7 to 12" />,
-    Sticker: () => <MeridianType />,
-    artRatio: '16/9',
-    stickerRatio: '3/2',
+    Art: () => <TypeTester />,
+    full: true,
   },
   {
     key: 'color',
@@ -105,14 +96,10 @@ const STATES = [
   },
 ];
 
-const KINDS = { pixel: PixelTile };
-
 export default function BrandWorld() {
   return (
     <div className="bw">
-      <Collage tiles={TILES} scrollLength={SCROLL_LENGTH} art={ART} live={LIVE} kinds={KINDS} label="Brand identity" copy={COPY} />
-
-      <TypeStage />
+      <BrandHero />
       <ProcessStage states={STATES} label="How a brand identity is made here" heading="How it gets made" />
       <Deliverables />
       <Bubbles title="Once it ships, clients say" />
