@@ -2286,3 +2286,9 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Owner: "W-O-W !! well done. log, commit push to main". Merged as 5ce0a47 and pushed; `feat/brand-lessons` deleted, main is the only branch.
 - **Open:** real phone pass; the AI page's 3D card without WebGL.
 
+### 2026-10-25 (late) — Real iPhone pass in the iOS Simulator (branch `fix/ios-clear-space`, committed, not pushed)
+- Owner: "use the Xcode app on 'm3' using ssh key". iPhone 17 simulator, iOS 27, Safari, live site: hero (all five kinds), the logo log, 01 Logo, 02 Type, 03 Color, 04 Rhythm, 05 Composition, stickers and deliverables all render as in Chrome.
+- One iOS-only defect, fixed: the 01 Logo clear-space box showed only its top and bottom. It is now painted with gradients and shows all four sides in iOS Safari (checked on a local build served to the simulator).
+- Not testable without taps: dragging, sliders, Pause. The cookie banner covered the bottom of every capture.
+- **Open:** push the fix; a pass on a physical phone for touch.
+

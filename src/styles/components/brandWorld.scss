@@ -593,19 +593,35 @@ $t-rule: rgba(20, 20, 20, 0.18);
     display: flex;
     align-items: center;
     gap: calc(var(--s) * 0.2);
+    position: relative;
     padding: calc(var(--s) * 0.25);
-    // Drawn inside the box, so the stage's clip never cuts it.
-    outline: 1.5px dashed transparent;
-    outline-offset: -1.5px;
-    transition: outline-color 0.2s ease;
 
     svg {
       display: block;
       flex: none;
     }
 
-    &.is-space {
-      outline-color: rgba(254, 247, 237, 0.45);
+    // The clear-space box is four dashed edges painted as backgrounds:
+    // iOS Safari (iOS 27 simulator, 2026-10-25) drew only the top and
+    // bottom of this box as a dashed border or outline; Chrome drew all
+    // four. Backgrounds render the same in every engine.
+    &::after {
+      --dash: rgba(254, 247, 237, 0.5);
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      background:
+        linear-gradient(90deg, var(--dash) 50%, transparent 0) top left / 8px 1.5px repeat-x,
+        linear-gradient(90deg, var(--dash) 50%, transparent 0) bottom left / 8px 1.5px repeat-x,
+        linear-gradient(180deg, var(--dash) 50%, transparent 0) top left / 1.5px 8px repeat-y,
+        linear-gradient(180deg, var(--dash) 50%, transparent 0) top right / 1.5px 8px repeat-y;
+    }
+
+    &.is-space::after {
+      opacity: 1;
     }
   }
 
