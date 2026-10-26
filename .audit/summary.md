@@ -2263,6 +2263,7 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 ### 2026-10-25 — Brand world in the other worlds' order: new hero, type stage into 03 (branch `feat/brand-hero`, committed, not pushed)
 - Owner: "I would want to have the 'graphic design' page structure similar to the other services"; the type section's content "can replace the 5th section '03 Type'". Answers to my questions: hero and type in one round, flat-plate look kept, the word as 03's art, the Meridian clock dropped, current hero copy kept.
 - Hero (`BrandHero.js`): one mark on six touchpoints (favicon tab, app icon, avatar, card, shop sign, van), switching concept every ~4s with a brand log and Pause; pills, click, hover and pointer drift. The scroll collage and its code are deleted.
+- Same day, owner: the other heroes have a frame and a pure black field. The brand hero now has both (it had been an unbordered ink plate).
 - 03 Type: the TextPressure word and concept pills are the art, the weight ramp the sticker, the type stage's headline joined the card copy.
 - Verified on the production build: 65 pages, standing checks clean, US English clean; headless captures at 1440, 1024 and 390 (hover, Pause, reduced motion, 03 with Hatch and Fieldnote); no console errors with WebGL available.
 - **Found, not fixed:** without WebGL the 05 System 3D card throws and takes the whole route to the error page (pre-existing, also likely on the AI world's agent card).
