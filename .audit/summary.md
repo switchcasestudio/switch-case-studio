@@ -2273,5 +2273,6 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Owner sent a foundry's type tester and asked for "something like this ... interactive, dynamic and responsive", with fewer visuals.
 - `TypeTester.js` replaces the TextPressure word and the weight ramp in 03 Type, as a full-stage state: Roboto Flex with five concept presets, sliders for size, weight, width, spacing and height, alignment, Breathe (weight and width cycle while on screen), reset, an editable line, and facts read from the font file (13 axes, 221 glyphs).
 - Verified on the production build at 1440 and 1024 (pinned) and 390 (stacked): no clipped control, no horizontal scroll; Breathe runs and stops on any slider; presets and typing work; reduced motion has no Breathe and still axes.
+- Owner, same day: "constantly shaking and moving... doing toooo much". Breathe now waits for a press and moves only the weight, slowly; width (which re-wrapped the lines) stays put. Measured: off, nothing changes for 3s; on, weight only, line height constant.
 - **Found, not fixed:** stacked (under 1024), the 04 Color sticker cuts off its hex codes at the right edge (pre-existing).
 

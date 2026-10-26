@@ -9,11 +9,12 @@ import useIsomorphicLayoutEffect from '../../hooks/useIsomorphicLayoutEffect';
    spacing, line height, alignment, Breathe, reset), one big line anyone
    can click and type over, and the facts under it, read from the font
    file itself (13 axes, 221 glyphs).
-   Dynamic: Breathe runs weight and width through their range while the
-   tester is on screen and its state is showing; any slider or preset hands
-   the axes back to the visitor. The loop writes CSS variables, the slider
-   positions and the value labels straight to the DOM (no React render per
-   frame) and syncs state when it stops. Off under reduced motion.
+   Dynamic on request: nothing moves until the visitor presses Breathe,
+   which swings the weight slowly while the tester is on screen and its
+   state is showing; any slider or preset hands the axis back. The loop
+   writes the CSS variable, the slider and its label straight to the DOM
+   (no React render per frame) and syncs state when it stops. Not offered
+   under reduced motion.
    Responsive: the size follows the tester's width until the visitor sets
    it; the row of controls wraps; stacked, it is a plain card. The SSR
    markup is the Hatch preset at rest. */
@@ -91,13 +92,12 @@ const ALIGNS = ['left', 'center', 'right'];
 const autoSize = (w) => Math.round(Math.min(170, Math.max(44, w * 0.1)));
 const pick = ({ wght, wdth, slnt, track, lh }) => ({ wght, wdth, slnt, track, lh });
 
-// Breathe: weight 200 to 950 over ~6s, width 40 to 145 over ~9s, entered at
-// the phase that matches where the sliders are, so nothing jumps.
-const WAVE = {
-  wght: { mid: 575, amp: 375, w: (2 * Math.PI) / 6 },
-  wdth: { mid: 92.5, amp: 52.5, w: (2 * Math.PI) / 9 },
-};
-const phaseOf = (k, v) => Math.asin(Math.max(-1, Math.min(1, (v - WAVE[k].mid) / WAVE[k].amp)));
+// Breathe: weight only, 160 either side of where it starts, once every 10s
+// (owner, 2026-10-25: "constantly shaking and moving... doing toooo much";
+// width swung too, and every width step re-wrapped the lines). Entered at
+// the phase that matches the slider, so nothing jumps.
+const AMP = 160;
+const OMEGA = (2 * Math.PI) / 10;
 
 // Three rules of 16, 10 and 14 units, set the way the button aligns.
 function AlignIcon({ align }) {
@@ -117,7 +117,7 @@ export default function TypeTester() {
   const sampleRef = useRef(null);
   const inputs = useRef({});
   const labels = useRef({});
-  const live = useRef({ wght: PRESETS[0].wght, wdth: PRESETS[0].wdth });
+  const live = useRef({ wght: PRESETS[0].wght });
   const sizeAuto = useRef(true);
   const edited = useRef(false);
   const [initialText] = useState(PRESETS[0].text);
@@ -127,19 +127,21 @@ export default function TypeTester() {
   const [canBreathe, setCanBreathe] = useState(false);
   const [breathe, setBreathe] = useState(false);
 
-  // Motion is opt-out: Breathe starts on unless the visitor asked for less.
+  // Breathe waits for a press, and is not offered under reduced motion.
   useEffect(() => {
-    const ok = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    setCanBreathe(ok);
-    setBreathe(ok);
+    setCanBreathe(!window.matchMedia('(prefers-reduced-motion: reduce)').matches);
   }, []);
 
   // The size follows the tester's width until the visitor sets it.
   useIsomorphicLayoutEffect(() => {
     const el = sampleRef.current;
     if (!el || typeof ResizeObserver === 'undefined') return undefined;
+    // Width only: the line's height changes with every axis step.
+    let width = 0;
     const fit = () => {
-      if (sizeAuto.current) setVals((v) => ({ ...v, size: autoSize(el.clientWidth) }));
+      if (!sizeAuto.current || el.clientWidth === width) return;
+      width = el.clientWidth;
+      setVals((v) => ({ ...v, size: autoSize(width) }));
     };
     fit();
     const ro = new ResizeObserver(fit);
@@ -150,7 +152,7 @@ export default function TypeTester() {
   // Hand the axes back: whatever Breathe reached becomes the state.
   const settle = useCallback(() => {
     setBreathe(false);
-    setVals((v) => ({ ...v, wght: Math.round(live.current.wght), wdth: Math.round(live.current.wdth) }));
+    setVals((v) => ({ ...v, wght: Math.round(live.current.wght) }));
   }, []);
 
   // The Breathe loop. Runs while it is on, the tester is on screen, the tab
@@ -164,7 +166,7 @@ export default function TypeTester() {
     let poll = 0;
     let visible = false;
     let t0 = 0;
-    const ph = { wght: 0, wdth: 0 };
+    let mid = 0;
     const showing = () => visible && !document.hidden && !(state && state.style.visibility === 'hidden');
     const frame = (now) => {
       raf = 0;
@@ -173,25 +175,20 @@ export default function TypeTester() {
         poll = setTimeout(loop, 400);
         return;
       }
-      // (Re)entering: start each wave at the phase that matches the sliders.
+      // (Re)entering: center the wave inside the axis and start it at the
+      // phase that matches the slider.
       if (!t0) {
-        ph.wght = phaseOf('wght', live.current.wght);
-        ph.wdth = phaseOf('wdth', live.current.wdth);
-        t0 = now - (ph.wght / WAVE.wght.w) * 1000;
+        const cur = live.current.wght;
+        mid = Math.min(1000 - AMP, Math.max(100 + AMP, cur));
+        t0 = now - (Math.asin(Math.max(-1, Math.min(1, (cur - mid) / AMP))) / OMEGA) * 1000;
       }
-      const s = (now - t0) / 1000;
-      const wght = Math.round(WAVE.wght.mid + WAVE.wght.amp * Math.sin(WAVE.wght.w * s));
-      const wdth = Math.round(WAVE.wdth.mid + WAVE.wdth.amp * Math.sin(WAVE.wdth.w * s + ph.wdth - (WAVE.wdth.w * ph.wght) / WAVE.wght.w));
-      if (wght !== live.current.wght || wdth !== live.current.wdth) {
-        live.current = { wght, wdth };
+      const wght = Math.round(mid + AMP * Math.sin((OMEGA * (now - t0)) / 1000));
+      if (wght !== live.current.wght) {
+        live.current = { wght };
         root.style.setProperty('--t-wght', wght);
-        root.style.setProperty('--t-wdth', wdth);
-        ['wght', 'wdth'].forEach((k) => {
-          const v = live.current[k];
-          if (inputs.current[k]) inputs.current[k].value = v;
-          const lab = labels.current[k];
-          if (lab && lab.firstChild) lab.firstChild.nodeValue = RANGES[k].fmt(v);
-        });
+        if (inputs.current.wght) inputs.current.wght.value = wght;
+        const lab = labels.current.wght;
+        if (lab && lab.firstChild) lab.firstChild.nodeValue = RANGES.wght.fmt(wght);
       }
       raf = requestAnimationFrame(frame);
     };
@@ -223,7 +220,7 @@ export default function TypeTester() {
     const v = k === 'lh' ? parseFloat(e.target.value) : parseInt(e.target.value, 10);
     if (k === 'size') sizeAuto.current = false;
     if (breathe) settle();
-    if (k === 'wght' || k === 'wdth') live.current = { ...live.current, [k]: v };
+    if (k === 'wght') live.current = { wght: v };
     setVals((s) => ({ ...s, [k]: v }));
   };
 
@@ -231,7 +228,7 @@ export default function TypeTester() {
     const i = +e.target.value;
     setBreathe(false);
     setPreset(i);
-    live.current = { wght: PRESETS[i].wght, wdth: PRESETS[i].wdth };
+    live.current = { wght: PRESETS[i].wght };
     setVals((s) => ({ ...s, ...pick(PRESETS[i]) }));
     setSample(PRESETS[i].text);
   };
@@ -240,15 +237,15 @@ export default function TypeTester() {
     edited.current = false;
     sizeAuto.current = true;
     const p = PRESETS[preset];
-    live.current = { wght: p.wght, wdth: p.wdth };
+    live.current = { wght: p.wght };
     setVals({ size: autoSize(sampleRef.current ? sampleRef.current.clientWidth : 1200), ...pick(p) });
     setAlign('left');
     setSample(p.text);
-    setBreathe(canBreathe);
+    setBreathe(false);
   };
 
-  // While Breathe runs, the two axes it drives come from the loop.
-  const shown = (k) => (breathe && (k === 'wght' || k === 'wdth') ? live.current[k] : vals[k]);
+  // While Breathe runs, the axis it drives comes from the loop.
+  const shown = (k) => (breathe && k === 'wght' ? live.current.wght : vals[k]);
   const p = PRESETS[preset];
 
   return (
