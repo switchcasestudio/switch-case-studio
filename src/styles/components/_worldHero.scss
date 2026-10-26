@@ -1,7 +1,8 @@
 @import '../_page-head.scss';
 
 // The outline worlds' hero (2026-10-24), lifted out of the AI world's
-// workbench (_aiHero.scss) so the SEO and Web worlds share its frame: one
+// workbench (_aiHero.scss) so every world shares its frame (the brand
+// world's hero since 2026-10-25, with its plate unbordered): one
 // framed viewport on 1024px and up (100svh minus the sticky header), the
 // headline, lede, CTAs and the machine's log on the left, the drawing on
 // the right sized by container units at 5:3, captions placed by percentage
@@ -97,12 +98,6 @@ $wh-line: 2px;
     align-items: center;
     gap: 0.75rem 1.5rem;
     margin-top: 1.75rem;
-  }
-
-  // The button is the worlds' lavender pill (.bw-collage__cta); only its
-  // top margin is the collage's.
-  &__cta.bw-collage__cta {
-    margin-top: 0;
   }
 
   &__more {

@@ -383,7 +383,7 @@ export default function SearchHero() {
             search, or click a part.
           </p>
           <div className="sw-hero__ctas">
-            <Link to="/contact" className="bw-collage__cta sw-hero__cta">
+            <Link to="/contact" className="bw-cta sw-hero__cta">
               Start with an audit
             </Link>
             <Link to="/pricing/seo-ai-search" className="sw-hero__more">

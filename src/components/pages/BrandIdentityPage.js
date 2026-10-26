@@ -4,11 +4,11 @@ import servicesData from '../../data/services.json';
 import BrandWorld from '../brandWorld/BrandWorld';
 
 /* /services/graphic-design-brand-identity (2026-10-22). The service page is the experience;
-   the price lives on /pricing/graphic-design-brand-identity only (owner). This page is
-   exempt from the page-head rule on purpose: it exists to show graphic
-   design, so the headline sits inside the collage and the tiles run over
-   it. Its own static route record in routes.js; a service without a world
-   goes to its pricing page (ServiceRedirect + netlify.toml). */
+   the price lives on /pricing/graphic-design-brand-identity only (owner). Exempt from the
+   page-head rule on purpose: the h1 sits in the brand hero (BrandHero),
+   beside one mark on six touchpoints. Its own static route record in
+   routes.js; a service without a world goes to its pricing page
+   (ServiceRedirect + netlify.toml). */
 const SLUG = 'graphic-design-brand-identity';
 const PATH = `/services/${SLUG}`;
 const service = servicesData.find((s) => s.slug === SLUG);

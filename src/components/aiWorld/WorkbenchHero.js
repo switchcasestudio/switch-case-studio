@@ -328,7 +328,7 @@ export default function WorkbenchHero() {
             is running now: press Run, or click a part.
           </p>
           <div className="aw-hero__ctas">
-            <Link to="/contact" className="bw-collage__cta aw-hero__cta">
+            <Link to="/contact" className="bw-cta aw-hero__cta">
               Start an automation
             </Link>
             <Link to="/pricing/ai-automation" className="aw-hero__more">

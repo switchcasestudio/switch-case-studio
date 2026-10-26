@@ -4,14 +4,12 @@ import { useEffect, useRef } from 'react';
    no controls, a poster in the static HTML, and it only plays while on
    screen (IntersectionObserver) and never under reduced motion, where the
    poster is the tile. `preload="none"` so a dozen tiles do not fetch on
-   load; the browser pulls the file when play() is called.
-   `scrub`: the scroll owns the playhead (useCollageScroll sets
-   currentTime), so it never plays on its own and preloads for seeking. */
-export default function VideoTile({ src, poster, label, className = '', scrub = false }) {
+   load; the browser pulls the file when play() is called. */
+export default function VideoTile({ src, poster, label, className = '' }) {
   const ref = useRef(null);
   useEffect(() => {
     const el = ref.current;
-    if (!el || scrub || !window.matchMedia) return undefined;
+    if (!el || !window.matchMedia) return undefined;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     const io = new IntersectionObserver(
       ([e]) => {
@@ -26,7 +24,7 @@ export default function VideoTile({ src, poster, label, className = '', scrub = 
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [scrub]);
+  }, []);
   return (
     <video
       ref={ref}
@@ -34,9 +32,9 @@ export default function VideoTile({ src, poster, label, className = '', scrub = 
       src={src}
       poster={poster}
       muted
-      loop={!scrub}
+      loop
       playsInline
-      preload={scrub ? 'auto' : 'none'}
+      preload="none"
       aria-label={label}
       disablePictureInPicture
     />
