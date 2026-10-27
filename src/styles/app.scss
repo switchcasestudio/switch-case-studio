@@ -101,6 +101,18 @@
   --ease-brand: #{$ease-brand};
   --about-scrub-from: #{$about-scrub-from};
   --about-scrub-to: #{$about-scrub-to};
+
+  // The strip a phone browser's bar covers at the bottom of the first
+  // screen. iOS Safari's bar is glass and the page shows through it, but
+  // 100svh stops at its top edge, so a one-screen hero let the next section
+  // show under it (owner's iPhone, 2026-10-27). A first-screen hero runs its
+  // field this much further down and keeps its content above it. 0 on a
+  // desktop; on iOS at least 7rem (the bar measured 94pt on an iPhone 17).
+  --bar-tail: calc(100lvh - 100svh);
+
+  @supports (-webkit-touch-callout: none) {
+    --bar-tail: max(7rem, 100lvh - 100svh);
+  }
 }
 
 // Optical trim for all-caps tokens ("AI") set inside SCS Display copy.

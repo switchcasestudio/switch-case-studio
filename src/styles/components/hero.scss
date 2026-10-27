@@ -222,12 +222,14 @@ $hero-pad-y: 1.5rem;
     }
   }
 
-  // ── Phone: one column, in flow. The 1:1 ident replaces the 16:9. ──
+  // ── Phone: one column, in flow. The 1:1 ident replaces the 16:9. The
+  // tail is the strip under the browser's bar (app.scss `--bar-tail`): the
+  // black runs under the glass, the copy and the ident stay above it. ──
   @media (max-width: 768px) {
     height: auto;
-    min-height: 100svh;
-    --hero-tail: 0rem;
-    padding: 1.5rem 1.25rem 1.5rem;
+    --hero-tail: var(--bar-tail, 0px);
+    min-height: calc(100svh + var(--hero-tail));
+    padding: 1.5rem 1.25rem calc(1.5rem + var(--hero-tail));
     box-sizing: border-box;
 
     .hero-frame {
@@ -262,6 +264,7 @@ $hero-pad-y: 1.5rem;
     // whole hero behind the copy; the first note takes the slack instead.
     .hero-ident {
       left: 0; // full-bleed on phones; the 9:16 cut fills it
+      bottom: var(--hero-tail);
 
       &__video {
         object-fit: cover;
