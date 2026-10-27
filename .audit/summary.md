@@ -2300,11 +2300,12 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - **For the owner:** /30-off still says "Ends June 30, 2026"; "Hover me" does nothing on touch; a few cosmetic items listed in `.audit/rules.md`.
 - **Open:** pass 3 on iOS once the MacBook is awake; push. (Done the same day, entry below.)
 
-### 2026-10-26 (later) — iPhone passes 3-4, owner calls A/B, defects 1-8 (branch `fix/ios-full-test`, committed, not pushed)
+### 2026-10-26 (later) — iPhone passes 3-4, owner calls A/B, defects 1-8 (LIVE on main, merge 06c5ac9)
 - Pass 3 (52 shots, 12s waits) re-checked the 62de030 fixes on iOS 27: thumbnails, Results rows, legal links, SEO snippet, Web tabs, menu "+", world hero tags all hold; 0 JS errors, 0 failed requests. 9 shots were still blank at 12s; pass 4 (20 shots, 20s) shot them and today's fixes.
 - Owner call A: `/30-off` taken down. 301 to `/pricing` in `netlify.toml`; route, page, styles, module grid and share image deleted. Route baseline 65 → 64.
 - Owner call B: "Hover me" has a tap version. On touch it reads "Tap me"; a press turns the tile orange with a ring under the finger. Desktop hover unchanged.
 - Fixed: `/unhurried-pro` diagram gets a stacked phone cut (type ~1:1 instead of 6-7px); the contact ident on phones sits in its own band under the content, not behind the form; case-study sideways scrollers (Prodani before/after, Jelly Belly diagram) get a "Swipe" line and an edge fade; two home stickers no longer run off the right edge; footer icons are two rows of four on phones (Blog no longer alone); SEO snippet fields and the type tester's select are 16px on touch (no focus zoom); the AI page's 3D card is gated on WebGL and wrapped in `DecorativeBoundary` (no error page without WebGL); the brand Color sticker's hex codes moved off the plate's edge.
 - Not a defect: copy blurred under the status bar is Safari's own scroll edge (`env(safe-area-inset-top)` is 0 in a Safari tab, same with or without `viewport-fit=cover`); the 62de030 strip only paints where an inset exists. Comments and `.audit/rules.md` corrected.
 - Verified: production build 64 pages, standing checks clean (no hidden bodies, h1 in `<main>`, entry marker, em dash only in `clampAtWord`, titles ≤ 60, descriptions ≤ 160, US English, check:media); headless Chrome at 402 (touch) and 1440; pass 4 on the iPhone 17 simulator. Not testable on simctl: the tap itself (driven in Chrome with synthetic touch instead).
-- **Open:** push on the owner's "push" (merge `--no-ff` into main, delete the branch, log LIVE).
+- Owner: "push". Merged as 06c5ac9 and pushed; `fix/ios-full-test` deleted, main is the only branch. Live check: `/30-off` 301s to `/pricing`, the phone diagram and the tap tile are served.
+- **Open:** a pass on a physical phone for touch (the tap tile, focus zoom).
