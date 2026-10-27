@@ -2310,7 +2310,7 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Owner: "push". Merged as 06c5ac9 and pushed; `fix/ios-full-test` deleted, main is the only branch. Live check: `/30-off` 301s to `/pricing`, the phone diagram and the tap tile are served.
 - **Open:** a pass on a physical phone for touch (the tap tile, focus zoom).
 
-### 2026-10-26/27 — Web world teaches the build (branch `feat/web-lessons`, committed, not pushed)
+### 2026-10-26/27 — Web world teaches the build (LIVE on main, 7b18fd7)
 - Owner: "you did an amazing job with modifying the 'graphic design' service page. now lets give full focus on 'web development'". Same move as the brand world: teach, no made-up clients.
 - Hero: the five kinds of build (landing page, website, store, web app, mobile app) for "Your business" on four screens (inbox, search, phone, laptop); each kind draws itself in, line by line; a build log says what each kind does well and where it stops.
 - Stage "What we know": 01 Speed (waterfall on Lighthouse's phone and desk profiles, LCP verdict), 02 Layout (drag one page from 320 to 1440 px), 03 Stability (a late ad and banner, scored like Chrome scores a shift), 04 Response (0.6 s of work, all at once or in pieces, timed on the device), 05 Access (one card, rushed and built right, through a keyboard and a screen reader).
@@ -2319,3 +2319,9 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - The hero is one screen at every size (owner: "make sure that the hero is 100VG in both mobile and desktop"): header + hero = viewport on 12 viewports from 375x548 to 1920x1080; on phones the captions go, the kind pills scroll in one row, and the log lines, kicker and lede step out as the screen gets shorter.
 - Owner: "WOW !!! WELL DONE!!!! log commit push to main". Merged to main and pushed.
 - **Open:** a phone pass for the drag and tap controls; the other three world heroes are still taller than one screen on phones.
+
+### 2026-10-27 — Heroes run under iPhone Safari's glass bar (branch `fix/hero-under-bar`, committed, not pushed)
+- Owner, with an iPhone screenshot of the home page: "It doesn't look like 100 viewport height for the hero because I can see the next session on the bottom." The hero was exactly `100svh`, which stops at the top of Safari's bottom bar; the bar is glass (iOS 26+), so the next section's orange and purple showed through it. The Web world hero had the same gap (its blue stage).
+- Fix: `--bar-tail` on `:root` (app.scss) = `100lvh - 100svh`, at least 7rem on iOS (`@supports (-webkit-touch-callout: none)`); the home phone hero and the Web hero add it to their height and bottom padding, so their black runs under the bar while the copy, the ident and the frame stay above it. 0 on a desktop.
+- Verified (production build, headless Chrome): desktop and Chrome phone sizes unchanged (home 5rem tail, Web header + hero = viewport); with an iPhone-like 780px screen and the 112px tail, the home lede ends at 760 and the black runs to 896 (screen bottom 874), the Web frame ends at 768 and the stage starts at 954. The iOS Simulator host was offline, so the real-phone check is the owner's.
+- **Open:** look at both pages on the iPhone once live.

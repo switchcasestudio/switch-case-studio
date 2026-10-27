@@ -22,10 +22,13 @@ $wb-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and
      sure that the hero is 100VH in both mobile and desktop"). The header's
      real height is written here by KindsHero (it wraps to 105px at 1024);
      these are its heights before any script runs. No floor: on a short
-     window the type and the log give way, not the fit. */
+     window the type and the log give way, not the fit. On a phone the
+     field also runs under the browser's glass bar (app.scss `--bar-tail`),
+     so the blue stage never shows through it; the frame stays above. */
   --wh-header: 65px;
-  height: calc(100svh - var(--wh-header));
+  height: calc(100svh - var(--wh-header) + var(--bar-tail, 0px));
   min-height: 0;
+  padding-bottom: calc(clamp(12px, 1.4vw, 20px) + var(--bar-tail, 0px));
 
   @media #{$wh-wide} {
     --wh-header: 78px;
