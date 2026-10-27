@@ -1,137 +1,16 @@
-// The AI world's hero: the workbench (WorkbenchHero.js, 2026-10-23).
-// The frame, copy, captions, log and motion are the outline worlds' shared
-// hero (_worldHero.scss, `world-hero`); this file holds the workbench's
-// own parts. Phase classes (`is-fire`, `is-queue`, `is-think`, `is-land`,
-// `is-human`) come from the job timeline; `is-hot-<part>` from hover. CSS
-// owns every color and fill; GSAP only writes transforms and the packet's
-// position. Since 2026-10-24 there is no glow.
+// The AI world's hero: the five kinds of automation on four screens
+// (AutomationHero.js, 2026-10-27; the workbench before it is gone). The
+// frame, copy, captions, log and motion are the worlds' shared hero
+// (_worldHero.scss, `world-hero`); the one-screen fit, the draw-in, the
+// pills and the phone layout are the kinds heroes' layer (_kindsHero.scss,
+// `kinds-hero`), the same as the Web world's. Cream lines on black, orange
+// the one accent (owner, 2026-10-24: "orange only").
 
 $aw-field: #000;
 $aw-orange: $orange-color;
+$aw-kinds: flow, sequence, step, assistant, agent;
 
 .aw-hero {
   @include world-hero($aw-orange, $aw-field);
-
-  /* Parts: thin cream outlines, one accent (owner, 2026-10-24, after
-     trying four palettes on screen: "orange only"). Trigger and Run are
-     solid orange, the agent solid cream, the queue cream lines on black,
-     kept-human an outline. A part turns cream when hovered or reached
-     (the agent and the queue turn orange). No glow anywhere. */
-  [data-part] {
-    color: $cream;
-  }
-
-  &__trig,
-  &__a,
-  &__qbg,
-  &__pill,
-  &__no,
-  &__runword,
-  &__slot {
-    transition: fill 0.3s ease;
-  }
-
-  &__trig {
-    fill: $aw-orange;
-  }
-
-  &__slot {
-    fill: $aw-field;
-  }
-
-  &__a {
-    fill: $cream;
-  }
-
-  &__qbg {
-    fill: transparent;
-  }
-
-  &__qlines {
-    color: $cream;
-  }
-
-  &__qnext {
-    fill: $cream;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  &__pill {
-    fill: $aw-orange;
-  }
-
-  &__runword {
-    fill: $ink;
-  }
-
-  &__no {
-    fill: transparent;
-  }
-
-  &.is-hot-trigger &__trig,
-  &.is-fire &__trig {
-    fill: $cream;
-  }
-
-  &.is-fire &__slot {
-    fill: $aw-orange;
-  }
-
-  &.is-hot-agent &__a,
-  &.is-think &__a {
-    fill: $aw-orange;
-  }
-
-  &.is-hot-queue &__qbg {
-    fill: $aw-orange;
-  }
-
-  &.is-queue &__qnext {
-    opacity: 1;
-  }
-
-  &.is-hot-queue &__qnext {
-    fill: $ink;
-  }
-
-  &.is-hot-run &__pill,
-  &.is-land &__pill {
-    fill: $cream;
-  }
-
-  &.is-hot-run &__runword,
-  &.is-land &__runword {
-    fill: $ink;
-  }
-
-  &.is-hot-human &__no,
-  &.is-human &__no {
-    fill: $cream;
-  }
-
-  // The orange parts' captions lead in orange.
-  &__cap--trigger strong,
-  &__cap--run strong {
-    color: $aw-orange;
-  }
-
-  // The arrows draw themselves, shaft then head.
-  @media (prefers-reduced-motion: no-preference) {
-    &__draw {
-      &:nth-child(2) {
-        animation-duration: 0.35s;
-        animation-delay: 1.1s;
-      }
-
-      &:nth-child(3) {
-        animation-delay: 0.7s;
-      }
-
-      &:nth-child(4) {
-        animation-duration: 0.35s;
-        animation-delay: 1.45s;
-      }
-    }
-  }
+  @include kinds-hero(aw, $aw-orange, $aw-field, $aw-kinds);
 }

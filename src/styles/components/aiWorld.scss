@@ -4,7 +4,8 @@
 // (brandWorld.scss) plus the outline worlds' shared sheet
 // (_worldOutline.scss, 2026-10-24), which holds everything the AI, SEO and
 // Web worlds share. This file keeps only what is the AI world's own: its
-// first stage field, its bubbles field and the workbench hero.
+// first stage field, its bubbles field, the kinds hero, the lessons
+// (_aiLessons.scss, 2026-10-27) and the demos the other worlds lack.
 @import './worldOutline';
 @import './worldHero';
 
@@ -31,6 +32,176 @@
     background: $cream;
     color: $ink;
   }
+
+  // The monitoring demo is a console: ink, cream type.
+  .bw-grid__demo.aw-tone--ink {
+    background: $ink;
+    color: $cream;
+  }
 }
 
 @import './aiHero';
+@import './aiLessons';
+
+/* ---- Demos ---- */
+
+// The assistant names the note it answered from.
+.aw-chat__src {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+// Monitoring: thirty days of runs, one bar a day.
+.aw-watch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  &__name {
+    margin: 0;
+    font-weight: 600;
+  }
+
+  &__status {
+    padding: 0.15rem 0.65rem;
+    border-radius: 999px;
+    background: $promo-mint;
+    color: $ink;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+  }
+
+  &.is-down &__status {
+    background: $orange-color;
+  }
+
+  &__bars {
+    display: grid;
+    grid-template-columns: repeat(30, minmax(0, 1fr));
+    gap: 3px;
+    height: 46px;
+
+    i {
+      border-radius: 2px;
+      background: $promo-mint;
+      transition: background-color 0.2s ease;
+    }
+
+    .is-down {
+      background: #ff7a6b;
+    }
+
+    .is-back {
+      background: $orange-color;
+    }
+  }
+
+  &__msg {
+    margin: 0;
+    min-height: 2.9em;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  .aw-pill {
+    align-self: flex-start;
+    margin-top: auto;
+  }
+}
+
+// Follow-ups: three emails on a schedule, a reply stops the rest.
+.aw-seq {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__mails {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-columns: 3.4rem minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 0.5rem;
+      min-height: 40px;
+      padding: 0 0.75rem;
+      border: 1.5px solid currentColor;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      transition: background-color 0.2s ease, opacity 0.2s ease;
+    }
+
+    b {
+      font-weight: 700;
+    }
+
+    span {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    em {
+      font-size: 0.7rem;
+      font-style: normal;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .is-sent {
+      background: $cream;
+    }
+
+    .is-off {
+      opacity: 0.5;
+
+      span {
+        text-decoration: line-through;
+      }
+    }
+  }
+
+  &__msg {
+    margin: 0;
+    min-height: 2.9em;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: auto;
+  }
+
+  // The tile is lavender, so the pressed pill is ink, not lavender.
+  .aw-pill.is-on {
+    border-color: $ink;
+    background: $ink;
+    color: $cream;
+  }
+}

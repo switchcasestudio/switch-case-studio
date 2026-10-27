@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { Draggable } from 'gsap/Draggable';
-import VideoTile from '../worlds/VideoTile';
-import LiveArt from '../worlds/LiveArt';
-import { Envelope } from './tiles/art';
-import { Envelope as envelopeLive } from './tiles/live';
 
 gsap.registerPlugin(Draggable);
 
@@ -13,16 +9,21 @@ const reduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-m
 
 /* The deliverables grid (2026-10-22): cards whose demos are the thing, the
    AI world's answer to the brand world's drag-a-sticker. Ask the assistant,
-   run the agent, drag a node, flip the hosting switch, watch the log, lift
-   the envelope. Every demo is a real control with a real state. */
+   run the agent, drag a node, flip the hosting switch, break the CRM and
+   watch the alert, send a follow-up and reply to it. Every demo is a real
+   control with a real state; nothing leaves the page. Since 2026-10-27
+   they are "Your business" pieces, as in the Web world: the made-up coffee
+   shop, "Ana", the "41 s" and the three videos (lavender, from before the
+   palette) are gone. The assistant's answers agree with the stage's notes
+   (lessons.js `NOTES`). */
 
-/* The assistant, trained on a fictional coffee shop's notes. The last
-   question is the one it cannot answer, on purpose. */
+/* The assistant, on Your business's notes. The last question is the one
+   the notes do not answer, on purpose. */
 const QA = [
-  ['Oat milk?', 'Do you have oat milk?', 'Yes. Oat, almond and whole, and oat costs the same.'],
-  ['Sunday?', 'Are you open on Sunday?', 'Sunday 7 am to 2 pm. Last pour at 1:45.'],
-  ['Back room?', 'Can I book the back room?', 'It seats twelve and is free with an order. Want me to hold a date?'],
-  ['Wholesale?', 'Do you sell beans wholesale?', "That isn't in my notes. I've passed it to Ana; she answers within the hour."],
+  ['Saturday?', 'Are you open on Saturday?', 'Yes, 10 am to 2 pm. Weekdays 9 am to 6 pm.', 'Hours'],
+  ['Delivery?', 'Is delivery free?', 'On orders over $50, within 25 miles.', 'Delivery'],
+  ['Sale items?', 'Can I return a sale item?', 'Sale items can be exchanged, not refunded.', 'Returns'],
+  ['Gift cards?', 'Do you sell gift cards?', "That isn't in my notes, so I've passed your question to the team.", null],
 ];
 
 function ChatDemo() {
@@ -55,6 +56,7 @@ function ChatDemo() {
       <p className="aw-chat__a" ref={aRef} aria-live="polite">
         {QA[i][2]}
       </p>
+      <p className="aw-chat__src">{QA[i][3] ? `From your notes: ${QA[i][3]}` : 'Handed to a person'}</p>
       <div className="aw-chat__pills" role="group" aria-label="Ask the assistant">
         {QA.map((row, k) => (
           <button key={row[0]} type="button" className={`aw-pill${k === i ? ' is-on' : ''}`} aria-pressed={k === i} onClick={() => setI(k)}>
@@ -66,8 +68,8 @@ function ChatDemo() {
   );
 }
 
-/* The agent: four steps, ticked in order, with the time it took. */
-const STEPS = ['Read the inquiry', 'Check the calendar', 'Draft the reply', 'Write the log'];
+/* The agent: five steps, ticked in order, each one written to the log. */
+const STEPS = ['Read the lead', 'Check the calendar', 'Hold the first open slot', 'Draft the reply', 'Write the log'];
 function TaskDemo() {
   const [done, setDone] = useState(0);
   const [busy, setBusy] = useState(false);
@@ -96,7 +98,7 @@ function TaskDemo() {
         <button type="button" className="aw-pill is-on" onClick={run} disabled={busy}>
           {done === STEPS.length ? 'Run again' : 'Run'}
         </button>
-        <span aria-live="polite">{done === STEPS.length ? 'Done in 41 s' : busy ? 'Working' : 'Idle'}</span>
+        <span aria-live="polite">{done === STEPS.length ? `Done: ${STEPS.length} steps, all logged` : busy ? 'Working' : 'Idle'}</span>
       </div>
     </div>
   );
@@ -162,6 +164,108 @@ function HostDemo() {
   );
 }
 
+/* Monitoring: thirty days of runs, one bar a day. Break the CRM and the
+   runs wait (one more each second, on the visitor's clock) while the alert
+   goes out; fix it and the waiting runs go through. */
+function WatchDemo() {
+  const [down, setDown] = useState(false);
+  const [waiting, setWaiting] = useState(0);
+  const [sent, setSent] = useState(null);
+  useEffect(() => {
+    if (!down) return undefined;
+    const t = setInterval(() => setWaiting((w) => w + 1), 1000);
+    return () => clearInterval(t);
+  }, [down]);
+  const toggle = () => {
+    if (down) {
+      setSent(waiting);
+      setWaiting(0);
+    } else {
+      setSent(null);
+      setWaiting(1);
+    }
+    setDown(!down);
+  };
+  const msg = down
+    ? `The CRM step is failing. ${waiting} run${waiting === 1 ? '' : 's'} waiting and retrying; you were emailed.`
+    : sent !== null
+      ? `Fixed. The ${sent} waiting run${sent === 1 ? '' : 's'} went through, in order.`
+      : 'Every run is checked. If a step stops answering, you hear about it first.';
+  return (
+    <div className={`aw-watch${down ? ' is-down' : ''}`}>
+      <div className="aw-watch__top">
+        <p className="aw-watch__name">New lead flow</p>
+        <span className="aw-watch__status">{down ? 'Alert' : 'Running'}</span>
+      </div>
+      <div className="aw-watch__bars" aria-hidden="true">
+        {Array.from({ length: 30 }, (_, i) => (
+          <i key={i} className={i === 29 && down ? 'is-down' : i === 29 && sent !== null ? 'is-back' : ''} />
+        ))}
+      </div>
+      <p className="aw-watch__msg" aria-live="polite">
+        {msg}
+      </p>
+      <button type="button" className="aw-pill is-on" onClick={toggle}>
+        {down ? 'Fix it' : 'Break the CRM'}
+      </button>
+    </div>
+  );
+}
+
+/* Follow-ups: three emails on a schedule; a reply stops the rest. */
+const MAILS = [
+  [0, 'Your quote'],
+  [2, 'Any questions?'],
+  [7, 'Last note from us'],
+];
+function SequenceDemo() {
+  const [day, setDay] = useState(0);
+  const [replied, setReplied] = useState(null);
+  const sentOn = (d) => d <= day && (replied === null || d <= replied);
+  const stopped = replied !== null;
+  const reset = () => {
+    setDay(0);
+    setReplied(null);
+  };
+  const msg = stopped
+    ? `They replied on day ${replied}. The rest stopped, and the lead is yours.`
+    : day >= 7
+      ? 'All three sent. No reply, so the sequence ends here.'
+      : `Day ${day}. The next one goes on day ${MAILS.find(([d]) => d > day)[0]}, unless they reply.`;
+  return (
+    <div className="aw-seq">
+      <ol className="aw-seq__mails">
+        {MAILS.map(([d, subject]) => (
+          <li key={d} className={sentOn(d) ? 'is-sent' : stopped && d > replied ? 'is-off' : ''}>
+            <b>Day {d}</b>
+            <span>{subject}</span>
+            <em>{sentOn(d) ? 'sent' : stopped ? 'stopped' : 'waiting'}</em>
+          </li>
+        ))}
+      </ol>
+      <p className="aw-seq__msg" aria-live="polite">
+        {msg}
+      </p>
+      <div className="aw-seq__row">
+        {stopped || day >= 7 ? (
+          <button type="button" className="aw-pill is-on" onClick={reset}>
+            Start over
+          </button>
+        ) : (
+          <>
+            <button type="button" className="aw-pill is-on" onClick={() => setDay((d) => d + 1)}>
+              Next day
+            </button>
+            <button type="button" className="aw-pill" onClick={() => setReplied(day)}>
+              They reply
+            </button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function Deliverables() {
   return (
     <section className="bw-grid" aria-labelledby="bw-grid-title">
@@ -176,7 +280,7 @@ export default function Deliverables() {
             </div>
           </div>
           <p className="bw-grid__cap">
-            <strong>The assistant.</strong> Trained on your notes. It answers what it knows and says when it doesn't.
+            <strong>The assistant.</strong> It answers from your notes, names the note, and passes on what it can&apos;t answer.
           </p>
         </li>
         <li className="bw-grid__card">
@@ -186,7 +290,7 @@ export default function Deliverables() {
             </div>
           </div>
           <p className="bw-grid__cap">
-            <strong>Agents.</strong> Press Run. Each step is ticked in order and the log says how long it took.
+            <strong>Agents.</strong> Press Run. Each step is ticked in order and written to the log.
           </p>
         </li>
         <li className="bw-grid__card">
@@ -211,22 +315,22 @@ export default function Deliverables() {
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo" style={{ aspectRatio: '16/9' }}>
-              <VideoTile src="/ai-world/log-loop.mp4" poster="/ai-world/log-loop.jpg" label="The agent's log, writing itself" />
+            <div className="bw-grid__demo bw-grid__demo--tool aw-tone--ink" style={{ aspectRatio: '4/3' }}>
+              <WatchDemo />
             </div>
           </div>
           <p className="bw-grid__cap">
-            <strong>Monitoring.</strong> A log you can read, an alert when something stops, a person who answers it.
+            <strong>Monitoring.</strong> Break the CRM. The runs wait and retry, you get the alert, and nothing is lost.
           </p>
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo aw-tone--lilac" style={{ aspectRatio: '4/3' }}>
-              <LiveArt Art={Envelope} create={envelopeLive} className="aw-live" />
+            <div className="bw-grid__demo bw-grid__demo--tool aw-tone--lilac" style={{ aspectRatio: '4/3' }}>
+              <SequenceDemo />
             </div>
           </div>
           <p className="bw-grid__cap">
-            <strong>Email and lifecycle.</strong> Sequences written once, sent on their own, measured every send.
+            <strong>Email and lifecycle.</strong> Follow-ups written once, sent on schedule, stopped the moment someone replies.
           </p>
         </li>
       </ul>
