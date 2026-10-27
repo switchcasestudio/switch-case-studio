@@ -37,64 +37,6 @@
   .bw-grid__demo--tool {
     container-type: inline-size;
   }
-
-  /* The lessons on the pinned stage (2026-10-26): a 16:10 tile at 44% was
-     281px tall at 1024 x 768 and every demo spilled out of it. Here the
-     card and the sticker share one column (card under the title, sticker
-     at the foot) and the demo takes the whole other side, up to 820 x 600,
-     centered in it. No transform, so GSAP's scale and x start clean. */
-  @media #{$bw-pin} {
-    $pad: clamp(2.5rem, 5vw, 5rem);
-    $col: min(28vw, 380px);
-    $top: clamp(6rem, 12vh, 8rem);
-
-    .bw-state--tool {
-      .bw-state__art {
-        top: $top;
-        bottom: clamp(1.5rem, 4vh, 3rem);
-        width: auto;
-        max-width: 820px;
-        max-height: 600px;
-        margin: auto;
-        transform: none;
-        aspect-ratio: auto !important;
-      }
-
-      .bw-state__card {
-        top: $top;
-        transform: none;
-      }
-
-      .bw-state__sticker {
-        top: auto;
-        bottom: clamp(1.5rem, 4vh, 3rem);
-      }
-    }
-
-    .bw-state--tool.bw-state--right {
-      .bw-state__art {
-        left: $pad;
-        right: calc(#{$col} + #{$pad} + 2.5rem);
-      }
-
-      .bw-state__sticker {
-        left: auto;
-        right: $pad;
-      }
-    }
-
-    .bw-state--tool.bw-state--left {
-      .bw-state__art {
-        left: calc(#{$col} + #{$pad} + 2.5rem);
-        right: $pad;
-      }
-
-      .bw-state__sticker {
-        right: auto;
-        left: $pad;
-      }
-    }
-  }
 }
 
 @import './webHero';

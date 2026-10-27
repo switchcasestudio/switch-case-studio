@@ -67,14 +67,6 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
   }
 }
 
-.bw-video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  background: $promo-ink;
-}
-
 /* ---- Pixel test ---- */
 .bw-pixel {
   position: relative;
@@ -112,42 +104,6 @@ $bw-sheet: '(max-width: 1023px), (prefers-reduced-motion: reduce)';
     letter-spacing: 0.14em;
     text-transform: uppercase;
     color: $white-color;
-  }
-}
-
-/* ---- 3D card ---- */
-.bw-card3d {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background: $promo-ink;
-  overflow: hidden;
-  cursor: pointer;
-
-  &__still,
-  &__canvas {
-    position: absolute;
-    inset: 0;
-    width: 100% !important;
-    height: 100% !important;
-  }
-
-  &.is-live &__still {
-    opacity: 0;
-  }
-
-  &__hint {
-    position: absolute;
-    left: 7%;
-    bottom: 6%;
-    font-family: $font-text;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: $white-color;
-    opacity: 0.7;
-    pointer-events: none;
   }
 }
 

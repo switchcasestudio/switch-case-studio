@@ -6,7 +6,7 @@ import AiWorld from '../aiWorld/AiWorld';
 /* /services/ai-automation (2026-10-22). The service page is the
    experience; the price lives on /pricing/ai-automation only. Exempt from
    the page-head rule on purpose: the h1 sits in the workbench hero
-   (WorkbenchHero), beside the drawing that runs. Its own static route
+   (AutomationHero), beside the five kinds it runs. Its own static route
    record in routes.js. */
 const SLUG = 'ai-automation';
 const PATH = `/services/${SLUG}`;

@@ -1,0 +1,550 @@
+// The AI world's lessons (aiWorld/lessons.js, 2026-10-27): five demos on
+// the shared lesson plate (`.bw-lesson`, brandWorld.scss) with the shared
+// controls (`.bw-ui`, `.bw-lesson__chip|toggle`), as in the Web world
+// (_webLessons.scss). Each plate is a size container, so a demo lays out by
+// its tile, not the window. Dark plates (Payback, Handoff, Privacy) and
+// light ones (Grounding, Retries) alternate; outcome colors are mint for
+// right, orange for a copy too many, red for wrong or lost.
+
+$al-ink: $promo-ink;
+$al-cream: $white-color;
+$al-orange: $orange-color;
+$al-mint: $promo-mint;
+
+.aw-pay,
+.aw-find,
+.aw-line,
+.aw-retry,
+.aw-mask {
+  container-type: inline-size;
+
+  --al-bad: #b3261e;
+  --al-soft: rgba(20, 20, 20, 0.12);
+}
+
+.bw-lesson--dark:is(.aw-pay, .aw-line, .aw-mask) {
+  --al-bad: #ff7a6b;
+  --al-soft: rgba(254, 247, 237, 0.14);
+}
+
+// A text field on either plate; 16px on touch so iOS does not zoom.
+@mixin al-field {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid currentColor;
+  border-radius: 10px;
+  background: var(--al-soft);
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  @media (pointer: coarse) {
+    font-size: 1rem;
+  }
+}
+
+/* ---- 01 Payback ---- */
+.aw-pay {
+  &__ctls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem 1.25rem;
+
+    @container (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__sum {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: center;
+    gap: 1rem;
+    margin: 0;
+
+    p {
+      display: grid;
+      gap: 0.2rem;
+      margin: 0;
+    }
+
+    b {
+      color: $al-orange;
+      font-size: clamp(1.25rem, 6.5cqw, 2.8rem);
+      font-weight: 800;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+
+    span {
+      font-size: 0.8rem;
+      opacity: 0.8;
+    }
+
+    .is-late b {
+      color: var(--al-bad);
+    }
+  }
+
+  // The year, one bar a week: outlined while it pays back, filled after.
+  &__year {
+    display: grid;
+    grid-template-columns: repeat(52, minmax(0, 1fr));
+    gap: 2px;
+    height: clamp(2rem, 9cqw, 3.25rem);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      border-radius: 2px;
+      background: var(--al-soft);
+      transition: background-color 0.2s ease;
+    }
+
+    .is-saved {
+      background: $al-orange;
+    }
+  }
+
+  &__axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -0.4rem;
+    font-size: 0.75rem;
+    opacity: 0.7;
+  }
+}
+
+/* ---- 02 Grounding ---- */
+.aw-find {
+  &__ask {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  &__input {
+    @include al-field;
+  }
+
+  &__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    align-content: center;
+    align-items: start;
+    gap: 1rem 1.25rem;
+    min-height: 0;
+
+    @container (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  // Each note's match, with the line drawn through every bar at `--at`.
+  &__rank {
+    ol {
+      display: grid;
+      gap: 0.3rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      display: grid;
+      grid-template-columns: 5.25rem minmax(0, 1fr) 2.4rem;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    i {
+      position: relative;
+      height: 12px;
+      border-radius: 6px;
+      background: var(--al-soft);
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--w);
+        border-radius: 6px;
+        background: currentColor;
+        opacity: 0.45;
+        transition: width 0.3s ease;
+      }
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        bottom: -3px;
+        left: var(--at);
+        width: 2px;
+        background: currentColor;
+      }
+    }
+
+    .is-top {
+      font-weight: 700;
+
+      i::before {
+        background: $al-orange;
+        opacity: 1;
+      }
+    }
+
+    b {
+      font-weight: 500;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+  }
+
+  &__line {
+    margin: 0.4rem 0 0;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-align: right;
+  }
+
+  &__answer {
+    padding: 0.8rem 0.95rem;
+    border: 1.5px solid currentColor;
+    border-radius: 14px;
+
+    &.is-out {
+      border-color: var(--al-bad);
+    }
+  }
+
+  &__src {
+    margin: 0 0 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__answer.is-out &__src {
+    color: var(--al-bad);
+  }
+
+  &__quote {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.45;
+
+    mark {
+      padding: 0 0.15em;
+      border-radius: 3px;
+      background: rgba(255, 131, 74, 0.55);
+      color: inherit;
+    }
+  }
+}
+
+/* ---- 03 Handoff ---- */
+.aw-line {
+  &__counts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+
+    p {
+      display: grid;
+      gap: 0.15rem;
+      margin: 0;
+      padding-left: 0.7rem;
+      border-left: 4px solid;
+    }
+
+    b {
+      font-size: clamp(1.5rem, 6cqw, 2.2rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      line-height: 1;
+    }
+
+    span {
+      font-size: 0.78rem;
+      opacity: 0.85;
+    }
+
+    .is-right {
+      border-color: $al-mint;
+    }
+
+    .is-wrong {
+      border-color: var(--al-bad);
+    }
+
+    .is-person {
+      border-color: $al-cream;
+    }
+  }
+
+  &__qs {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+    gap: 0.3rem 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @container (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__q {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    min-height: 30px;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    font-size: 0.8rem;
+    text-align: left;
+    cursor: pointer;
+
+    span:not(.sr-only) {
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    i {
+      flex: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      transition: background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    &.is-right i {
+      background: $al-mint;
+    }
+
+    &.is-wrong i {
+      background: var(--al-bad);
+    }
+
+    &.is-person i {
+      box-shadow: inset 0 0 0 2px $al-cream;
+    }
+
+    &:hover,
+    &.is-open {
+      border-color: currentColor;
+    }
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 1px;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+    }
+  }
+}
+
+/* ---- 04 Retries ---- */
+.aw-retry {
+  &__go {
+    margin-left: auto;
+  }
+
+  &__jobs {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-content: center;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    @container (max-width: 620px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-width: 0;
+      min-height: 34px;
+      padding: 0.3rem 0.55rem;
+      border: 1px solid var(--al-soft);
+      border-radius: 8px;
+      font-size: 0.8rem;
+    }
+
+    .is-lost {
+      border-color: var(--al-bad);
+      background: rgba(179, 38, 30, 0.1);
+    }
+
+    .is-dup {
+      border-color: $al-orange;
+      background: rgba(255, 131, 74, 0.22);
+    }
+
+    b {
+      margin-left: auto;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .is-lost b {
+      color: var(--al-bad);
+    }
+  }
+
+  &__n {
+    width: 1.4em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.6;
+  }
+
+  // One mark a try: worked (mint), timed out after saving (orange),
+  // refused (a red ring).
+  &__marks {
+    display: flex;
+    gap: 3px;
+
+    i {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .is-ok {
+      background: #1f7a5c;
+    }
+
+    .is-late {
+      background: $al-orange;
+    }
+
+    .is-no {
+      box-shadow: inset 0 0 0 2px var(--al-bad);
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &__jobs li {
+      animation: al-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+      animation-delay: calc(var(--i) * 0.025s);
+    }
+  }
+}
+
+/* ---- 05 Privacy ---- */
+.aw-mask {
+  &__name {
+    flex: 1 1 14rem;
+    display: grid;
+    gap: 0.35rem;
+
+    input {
+      @include al-field;
+    }
+  }
+
+  &__panes {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: center;
+    gap: 1rem;
+    min-height: 0;
+
+    @container (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__pane {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    min-height: 0;
+
+    textarea {
+      @include al-field;
+      flex: none;
+      min-height: 9rem;
+      line-height: 1.45;
+      resize: none;
+    }
+
+    p.bw-ui__lab {
+      margin: 0;
+    }
+  }
+
+  &__out {
+    flex: none;
+    margin: 0;
+    min-height: 9rem;
+    padding: 0.55rem 0.75rem;
+    border: 1.5px solid $al-orange;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+
+    mark {
+      padding: 0 0.15em;
+      border-radius: 3px;
+      background: rgba(255, 122, 107, 0.35);
+      color: inherit;
+    }
+
+    .is-token {
+      background: $al-orange;
+      color: $al-ink;
+      font-weight: 700;
+      font-size: 0.85em;
+    }
+  }
+
+  &__pane--out.is-raw &__out {
+    border-color: var(--al-bad);
+  }
+}
+
+@keyframes al-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}

@@ -1,7 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { q } from '../servicePoster/usePosterEngine';
+import kindsParts, { INTER, rr, ring } from '../worlds/kindsParts';
+import useKindsHero from '../worlds/useKindsHero';
 
 /* The Web world's hero (2026-10-26, owner: "give full focus on 'web
    development' ... content, vector, animations, reactions, ui/ux"), the
@@ -29,10 +28,9 @@ import { q } from '../servicePoster/usePosterEngine';
    draw-in and which kind shows (`is-k-<kind>` on the root, a `--d` delay
    per screen, a `--j` per line); GSAP writes only the drift. Under reduced
    motion nothing switches on its own. Auto switches are not announced;
-   picked ones are. */
-
-const AUTO_FIRST = 2200;
-const AUTO_GAP = 4600;
+   picked ones are. Since 2026-10-27 the engine (worlds/useKindsHero.js),
+   the drawing parts (worlds/kindsParts.js) and the sheet (`kinds-hero`)
+   are shared with the AI world's hero. */
 
 // Log lines stay at about 37 characters: beside the drawing each is one
 // line with an ellipsis, and a cut line loses its point.
@@ -99,46 +97,9 @@ const KINDS = [
   },
 ];
 
-/* ---- Drawing parts ---- */
+/* ---- Drawing parts (worlds/kindsParts.js) ---- */
 
-const INTER = "Inter, 'Inter Fallback', sans-serif";
-
-// A rounded box as a path, so it can draw itself in (pathLength 1).
-const rr = (x, y, w, h, r) =>
-  `M${x + r} ${y}H${x + w - r}A${r} ${r} 0 0 1 ${x + w} ${y + r}V${y + h - r}A${r} ${r} 0 0 1 ${x + w - r} ${
-    y + h
-  }H${x + r}A${r} ${r} 0 0 1 ${x} ${y + h - r}V${y + r}A${r} ${r} 0 0 1 ${x + r} ${y}Z`;
-const ring = (cx, cy, r) => `M${cx - r} ${cy}a${r} ${r} 0 1 0 ${r * 2} 0a${r} ${r} 0 1 0 ${-r * 2} 0`;
-
-// A line that draws itself; `a` draws it in the accent.
-const D = ({ d, a }) => <path className={`wb-d${a ? ' wb-d--a' : ''}`} d={d} pathLength="1" />;
-const B = ({ x, y, w, h, r = 8 }) => <D d={rr(x, y, w, h, r)} />;
-const L = ({ x1, y1, x2, y2, a }) => <D d={`M${x1} ${y1}L${x2} ${y2}`} a={a} />;
-const O = ({ cx, cy, r, a }) => <D d={ring(cx, cy, r)} a={a} />;
-// An accent plate (the action on each screen), and its label in ink.
-const A = ({ x, y, w, h, r = 8, label, size = 20 }) => (
-  <g className="wb-f">
-    <path className="wb-a" d={rr(x, y, w, h, r)} />
-    {label && (
-      <text className="wb-t wb-t--on" x={x + w / 2} y={y + h / 2 + size * 0.36} fontSize={size} fontWeight="700" textAnchor="middle">
-        {label}
-      </text>
-    )}
-  </g>
-);
-const T = ({ x, y, size = 20, w = 500, a, anchor, children }) => (
-  <text
-    className={`wb-t${a ? ' wb-t--a' : ''}`}
-    x={x}
-    y={y}
-    fontSize={size}
-    fontWeight={w}
-    textAnchor={anchor}
-    letterSpacing={size >= 40 ? -1.5 : undefined}
-  >
-    {children}
-  </text>
-);
+const { D, B, L, O, A, T, Kinds } = kindsParts('wb', KINDS);
 const Mountain = ({ x, y, w, h }) => (
   <D d={`M${x + w * 0.06} ${y + h * 0.88}L${x + w * 0.32} ${y + h * 0.5}L${x + w * 0.52} ${y + h * 0.72}L${x + w * 0.68} ${y + h * 0.56}L${x + w * 0.94} ${y + h * 0.88}`} />
 );
@@ -446,21 +407,6 @@ const NOTICE = {
   ),
 };
 
-function Kinds({ art, x, y }) {
-  return (
-    <g transform={`translate(${x} ${y})`}>
-      {KINDS.map((k) => {
-        const Draw = art[k.key];
-        return (
-          <g key={k.key} className={`wb-v wb-v--${k.key}`}>
-            <Draw />
-          </g>
-        );
-      })}
-    </g>
-  );
-}
-
 // The screens, smallest first: the order the kinds draw in (`--d`) and
 // the order the entrance runs. Captions sit in zones no screen reaches
 // (viewBox 1600 x 960), short, because the type floors at 12px while the
@@ -474,177 +420,16 @@ const CAPS = [
   { key: 'phone', l: 83.75, t: 83.5, w: 14.5, text: ['Phone.', 'One column, one thumb.'] },
 ];
 
-const lineItems = (k, n) => k.lines.map(([tag, text], i) => ({ tag, text, id: `${n}-${i}` }));
-
 export default function KindsHero() {
-  const rootRef = useRef(null);
-  const engineRef = useRef(null);
-  const [kind, setKind] = useState(0);
-  const [log, setLog] = useState(() => lineItems(KINDS[0], 1));
-  const [hot, setHot] = useState(null);
-  const [live, setLive] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const [announce, setAnnounce] = useState(false);
-
-  // The engine: the schedule, visibility, the log. Built once; everything
-  // it reads lives in refs, everything it shows goes through state setters.
-  useEffect(() => {
-    const root = rootRef.current;
-    if (!root) return undefined;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const st = { runs: 1, next: 1, timer: 0, tl: null, visible: false, paused: false };
-
-    const canAuto = () => !reduced && st.visible && !st.paused && !document.hidden;
-    const sync = () => setLive(canAuto());
-    const push = (line) => setLog((l) => [...l, line].slice(-4));
-
-    function schedule(delay) {
-      clearTimeout(st.timer);
-      if (!canAuto()) return;
-      st.timer = setTimeout(() => show(st.next, false), delay);
-    }
-
-    // A pick never waits: it cuts the running switch short.
-    function show(index, manual) {
-      clearTimeout(st.timer);
-      if (st.tl) st.tl.kill();
-      const i = index % KINDS.length;
-      st.next = (i + 1) % KINDS.length;
-      st.runs += 1;
-      setAnnounce(manual);
-      setKind(i);
-      const lines = lineItems(KINDS[i], st.runs);
-      if (reduced) {
-        setLog(lines);
-        return;
-      }
-      // One line per screen as it draws in (inbox, search, phone, laptop).
-      const tl = gsap.timeline({
-        onComplete: () => {
-          st.tl = null;
-          schedule(AUTO_GAP);
-        },
-      });
-      st.tl = tl;
-      [0, 0.35, 0.8, 1.3].forEach((at, n) => tl.call(() => push(lines[n]), null, at));
-      tl.to({}, { duration: 0.8 }, 1.3);
-    }
-
-    const io = new IntersectionObserver(
-      ([e]) => {
-        st.visible = e.isIntersecting;
-        sync();
-        if (st.visible) schedule(st.runs > 1 ? AUTO_GAP / 2 : AUTO_FIRST);
-        else clearTimeout(st.timer);
-      },
-      { threshold: 0.25 },
-    );
-    io.observe(root);
-    const onVis = () => {
-      sync();
-      if (document.hidden) clearTimeout(st.timer);
-      else schedule(AUTO_GAP / 2);
-    };
-    document.addEventListener('visibilitychange', onVis);
-
-    engineRef.current = {
-      show: (i) => show(i, true),
-      next: () => show(st.next, true),
-      setPaused: (p) => {
-        st.paused = p;
-        sync();
-        if (p) clearTimeout(st.timer);
-        else schedule(600);
-      },
-    };
-
-    return () => {
-      io.disconnect();
-      document.removeEventListener('visibilitychange', onVis);
-      clearTimeout(st.timer);
-      if (st.tl) st.tl.kill();
-      engineRef.current = null;
-    };
-  }, []);
-
-  // One screen, header included: the hero's height subtracts the header's
-  // real height, which wraps taller at some widths.
-  useEffect(() => {
-    const root = rootRef.current;
-    const header = document.querySelector('.site-header');
-    if (!root || !header || typeof ResizeObserver === 'undefined') return undefined;
-    const fit = () => root.style.setProperty('--wh-header', `${header.offsetHeight}px`);
-    fit();
-    const ro = new ResizeObserver(fit);
-    ro.observe(header);
-    return () => ro.disconnect();
-  }, []);
-
-  // The pointer: each screen drifts toward it, the small ones more (the
-  // inbox is nearer the eye than the laptop). quickTo tweens settle and
-  // stop on their own. Fine pointers only.
-  useEffect(() => {
-    const root = rootRef.current;
-    const stage = root && root.querySelector('.wb-hero__stage');
-    const svg = stage && stage.querySelector('svg');
-    if (!svg) return undefined;
-    const ok = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    ).matches;
-    if (!ok) return undefined;
-    const els = TOUCH.map((k) => q(svg, `drift-${k}`));
-    const tos = els.map((el) => [
-      gsap.quickTo(el, 'x', { duration: 0.7, ease: 'power3' }),
-      gsap.quickTo(el, 'y', { duration: 0.7, ease: 'power3' }),
-    ]);
-    const onMove = (e) => {
-      const r = stage.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      TOUCH.forEach((k, i) => {
-        tos[i][0](x * 16 * DRIFT[k]);
-        tos[i][1](y * 12 * DRIFT[k]);
-      });
-    };
-    const onLeave = () =>
-      tos.forEach(([tx, ty]) => {
-        tx(0);
-        ty(0);
-      });
-    stage.addEventListener('pointermove', onMove);
-    stage.addEventListener('pointerleave', onLeave);
-    return () => {
-      stage.removeEventListener('pointermove', onMove);
-      stage.removeEventListener('pointerleave', onLeave);
-      gsap.killTweensOf(els);
-    };
-  }, []);
-
-  const next = () => engineRef.current && engineRef.current.next();
-  const pick = (i) => engineRef.current && engineRef.current.show(i);
-  const togglePause = () => {
-    const p = !paused;
-    setPaused(p);
-    if (engineRef.current) engineRef.current.setPaused(p);
-  };
-  const hover = (key) => ({
-    onPointerEnter: () => setHot(key),
-    onPointerLeave: () => setHot(null),
+  const { rootRef, kind, log, hot, paused, announce, cls, pick, togglePause, hover, tp } = useKindsHero({
+    p: 'wb',
+    kinds: KINDS,
+    touch: TOUCH,
+    drift: DRIFT,
   });
-  const tp = (key) => ({
-    className: `wb-hero__tp wb-hero__tp--${key}${hot === key ? ' is-on' : ''}`,
-    style: { '--d': `${TOUCH.indexOf(key) * 0.14}s`, '--i': TOUCH.indexOf(key) },
-    onClick: next,
-    ...hover(key),
-  });
-
-  const k = KINDS[kind];
-  const cls = ['wb-hero', `is-k-${k.key}`];
-  if (live) cls.push('is-live');
-  if (hot) cls.push('is-hot', `is-hot-${hot}`);
 
   return (
-    <section ref={rootRef} className={cls.join(' ')} aria-labelledby="wb-hero-title">
+    <section ref={rootRef} className={cls} aria-labelledby="wb-hero-title">
       <div className="wb-hero__frame">
         <div className="wb-hero__copy">
           <p className="wb-hero__kicker">Web &amp; mobile</p>

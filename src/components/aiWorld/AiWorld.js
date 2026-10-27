@@ -1,111 +1,102 @@
-import { Suspense, lazy } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
-import VideoTile from '../worlds/VideoTile';
-import LiveArt from '../worlds/LiveArt';
-import WorkbenchHero from './WorkbenchHero';
+import AutomationHero from './AutomationHero';
 import Deliverables from './Deliverables';
-import * as ART from './tiles/art';
-import * as LIVE from './tiles/live';
+import { Payback, PaybackTable, Grounding, AnswerSteps, Handoff, KeptHuman, Retries, Backoff, Masking, WhatLeaves } from './lessons';
 import '../../styles/components/brandWorld.scss';
 import '../../styles/components/aiWorld.scss';
 
-// three + fiber stay out of the page bundle until the stage is near.
-const AgentCard3D = lazy(() => import('./AgentCard3D'));
-
-/* The AI & Automation world (2026-10-22): the brand world's sibling,
-   drawn in the owner's reference language instead of flat color plates:
-   outlines, one accent (lavender), captions that open in bold, and every
-   drawing a machine that runs. Since 2026-10-24 (owner: "I am missing
-   colors, it's only black-purple") it wears the full studio palette: the
-   stage runs orange, mint, cream, blue, pink; the hero's parts each have
-   their own color; black is only the hero's field. Since 2026-10-23 the hero is
-   the workbench (WorkbenchHero), live and answering the pointer; the
-   scroll collage stays the brand world's alone. Then the
-   pinned process, deliverables, client bubbles, circles, pill. */
-const live = (name, cls = 'aw-live') => () => <LiveArt Art={ART[name]} create={LIVE[name]} className={cls} />;
-
+/* The AI & Automation world (2026-10-22), an outline world: the shared
+   kit, the same order (hero, pinned stage, deliverables, client bubbles,
+   circles, pill), thin cream lines, orange the one accent in the hero and
+   the full studio palette everywhere else (owner, 2026-10-24). Since
+   2026-10-27 it teaches the way the brand and Web worlds do (owner: "match
+   the content of 'services/ai-automation' in the same way we did for
+   'services/graphic-design-brand-identity' and
+   'services/web-development-mobile-apps'"): the hero runs the five kinds
+   of automation on four screens, and the stage is five lessons with a demo
+   each, on the things every automation has to get right (01 Payback, 02
+   Grounding, 03 Handoff, 04 Retries, 05 Privacy). Every figure the copy
+   states is arithmetic or measured on the visitor's own input. */
 const STATES = [
   {
-    key: 'roadmap',
+    key: 'payback',
     field: '#ff834a',
     ink: '#141414',
-    title: 'Roadmap',
-    copy: 'A week inside your tools, finding the hours that leak between them. The sprint ends with one automation running, not a slide deck.',
+    title: 'Payback',
+    copy: "Automate the task that repeats, not the one that's interesting. Minutes a time, times a week, weeks in a year: that is what it gives back, and how long it can take to build.",
     side: 'right',
     corner: 'bl',
-    Art: live('NodeGraph'),
-    Sticker: live('Clock'),
-    artRatio: '3/2',
-    stickerRatio: '1',
+    Art: () => <Payback />,
+    Sticker: () => <PaybackTable />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'assistant',
+    key: 'grounding',
     field: '#79ccb6',
     ink: '#141414',
-    title: 'The assistant',
-    copy: "A chatbot that answers from your docs, your site and your FAQs. When it doesn't know, it says so and hands the question to a person.",
+    title: 'Grounding',
+    copy: 'An assistant should answer from your notes, not from memory. It finds the passage first, writes the answer from it and names the source.',
     side: 'left',
     corner: 'tr',
-    Art: live('ChatCard'),
-    Sticker: live('AgentA'),
-    artRatio: '4/3',
-    stickerRatio: '1',
+    Art: () => <Grounding />,
+    Sticker: () => <AnswerSteps />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'agent',
+    key: 'handoff',
     field: '#fef7ed',
     ink: '#141414',
-    title: 'The agent',
-    copy: 'It reads the lead, drafts the reply, books the slot and writes down what it did. You read the log, not a promise.',
+    title: 'Handoff',
+    copy: 'It has to know when to stop. Every answer carries a match score, and under the line a person takes the question. Too low and wrong answers go out; too high and you answer everything.',
     side: 'right',
     corner: 'bl',
-    Art: () => <VideoTile src="/ai-world/flow-loop.mp4" poster="/ai-world/flow-loop.jpg" label="A packet through the workflow" />,
-    Sticker: live('RunPill'),
-    artRatio: '1',
-    stickerRatio: '5/2',
-    narrow: true,
+    Art: () => <Handoff />,
+    Sticker: () => <KeptHuman />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'wiring',
+    key: 'retries',
     field: '#1748ef',
     ink: '#fef7ed',
-    title: 'The wiring',
-    copy: 'n8n, Zapier, Make or GoHighLevel, wired into the tools you already pay for. Nothing new to log into.',
+    title: 'Retries',
+    copy: "Every automation meets a service that's down. A good one tries again, waits longer each time, never saves the same job twice and tells a person when it gives up.",
     side: 'left',
     corner: 'tr',
-    Art: () => <VideoTile src="/ai-world/night-loop.mp4" poster="/ai-world/night-loop.jpg" label="Three in the morning, a reply in forty seconds" />,
-    Sticker: live('QueueBox'),
-    artRatio: '16/9',
-    stickerRatio: '2/1',
+    Art: () => <Retries />,
+    Sticker: () => <Backoff />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'hosted',
+    key: 'privacy',
     field: '#eaa8c6',
     ink: '#141414',
-    title: 'Hosted and watched',
-    copy: 'On your own VPS when the data should stay yours. Monitored like production software, because that is what it is.',
+    title: 'Privacy',
+    copy: 'Send a model only what the job needs. Names, emails, phone and card numbers are masked on your server before the text goes out, and filled back in when the answer returns.',
     side: 'right',
     corner: 'bl',
-    Art: () => (
-      <Suspense fallback={null}>
-        <AgentCard3D />
-      </Suspense>
-    ),
-    Sticker: live('Stack'),
-    artRatio: '7/4',
-    stickerRatio: '1',
-    lazy: true,
+    Art: () => <Masking />,
+    Sticker: () => <WhatLeaves />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
 ];
 
 export default function AiWorld() {
   return (
     <div className="bw bw--outline bw--ai">
-      <WorkbenchHero />
-
-      <ProcessStage states={STATES} label="How an automation is built here" heading="How it gets built" />
+      <AutomationHero />
+      <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" />
       <Deliverables />
       <Bubbles title="Once it runs, clients say" offset={3} />
       <WorldClose
