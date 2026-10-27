@@ -49,6 +49,8 @@ p{margin:0}
 
 /* header capsule */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;padding:10px clamp(10px,2vw,28px) 0}
+/* The strip under the status bar where viewport-fit=cover gives one (landscape, home-screen app). In an iOS 27 Safari tab the inset is 0 and the copy under the clock is Safari's own blurred scroll edge, on every site (measured 2026-10-26). */
+.top::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:env(safe-area-inset-top,0px);background:var(--bone)}
 .capsule{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--bone);border-radius:999px;padding:.5rem .5rem .5rem clamp(1rem,2vw,1.75rem);box-shadow:0 26px 60px -38px rgba(22,20,15,.45)}
 .capsule .brand{font:500 16px var(--display);letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
 .capsule nav{display:flex;align-items:center;gap:1.4rem;font:500 15px var(--display)}
@@ -113,6 +115,8 @@ p{margin:0}
 .layers li span{color:var(--muted);font-size:15px}
 .layers .fig{background:var(--stone);border-radius:var(--r-card);padding:clamp(.5rem,2vw,1.5rem)}
 .layers .fig img{width:100%}
+/* phones get the stacked cut, drawn at 340 so its type stays at reading size */
+@media (max-width:640px){.layers .fig img{max-width:420px;margin-inline:auto}}
 @media (max-width:800px){.layers{grid-template-columns:1fr}}
 
 /* compare */
@@ -122,6 +126,8 @@ th,td{text-align:left;padding:1rem 1.25rem;border-bottom:1px solid var(--hair)}
 thead th{font:500 12px var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
 thead th:last-child{color:var(--terra-deep)}
 td:not(:first-child),th:not(:first-child){text-align:center;width:22%}
+/* Three short columns fit a phone: no sideways scroll, which hid the Pro column with no cue (2026-10-26). */
+@media (max-width:600px){table{min-width:0;font-size:14px}th,td{padding:.8rem .55rem}td:not(:first-child),th:not(:first-child){width:17%}thead th{letter-spacing:.08em}}
 tbody tr:last-child td{border-bottom:0}
 .yes{font:italic 400 1.2rem var(--accent)}
 .no{color:var(--hair)}
@@ -264,7 +270,7 @@ footer .btn-ink:hover{background:var(--terra);color:var(--bone)}
 
   <section class="section" style="background:var(--stone)">
     <div class="wrap layers">
-      <div class="fig"><img src="/unhurried-pro/img/layers.svg" width="660" height="360" alt="Diagram: Unhurried Pro sits on top of the free Unhurried theme, with WooCommerce optional"></div>
+      <div class="fig"><picture><source media="(max-width:640px)" srcset="/unhurried-pro/img/layers-phone.svg" width="340" height="410"><img src="/unhurried-pro/img/layers.svg" width="660" height="360" alt="Diagram: Unhurried Pro sits on top of the free Unhurried theme, with WooCommerce optional"></picture></div>
       <div>
         <p class="eyebrow" style="margin-bottom:1rem">How it works</p>
         <h2 style="font-size:clamp(2.2rem,4.4vw,3.8rem);line-height:1;margin-bottom:2rem">Three steps, <em>no rush</em></h2>

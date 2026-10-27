@@ -359,6 +359,11 @@ $t-rule: rgba(20, 20, 20, 0.18);
     appearance: none;
     cursor: pointer;
 
+    // Under 16px, iOS Safari zooms the page when the select opens.
+    @media (pointer: coarse) {
+      font-size: max(1rem, 16px);
+    }
+
     &:focus-visible {
       outline: 2px solid currentColor;
       outline-offset: 2px;
@@ -1332,9 +1337,54 @@ $t-rule: rgba(20, 20, 20, 0.18);
       background: $white-color;
       transition: background-color 0.2s ease;
 
-      &:hover {
+      @media (hover: hover) {
+        &:hover {
+          background: $orange-color;
+        }
+      }
+
+      // The ring follows the finger, so the tile holds the touch, like --drag.
+      @media (hover: none) {
+        touch-action: none;
+      }
+
+      &.is-on {
         background: $orange-color;
       }
+    }
+  }
+
+  // Touch's stand-in for the cursor (HoverCard): JS writes only `translate`.
+  &__ring {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 56px;
+    height: 56px;
+    margin: -28px 0 0 -28px;
+    border: 2px solid $promo-ink;
+    border-radius: 50%;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+
+    .is-on > & {
+      opacity: 1;
+      transition-duration: 0.1s;
+    }
+  }
+
+  &__verb--touch {
+    display: none;
+  }
+
+  @media (hover: none) {
+    &__verb {
+      display: none;
+    }
+
+    &__verb--touch {
+      display: inline;
     }
   }
 

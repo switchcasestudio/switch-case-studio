@@ -349,10 +349,19 @@ $wh-line: 2px;
   }
 
   /* ---- Narrow: stacked, captions as a list ---- */
+  // Stacked, the tag sits above the drawing, not on it: the SEO desk's
+  // query bar starts at the drawing's top edge, and on an iPhone the tag
+  // touched it (iOS 27 simulator pass, 2026-10-25).
   @media #{$wh-narrow} {
+    &__stage {
+      margin-top: 1.75rem;
+    }
+
     &__tag {
-      position: static;
-      margin-bottom: 0.75rem;
+      position: absolute;
+      top: auto;
+      bottom: 100%;
+      margin-bottom: 0.6rem;
     }
 
     &__plate {

@@ -139,10 +139,13 @@
     box-shadow: 3px 3px 0 $promo-ink;
     overflow: hidden;
 
+    // height: auto, not 100%: iOS Safari resolved a percentage height
+    // against this aspect-ratio flex item as zero and drew every thumbnail
+    // empty (iOS 27 simulator, 2026-10-26). The viewBox gives the 4:3.
     svg {
       display: block;
       width: 100%;
-      height: 100%;
+      height: auto;
     }
   }
 
@@ -336,10 +339,15 @@
 
     // Tighter tracking and padding pay for the 10px floor: "POPULAR" has to
     // fit a 58px column on the four-package board.
+    // A badge never hyphenates ("POPU-LAR" on an iPhone, 2026-10-26); it
+    // borrows the cell's side padding instead, so "POPULAR" (60px at 10px)
+    // fits the 4-package column, and "Best value" breaks at its space.
     &__badge {
       font-size: 0.625rem;
       letter-spacing: 0.04em;
       padding: 0.2rem 0.3rem;
+      hyphens: manual;
+      margin-inline: -0.3rem;
     }
 
     &__for {

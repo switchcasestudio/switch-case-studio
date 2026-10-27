@@ -393,7 +393,8 @@ export function PaletteCard() {
           <text x="100" y="26" className="bw-f-cream" fontFamily={INTER} fontSize="22" fontWeight="600">
             {p.name}
           </text>
-          <text x="366" y="26" textAnchor="end" className="bw-f-cream" fontFamily={INTER} fontSize="19" opacity="0.7">
+          {/* The row is already shifted 28, so 344 ends 28 from the edge, like the left. */}
+          <text x="344" y="26" textAnchor="end" className="bw-f-cream" fontFamily={INTER} fontSize="19" opacity="0.7">
             {p.hex}
           </text>
         </g>

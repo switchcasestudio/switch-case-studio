@@ -319,6 +319,50 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     object-fit: contain;
   }
 
+  // ScrollFrame: the fade sits over the frame's right edge while there is
+  // more to the right; the line shows where a min-width overflows its frame
+  // (720 + 74px of padding and border; 900 + 74 for the comparisons).
+  &__scroll {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      bottom: 1px;
+      width: 3rem;
+      border-radius: 0 $pp-radius $pp-radius 0;
+      background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.7));
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    &.has-more::after {
+      opacity: 1;
+    }
+  }
+
+  &__swipe {
+    display: none;
+    margin: 0.6rem 0 0;
+    font-family: $font-text;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: $g5;
+
+    @media (max-width: 793px) {
+      display: block;
+    }
+
+    .project-page__compare & {
+      @media (max-width: 980px) {
+        display: block;
+      }
+    }
+  }
+
   // ── Before/after band ────────────────────────────────
   // Shares __diagram-frame with the architecture band: same reason (a
   // side-by-side must be read, not cropped), so the frame scrolls sideways
@@ -530,10 +574,20 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     }
   }
 
+  // A media tile fills its row: an aspect-ratio grid item is not stretched
+  // by default, so the 4:3 image ended short of the taller metric card
+  // beside it (Sha by about 65pt, iOS 27 simulator pass, 2026-10-26).
+  // Alone in a row it keeps its 4:3.
+  &__results-grid > &__tile--media {
+    align-self: stretch;
+  }
+
+  // Content sits at the top, so the numbers of a row line up whatever the
+  // length of their labels (centered, Sha's 100 and 97 sat 12pt apart).
   &__metric {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 1.5rem;
     background: $pp-tile-bg;
 

@@ -54,6 +54,42 @@ const useImageFailed = (src) => {
   return failed;
 };
 
+/* ── Sideways scroller with a cue ──
+   A wide figure scrolls at a legible min-width, but on a phone the frame
+   shows only its left part and iOS hides the scrollbar, so the "after" of a
+   before/after was invisible (iPhone pass, 2026-10-26). A "Swipe" line shows
+   by media query wherever the min-width overflows (no layout shift), and a
+   right-edge fade stays until the frame is scrolled to its end. */
+const ScrollFrame = ({ hint, label, onZoom, children }) => {
+  const ref = useRef(null);
+  const [more, setMore] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const check = () => setMore(el.scrollWidth - el.clientWidth - el.scrollLeft > 2);
+    check();
+    el.addEventListener('scroll', check, { passive: true });
+    const ro = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(check);
+    ro?.observe(el);
+    return () => {
+      el.removeEventListener('scroll', check);
+      ro?.disconnect();
+    };
+  }, []);
+  return (
+    <div>
+      <div className={`project-page__scroll${more ? ' has-more' : ''}`}>
+        <button ref={ref} type="button" className="project-page__diagram-frame" onClick={onZoom} aria-label={label}>
+          {children}
+        </button>
+      </div>
+      <p className="project-page__swipe" aria-hidden="true">
+        {hint}
+      </p>
+    </div>
+  );
+};
+
 const CaseStudyPage = () => {
   const { slug } = useParams();
   const reducedMotion = useReducedMotion();
@@ -529,11 +565,10 @@ const CaseStudyPage = () => {
             aria-label="Architecture"
           >
             <h2 className="project-page__section-label">Architecture</h2>
-            <button
-              type="button"
-              className="project-page__diagram-frame"
-              onClick={() => setZoomSrc(diagram)}
-              aria-label="Zoom into the architecture diagram"
+            <ScrollFrame
+              hint="Swipe for the whole diagram →"
+              label="Zoom into the architecture diagram"
+              onZoom={() => setZoomSrc(diagram)}
             >
               <img
                 src={diagram}
@@ -541,7 +576,7 @@ const CaseStudyPage = () => {
                 className="project-page__diagram-img"
                 loading="lazy"
               />
-            </button>
+            </ScrollFrame>
           </section>
         )}
 
@@ -707,11 +742,10 @@ const CaseStudyPage = () => {
             )}
             {comparisons.map((cmp) => (
               <figure className="project-page__compare-item" key={cmp.src}>
-                <button
-                  type="button"
-                  className="project-page__diagram-frame"
-                  onClick={() => setZoomSrc(cmp.src)}
-                  aria-label={`Zoom into ${cmp.alt || cmp.caption}`}
+                <ScrollFrame
+                  hint="Before on the left. Swipe for the after →"
+                  label={`Zoom into ${cmp.alt || cmp.caption}`}
+                  onZoom={() => setZoomSrc(cmp.src)}
                 >
                   <img
                     src={cmp.src}
@@ -719,7 +753,7 @@ const CaseStudyPage = () => {
                     className="project-page__compare-img"
                     loading="lazy"
                   />
-                </button>
+                </ScrollFrame>
                 {(cmp.caption || cmp.note) && (
                   <figcaption className="project-page__compare-caption">
                     {cmp.caption && <strong>{cmp.caption}</strong>}

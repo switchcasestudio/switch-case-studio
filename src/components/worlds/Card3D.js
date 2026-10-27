@@ -1,13 +1,18 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import DecorativeBoundary from '../util/DecorativeBoundary';
+import hasWebGL from '../../utils/hasWebGL';
 
 /* A card in three dimensions (2026-10-22). The card floats and tilts to
    the pointer; a click flips it. House rules for a per-frame loop: the
    canvas mounts only after hydration (SSR shows the `Still` SVG of the same
    card), only while on screen (IntersectionObserver), never under reduced
-   motion, and the loop reads the pointer from a ref, no React state. This
-   module pulls in three + fiber, so every world lazy-loads it.
+   motion, never without WebGL (fiber threw and took the AI route down to
+   the error page, iPhone pass 2026-10-26; a context that fails later is
+   caught by DecorativeBoundary), and the loop reads the pointer from a ref,
+   no React state. This module pulls in three + fiber, so every world
+   lazy-loads it.
    Shared by the worlds: `front`/`back` paint the two faces on a canvas
    (ctx, w, h), `edge` is the paper's edge color, `Still` the SSR drawing. */
 
@@ -68,6 +73,7 @@ export default function Card3D({ front, back, edge = '#d9cfbf', Still, label, hi
     const wrap = wrapRef.current;
     if (!wrap || !window.matchMedia) return undefined;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (!hasWebGL()) return undefined;
     const io = new IntersectionObserver(([e]) => setLive(e.intersectionRatio >= 0.15), { threshold: [0, 0.15] });
     io.observe(wrap);
     let rect = null;
@@ -103,9 +109,11 @@ export default function Card3D({ front, back, edge = '#d9cfbf', Still, label, hi
     <div ref={wrapRef} className={`bw-card3d${live ? ' is-live' : ''}`} role="img" aria-label={label}>
       <Still />
       {live && (
-        <Canvas className="bw-card3d__canvas" dpr={[1, 1.5]} camera={{ position: [0, 0, 4.2], fov: 38 }} gl={{ antialias: true, alpha: true }}>
-          <Card pointer={pointer} flip={flip} paintFront={front} paintBack={back} edgeColor={edge} />
-        </Canvas>
+        <DecorativeBoundary>
+          <Canvas className="bw-card3d__canvas" dpr={[1, 1.5]} camera={{ position: [0, 0, 4.2], fov: 38 }} gl={{ antialias: true, alpha: true }}>
+            <Card pointer={pointer} flip={flip} paintFront={front} paintBack={back} edgeColor={edge} />
+          </Canvas>
+        </DecorativeBoundary>
       )}
       <span className="bw-card3d__hint">{hint}</span>
     </div>

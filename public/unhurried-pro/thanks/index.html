@@ -42,6 +42,8 @@ p{margin:0}
 
 /* header capsule */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;padding:10px clamp(10px,2vw,28px) 0}
+/* The strip under the status bar where viewport-fit=cover gives one (landscape, home-screen app); a Safari tab's inset is 0 (iOS 27, 2026-10-26). */
+.top::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:env(safe-area-inset-top,0px);background:var(--bone)}
 .capsule{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--bone);border-radius:999px;padding:.5rem .5rem .5rem clamp(1rem,2vw,1.75rem);box-shadow:0 26px 60px -38px rgba(22,20,15,.45)}
 .capsule .brand{font:500 16px var(--display);letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
 .capsule nav{display:flex;align-items:center;gap:1.4rem;font:500 15px var(--display)}

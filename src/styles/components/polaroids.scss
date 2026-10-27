@@ -75,6 +75,7 @@
 // hover lift and the drop "slap", so the two never write the same property.
 .sticker {
   position: absolute;
+  left: var(--left);
   z-index: 100;
   min-width: 64px;
   cursor: grab;
@@ -169,7 +170,11 @@
     cursor: default;
   }
 
+  // The 48px floor outgrows a right-edge sticker's % width (91% + 48px ran
+  // 13px past a 390px phone, iPhone pass 2026-10-26), so its left edge
+  // stops where the floor still fits, with room for the tilt.
   .sticker {
+    left: min(var(--left), calc(100% - 48px - 8px));
     min-width: 48px;
     cursor: default;
   }

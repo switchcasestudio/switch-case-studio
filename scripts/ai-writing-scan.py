@@ -31,7 +31,7 @@ PART = r",\s*(ensuring|highlighting|underscoring|emphasizing|reflecting|symboliz
 VAGUE = [r"\bexperts?\b", r"\bstudies (show|suggest)", r"\bresearch (shows|suggests)", r"\bindustry (reports|leaders)", r"\bobservers\b", r"\bmany businesses\b"]
 SYCO = [r"\bgreat question\b", r"\bi hope this helps\b", r"\bcertainly[,!]", r"\blet me know\b", r"\bas an ai\b"]
 RULE3 = r"\b\w[\w'’-]*(?:\s\w[\w'’-]*){0,3},\s\w[\w'’-]*(?:\s\w[\w'’-]*){0,3},\s(?:and|or)\s\w[\w'’-]*(?:\s\w[\w'’-]*){0,3}\b"
-SKIP = ('404.html', 'partners', 'p/', '30-off')
+SKIP = ('404.html', 'partners', 'p/')
 
 def text_of(path):
     s = io.open(path, encoding='utf-8').read()

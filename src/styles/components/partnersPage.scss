@@ -8,8 +8,8 @@
  * House dark look: ink field, cream text, orange as the primary accent;
  * mint (teal) and lilac (pink) used sparingly as secondary accents.
  * Tokens only — zero hardcoded color literals. Mobile-first; every text
- * section caps at $max-width and centers. Mirrors the /30-off promo page's
- * token-only, flat-block conventions and the shared FAQ accordion.
+ * section caps at $max-width and centers. Token-only, flat blocks and the
+ * shared FAQ accordion.
  * ================================================================== */
 
 $partners-line: rgba($white-color, 0.12); // hairline dividers on ink
