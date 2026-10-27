@@ -33,14 +33,27 @@
     padding: 8rem 3rem;
   }
 
+  // Phones reserve the ident's band under the content (see __bg).
+  @media (max-width: 768px) {
+    padding-bottom: 75vw;
+  }
+
   // Background video (the InkFill ident, owner 2026-09-13). The layer sits
-  // under __inner (z 2). Its own paint is the video's #141414 field, so the
-  // phone cut's letterboxing (contain) is invisible under the scrim.
+  // under __inner (z 2). Its own paint is the video's #141414 field.
   &__bg {
     position: absolute;
     inset: 0;
     z-index: 0;
     background: #141414;
+
+    // Phones: the stacked form, details and card fill the whole section, so
+    // the logo gets its own band under them instead of sitting behind the
+    // form (iPhone pass, 2026-10-26). 75vw of the 9:16 cut, cover-cropped,
+    // is its middle 42%; the logo is the middle 27%, so it stays whole.
+    @media (max-width: 768px) {
+      top: auto;
+      height: 75vw;
+    }
 
     // Scrim for form legibility, with solid black at the top and bottom
     // edges so the sections above and below join without a seam.
@@ -55,6 +68,11 @@
         rgba(0, 0, 0, 0.62) calc(100% - clamp(4rem, 12vh, 8rem)),
         #000 100%
       );
+
+      // Nothing sits on the phone band: only the edges fade to black.
+      @media (max-width: 768px) {
+        background: linear-gradient(to bottom, #000 0, transparent 15%, transparent 85%, #000 100%);
+      }
     }
   }
 
@@ -64,12 +82,6 @@
     display: block;
     object-fit: cover;
     object-position: center;
-
-    // The vertical cut, shown whole: under `cover` a tall phone section
-    // would crop the logo.
-    @media (max-width: 768px) {
-      object-fit: contain;
-    }
   }
 
   &__inner {

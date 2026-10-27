@@ -9,7 +9,6 @@
  *
  * Deliberately SEPARATE funnels that do NOT use these (each has its own
  * calendar/label so leads stay attributable):
- *   - /30-off promo   → PromoPage.js BOOKING_URL (own calendar)
  *   - /partners       → PartnersPage.js INTRO_CALL_URL (wholesale; currently
  *                       falls back to this URL until its own link exists)
  *

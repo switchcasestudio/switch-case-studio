@@ -193,10 +193,17 @@
   align-items: center;
   gap: 0.5rem;
 
-  // 44px icons on touch (fix 11, 2026-10-09); a tighter gap keeps all seven
-  // on one row at 390, and they wrap rather than overflow on narrower phones.
+  // 44px icons on touch (fix 11, 2026-10-09), on a tighter gap.
   @media (hover: none) and (pointer: coarse) {
     gap: 0.25rem;
+  }
+
+  // Eight 44px icons need 380px, which a phone under 428 doesn't have, and
+  // the Blog icon wrapped alone (iPhone pass, 2026-10-26): two rows of four.
+  @media (hover: none) and (pointer: coarse) and (max-width: 427px) {
+    display: grid;
+    grid-template-columns: repeat(4, 2.75rem);
+    gap: 0.5rem;
   }
 
   &__item {

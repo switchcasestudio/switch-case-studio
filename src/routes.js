@@ -216,13 +216,6 @@ export const routes = [
         getStaticPaths: () => services.map((s) => `/pricing/${s.slug}`),
       },
 
-      // Promo landing — noindex (PROMO_INDEXABLE), intentionally absent from
-      // the sitemap. Lazy so it never enters the other pages' bundles.
-      {
-        path: '30-off',
-        lazy: page(() => import('./components/pages/PromoPage')),
-      },
-
       // Agency-partner wholesale offer — behind a password gate at /partners.
       // The pre-rendered /partners.html ships ONLY the lock screen; PartnersGate
       // SHA-256-checks the typed password in the browser and lazy-loads the

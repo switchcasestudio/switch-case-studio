@@ -52,8 +52,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
    * which records IP, browser, time and consent, then emails via EmailJS
    * with the existing template fields: first_name, email, phone, message
    * (last_name dropped in the 2026-07 refresh, DESIGN_AUDIT P0-3 — the
-   * shared template already tolerates absent fields: the promo form sends
-   * no last_name to the same template.)
+   * shared template already tolerates absent fields.)
    * ------------------------------------------------------------------ */
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -83,7 +82,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     setStatus('sending');
 
     // Lead conversion. Fired synchronously in the submit gesture stack (same as
-    // PromoPage + book_call_click) — NOT inside the async EmailJS .then, where
+    // book_call_click) — NOT inside the async EmailJS .then, where
     // an event fired after the network round-trip was being lost. Counts a
     // valid submit (passed consent + phone validation). Consent-safe: with
     // Consent Mode v2 denied this still leaves as a cookieless ping.
@@ -219,10 +218,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
       {/* InkFill background: desktop gets the 16:9 re-frame (logo centered,
-          ~40% of the frame, cover); <=768px gets the vertical cut shown
-          whole (contain) on the video's own #141414 field, so the logo is
-          never cropped on a tall phone section. Scrim + edge fades live in
-          contact.scss. */}
+          ~40% of the frame, cover); <=768px gets the vertical cut in its
+          own band under the content, never behind the form. Band, scrim
+          and edge fades live in contact.scss. */}
       {bgOn && (
         <div className="contact-section__bg" aria-hidden="true">
           <video

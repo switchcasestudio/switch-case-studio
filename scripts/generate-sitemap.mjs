@@ -89,9 +89,9 @@ const newestPost = max(...posts.flatMap((p) => [p.date, p.updated]));
 
 const page = (...files) => lastmodOf(...files.map((f) => (f.includes('/') ? f : `src/components/pages/${f}`)));
 
-// NOTE: hidden routes are deliberately NOT listed here — /30-off (promo) and
-// the agency-wholesale page (served from an unguessable /p/wm-… slug) are
-// noindex and linked only from emails/ads, so they must stay out of the
+// NOTE: hidden routes are deliberately NOT listed here — the agency-wholesale
+// page (served from an unguessable /p/wm-… slug) is noindex and linked only
+// from emails/ads, so it must stay out of the
 // sitemap. Adding a PUBLIC page? Add its loc below, with the files it is
 // built from.
 const urls = [

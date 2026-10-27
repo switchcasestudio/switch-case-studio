@@ -430,7 +430,7 @@ const Polaroids = ({ children }) => {
           className="sticker"
           aria-hidden="true"
           style={{
-            left: s.left,
+            '--left': s.left,
             top: s.top,
             width: `${s.w}%`,
             '--rot': `${s.rot}deg`,

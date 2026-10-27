@@ -157,6 +157,15 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       font-size: 0.7rem;
     }
   }
+
+  // iOS Safari zooms the page into a field under 16px on focus (12.8px here
+  // at 390, iPhone pass 2026-10-26), so touch keeps 16px, as on /contact.
+  @media (pointer: coarse) {
+    &__field input,
+    &__field textarea {
+      font-size: max(1rem, 16px);
+    }
+  }
 }
 
 // The AI answer: the citation chip lands when the answer finishes.

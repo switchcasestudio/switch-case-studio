@@ -8,6 +8,7 @@ import Polaroids from './Polaroids';
 import { Link } from 'react-router-dom';
 
 import DecorativeBoundary from '../util/DecorativeBoundary';
+import hasWebGL from '../../utils/hasWebGL';
 import '../../styles/components/work.scss';
 import '../../styles/components/aboutJumps.scss';
 
@@ -32,16 +33,6 @@ const JUMPS = [
 // no drei, no model); the gate and its reasoning are unchanged.
 const DepthImage = lazy(() => import('../ui/DepthImage'));
 
-// Can this browser create a WebGL context at all? If not, the Three.js
-// chunk is never fetched and the slot stays an empty, correctly-sized box.
-const hasWebGL = () => {
-  try {
-    const c = document.createElement('canvas');
-    return !!(c.getContext('webgl2') || c.getContext('webgl'));
-  } catch {
-    return false;
-  }
-};
 
 const MoonSlot = () => {
   const ref = useRef(null);
@@ -50,7 +41,9 @@ const MoonSlot = () => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (!hasWebGL()) return; // decorative: no WebGL, no canvas, no error
+    // No WebGL: the three.js chunk is never fetched and the slot stays an
+    // empty, correctly sized box.
+    if (!hasWebGL()) return;
     if (typeof IntersectionObserver === 'undefined') {
       setNear(true); // ancient browser: load it, same as before
       return;

@@ -22,7 +22,7 @@ import { randomUUID } from 'node:crypto';
 import { CONSENT_TEXT, PRIVACY_UPDATED, TERMS_UPDATED } from '../../src/data/legal.js';
 
 const STORE = 'contact-submissions';
-const SOURCES = new Set(['contact', '30-off-promo']);
+const SOURCES = new Set(['contact']);
 const LIMITS = { first_name: 200, email: 254, phone: 40, project_type: 60, message: 5000, page: 200 };
 const MAX_BODY = 20000;
 

@@ -155,6 +155,40 @@ function MotionCard() {
     </button>
   );
 }
+
+// Touch has no cursor (owner, 2026-10-26: a tap version for phones), so a
+// press puts one under the finger: the tile turns orange and a ring follows
+// until the finger lifts, then fades. A mouse keeps the global cursor's wrap.
+function HoverCard() {
+  const ringRef = useRef(null);
+  const [on, setOn] = useState(false);
+  const place = (e) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    ringRef.current.style.translate = `${e.clientX - r.left}px ${e.clientY - r.top}px`;
+  };
+  const off = () => setOn(false);
+  return (
+    <div
+      className={`bw-grid__demo bw-grid__demo--hover${on ? ' is-on' : ''}`}
+      data-cursor-color="#ff834a"
+      onPointerDown={(e) => {
+        if (e.pointerType === 'mouse') return;
+        place(e);
+        setOn(true);
+      }}
+      onPointerMove={(e) => on && place(e)}
+      onPointerUp={off}
+      onPointerCancel={off}
+    >
+      <span className="bw-grid__big">
+        <span className="bw-grid__verb">Hover</span>
+        <span className="bw-grid__verb bw-grid__verb--touch">Tap</span> me
+      </span>
+      <span ref={ringRef} className="bw-grid__ring" aria-hidden="true" />
+    </div>
+  );
+}
+
 function DragCard() {
   const boxRef = useRef(null);
   const stickerRef = useRef(null);
@@ -200,9 +234,7 @@ export default function Deliverables() {
         </li>
         <li className="bw-grid__card">
           <div className="bw-grid__stage">
-            <div className="bw-grid__demo bw-grid__demo--hover" data-cursor-color="#ff834a">
-            <span className="bw-grid__big">Hover me</span>
-          </div>
+            <HoverCard />
           </div>
           <p className="bw-grid__cap">
             <strong>Custom cursor and hover rules.</strong> The small things a site does when nobody is watching.
