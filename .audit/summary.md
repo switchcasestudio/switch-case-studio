@@ -2327,7 +2327,7 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Owner: "log commit push to main". Merged to main and pushed.
 - **Open:** look at both pages on the iPhone.
 
-### 2026-10-27 — AI world teaches automation (branch `feat/ai-lessons`, committed, not pushed)
+### 2026-10-27 — AI world teaches automation (LIVE on main, f40b042)
 - Owner: "lets match the content of 'services/ai-automation' in the same way we did for 'services/graphic-design-brand-identity' and 'services/web-development-mobile-apps'". Same move: teach, no made-up clients.
 - Hero: the five kinds of automation (workflow, follow-ups, AI step, assistant, agent) for "Your business" on four screens (inbox, CRM, phone, the flow on a laptop); each kind draws itself in, line by line; a run log says what each kind does well and where it stops. Replaces the workbench. One screen at every size and under iPhone Safari's glass bar, like the Web hero.
 - The Web hero's engine, drawing parts and sheet are now shared (`worlds/useKindsHero.js`, `worlds/kindsParts.js`, `_kindsHero.scss`); the Web page's built HTML is byte-identical and its compiled CSS differs only in comments. One visible change there: the laptop's address text was black on black and now shows.
@@ -2335,4 +2335,5 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Deliverables: the coffee shop, "Ana", the "41 s" and the three lavender videos are gone. Assistant on Your business's notes, Agent (five logged steps), Workflows, Hosting, Monitoring (break the CRM, runs wait, fix it, they go through), Email and lifecycle (follow-ups stop on a reply).
 - Deleted as dead: `WorkbenchHero.js`, `AgentCard3D.js`, `aiWorld/tiles/`, `worlds/Card3D.js`, `worlds/VideoTile.js`, `public/ai-world/`, the `.bw-video` and `.bw-card3d` styles. The AI page no longer loads three.js.
 - Verified: production build 64 pages, standing checks clean, US English clean; headless Chrome: header + hero = viewport at 11 sizes from 375x548 to 1920x1080 with nothing past the frame and no console errors; every lesson inside its tile and clear of card and sticker at 1440 x 900 and 1024 x 768; 390 stacked with no sideways scroll; every lesson and demo driven.
-- **Open:** owner review; a phone pass for the range and text controls.
+- Owner: "log commit push". Merged to main and pushed; `feat/ai-lessons` deleted.
+- **Open:** a phone pass for the range and text controls.
