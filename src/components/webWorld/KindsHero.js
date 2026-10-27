@@ -567,6 +567,19 @@ export default function KindsHero() {
     };
   }, []);
 
+  // One screen, header included: the hero's height subtracts the header's
+  // real height, which wraps taller at some widths.
+  useEffect(() => {
+    const root = rootRef.current;
+    const header = document.querySelector('.site-header');
+    if (!root || !header || typeof ResizeObserver === 'undefined') return undefined;
+    const fit = () => root.style.setProperty('--wh-header', `${header.offsetHeight}px`);
+    fit();
+    const ro = new ResizeObserver(fit);
+    ro.observe(header);
+    return () => ro.disconnect();
+  }, []);
+
   // The pointer: each screen drifts toward it, the small ones more (the
   // inbox is nearer the eye than the laptop). quickTo tweens settle and
   // stop on their own. Fine pointers only.
@@ -640,14 +653,15 @@ export default function KindsHero() {
           </h1>
           <p className="wb-hero__lede">
             Landing pages, websites, stores, web apps and iOS and Android apps, written by engineers and hosted by the
-            same team. Pick a kind to see it on every screen.
+            same team.<span className="wb-hero__hint"> Pick a kind to see it on every screen.</span>
           </p>
           <div className="wb-hero__ctas">
             <Link to="/contact" className="bw-cta wb-hero__cta">
               Start a project
             </Link>
             <Link to="/pricing/web-development-mobile-apps" className="wb-hero__more">
-              Packages and prices
+              <span className="wb-hero__wide">Packages and prices</span>
+              <span className="wb-hero__narrow">Prices</span>
             </Link>
           </div>
         </div>

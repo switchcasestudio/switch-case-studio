@@ -2316,4 +2316,6 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Stage "What we know": 01 Speed (waterfall on Lighthouse's phone and desk profiles, LCP verdict), 02 Layout (drag one page from 320 to 1440 px), 03 Stability (a late ad and banner, scored like Chrome scores a shift), 04 Response (0.6 s of work, all at once or in pieces, timed on the device), 05 Access (one card, rushed and built right, through a keyboard and a screen reader).
 - Deliverables: Content (edit and publish), Mobile apps, Stores, Forms, Deploys (with roll back), Care (break the site, watch it come back). "Cold brew", "Ana R.", "Spring menu" gone.
 - Verified: production build 64 pages, standing checks clean, US English clean; headless Chrome at 1440, 1024 and 390 (every lesson driven); frame timing in a visible Chrome (Response: 696 ms frozen vs 31 ms in pieces).
-- **Open:** owner review; merge and push on the owner's word; a phone pass for the drag and tap controls.
+- The hero is one screen at every size (owner: "make sure that the hero is 100VG in both mobile and desktop"): header + hero = viewport on 12 viewports from 375x548 to 1920x1080; on phones the captions go, the kind pills scroll in one row, and the log lines, kicker and lede step out as the screen gets shorter.
+- Owner: "WOW !!! WELL DONE!!!! log commit push to main". Merged to main and pushed.
+- **Open:** a phone pass for the drag and tap controls; the other three world heroes are still taller than one screen on phones.
