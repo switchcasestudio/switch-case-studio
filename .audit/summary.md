@@ -2309,3 +2309,11 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Verified: production build 64 pages, standing checks clean (no hidden bodies, h1 in `<main>`, entry marker, em dash only in `clampAtWord`, titles ≤ 60, descriptions ≤ 160, US English, check:media); headless Chrome at 402 (touch) and 1440; pass 4 on the iPhone 17 simulator. Not testable on simctl: the tap itself (driven in Chrome with synthetic touch instead).
 - Owner: "push". Merged as 06c5ac9 and pushed; `fix/ios-full-test` deleted, main is the only branch. Live check: `/30-off` 301s to `/pricing`, the phone diagram and the tap tile are served.
 - **Open:** a pass on a physical phone for touch (the tap tile, focus zoom).
+
+### 2026-10-26/27 — Web world teaches the build (branch `feat/web-lessons`, committed, not pushed)
+- Owner: "you did an amazing job with modifying the 'graphic design' service page. now lets give full focus on 'web development'". Same move as the brand world: teach, no made-up clients.
+- Hero: the five kinds of build (landing page, website, store, web app, mobile app) for "Your business" on four screens (inbox, search, phone, laptop); each kind draws itself in, line by line; a build log says what each kind does well and where it stops.
+- Stage "What we know": 01 Speed (waterfall on Lighthouse's phone and desk profiles, LCP verdict), 02 Layout (drag one page from 320 to 1440 px), 03 Stability (a late ad and banner, scored like Chrome scores a shift), 04 Response (0.6 s of work, all at once or in pieces, timed on the device), 05 Access (one card, rushed and built right, through a keyboard and a screen reader).
+- Deliverables: Content (edit and publish), Mobile apps, Stores, Forms, Deploys (with roll back), Care (break the site, watch it come back). "Cold brew", "Ana R.", "Spring menu" gone.
+- Verified: production build 64 pages, standing checks clean, US English clean; headless Chrome at 1440, 1024 and 390 (every lesson driven); frame timing in a visible Chrome (Response: 696 ms frozen vs 31 ms in pieces).
+- **Open:** owner review; merge and push on the owner's word; a phone pass for the drag and tap controls.
