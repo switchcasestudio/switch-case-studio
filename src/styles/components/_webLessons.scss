@@ -1,0 +1,918 @@
+// The Web world's lessons (webWorld/lessons.js, 2026-10-26): five demos on
+// the shared lesson plate (`.bw-lesson`, brandWorld.scss) with the shared
+// controls (`.bw-ui`, `.bw-lesson__chip|toggle`). Each plate is a size
+// container, so a demo lays out by its tile, not the window: 1024's pinned
+// tile is narrower than a stacked tablet's.
+
+$wl-ink: $promo-ink;
+$wl-cream: $white-color;
+$wl-bad: #b3261e;
+$wl-ok: #1f7a5c;
+
+.ww-speed,
+.ww-flow,
+.ww-shift,
+.ww-input,
+.ww-a11y {
+  container-type: inline-size;
+}
+
+/* ---- 01 Speed: the waterfall ---- */
+.ww-speed {
+  --nw: 11.5rem;
+
+  // Narrow: each name sits over its bar, and every other tick goes.
+  @container (max-width: 480px) {
+    --nw: 0px;
+
+    .ww-speed__rows li {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.2rem;
+      padding: 0.2rem 0;
+    }
+
+    .ww-speed__tick:nth-child(even) {
+      display: none;
+    }
+  }
+
+  &__nets {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  &__go {
+    margin-left: auto;
+  }
+
+  &__chart {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  // The rows, their bands and the axis, as one block.
+  &__plot {
+    position: relative;
+  }
+
+  // The verdict bands sit behind the tracks: good, needs work, poor.
+  &__zones {
+    position: absolute;
+    top: 0;
+    bottom: 1.4rem;
+    left: var(--nw);
+    right: 0;
+
+    i {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+
+      &:nth-child(1) {
+        background: rgba(121, 204, 182, 0.28);
+      }
+
+      &:nth-child(2) {
+        background: rgba(255, 131, 74, 0.16);
+      }
+
+      &:nth-child(3) {
+        background: rgba(234, 168, 198, 0.3);
+      }
+    }
+  }
+
+  &__rows {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0.35rem 0;
+
+    li {
+      display: grid;
+      grid-template-columns: var(--nw) minmax(0, 1fr);
+      align-items: center;
+      min-height: 1.75rem;
+    }
+  }
+
+  &__name {
+    padding-right: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 1.2;
+
+    b {
+      font-weight: 400;
+      opacity: 0.65;
+      white-space: nowrap;
+    }
+  }
+
+  &__track {
+    position: relative;
+    height: 12px;
+  }
+
+  // Light while the file is asked for, solid while it downloads; the
+  // script's run on the CPU is orange.
+  &__bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    min-width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, rgba(20, 20, 20, 0.22) 0 var(--wait, 0%), $wl-ink var(--wait, 0%) 100%);
+
+    &--run {
+      background: $orange-color;
+    }
+  }
+
+  &__lcp {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 2px solid $blue-color;
+
+    b {
+      position: absolute;
+      top: -0.1rem;
+      left: 4px;
+      padding: 0 0.3rem;
+      border-radius: 4px;
+      background: $blue-color;
+      color: $wl-cream;
+      font-size: 0.7rem;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+  }
+
+  // Past the middle, the time label sits on the line's left.
+  &__lcp.is-late b {
+    left: auto;
+    right: 4px;
+  }
+
+  &__axis {
+    position: relative;
+    height: 1.4rem;
+    margin-left: var(--nw);
+    border-top: 1px solid rgba(20, 20, 20, 0.25);
+  }
+
+  &__tick {
+    position: absolute;
+    top: 0.25rem;
+    translate: -50% 0;
+    font-size: 0.68rem;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.65;
+
+    &:first-child {
+      translate: 0 0;
+    }
+  }
+
+  // A load plays on one 1.6 s clock: each bar is uncovered from its left
+  // edge, the main-content line appears at its time.
+  @media (prefers-reduced-motion: no-preference) {
+    &__chart.is-run &__bar {
+      animation: ww-grow var(--dur) linear var(--del) backwards;
+    }
+
+    &__chart.is-run &__lcp {
+      animation: ww-show 0.25s ease-out var(--del) backwards;
+    }
+  }
+}
+
+@keyframes ww-grow {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@keyframes ww-show {
+  from {
+    opacity: 0;
+  }
+}
+
+/* ---- 02 Layout: one page in a room, the room's edge is the window ---- */
+.ww-flow {
+  &__presets {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  &__room {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 180px;
+    border-radius: 10px;
+    background-color: rgba(254, 247, 237, 0.05);
+    background-image: radial-gradient(rgba(254, 247, 237, 0.16) 1px, transparent 1.5px);
+    background-size: 14px 14px;
+    overflow: hidden;
+  }
+
+  &__page {
+    position: absolute;
+    top: 9px;
+    bottom: -40px;
+    left: 9px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--k) * 28px);
+    padding: calc(var(--k) * 28px) calc(var(--k) * 40px);
+    border-radius: 6px;
+    background: $wl-cream;
+    color: $wl-ink;
+    transition: width 0.12s ease-out;
+  }
+
+  &__room.is-drag &__page {
+    transition: none;
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: calc(var(--k) * 44px);
+  }
+
+  &__logo {
+    width: calc(var(--k) * 130px);
+    height: calc(var(--k) * 24px);
+    border-radius: calc(var(--k) * 6px);
+    background: $wl-ink;
+  }
+
+  &__links {
+    display: flex;
+    align-items: center;
+    gap: calc(var(--k) * 28px);
+
+    i {
+      width: calc(var(--k) * 64px);
+      height: calc(var(--k) * 12px);
+      border-radius: 99px;
+      background: rgba(20, 20, 20, 0.45);
+    }
+
+    .is-cta {
+      width: calc(var(--k) * 120px);
+      height: calc(var(--k) * 40px);
+      background: $orange-color;
+    }
+  }
+
+  &__burger {
+    display: grid;
+    gap: calc(var(--k) * 7px);
+
+    i {
+      width: calc(var(--k) * 34px);
+      height: max(2px, calc(var(--k) * 4px));
+      border-radius: 2px;
+      background: $orange-color;
+    }
+  }
+
+  &__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(var(--k) * 32px);
+    align-items: center;
+  }
+
+  &__page.is-wide &__hero {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  }
+
+  &__h {
+    margin: 0;
+    font-weight: 800;
+    line-height: 1.04;
+    letter-spacing: -0.025em;
+    text-wrap: balance;
+  }
+
+  &__copy i {
+    display: block;
+    height: calc(var(--k) * 12px);
+    margin-top: calc(var(--k) * 16px);
+    border-radius: 99px;
+    background: rgba(20, 20, 20, 0.3);
+
+    &:nth-of-type(1) {
+      width: 85%;
+    }
+
+    &:nth-of-type(2) {
+      width: 60%;
+    }
+  }
+
+  &__img {
+    aspect-ratio: 16 / 10;
+    border-radius: calc(var(--k) * 14px);
+    background: $g5;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+    gap: calc(var(--k) * 24px);
+
+    i {
+      height: calc(var(--k) * 150px);
+      border: 1.5px solid rgba(20, 20, 20, 0.6);
+      border-radius: calc(var(--k) * 14px);
+    }
+  }
+
+  // The window's right edge, to drag: an orange line and its grip.
+  &__edge {
+    position: absolute;
+    top: 9px;
+    bottom: 0;
+    width: 24px;
+    margin-left: -3px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: ew-resize;
+    touch-action: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 11px;
+      width: 2px;
+      background: $orange-color;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 6px;
+      width: 12px;
+      height: 40px;
+      translate: 0 -50%;
+      border-radius: 6px;
+      background: $orange-color;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $wl-cream;
+      outline-offset: 2px;
+      border-radius: 6px;
+    }
+  }
+}
+
+/* ---- 03 Stability: a page in a frame, an ad that arrives late ---- */
+.ww-shift {
+  // The frame is phone-shaped, so a shift is scored against its height.
+  &__body {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: minmax(170px, 220px) minmax(0, 1fr);
+    gap: 1.1rem;
+    min-height: 0;
+
+    @container (max-width: 480px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__frame {
+    position: relative;
+    min-height: 240px;
+    border: 2px solid $wl-ink;
+    border-radius: 18px;
+    background: #fff;
+    overflow: hidden;
+
+    @container (max-width: 480px) {
+      justify-self: center;
+      width: min(100%, 240px);
+      height: 320px;
+    }
+  }
+
+  &__log {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+    font-size: 0.8rem;
+
+    ol {
+      flex: 1 1 auto;
+      display: grid;
+      align-content: start;
+      gap: 0.35rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid rgba(20, 20, 20, 0.12);
+    }
+
+    li b {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+
+    .is-quiet {
+      border: 0;
+      opacity: 0.65;
+    }
+  }
+
+  &__lab {
+    margin: 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.65;
+  }
+
+  &__total {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin: 0;
+
+    b {
+      font-size: 2rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      font-variant-numeric: tabular-nums;
+    }
+
+    em {
+      font-style: normal;
+      font-weight: 600;
+    }
+
+    &.is-poor em,
+    &.is-needs-work em {
+      color: $wl-bad;
+    }
+
+    &.is-good em {
+      color: $wl-ok;
+    }
+  }
+
+  &__doc,
+  &__page {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  &__doc {
+    padding: 0.6rem 0.75rem;
+  }
+
+  &__banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    min-height: 44px;
+    margin: -0.6rem -0.75rem 0.2rem;
+    padding: 0 0.75rem;
+    background: $g5;
+    font-size: 0.78rem;
+    font-weight: 600;
+
+    i {
+      width: 10px;
+      height: 10px;
+      background:
+        linear-gradient(45deg, transparent 45%, $wl-ink 45% 55%, transparent 55%),
+        linear-gradient(-45deg, transparent 45%, $wl-ink 45% 55%, transparent 55%);
+    }
+
+    // Reserved: the banner floats over the bottom and pushes nothing.
+    &--over {
+      position: absolute;
+      left: 0.5rem;
+      right: 0.5rem;
+      bottom: 0.5rem;
+      margin: 0;
+      border-radius: 10px;
+      box-shadow: 0 6px 18px rgba(20, 20, 20, 0.18);
+    }
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+
+    i {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: $wl-ink;
+    }
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+
+  // The ad: orange once it arrives; before that, reserved space is a
+  // hatched box (not dashed: iOS Safari drops the sides of a dashed one).
+  &__ad {
+    display: flex;
+    align-items: center;
+    flex: none;
+    height: 64px;
+    padding: 0 0.8rem;
+    border: 1.5px solid rgba(20, 20, 20, 0.22);
+    border-radius: 8px;
+    background: repeating-linear-gradient(45deg, rgba(20, 20, 20, 0.07) 0 6px, transparent 6px 12px);
+    color: rgba(20, 20, 20, 0.6);
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+
+    &.is-in {
+      border-color: $orange-color;
+      background: $orange-color;
+      color: $wl-ink;
+    }
+  }
+
+  &__rest {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    i {
+      height: 9px;
+      border-radius: 99px;
+      background: rgba(20, 20, 20, 0.18);
+
+      &:nth-child(2) {
+        width: 92%;
+      }
+
+      &:nth-child(3) {
+        width: 70%;
+      }
+
+      &:nth-child(5) {
+        width: 88%;
+      }
+    }
+  }
+
+  &__read {
+    align-self: flex-start;
+    min-height: 34px;
+    padding: 0 0.9rem;
+    border: 1.5px solid $wl-ink;
+    border-radius: 999px;
+    background: none;
+    color: $wl-ink;
+    font: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid $wl-ink;
+      outline-offset: 2px;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+    }
+  }
+}
+
+/* ---- 04 Response: a filter, a frame strip ---- */
+.ww-input {
+  &__modes {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  &__shop {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.8rem;
+    min-height: 0;
+  }
+
+  &__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.9rem;
+  }
+
+  &__btn {
+    position: relative;
+    min-height: 44px;
+    padding: 0 1.2rem;
+    overflow: hidden;
+    border: 0;
+    border-radius: 999px;
+    background: $wl-cream;
+    color: $wl-ink;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+
+    i {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 4px;
+      background: $orange-color;
+      transform-origin: left;
+    }
+
+    &.is-busy {
+      background: $g5;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $wl-cream;
+      outline-offset: 3px;
+    }
+  }
+
+  &__count {
+    font-size: 0.85rem;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.8;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 6px;
+    min-height: 74px;
+    align-content: start;
+
+    i {
+      height: 34px;
+      border: 1.5px solid rgba(254, 247, 237, 0.45);
+      border-radius: 6px;
+    }
+  }
+
+  &__strip {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) 8.5rem;
+    align-items: center;
+    gap: 0.6rem;
+
+    svg {
+      width: 100%;
+      height: 30px;
+      border-radius: 4px;
+      background: rgba(254, 247, 237, 0.08);
+    }
+
+    path {
+      fill: none;
+      stroke: $orange-color;
+      stroke-width: 1.5px;
+      vector-effect: non-scaling-stroke;
+    }
+
+    @container (max-width: 480px) {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.3rem;
+    }
+  }
+
+  &__lab {
+    font-size: 0.72rem;
+    white-space: nowrap;
+    opacity: 0.75;
+  }
+}
+
+/* ---- 05 Access: one card, two builds ---- */
+.ww-a11y {
+  &__builds {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem;
+    min-height: 0;
+
+    @container (max-width: 480px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding: 0.9rem 1rem;
+    border: 1.5px solid rgba(20, 20, 20, 0.2);
+    border-radius: 14px;
+    background: #fff;
+    color: $wl-ink;
+  }
+
+  &__close {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    display: grid;
+    place-items: center;
+    width: var(--s);
+    height: var(--s);
+    line-height: 1;
+  }
+
+  &__card.is-rushed &__close {
+    color: #a8a29e;
+    font-size: 14px;
+  }
+
+  &__card.is-right &__close {
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.06);
+    font-size: 22px;
+  }
+
+  &__head {
+    margin: 0;
+    padding-right: 2.5rem;
+    font-size: 1.05rem;
+    font-weight: 800;
+  }
+
+  &__label {
+    margin: 0.2rem 0 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  &__input {
+    position: relative;
+    display: block;
+    height: 36px;
+    border: 1.5px solid rgba(20, 20, 20, 0.35);
+    border-radius: 8px;
+  }
+
+  &__small {
+    margin: 0;
+    font-size: 0.72rem;
+  }
+
+  &__go {
+    position: relative;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    font-weight: 700;
+  }
+
+  &__card.is-rushed &__go {
+    min-height: 26px;
+    padding: 0 0.7rem;
+    background: $orange-color;
+    font-size: 0.72rem;
+  }
+
+  &__card.is-right &__go {
+    min-height: 44px;
+    padding: 0 1.2rem;
+    background: $wl-ink;
+    color: $wl-cream;
+    font-size: 0.82rem;
+  }
+
+  // Where the screen reader is: a blue box, the way VoiceOver draws its
+  // cursor.
+  .is-read {
+    outline: 3px solid $blue-color;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  &__tab {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    display: grid;
+    place-items: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 4px;
+    border-radius: 10px;
+    background: $blue-color;
+    color: $wl-cream;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1;
+
+    &.is-skip {
+      background: $wl-bad;
+    }
+  }
+
+  &__checks {
+    display: grid;
+    gap: 0.4rem;
+    margin: 0;
+    font-size: 0.8rem;
+
+    div {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding-bottom: 0.35rem;
+      border-bottom: 1px solid rgba(20, 20, 20, 0.12);
+    }
+
+    dt {
+      opacity: 0.7;
+    }
+
+    dd {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin: 0;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+
+      &::before {
+        content: '';
+        flex: none;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+      }
+
+      &.is-ok::before {
+        background: $wl-ok;
+      }
+
+      &.is-bad {
+        color: $wl-bad;
+
+        &::before {
+          background: $wl-bad;
+        }
+      }
+    }
+  }
+}

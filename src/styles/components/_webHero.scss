@@ -1,157 +1,379 @@
-// The Web world's hero: the build (BuildHero.js, 2026-10-24). The frame,
-// copy, captions, log and motion are the outline worlds' shared hero
-// (_worldHero.scss, `world-hero`); this file holds the build's own parts.
-// Phase classes (`is-commit`, `is-build`, `is-preview`, `is-deploy`,
-// `is-up`) come from the job timeline, `is-hot-<part>` from hover,
-// `is-view-<desktop|phone>` from a click on a screen. Cream lines on
-// black, one accent (orange): the commit and Deploy are solid orange, the
-// new section fills orange once the job reaches the preview. CSS owns
-// every color and fill; GSAP only writes transforms and the packet.
+// The Web world's hero: the five kinds of build on four screens
+// (KindsHero.js, 2026-10-26). The frame, copy, captions, log and motion
+// are the worlds' shared hero (_worldHero.scss, `world-hero`); this file
+// holds the screens in the outline language: cream lines on black, orange
+// the one accent (the action on each screen). `is-k-<kind>` on the root
+// shows that kind; a kind's lines draw themselves in (pathLength 1), each
+// screen after the last (`--d`, inbox first) and each line after the one
+// before it (`--j`, by DOM order). CSS owns every color, the draw-in and
+// which kind shows; GSAP only drifts.
 
-$ww-field: #000;
-$ww-orange: $orange-color;
+$wb-field: #000;
+$wb-orange: $orange-color;
+$wb-kinds: landing, site, store, app, mobile;
+// A desk window short or narrow enough that the copy column runs out of
+// room: smaller type, no hint, two log lines.
+$wb-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and (max-width: 1199px)';
 
-.ww-hero {
-  @include world-hero($ww-orange, $ww-field);
+.wb-hero {
+  @include world-hero($wb-orange, $wb-field);
 
-  [data-part] {
-    color: $cream;
+  /* One screen, header included, at every size (owner, 2026-10-27: "make
+     sure that the hero is 100VH in both mobile and desktop"). The header's
+     real height is written here by KindsHero (it wraps to 105px at 1024);
+     these are its heights before any script runs. No floor: on a short
+     window the type and the log give way, not the fit. */
+  --wh-header: 65px;
+  height: calc(100svh - var(--wh-header));
+  min-height: 0;
+
+  @media #{$wh-wide} {
+    --wh-header: 78px;
+    min-height: 0;
   }
 
-  &__commit,
-  &__block,
-  &__new,
-  &__pill,
-  &__word,
-  &__status {
-    transition: fill 0.3s ease;
+  @media #{$wb-tight} {
+    .wb-hero__title {
+      font-size: clamp(2rem, min(6.4vh, 3.4vw), 3.4rem);
+    }
+
+    .wb-hero__hint {
+      display: none;
+    }
+
+    .wb-hero__lede {
+      margin-top: 0.9rem;
+      font-size: 0.95rem;
+    }
+
+    .wb-hero__ctas {
+      margin-top: 1.1rem;
+    }
   }
 
-  &__commit {
-    fill: $ww-orange;
-  }
+  // Phones and tablets: copy, the drawing, one row of kinds, the last two
+  // log lines. The drawing takes what the copy and the log leave, at 5:3;
+  // the captions go (they are hover help, and a phone has no hover).
+  @media #{$wh-narrow} {
+    .wb-hero__frame {
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 0.9rem;
+      padding: 1.25rem;
+    }
 
-  &__code {
-    fill: $ink;
-  }
+    .wb-hero__title {
+      max-width: none;
+      font-size: clamp(1.9rem, 8.4vw, 2.8rem);
+    }
 
-  &__block,
-  &__screen,
-  &__new {
-    fill: transparent;
-  }
+    .wb-hero__lede {
+      margin-top: 0.7rem;
+      max-width: 52ch;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
 
-  &__pill {
-    fill: $ww-orange;
-  }
+    .wb-hero__ctas {
+      margin-top: 0.9rem;
+      gap: 0.5rem 1.25rem;
+    }
 
-  &__word {
-    fill: $ink;
-  }
+    .wb-hero__bench {
+      container-type: size;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 0;
+    }
 
-  &__status {
-    fill: $ww-orange;
-  }
+    .wb-hero__stage {
+      width: min(100cqw, calc((100cqh - 5.6rem) * 5 / 3));
+      margin-top: 1.5rem;
+    }
 
-  &__beat,
-  &__screen {
-    transition: stroke 0.3s ease;
-  }
+    .wb-hero__caps {
+      display: none;
+    }
 
-  &.is-hot-commit &__commit,
-  &.is-commit &__commit {
-    fill: $cream;
-  }
+    // One row that scrolls sideways, with an edge fade as the swipe cue.
+    .wb-hero__picks {
+      flex-wrap: nowrap;
+      margin-top: 0.6rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+      mask-image: linear-gradient(90deg, #000 82%, transparent);
 
-  &.is-hot-build &__block,
-  &.is-build &__block {
-    fill: $cream;
-  }
-
-  // The new section: lit while the job is in preview and after it ships,
-  // cream under the hand.
-  &.is-preview &__new,
-  &.is-deploy &__new,
-  &.is-up &__new {
-    fill: $ww-orange;
-  }
-
-  &.is-hot-preview &__new {
-    fill: $cream;
-  }
-
-  // The screen in focus wears the accent on its frame.
-  &.is-view-desktop &__desk &__screen,
-  &.is-view-phone &__phone &__screen {
-    stroke: $ww-orange;
-  }
-
-  &.is-hot-deploy &__pill,
-  &.is-deploy &__pill {
-    fill: $cream;
-  }
-
-  &.is-hot-live &__beat,
-  &.is-up &__beat {
-    stroke: $ww-orange;
-  }
-
-  // The orange parts' captions lead in orange.
-  &__cap--commit strong,
-  &__cap--deploy strong {
-    color: $ww-orange;
-  }
-
-  @media (prefers-reduced-motion: no-preference) {
-    // The arrows draw themselves in flow order, shaft then head.
-    &__draw {
-      &:nth-child(2) {
-        animation-duration: 0.35s;
-        animation-delay: 0.75s;
-      }
-
-      &:nth-child(3) {
-        animation-delay: 0.6s;
-      }
-
-      &:nth-child(4) {
-        animation-duration: 0.35s;
-        animation-delay: 1s;
-      }
-
-      &:nth-child(5) {
-        animation-delay: 0.85s;
-      }
-
-      &:nth-child(6) {
-        animation-duration: 0.35s;
-        animation-delay: 1.25s;
-      }
-
-      &:nth-child(7) {
-        animation-delay: 1.1s;
-      }
-
-      &:nth-child(8) {
-        animation-duration: 0.35s;
-        animation-delay: 1.5s;
+      &::-webkit-scrollbar {
+        display: none;
       }
     }
 
-    // The heartbeat scrolls one beat (200 units) at a time while the
-    // build is live; faster once a deploy lands.
-    &.is-live &__beat {
-      animation: ww-beat 2.4s linear infinite;
+    .wb-hero__pick {
+      flex: none;
     }
 
-    &.is-live.is-up &__beat {
-      animation-duration: 1.2s;
+    // The pills say which kind; the CTA row stays one line.
+    .wb-hero__hint,
+    .wb-hero__wide {
+      display: none;
+    }
+
+    // The log's head is one row: the count and Pause (WCAG 2.2.2).
+    .wb-hero__meta > span:first-child {
+      display: none;
+    }
+
+    .wb-hero__count {
+      justify-content: space-between;
+      width: 100%;
+      margin: 0;
+    }
+
+    .wb-hero__log {
+      min-height: calc(2 * (1.45em + 0.6rem + 1px));
+      margin-top: 0.4rem;
+
+      span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
     }
   }
-}
 
-@keyframes ww-beat {
-  to {
-    transform: translateX(-200px);
+  &__narrow {
+    display: none;
+
+    @media #{$wh-narrow} {
+      display: inline;
+    }
+  }
+
+  @media #{$wh-narrow}, #{$wb-tight} {
+    .wb-hero__log li:nth-last-child(n + 3) {
+      display: none;
+    }
+  }
+
+  // A phone with its browser's bars showing (about 660px on a 390 phone):
+  // the drawing keeps its room, so the log lines and the kicker step out.
+  @media #{$wh-narrow} and (max-height: 760px) {
+    .wb-hero__log,
+    .wb-hero__kicker {
+      display: none;
+    }
+  }
+
+  // A small phone (an SE in Safari is about 550px): the lede goes too.
+  @media #{$wh-narrow} and (max-height: 620px) {
+    .wb-hero__lede {
+      display: none;
+    }
+  }
+
+  @media #{$wb-tight} {
+    .wb-hero__log {
+      min-height: calc(2 * (1.45em + 0.6rem + 1px));
+    }
+  }
+
+  svg text {
+    font-family: $font-text;
+  }
+
+  // The screens: thick outlines filled with the field, so the phone hides
+  // the laptop's corner and the whole screen answers the pointer.
+  &__frm {
+    fill: $wb-field;
+    stroke: $white-color;
+    stroke-width: 8;
+    stroke-linejoin: round;
+  }
+
+  &__thin {
+    fill: none;
+    stroke: $white-color;
+    stroke-width: 5;
+    stroke-linecap: round;
+  }
+
+  &__now {
+    fill: rgba(254, 247, 237, 0.55);
+  }
+
+  /* ---- The kinds ---- */
+  .wb-d {
+    fill: none;
+    stroke: $white-color;
+    stroke-width: 5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+
+    &--a {
+      stroke: $wb-orange;
+    }
+  }
+
+  .wb-a {
+    fill: $wb-orange;
+  }
+
+  .wb-t {
+    fill: $white-color;
+
+    &--a {
+      fill: $wb-orange;
+    }
+
+    &--on {
+      fill: $promo-ink;
+    }
+  }
+
+  // Hidden: faded out, then the lines reset to undrawn once out of sight.
+  .wb-v > *,
+  &__url {
+    opacity: 0;
+    stroke-dashoffset: 1;
+    transition:
+      opacity 0.25s ease,
+      stroke-dashoffset 0s linear 0.3s;
+  }
+
+  .wb-v > * {
+    --j: 0;
+  }
+
+  @for $n from 2 through 32 {
+    .wb-v > :nth-child(#{$n}) {
+      --j: #{$n - 1};
+    }
+  }
+
+  // Shown: each line draws itself in, a beat after the one before it.
+  @each $k in $wb-kinds {
+    &.is-k-#{$k} .wb-v--#{$k} > *,
+    &.is-k-#{$k} &__url.wb-v--#{$k} {
+      --t: calc(var(--d, 0s) + var(--j, 0) * 0.035s);
+      opacity: 1;
+      stroke-dashoffset: 0;
+      transition:
+        opacity 0.3s ease var(--t),
+        stroke-dashoffset 0.7s cubic-bezier(0.6, 0, 0.2, 1) var(--t);
+    }
+  }
+
+  // The inbox: the new notification drops in from above.
+  &__tp--notice .wb-v {
+    translate: 0 -14px;
+    transition: translate 0.2s ease;
+  }
+
+  @each $k in $wb-kinds {
+    &.is-k-#{$k} &__tp--notice .wb-v--#{$k} {
+      translate: 0 0;
+      transition: translate 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) var(--d, 0s);
+    }
+  }
+
+  // Hover lifts one screen and dims the rest; its caption lights too.
+  &__tp {
+    cursor: pointer;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      scale 0.3s ease,
+      opacity 0.3s ease;
+  }
+
+  &.is-hot &__tp {
+    opacity: 0.4;
+  }
+
+  &.is-hot &__tp.is-on {
+    opacity: 1;
+    scale: 1.02;
+  }
+
+  /* ---- The tag column of the log ---- */
+  &__log b {
+    flex: 0 0 4.5em;
+    font-weight: 400;
+    color: $wb-orange;
+  }
+
+  /* ---- Kind pills, in the strip under the inbox ---- */
+  &__picks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+
+    @media #{$wh-wide} {
+      position: absolute;
+      left: 2.5%;
+      top: 76%;
+      width: 31.5%;
+    }
+
+    @media #{$wh-narrow} {
+      margin-top: 1rem;
+    }
+  }
+
+  &__pick {
+    min-height: 32px;
+    padding: 0.3em 0.9em;
+    border: 1px solid rgba(254, 247, 237, 0.3);
+    border-radius: 999px;
+    background: none;
+    color: $white-color;
+    font: inherit;
+    font-size: clamp(12px, 1.25cqw, 14px);
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background-color 0.2s ease,
+      border-color 0.2s ease,
+      color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $wb-orange;
+      color: $wb-orange;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $wb-orange;
+      outline-offset: 2px;
+    }
+
+    &.is-on {
+      background: $wb-orange;
+      border-color: $wb-orange;
+      color: $promo-ink;
+    }
+
+    @media (pointer: coarse) {
+      min-height: 44px;
+      padding-inline: 1.1em;
+    }
+  }
+
+  /* ---- Motion: the screens rise in, smallest first ---- */
+  @media #{$wh-move} {
+    &__tp {
+      animation: wh-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) backwards;
+      animation-delay: calc(0.3s + var(--i) * 0.08s);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wb-v > *,
+    .wb-v,
+    &__url {
+      transition: none !important;
+    }
   }
 }
