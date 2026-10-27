@@ -2320,8 +2320,9 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Owner: "WOW !!! WELL DONE!!!! log commit push to main". Merged to main and pushed.
 - **Open:** a phone pass for the drag and tap controls; the other three world heroes are still taller than one screen on phones.
 
-### 2026-10-27 — Heroes run under iPhone Safari's glass bar (branch `fix/hero-under-bar`, committed, not pushed)
+### 2026-10-27 — Heroes run under iPhone Safari's glass bar (LIVE on main, 342b38f)
 - Owner, with an iPhone screenshot of the home page: "It doesn't look like 100 viewport height for the hero because I can see the next session on the bottom." The hero was exactly `100svh`, which stops at the top of Safari's bottom bar; the bar is glass (iOS 26+), so the next section's orange and purple showed through it. The Web world hero had the same gap (its blue stage).
 - Fix: `--bar-tail` on `:root` (app.scss) = `100lvh - 100svh`, at least 7rem on iOS (`@supports (-webkit-touch-callout: none)`); the home phone hero and the Web hero add it to their height and bottom padding, so their black runs under the bar while the copy, the ident and the frame stay above it. 0 on a desktop.
 - Verified (production build, headless Chrome): desktop and Chrome phone sizes unchanged (home 5rem tail, Web header + hero = viewport); with an iPhone-like 780px screen and the 112px tail, the home lede ends at 760 and the black runs to 896 (screen bottom 874), the Web frame ends at 768 and the stage starts at 954. The iOS Simulator host was offline, so the real-phone check is the owner's.
-- **Open:** look at both pages on the iPhone once live.
+- Owner: "log commit push to main". Merged to main and pushed.
+- **Open:** look at both pages on the iPhone.
