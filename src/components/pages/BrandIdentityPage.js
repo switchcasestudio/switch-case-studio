@@ -17,8 +17,8 @@ export default function BrandIdentityPage() {
   return (
     <>
       <Seo
-        title="Graphic Design & Brand Identity | Switch Case Studio"
-        description="Logo, type, color, rhythm and composition, each shown live: what a brand identity is made of, and how we draw one for web, print and packaging."
+        title="Logo & Brand Identity Design, Portland | Switch Case Studio"
+        description="Logo, type and color for small businesses, designed in Portland for web, print and packaging. See what a brand identity is made of, live."
         path={PATH}
         jsonLd={[
           {

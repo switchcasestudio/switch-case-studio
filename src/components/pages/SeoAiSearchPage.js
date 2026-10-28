@@ -17,8 +17,8 @@ export default function SeoAiSearchPage() {
   return (
     <>
       <Seo
-        title="SEO & AI Search | Switch Case Studio"
-        description="Technical SEO and AI-search readiness, every fix shipped on your site. Five ways to be found, each with a demo you can run."
+        title="SEO & AI Search Services, Portland | Switch Case Studio"
+        description="Technical SEO, local search and AI-search readiness for small businesses, every fix shipped on your site. Five ways to be found, each with a live demo."
         path={PATH}
         jsonLd={[
           {
