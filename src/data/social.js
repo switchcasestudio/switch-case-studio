@@ -26,6 +26,7 @@ const SOCIAL_PROFILES = [
   { key: 'ig', label: 'Instagram', url: 'https://www.instagram.com/switchcasestudio' },
   { key: 'th', label: 'Threads', url: 'https://www.threads.com/@switchcasestudio' },
   { key: 'x', label: 'X (Twitter)', url: 'https://x.com/s_c_studio' },
+  { key: 'bs', label: 'Bluesky', url: 'https://bsky.app/profile/switchcasestudio.bsky.social' },
   {
     key: 'fb',
     label: 'Facebook',

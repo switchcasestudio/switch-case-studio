@@ -9,6 +9,7 @@ import {
   faLinkedinIn,
   faFacebookF,
   faXTwitter,
+  faBluesky,
   faGoogle,
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
@@ -39,6 +40,7 @@ const SOCIAL_ICONS = {
   ig: faInstagram,
   th: faThreads,
   x: faXTwitter,
+  bs: faBluesky,
   fb: faFacebookF,
   li: faLinkedinIn,
   gb: faGoogle,
