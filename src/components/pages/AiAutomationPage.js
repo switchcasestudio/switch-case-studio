@@ -16,8 +16,8 @@ export default function AiAutomationPage() {
   return (
     <>
       <Seo
-        title="AI & Automation | Switch Case Studio"
-        description="Assistants trained on your docs, agents that do the follow-ups, workflows wired into your tools. Every demo on this page runs; press the buttons."
+        title="AI Automation & Chatbots, Portland | Switch Case Studio"
+        description="Chatbots trained on your docs, agents that do the follow-ups, n8n workflows wired into your tools. Built in Portland; every demo on this page runs."
         path={PATH}
         jsonLd={[
           {

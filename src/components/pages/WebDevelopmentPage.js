@@ -16,8 +16,8 @@ export default function WebDevelopmentPage() {
   return (
     <>
       <Seo
-        title="Web Development & Mobile Apps | Switch Case Studio"
-        description="Landing pages, websites, stores, web apps and iOS and Android apps, built by engineers to load fast, then kept running. Every demo on this page runs."
+        title="Web Design & Development in Portland | Switch Case Studio"
+        description="Websites, stores, web apps and iOS and Android apps, built in Portland by engineers to load fast, then kept running. Every demo on this page runs."
         path={PATH}
         jsonLd={[
           {
