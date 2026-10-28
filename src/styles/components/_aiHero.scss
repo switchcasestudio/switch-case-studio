@@ -1,10 +1,12 @@
-// The AI world's hero: the five kinds of automation on four screens
+// The AI world's hero: the five kinds of automation on a flow canvas
 // (AutomationHero.js, 2026-10-27; the workbench before it is gone). The
 // frame, copy, captions, log and motion are the worlds' shared hero
 // (_worldHero.scss, `world-hero`); the one-screen fit, the draw-in, the
 // pills and the phone layout are the kinds heroes' layer (_kindsHero.scss,
-// `kinds-hero`), the same as the Web world's. Cream lines on black, orange
-// the one accent (owner, 2026-10-24: "orange only").
+// `kinds-hero`), the same as the Web and SEO worlds'. Its own look (owner,
+// 2026-10-27: "we need to get a little bit of diversity"): a dot grid, the
+// flow in a dashed group, wires to its two output nodes. Cream lines on
+// black, orange the one accent (owner, 2026-10-24: "orange only").
 
 $aw-field: #000;
 $aw-orange: $orange-color;
@@ -13,4 +15,45 @@ $aw-kinds: flow, sequence, step, assistant, agent;
 .aw-hero {
   @include world-hero($aw-orange, $aw-field);
   @include kinds-hero(aw, $aw-orange, $aw-field, $aw-kinds);
+
+  &__dot {
+    fill: rgba(254, 247, 237, 0.16);
+  }
+
+  // The flow's group on the canvas: dashed, open to the dots.
+  &__grp {
+    fill: none;
+    stroke: rgba(254, 247, 237, 0.55);
+    stroke-width: var(--kh-line);
+    stroke-dasharray: 14 12;
+  }
+
+  // The wires: dashes that run toward the outputs while the hero is live
+  // (on screen, not paused, motion allowed), so Pause stops them too.
+  &__wire {
+    fill: none;
+    stroke: $aw-orange;
+    stroke-width: var(--kh-line);
+    stroke-linecap: round;
+    stroke-dasharray: 2 13;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &.is-live &__wire {
+      animation: aw-wire 0.9s linear infinite;
+    }
+  }
+
+  // The pills sit under the canvas's caption.
+  @media #{$wh-wide} {
+    .aw-hero__picks {
+      top: 81%;
+    }
+  }
+}
+
+@keyframes aw-wire {
+  to {
+    stroke-dashoffset: -15;
+  }
 }
