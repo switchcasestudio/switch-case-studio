@@ -2355,3 +2355,13 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - A kind switch no longer shows two kinds' words on top of each other.
 - Verified: production build, US English clean; header + hero = viewport at 11 sizes on all three pages; every kind shot at 1440; 390 phone shots; no console errors.
 - Owner: "log commit push to main". Merged to main and pushed; `feat/hero-variety` deleted.
+
+### 2026-10-27 — SEO audit with real Google data, Portland titles, faster service heroes, Bluesky, Clutch (LIVE on main, #37 53c4595, #38)
+- Owner, after a cold "missing schema" spam email: "should we run an audit?". Delta audit after 10-09, first with real Google data: the `claude-seo` plugin now reads Search Console, GA4 (property 539900786, not the client property GA opens on) and PageSpeed through a read-only service account in Google Cloud project `claude-seo-513000`. Report: `.audit/seo-audit-2026-10-27.md`.
+- Findings: on-page clean on all 61 sitemap pages; 18 not indexed ("Discovered" / "unknown"); service worlds' mobile LCP 6.8-7.9s; brand not an entity (`switchcasestudios.com` is a different firm); 449 impressions, 9 clicks in 28 days, nearly all Portland web-design queries; no CrUX field data (traffic below threshold).
+- Indexing: requested for 11 pages on 10-27 (GSC quota); 8 left (about, onboarding and fonts posts, birth-of-venus, florida-energy-assistance, office-hours post, /shop, /accessibility).
+- #37: home and service titles and descriptions say Portland; hero `__title` and `__lede` rise with `wh-rise-solid` (translate only, no fade), so LCP = FCP on all four worlds locally. Rule in CLAUDE.md + rules.md.
+- #38: Bluesky (switchcasestudio.bsky.social, bio now Portland) in `social.js`, the footer and `sameAs`; `check:sameas` 8 profiles.
+- Clutch: profile submitted (clutch.co/profile/switch-case-studio, under review; address verification 7-10 business days), 4 portfolio items Show All (Florida Green, Zahav, Prodani, My Challah Dealer). Social links on Clutch are paid-only; skipped.
+- Wikidata: draft in `.audit/wikidata-draft.md`; create only after Clutch publishes.
+- **Open:** the 8 indexing requests; re-inspect the 19; Wikidata after Clutch; Clutch client reviews (owner picks clients); re-run PageSpeed on the live service pages.
