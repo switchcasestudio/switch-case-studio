@@ -2337,3 +2337,12 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Verified: production build 64 pages, standing checks clean, US English clean; headless Chrome: header + hero = viewport at 11 sizes from 375x548 to 1920x1080 with nothing past the frame and no console errors; every lesson inside its tile and clear of card and sticker at 1440 x 900 and 1024 x 768; 390 stacked with no sideways scroll; every lesson and demo driven.
 - Owner: "log commit push". Merged to main and pushed; `feat/ai-lessons` deleted.
 - **Open:** a phone pass for the range and text controls.
+
+### 2026-10-27 — SEO world teaches search (committed on `feat/seo-lessons`, not pushed)
+- Owner: "last but not least, lets do the SEO & AI search service page". Same move as the AI world: teach, no made-up clients.
+- Hero: five ways to be found (web result, map, rich result, AI answer, ad) for "Your business" on four screens (the results page on a laptop, the same search on a phone, your side, the inbox), on the shared kinds engine. Replaces the search desk and its made-up plumber, med spa and rank climbs.
+- Stage "What we know", in the hero's order: 01 Crawl (links from Home; an orphan, a sitemap, a noindex), 02 Local (relevance, then distance, as the searcher moves), 03 Rich results (Google's required properties, checked live), 04 Quoted (a page as written and as answers, scored like an answer engine), 05 Cost per lead (click price over conversion rate).
+- Deliverables: Rose City Plumbing gone; Share cards, One address per page, Speed in LCP's four parts, AI crawlers (search apart from training) and Key events are new or rebuilt; Titles and descriptions stays.
+- Shared: retrieval in `worlds/retrieve.js`, lesson controls in `worlds/lessonUi.js`; the AI lessons render byte-identical. Deleted as dead: `seoWorld/tiles/`, `worlds/LiveArt.js`, `.aw-live`.
+- Verified: production build 64 pages, standing checks clean, US English clean, no Sass warnings from the new sheet; headless Chrome: header + hero = viewport at 11 sizes, every lesson inside its tile at 1440 x 900 and 1024 x 768, 390 stacked with no sideways scroll, every lesson and demo driven, no console errors.
+- **Open:** owner review; a phone pass for the map slider and the text fields.
