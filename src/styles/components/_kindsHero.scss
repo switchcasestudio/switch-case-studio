@@ -186,19 +186,30 @@ $kh-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and
     font-family: $font-text;
   }
 
-  // The screens: thick outlines filled with the field, so the phone hides
-  // the laptop's corner and the whole screen answers the pointer.
+  // The screens: outlines filled with the field, so the phone hides the
+  // laptop's corner and the whole screen answers the pointer. Thin (owner,
+  // 2026-10-27: "the stroke of the elements are too thick"): about 2px for a
+  // frame and 1.5px for a line at 1440; a phone draws the viewBox at a
+  // quarter of that, so it keeps wider strokes in viewBox units.
+  --kh-frm: 4;
+  --kh-line: 3;
+
+  @media #{$wh-narrow} {
+    --kh-frm: 6;
+    --kh-line: 4;
+  }
+
   &__frm {
     fill: $field;
     stroke: $white-color;
-    stroke-width: 8;
+    stroke-width: var(--kh-frm);
     stroke-linejoin: round;
   }
 
   &__thin {
     fill: none;
     stroke: $white-color;
-    stroke-width: 5;
+    stroke-width: var(--kh-line);
     stroke-linecap: round;
   }
 
@@ -216,7 +227,7 @@ $kh-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and
   .#{$p}-d {
     fill: none;
     stroke: $white-color;
-    stroke-width: 5;
+    stroke-width: var(--kh-line);
     stroke-linecap: round;
     stroke-linejoin: round;
     stroke-dasharray: 1;
@@ -242,14 +253,17 @@ $kh-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and
     }
   }
 
-  // Hidden: faded out, then the lines reset to undrawn once out of sight.
+  // Hidden: faded out fast, then the lines reset to undrawn once out of
+  // sight. The next kind waits for the fade (`0.16s` in `--t`), so two
+  // kinds' words never sit on top of each other mid-switch (owner's
+  // screenshot, 2026-10-27).
   .#{$p}-v > *,
   &__url {
     opacity: 0;
     stroke-dashoffset: 1;
     transition:
-      opacity 0.25s ease,
-      stroke-dashoffset 0s linear 0.3s;
+      opacity 0.14s ease,
+      stroke-dashoffset 0s linear 0.16s;
   }
 
   .#{$p}-v > * {
@@ -266,7 +280,7 @@ $kh-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and
   @each $k in $kinds {
     &.is-k-#{$k} .#{$p}-v--#{$k} > *,
     &.is-k-#{$k} &__url.#{$p}-v--#{$k} {
-      --t: calc(var(--d, 0s) + var(--j, 0) * 0.035s);
+      --t: calc(0.16s + var(--d, 0s) + var(--j, 0) * 0.035s);
       opacity: 1;
       stroke-dashoffset: 0;
       transition:

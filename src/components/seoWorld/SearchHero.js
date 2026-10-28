@@ -14,14 +14,20 @@ import useKindsHero from '../worlds/useKindsHero';
    (2026-10-24), which ran one made-up search with made-up rankings; this
    says how each way is earned and where it stops.
 
-   One business, "Your business", on four screens at once: the results
-   page on a laptop, the same search on a phone, your side (what makes it
-   show: the head, the Business Profile, structured data, a passage, a
-   campaign) and what lands in your inbox. The log says how each is earned
-   and its limit; the local factors are Google's own (relevance, distance,
-   prominence). The SSR markup is the rest state (the web result) and is
-   complete; entrances are CSS keyframes from first paint. CSS owns every
-   color, the draw-in and which kind shows; GSAP writes only the drift. */
+   One business, "Your business", under a magnifying glass (2026-10-27,
+   owner: "all three services, hero, looking pretty much the same ... we
+   need to get a little bit of diversity"): no laptop and no phone, which
+   are the Web hero's language. On the left the results page with its five
+   places in the order a page shows them (ads, the AI answer, the map, rich
+   results, web results); the current kind's place turns orange and a line
+   runs from it to the glass, which shows yours up close. On the right
+   your side (what makes it show: the head, the Business Profile,
+   structured data, a passage, a campaign) and what lands in your inbox.
+   The log says how each is earned and its limit; the local factors are
+   Google's own (relevance, distance, prominence). The SSR markup is the
+   rest state (the web result) and is complete; entrances are CSS
+   keyframes from first paint. CSS owns every color, the draw-in, the
+   highlight and which kind shows; GSAP writes only the drift. */
 
 // Log lines stay at about 37 characters: beside the drawing each is one
 // line with an ellipsis, and a cut line loses its point.
@@ -101,480 +107,316 @@ const pin = (x, y, s = 1) =>
   `M${x} ${y}C${x - 6 * s} ${y - 12 * s} ${x - 16 * s} ${y - 20 * s} ${x - 16 * s} ${y - 30 * s}a${16 * s} ${16 * s} 0 0 1 ${
     32 * s
   } 0C${x + 16 * s} ${y - 20 * s} ${x + 6 * s} ${y - 12 * s} ${x} ${y}Z${ring(x, y - 30 * s, 6 * s)}`;
-const lens = (cx, cy, r) => `${ring(cx, cy, r)}M${cx + r * 0.7} ${cy + r * 0.7}L${cx + r * 1.6} ${cy + r * 1.6}`;
-// A photo placeholder: a frame, a hill and a sun.
-const photo = (x, y, w, h) => `${rr(x, y, w, h, 12)}M${x + 14} ${y + h - 14}L${x + w * 0.38} ${y + h * 0.45}L${x + w * 0.6} ${
-  y + h * 0.7
-}L${x + w * 0.74} ${y + h * 0.58}L${x + w - 14} ${y + h - 14}${ring(x + w * 0.74, y + h * 0.28, Math.min(w, h) * 0.08)}`;
+const glass = (cx, cy, r) => `${ring(cx, cy, r)}M${cx + r * 0.7} ${cy + r * 0.7}L${cx + r * 1.6} ${cy + r * 1.6}`;
 
-// The page's search box, with the query in words.
-const Ask = ({ q }) => (
-  <>
-    <B x={36} y={22} w={600} h={52} r={26} />
-    <D d={lens(66, 46, 10)} />
-    <T x={92} y={55} size={19}>
-      {q}
-    </T>
-  </>
-);
-// Somebody else's result, as bars: url, title, line.
-const Other = ({ y, w = 420 }) => (
-  <>
-    <B x={36} y={y} w={190} h={12} r={6} />
-    <B x={36} y={y + 22} w={w} h={20} r={8} />
-    <B x={36} y={y + 52} w={600} h={10} r={5} />
-  </>
-);
-const Bars = ({ y, w = 150 }) => (
-  <>
-    <B x={14} y={y} w={96} h={8} r={4} />
-    <B x={14} y={y + 14} w={w} h={12} r={6} />
-    <B x={14} y={y + 34} w={166} h={8} r={4} />
-  </>
-);
-const PhoneAsk = ({ q }) => (
-  <>
-    <B x={14} y={14} w={166} h={34} r={17} />
-    <T x={28} y={36} size={12}>
-      {q}
-    </T>
-  </>
+/* The results page: five places, in the order a page shows them. The
+   blocks are static; the current kind's block turns orange (CSS) and a
+   line runs from it to the glass. */
+const BLOCKS = [
+  { key: 'ad', y: 132, h: 84, label: 'Sponsored' },
+  { key: 'answer', y: 232, h: 128, label: 'AI answer' },
+  { key: 'map', y: 376, h: 128, label: 'Map' },
+  { key: 'rich', y: 520, h: 76, label: 'Rich result' },
+  { key: 'web', y: 612, h: 52, label: 'Web result' },
+];
+const LENS = { cx: 880, cy: 400, r: 290 };
+const mid = (key) => {
+  const b = BLOCKS.find((x) => x.key === key);
+  return b.y + b.h / 2;
+};
+const reach = (key) => `M456 ${mid(key)}H500C545 ${mid(key)} 545 ${LENS.cy} ${LENS.cx - LENS.r} ${LENS.cy}`;
+// Each block's inside, faint: the shape of what sits there.
+const fill = (key, y) =>
+  ({
+    ad: `M84 ${y + 48}H300M84 ${y + 66}H420`,
+    answer: `M84 ${y + 48}H420M84 ${y + 68}H400M84 ${y + 88}H330${rr(84, y + 102, 96, 16, 8)}${rr(192, y + 102, 96, 16, 8)}`,
+    map: `${rr(84, y + 40, 150, 72, 10)}M84 ${y + 80}H234M150 ${y + 40}V${y + 112}M252 ${y + 52}H420M252 ${y + 76}H400M252 ${y + 100}H380`,
+    rich: `M84 ${y + 44}H380${[0, 1, 2, 3, 4].map((i) => star(92 + i * 16, y + 60, 6)).join('')}`,
+    web: `M84 ${y + 38}H400`,
+  })[key];
+
+const PAGE = Object.fromEntries(
+  KINDS.map((k) => [
+    k.key,
+    () => (
+      <>
+        <T x={108} y={95} size={17}>
+          {k.query}
+        </T>
+        <D a d={reach(k.key)} />
+      </>
+    ),
+  ]),
 );
 
-/* The laptop: the results page, 760 x 520 under the address bar. */
-const DESK = {
+/* Under the glass: yours, up close, 440 wide from (660, 250). */
+const UP = {
   web: () => (
     <>
-      <Ask q="your service in your city" />
-      <Other y={104} />
-      <D a d="M18 200V312" />
-      <T x={36} y={214} size={16}>
+      <D a d="M-8 6V214" />
+      <T x={0} y={30} size={17}>
         yourbusiness.com › services
       </T>
-      <T x={36} y={250} size={26} w={700} a>
-        Your service in your city, same day
+      <T x={0} y={76} size={30} w={700} a>
+        Your service in your city,
       </T>
-      <T x={36} y={284} size={17}>
-        A written price before any work starts. Open
+      <T x={0} y={114} size={30} w={700} a>
+        the same day
       </T>
-      <T x={36} y={308} size={17}>
-        Monday to Saturday, 9 am to 6 pm.
+      <T x={0} y={160} size={19}>
+        A written price before any work
       </T>
-      <Other y={350} w={440} />
-      <Other y={440} w={380} />
+      <T x={0} y={188} size={19}>
+        starts. Open Monday to Saturday.
+      </T>
     </>
   ),
   map: () => (
     <>
-      <Ask q="your service near me" />
-      <B x={36} y={96} w={688} h={236} r={16} />
-      <L x1={36} y1={196} x2={724} y2={170} />
-      <L x1={250} y1={96} x2={290} y2={332} />
-      <L x1={540} y1={96} x2={490} y2={332} />
-      <D d="M36 290C200 262 420 300 724 252" />
-      <D d={pin(160, 178, 0.8)} />
-      <D d={pin(630, 150, 0.8)} />
-      <D d={pin(410, 292, 0.8)} />
-      <D a d={pin(350, 232, 1.15)} />
-      <T x={36} y={382} size={21} w={700} a>
+      <B x={0} y={20} w={440} h={150} r={16} />
+      <L x1={0} y1={95} x2={440} y2={80} />
+      <L x1={150} y1={20} x2={170} y2={170} />
+      <D d="M0 140C140 120 300 150 440 110" />
+      <D d={pin(80, 70, 0.6)} />
+      <D d={pin(380, 64, 0.6)} />
+      <D a d={pin(260, 128, 0.95)} />
+      <T x={0} y={214} size={24} w={700} a>
         Your business
       </T>
-      <T x={36} y={408} size={16}>
+      <T x={0} y={244} size={17}>
         Your service · 0.4 mi · Open now
       </T>
-      <A x={604} y={358} w={120} h={44} r={22} label="Call" size={18} />
-      <B x={36} y={436} w={220} h={16} r={8} />
-      <B x={36} y={460} w={300} h={10} r={5} />
-      <B x={604} y={434} w={120} h={40} r={20} />
-      <B x={36} y={488} w={180} h={14} r={7} />
-      <B x={36} y={508} w={260} h={8} r={4} />
+      <A x={330} y={192} w={110} h={44} r={22} label="Call" size={18} />
     </>
   ),
   rich: () => (
     <>
-      <Ask q="your product price" />
-      <Other y={104} />
-      <D a d="M18 200V330" />
-      <T x={36} y={214} size={16}>
-        yourbusiness.com › Shop › Your product
+      <T x={0} y={30} size={17}>
+        yourbusiness.com › Shop
       </T>
-      <T x={36} y={250} size={26} w={700} a>
+      <T x={0} y={74} size={28} w={700} a>
         Your product, made to order
       </T>
-      <Stars x={48} y={280} r={11} gap={26} />
-      <T x={172} y={287} size={17}>
+      <Stars x={12} y={110} r={13} gap={30} />
+      <T x={162} y={117} size={19}>
         4.8 · 126 reviews
       </T>
-      <T x={36} y={322} size={18} w={600}>
+      <T x={0} y={162} size={22} w={700}>
         $24.00 · In stock
       </T>
-      <D d={photo(584, 196, 140, 140)} />
-      <Other y={370} w={440} />
-      <Other y={450} w={380} />
     </>
   ),
   answer: () => (
     <>
-      <Ask q="what does your service cost?" />
-      <B x={36} y={96} w={688} h={300} r={18} />
-      <T x={64} y={138} size={18} w={700}>
+      <T x={0} y={30} size={17} w={700}>
         AI answer
       </T>
-      <T x={64} y={178} size={19}>
-        It depends on the job. Your business lists its
+      <T x={0} y={70} size={20}>
+        It depends on the job. Your business
       </T>
-      <T x={64} y={206} size={19}>
-        prices on one page: from $90, with a written
+      <T x={0} y={98} size={20}>
+        lists its prices on one page: from
       </T>
-      <T x={64} y={234} size={19}>
-        price before any work starts.
+      <T x={0} y={126} size={20}>
+        $90, with a written price first.
       </T>
-      <T x={64} y={286} size={16} w={700}>
+      <T x={0} y={168} size={15} w={700}>
         Sources
       </T>
-      <A x={64} y={304} w={230} h={44} r={22} label="yourbusiness.com" size={17} />
-      <B x={310} y={304} w={170} h={44} r={22} />
-      <B x={496} y={304} w={140} h={44} r={22} />
-      <Other y={420} />
+      <A x={0} y={184} w={220} h={44} r={22} label="yourbusiness.com" size={17} />
+      <B x={236} y={184} w={120} h={44} r={22} />
     </>
   ),
   ad: () => (
     <>
-      <Ask q="your service today" />
-      <T x={36} y={124} size={16} w={700}>
+      <T x={0} y={30} size={16} w={700}>
         Sponsored
       </T>
-      <D a d="M18 136V286" />
-      <T x={36} y={154} size={16}>
+      <T x={0} y={58} size={17}>
         yourbusiness.com
       </T>
-      <T x={36} y={190} size={26} w={700} a>
-        Your service today: call for a price
+      <T x={0} y={98} size={28} w={700} a>
+        Your service today:
       </T>
-      <T x={36} y={224} size={17}>
+      <T x={0} y={134} size={28} w={700} a>
+        call for a price
+      </T>
+      <T x={0} y={172} size={19}>
         Same-day visits, a written price first.
       </T>
-      <B x={36} y={244} w={110} h={40} r={20} />
-      <T x={91} y={270} size={16} w={600} anchor="middle">
+      <B x={0} y={194} w={110} h={42} r={21} />
+      <T x={55} y={221} size={16} w={600} anchor="middle">
         Prices
       </T>
-      <B x={158} y={244} w={110} h={40} r={20} />
-      <T x={213} y={270} size={16} w={600} anchor="middle">
+      <B x={122} y={194} w={100} h={42} r={21} />
+      <T x={172} y={221} size={16} w={600} anchor="middle">
         Book
       </T>
-      <A x={280} y={244} w={110} h={40} r={20} label="Call" size={17} />
-      <T x={36} y={326} size={16} w={700}>
-        Sponsored
-      </T>
-      <B x={36} y={340} w={190} h={12} r={6} />
-      <B x={36} y={362} w={380} h={20} r={8} />
-      <L x1={0} y1={410} x2={760} y2={410} />
-      <Other y={432} />
+      <A x={234} y={194} w={100} h={42} r={21} label="Call" size={17} />
     </>
   ),
 };
 
-/* The phone's screen, 194 x 412 under the speaker. */
-const PHONE = {
-  web: () => (
-    <>
-      <PhoneAsk q="your service" />
-      <Bars y={62} />
-      <D a d="M6 106V188" />
-      <T x={14} y={116} size={11}>
-        yourbusiness.com
-      </T>
-      <T x={14} y={140} size={16} w={700} a>
-        Your service in
-      </T>
-      <T x={14} y={160} size={16} w={700} a>
-        your city
-      </T>
-      <T x={14} y={182} size={12}>
-        A written price first.
-      </T>
-      <Bars y={212} w={160} />
-      <Bars y={276} w={130} />
-    </>
-  ),
-  map: () => (
-    <>
-      <B x={14} y={14} w={166} h={196} r={14} />
-      <L x1={14} y1={92} x2={180} y2={72} />
-      <L x1={70} y1={14} x2={100} y2={210} />
-      <D d="M14 172C80 152 120 182 180 142" />
-      <D d={pin(48, 70, 0.55)} />
-      <D d={pin(150, 176, 0.55)} />
-      <D a d={pin(128, 128, 0.8)} />
-      <A x={14} y={222} w={166} h={92} r={14} />
-      <T x={28} y={250} size={15} w={700} on>
-        Your business
-      </T>
-      <T x={28} y={272} size={12} on>
-        0.4 mi · Open now
-      </T>
-      <T x={28} y={294} size={12} on>
-        Your service
-      </T>
-      <B x={14} y={326} w={78} h={38} r={19} />
-      <T x={53} y={350} size={13} w={700} anchor="middle">
-        Call
-      </T>
-      <B x={102} y={326} w={78} h={38} r={19} />
-      <T x={141} y={350} size={13} w={700} anchor="middle">
-        Route
-      </T>
-    </>
-  ),
-  rich: () => (
-    <>
-      <PhoneAsk q="your product price" />
-      <B x={14} y={62} w={166} h={232} r={14} />
-      <D d={photo(24, 72, 146, 100)} />
-      <T x={24} y={196} size={14} w={700}>
-        Your product
-      </T>
-      <Stars x={31} y={214} r={7} gap={16} />
-      <T x={110} y={219} size={11}>
-        4.8 (126)
-      </T>
-      <T x={24} y={246} size={15} w={700} a>
-        $24.00
-      </T>
-      <T x={24} y={270} size={12}>
-        In stock
-      </T>
-      <Bars y={308} />
-    </>
-  ),
-  answer: () => (
-    <>
-      <T x={14} y={28} size={15} w={700}>
-        AI chat
-      </T>
-      <L x1={0} y1={46} x2={194} y2={46} />
-      <B x={44} y={62} w={136} h={58} r={16} />
-      <T x={56} y={86} size={13}>
-        How much does
-      </T>
-      <T x={56} y={106} size={13}>
-        it cost?
-      </T>
-      <B x={14} y={134} w={166} h={86} r={16} />
-      <T x={26} y={160} size={13}>
-        From $90, with a
-      </T>
-      <T x={26} y={180} size={13}>
-        written price before
-      </T>
-      <T x={26} y={200} size={13}>
-        any work starts.
-      </T>
-      <A x={14} y={232} w={150} h={30} r={15} label="yourbusiness.com" size={12} />
-      <B x={14} y={356} w={166} h={40} r={20} />
-    </>
-  ),
-  ad: () => (
-    <>
-      <PhoneAsk q="your service today" />
-      <T x={14} y={72} size={11} w={700}>
-        Sponsored
-      </T>
-      <T x={14} y={92} size={11}>
-        yourbusiness.com
-      </T>
-      <T x={14} y={116} size={16} w={700} a>
-        Your service
-      </T>
-      <T x={14} y={136} size={16} w={700} a>
-        today
-      </T>
-      <T x={14} y={158} size={12}>
-        Call for a price.
-      </T>
-      <A x={14} y={172} w={166} h={40} r={20} label="Call" size={15} />
-      <Bars y={236} w={160} />
-      <Bars y={300} w={130} />
-    </>
-  ),
-};
-
-/* Your side: what makes each one show, 412 x 160 under its title bar
-   (the title sits above, in the bar). */
+/* Your side: what makes each one show, 306 wide under its title bar (the
+   title sits above, in the bar). */
 const STORE = 'M4 18H40V44H4ZM0 18L6 4H38L44 18M16 44V30H28V44';
+const Bar = ({ children }) => (
+  <T x={48} y={-47} size={16} w={500}>
+    {children}
+  </T>
+);
 const YOU = {
   web: () => (
     <>
-      <T x={52} y={-34} size={20} w={500}>
-        Your page · the head
+      <Bar>Your page · the head</Bar>
+      <T x={0} y={20} size={15} w={600} a>
+        {'<title>Your service…</title>'}
       </T>
-      <T x={0} y={20} size={17} w={600} a>
-        {'<title>Your service in your city</title>'}
+      <T x={0} y={52} size={15}>
+        {'<meta name="description">'}
       </T>
-      <T x={0} y={56} size={16}>
-        {'<meta name="description" content="…">'}
+      <T x={0} y={84} size={15}>
+        {'<link rel="canonical">'}
       </T>
-      <T x={0} y={92} size={16}>
-        {'<link rel="canonical" href="…">'}
-      </T>
-      <T x={0} y={128} size={16}>
-        {'<h1>Your service in your city</h1>'}
+      <T x={0} y={116} size={15}>
+        {'<h1>Your service…</h1>'}
       </T>
     </>
   ),
   map: () => (
     <>
-      <T x={52} y={-34} size={20} w={500}>
-        Business Profile
-      </T>
+      <Bar>Business Profile</Bar>
       <D d={STORE} />
-      <T x={58} y={26} size={20} w={700}>
+      <T x={56} y={22} size={18} w={700}>
         Your business
       </T>
-      <T x={58} y={54} size={16}>
+      <T x={56} y={44} size={14}>
         Your service · Your city
       </T>
-      <A x={296} y={10} w={116} h={36} r={18} label="Open" size={16} />
-      <L x1={0} y1={84} x2={412} y2={84} />
-      <T x={0} y={120} size={17}>
-        Hours, photos and categories, all filled.
+      <A x={220} y={0} w={86} h={30} r={15} label="Open" size={15} />
+      <L x1={0} y1={70} x2={306} y2={70} />
+      <T x={0} y={104} size={15}>
+        Hours, photos and categories,
+      </T>
+      <T x={0} y={126} size={15}>
+        all filled.
       </T>
     </>
   ),
   rich: () => (
     <>
-      <T x={52} y={-34} size={20} w={500}>
-        product.html · JSON-LD
-      </T>
-      <T x={0} y={20} size={17} w={600} a>
+      <Bar>JSON-LD</Bar>
+      <T x={0} y={20} size={15} w={600} a>
         {'"@type": "Product",'}
       </T>
-      <T x={0} y={52} size={16}>
+      <T x={0} y={52} size={15}>
         {'"name": "Your product",'}
       </T>
-      <T x={0} y={84} size={16}>
+      <T x={0} y={84} size={15}>
         {'"offers": { "price": "24.00" },'}
       </T>
-      <T x={0} y={116} size={16}>
-        {'"aggregateRating": { "ratingValue": 4.8 }'}
+      <T x={0} y={116} size={15}>
+        {'"aggregateRating": 4.8'}
       </T>
     </>
   ),
   answer: () => (
     <>
-      <T x={52} y={-34} size={20} w={500}>
-        Your page · Prices
-      </T>
-      <T x={0} y={22} size={19} w={700}>
+      <Bar>Your page · Prices</Bar>
+      <T x={0} y={22} size={17} w={700}>
         How much does it cost?
       </T>
-      <T x={0} y={54} size={16}>
-        From $90, with a written price before
+      <T x={0} y={50} size={15}>
+        From $90, with a written price
       </T>
-      <T x={0} y={78} size={16}>
-        any work starts.
+      <T x={0} y={72} size={15}>
+        before any work starts.
       </T>
-      <L x1={0} y1={100} x2={412} y2={100} />
-      <T x={0} y={134} size={16} w={600} a>
-        User-agent: OAI-SearchBot · Allow: /
+      <L x1={0} y1={94} x2={306} y2={94} />
+      <T x={0} y={124} size={14} w={600} a>
+        OAI-SearchBot · Allow: /
       </T>
     </>
   ),
   ad: () => (
     <>
-      <T x={52} y={-34} size={20} w={500}>
-        Campaign · Search
-      </T>
-      <T x={0} y={24} size={18} w={700}>
+      <Bar>Campaign · Search</Bar>
+      <T x={0} y={22} size={17} w={700}>
         Keywords
       </T>
-      <A x={296} y={0} w={116} h={36} r={18} label="Live" size={16} />
-      <T x={0} y={54} size={16}>
-        your service near me, your service today
+      <A x={220} y={0} w={86} h={30} r={15} label="Live" size={15} />
+      <T x={0} y={50} size={15}>
+        your service near me,
       </T>
-      <L x1={0} y1={78} x2={412} y2={78} />
-      <T x={0} y={112} size={17} w={600}>
+      <T x={0} y={72} size={15}>
+        your service today
+      </T>
+      <L x1={0} y1={94} x2={306} y2={94} />
+      <T x={0} y={124} size={16} w={600}>
         Budget: $30 a day
       </T>
-      <T x={0} y={142} size={16}>
-        You pay when someone clicks.
+      <T x={0} y={148} size={14}>
+        You pay per click.
       </T>
     </>
   ),
 };
 
-/* The inbox: what each one brings in, 412 x 92 inside the card. */
+/* The inbox: what each one brings in, 306 wide inside the card. */
+const Note = ({ title, line }) => (
+  <>
+    <T x={60} y={24} size={18} w={700}>
+      {title}
+    </T>
+    <T x={60} y={54} size={15} w={400}>
+      {line}
+    </T>
+  </>
+);
 const NOTICE = {
   web: () => (
     <>
-      <D d={lens(22, 24, 13)} />
-      <T x={64} y={26} size={20} w={700}>
-        Visit from search
-      </T>
-      <T x={64} y={58} size={18} w={400}>
-        Read your prices, then sent the form.
-      </T>
+      <D d={glass(20, 22, 12)} />
+      <Note title="Visit from search" line="Read prices, sent the form." />
     </>
   ),
   map: () => (
     <>
-      <D d={pin(26, 50, 0.9)} />
-      <T x={64} y={26} size={20} w={700}>
-        Call from the map
-      </T>
-      <T x={64} y={58} size={18} w={400}>
-        They tapped Call on your listing.
-      </T>
+      <D d={pin(24, 48, 0.85)} />
+      <Note title="Call from the map" line="Tapped Call on your listing." />
     </>
   ),
   rich: () => (
     <>
-      <D d="M8 18H44L40 48H12ZM18 18V12a8 8 0 0 1 16 0V18" />
-      <T x={64} y={26} size={20} w={700}>
-        Order from a result
-      </T>
-      <T x={64} y={58} size={18} w={400}>
-        They saw the price, then bought.
-      </T>
+      <D d="M6 18H42L38 46H10ZM16 18V12a8 8 0 0 1 16 0V18" />
+      <Note title="Order from a result" line="Saw the price, then bought." />
     </>
   ),
   answer: () => (
     <>
-      <D d={`${rr(4, 6, 44, 32, 10)}M16 38L14 48L26 38`} />
-      <T x={64} y={26} size={20} w={700}>
-        Visit from an AI answer
-      </T>
-      <T x={64} y={58} size={18} w={400}>
-        They clicked the source it named.
-      </T>
+      <D d={`${rr(2, 6, 44, 32, 10)}M14 38L12 48L24 38`} />
+      <Note title="Visit from an AI answer" line="Clicked the source it named." />
     </>
   ),
   ad: () => (
     <>
-      <A x={6} y={8} w={40} h={38} r={8} />
-      <T x={64} y={26} size={20} w={700}>
-        Form from the ad
-      </T>
-      <T x={64} y={58} size={18} w={400}>
-        One paid click, one lead.
-      </T>
+      <A x={4} y={8} w={40} h={38} r={8} />
+      <Note title="Form from the ad" line="One paid click, one lead." />
     </>
   ),
 };
 
-// The screens, smallest first: the order the kinds draw in (`--d`) and
-// the order the entrance runs. Captions sit in the Web hero's zones (the
-// screens share its frames), short, because the type floors at 12px while
-// the drawing shrinks.
-const TOUCH = ['notice', 'crm', 'phone', 'desk'];
-const DRIFT = { notice: 1.4, crm: 1.2, phone: 1.3, desk: 0.6 };
+// The parts, smallest first: the order the kinds draw in (`--d`) and the
+// order the entrance runs. Captions sit in zones no line crosses, short,
+// because the type floors at 12px while the drawing shrinks.
+const TOUCH = ['notice', 'you', 'page', 'lens'];
+const DRIFT = { notice: 1.4, you: 1.2, page: 0.7, lens: 0.5 };
 const CAPS = [
-  { key: 'crm', l: 2.5, t: 36.5, w: 28.75, text: ['Your side.', 'What makes each one show.'] },
-  { key: 'notice', l: 2.5, t: 63.5, w: 28.75, text: ['Inbox.', 'What each one brings in.'] },
-  { key: 'desk', l: 35, t: 73.5, w: 30, text: ['Results page.', 'Where it shows on a laptop.'] },
-  { key: 'phone', l: 83.75, t: 83.5, w: 14.5, text: ['Phone.', 'The same search, smaller.'] },
+  { key: 'page', l: 2.5, t: 72, w: 27.5, text: ['Results page.', 'Five places, top to bottom.'] },
+  { key: 'lens', l: 37.5, t: 74.5, w: 25, text: ['Up close.', 'What yours looks like there.'] },
+  { key: 'you', l: 75.6, t: 41, w: 22, text: ['Your side.', 'What makes it show.'] },
+  { key: 'notice', l: 75.6, t: 63, w: 22, text: ['Inbox.', 'What it brings in.'] },
 ];
-const url = (q) => `search?q=${q.replace(/\?/g, '').split(' ').join('+')}`;
 
 export default function SearchHero() {
   const { rootRef, kind, log, hot, paused, announce, cls, pick, togglePause, hover, tp } = useKindsHero({
@@ -615,52 +457,61 @@ export default function SearchHero() {
                 Five ways to be found
               </p>
               <svg viewBox="0 0 1600 960" aria-hidden="true" focusable="false" fontFamily={INTER}>
-                {/* The laptop: the results page under its address bar, on a base. */}
-                <g data-p="drift-desk">
-                  <g {...tp('desk')}>
-                    <path className="sw-hero__frm" d={rr(560, 60, 760, 580, 28)} />
-                    <path className="sw-hero__thin" d="M560 120H1320" />
-                    {[594, 620, 646].map((cx) => (
-                      <circle key={cx} className="sw-hero__thin" cx={cx} cy="90" r="7" />
+                <defs>
+                  <clipPath id="sw-hero-lens">
+                    <circle cx={LENS.cx} cy={LENS.cy} r={LENS.r - 18} />
+                  </clipPath>
+                </defs>
+
+                {/* The results page: the query, then the five places. */}
+                <g data-p="drift-page">
+                  <g {...tp('page')}>
+                    <path className="sw-hero__frm" d={rr(40, 40, 440, 640, 24)} />
+                    <path className="sw-hero__thin" d={rr(64, 64, 392, 48, 24)} />
+                    <path className="sw-hero__thin" d={glass(84, 86, 9)} />
+                    {BLOCKS.map((b) => (
+                      <g key={b.key}>
+                        <path className={`sw-hero__blk sw-hero__blk--${b.key}`} d={rr(64, b.y, 392, b.h, 14)} />
+                        <path className="sw-hero__fill" d={fill(b.key, b.y)} />
+                        <text className={`sw-hero__lbl sw-hero__lbl--${b.key}`} x="84" y={b.y + 26} fontSize="15" fontWeight="700">
+                          {b.label}
+                        </text>
+                      </g>
                     ))}
-                    <path className="sw-hero__thin" d={rr(690, 74, 470, 32, 16)} />
-                    {KINDS.map((x) => (
-                      <text key={x.key} className={`sw-hero__url sw-v sw-v--${x.key}`} x="712" y="97" fontSize="19" fontWeight="500">
-                        {url(x.query)}
-                      </text>
-                    ))}
-                    <Kinds art={DESK} x={560} y={120} />
-                    <path className="sw-hero__frm" d={rr(496, 648, 888, 30, 15)} />
+                    <Kinds art={PAGE} x={0} y={0} />
                   </g>
                 </g>
 
-                {/* The phone, in front of the laptop's corner. */}
-                <g data-p="drift-phone">
-                  <g {...tp('phone')}>
-                    <path className="sw-hero__frm" d={rr(1340, 300, 230, 480, 40)} />
-                    <path className="sw-hero__thin" d="M1430 324H1480" />
-                    <Kinds art={PHONE} x={1358} y={350} />
+                {/* The glass: yours, up close. */}
+                <g data-p="drift-lens">
+                  <g {...tp('lens')}>
+                    <path className="sw-hero__frm" d={rr(1090, 588, 160, 44, 22)} transform="rotate(45 1090 610)" />
+                    <path className="sw-hero__frm" d={ring(LENS.cx, LENS.cy, LENS.r)} />
+                    <path className="sw-hero__rim" d={ring(LENS.cx, LENS.cy, LENS.r - 14)} />
+                    <g clipPath="url(#sw-hero-lens)">
+                      <Kinds art={UP} x={660} y={250} />
+                    </g>
                   </g>
                 </g>
 
                 {/* Your side, under its title bar. */}
-                <g data-p="drift-crm">
-                  <g {...tp('crm')}>
-                    <path className="sw-hero__frm" d={rr(40, 60, 460, 270, 24)} />
-                    <path className="sw-hero__thin" d={rr(64, 84, 412, 48, 24)} />
-                    <path className="sw-hero__thin" d="M86 98L76 108L86 118M96 98L106 108L96 118" />
-                    <Kinds art={YOU} x={64} y={150} />
+                <g data-p="drift-you">
+                  <g {...tp('you')}>
+                    <path className="sw-hero__frm" d={rr(1210, 100, 350, 280, 24)} />
+                    <path className="sw-hero__thin" d={rr(1230, 120, 310, 44, 22)} />
+                    <path className="sw-hero__thin" d="M1256 132L1248 142L1256 152M1264 132L1272 142L1264 152" />
+                    <Kinds art={YOU} x={1232} y={196} />
                   </g>
                 </g>
 
                 {/* The inbox: what it brings in. */}
                 <g data-p="drift-notice">
                   <g {...tp('notice')}>
-                    <path className="sw-hero__frm" d={rr(40, 450, 460, 140, 24)} />
-                    <text className="sw-hero__now" x="476" y="486" fontSize="15" textAnchor="end">
+                    <path className="sw-hero__frm" d={rr(1210, 470, 350, 120, 24)} />
+                    <text className="sw-hero__now" x="1540" y="500" fontSize="15" textAnchor="end">
                       now
                     </text>
-                    <Kinds art={NOTICE} x={64} y={474} />
+                    <Kinds art={NOTICE} x={1232} y={494} />
                   </g>
                 </g>
               </svg>

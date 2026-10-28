@@ -13,17 +13,20 @@ import useKindsHero from '../worlds/useKindsHero';
    alike. It replaces the workbench (2026-10-23), which ran one machine;
    this runs the five kinds and says where each stops.
 
-   One business, "Your business", on four screens at once: what lands in
-   the owner's inbox, the contact in the CRM, a phone and the flow itself
-   on a laptop. Each kind is drawn the way it really behaves there (a
+   One business, "Your business", on a flow canvas (2026-10-27, owner:
+   "all three services, hero, looking pretty much the same ... we need to
+   get a little bit of diversity"): no laptop and no phone, which are the
+   Web hero's language; the flow itself fills a dotted canvas and wires
+   carry its output to two nodes, the contact in the CRM and what lands in
+   the owner's inbox. Each kind is drawn the way it really behaves (a
    workflow runs the same three steps every time, follow-ups stop when the
-   lead replies, an AI step tags and sums up, an assistant names the page
-   it answered from and hands over what it cannot answer, an agent uses
-   tools and writes down each step), and the log says what each kind does
-   well and where it stops. The SSR markup is the rest state (the
-   workflow) and is complete; entrances are CSS keyframes from first
-   paint. CSS owns every color, the draw-in and which kind shows; GSAP
-   writes only the drift. */
+   lead replies, an AI step tags and sums up, an assistant answers from
+   your notes or hands over, an agent uses tools and writes down each
+   step), and the log says what each kind does well and where it stops.
+   The SSR markup is the rest state (the workflow) and is complete;
+   entrances are CSS keyframes from first paint. CSS owns every color, the
+   draw-in, the wires' flow (only while live, so Pause stops it) and which
+   kind shows; GSAP writes only the drift. */
 
 // Log lines stay at about 37 characters: beside the drawing each is one
 // line with an ellipsis, and a cut line loses its point.
@@ -31,7 +34,6 @@ const KINDS = [
   {
     key: 'flow',
     name: 'Workflow',
-    url: 'flows.yourbusiness.com/new-lead',
     lines: [
       ['kind', 'workflow: when this, then that'],
       ['crm', 'every lead lands in the CRM'],
@@ -42,7 +44,6 @@ const KINDS = [
   {
     key: 'sequence',
     name: 'Follow-ups',
-    url: 'flows.yourbusiness.com/follow-ups',
     lines: [
       ['kind', 'follow-ups: emails on a schedule'],
       ['phone', 'day 0, day 2, day 7, then it stops'],
@@ -53,7 +54,6 @@ const KINDS = [
   {
     key: 'step',
     name: 'AI step',
-    url: 'flows.yourbusiness.com/sort-inbox',
     lines: [
       ['kind', 'AI step: one model call in a flow'],
       ['inbox', 'it tags each email and sums it up'],
@@ -64,7 +64,6 @@ const KINDS = [
   {
     key: 'assistant',
     name: 'Assistant',
-    url: 'yourbusiness.com',
     lines: [
       ['kind', 'assistant: answers from your docs'],
       ['phone', 'it names the page it answered from'],
@@ -75,7 +74,6 @@ const KINDS = [
   {
     key: 'agent',
     name: 'Agent',
-    url: 'flows.yourbusiness.com/booking',
     lines: [
       ['kind', 'agent: plans steps and uses tools'],
       ['flow', 'reads, checks the calendar, books'],
@@ -120,7 +118,7 @@ const Head = ({ name, state = 'Active' }) => (
 // One run of the workflow: trigger, two steps, done; the same every time.
 const runRow = (y) => `${ring(48, y, 8)}M56 ${y}H112${ring(120, y, 8)}M128 ${y}H184${ring(192, y, 8)}`;
 
-/* The laptop: the flow itself, 760 x 520 under the address bar. */
+/* The canvas: the flow itself, 760 x 520, drawn at 1.12. */
 const DESK = {
   flow: () => (
     <>
@@ -199,44 +197,19 @@ const DESK = {
   ),
   assistant: () => (
     <>
-      <T x={36} y={48} size={22} w={700}>
-        Your business
-      </T>
-      <T x={530} y={46} size={20} w={500}>
-        Prices
-      </T>
-      <T x={612} y={46} size={20} w={500}>
-        Contact
-      </T>
-      <L x1={0} y1={78} x2={760} y2={78} />
-      <B x={36} y={110} w={330} h={30} r={8} />
-      <B x={36} y={152} w={260} h={30} r={8} />
-      <B x={36} y={208} w={320} h={14} r={7} />
-      <B x={36} y={234} w={270} h={14} r={7} />
-      <B x={36} y={280} w={330} h={200} r={18} />
-      <B x={404} y={100} w={320} h={404} r={22} />
-      <T x={428} y={138} size={18} w={700}>
-        Ask Your business
-      </T>
-      <L x1={404} y1={158} x2={724} y2={158} />
-      <B x={520} y={176} w={184} h={48} r={18} />
-      <T x={536} y={207} size={16} w={500}>
-        Do you deliver?
-      </T>
-      <A x={428} y={240} w={250} h={84} r={18} />
-      <T x={446} y={275} size={16} w={600} on>
-        Yes, within 25 miles,
-      </T>
-      <T x={446} y={301} size={16} w={600} on>
-        Monday to Saturday.
-      </T>
-      <B x={428} y={338} w={170} h={34} r={17} />
-      <T x={446} y={361} size={15} w={600}>
-        From: Delivery
-      </T>
-      <B x={428} y={440} w={272} h={44} r={22} />
-      <T x={450} y={468} size={16} w={500}>
-        Ask a question
+      <Head name="Answer questions" />
+      <Node x={36} y={150} w={170} label="Question" sub="Chat or email" />
+      <Wire x1={206} x2={262} y={200} />
+      <Node x={262} y={150} w={200} label="Find it" sub="In your notes" />
+      <Wire x1={462} x2={534} y={200} />
+      <Node x={534} y={150} label="Answer" sub="Names the page" a />
+      <D d="M362 250V322M354 312L362 322L370 312" />
+      <Node x={262} y={322} w={200} label="Not found" sub="Under the line" />
+      <Wire x1={462} x2={534} y={372} />
+      <Node x={534} y={322} label="Hand to you" sub="Your inbox" />
+      <B x={36} y={452} w={688} h={52} r={16} />
+      <T x={58} y={485} size={17} w={500}>
+        It answers from your notes, or it hands over.
       </T>
     </>
   ),
@@ -270,149 +243,6 @@ const DESK = {
         </T>
       ))}
       <D a d="M36 478H664" />
-    </>
-  ),
-};
-
-/* The phone's screen, 194 x 412 under the speaker. */
-const PHONE = {
-  flow: () => (
-    <>
-      <T x={14} y={28} size={15} w={700}>
-        Team chat
-      </T>
-      <L x1={0} y1={46} x2={194} y2={46} />
-      <T x={14} y={78} size={13} w={500}>
-        Your flow
-      </T>
-      <A x={14} y={90} w={170} h={100} r={16} />
-      <T x={28} y={120} size={14} w={600} on>
-        New lead from
-      </T>
-      <T x={28} y={142} size={14} w={600} on>
-        the site form.
-      </T>
-      <T x={28} y={170} size={14} w={600} on>
-        Wants a quote.
-      </T>
-      <T x={14} y={212} size={12} w={500}>
-        now
-      </T>
-      <B x={14} y={356} w={166} h={40} r={20} />
-    </>
-  ),
-  sequence: () => (
-    <>
-      <T x={14} y={28} size={15} w={700}>
-        Inbox
-      </T>
-      <L x1={0} y1={46} x2={194} y2={46} />
-      <B x={14} y={60} w={166} h={60} r={12} />
-      <T x={26} y={85} size={13} w={700}>
-        Your quote
-      </T>
-      <T x={26} y={106} size={12} w={500}>
-        Day 0
-      </T>
-      <B x={14} y={132} w={166} h={60} r={12} />
-      <T x={26} y={157} size={13} w={700}>
-        Any questions?
-      </T>
-      <T x={26} y={178} size={12} w={500}>
-        Day 2
-      </T>
-      <A x={14} y={204} w={166} h={60} r={12} />
-      <T x={26} y={229} size={13} w={700} on>
-        You replied
-      </T>
-      <T x={26} y={250} size={12} w={500} on>
-        Day 3
-      </T>
-      <T x={14} y={300} size={12} w={500}>
-        Day 7 note: not sent.
-      </T>
-    </>
-  ),
-  step: () => (
-    <>
-      <T x={14} y={28} size={15} w={700}>
-        Team chat
-      </T>
-      <L x1={0} y1={46} x2={194} y2={46} />
-      <T x={14} y={78} size={13} w={500}>
-        #sales
-      </T>
-      <A x={14} y={90} w={78} h={30} r={15} label="Quote" size={14} />
-      <A x={100} y={90} w={80} h={30} r={15} label="Urgent" size={14} />
-      <T x={14} y={152} size={15} w={700}>
-        Your lead
-      </T>
-      <T x={14} y={178} size={13} w={400}>
-        Needs a price by
-      </T>
-      <T x={14} y={198} size={13} w={400}>
-        Friday. Asked twice.
-      </T>
-      <B x={14} y={220} w={120} h={10} r={5} />
-      <B x={14} y={356} w={166} h={40} r={20} />
-    </>
-  ),
-  assistant: () => (
-    <>
-      <T x={14} y={28} size={15} w={700}>
-        Your business
-      </T>
-      <L x1={0} y1={46} x2={194} y2={46} />
-      <B x={44} y={62} w={136} h={58} r={16} />
-      <T x={56} y={86} size={13} w={500}>
-        Do you deliver
-      </T>
-      <T x={56} y={106} size={13} w={500}>
-        on Sundays?
-      </T>
-      <A x={14} y={134} w={156} h={78} r={16} />
-      <T x={26} y={164} size={13} w={600} on>
-        No: Monday to
-      </T>
-      <T x={26} y={184} size={13} w={600} on>
-        Saturday only.
-      </T>
-      <B x={14} y={224} w={124} h={28} r={14} />
-      <T x={26} y={243} size={11} w={600}>
-        From: Delivery
-      </T>
-      <B x={14} y={356} w={166} h={40} r={20} />
-      <T x={30} y={381} size={13} w={500}>
-        Ask a question
-      </T>
-    </>
-  ),
-  agent: () => (
-    <>
-      <T x={14} y={28} size={15} w={700}>
-        Messages
-      </T>
-      <L x1={0} y1={46} x2={194} y2={46} />
-      <T x={14} y={78} size={13} w={500}>
-        Your business
-      </T>
-      <A x={14} y={90} w={170} h={100} r={16} />
-      <T x={28} y={120} size={14} w={600} on>
-        You&apos;re booked:
-      </T>
-      <T x={28} y={144} size={18} w={800} on>
-        Tue 10:30
-      </T>
-      <T x={28} y={172} size={13} w={500} on>
-        Reply to move it.
-      </T>
-      <T x={14} y={212} size={12} w={500}>
-        now
-      </T>
-      <B x={14} y={228} w={166} h={44} r={22} />
-      <T x={97} y={255} size={14} w={700} anchor="middle">
-        Add to calendar
-      </T>
     </>
   ),
 };
@@ -575,17 +405,15 @@ const NOTICE = {
   ),
 };
 
-// The screens, smallest first: the order the kinds draw in (`--d`) and
-// the order the entrance runs. Captions sit in the Web hero's zones (the
-// screens share its frames), short, because the type floors at 12px while
-// the drawing shrinks.
-const TOUCH = ['notice', 'crm', 'phone', 'desk'];
-const DRIFT = { notice: 1.4, crm: 1.2, phone: 1.3, desk: 0.6 };
+// The nodes, smallest first: the order the kinds draw in (`--d`) and the
+// order the entrance runs. Captions sit in zones no wire or node crosses,
+// short, because the type floors at 12px while the drawing shrinks.
+const TOUCH = ['notice', 'crm', 'canvas'];
+const DRIFT = { notice: 1.4, crm: 1.2, canvas: 0.5 };
 const CAPS = [
-  { key: 'crm', l: 2.5, t: 36.5, w: 28.75, text: ['CRM.', 'Every lead and reply, written down.'] },
-  { key: 'notice', l: 2.5, t: 63.5, w: 28.75, text: ['Inbox.', 'What it tells you, and what it hands you.'] },
-  { key: 'desk', l: 35, t: 73.5, w: 30, text: ['The flow.', 'Each step it runs, in order.'] },
-  { key: 'phone', l: 83.75, t: 83.5, w: 14.5, text: ['Phone.', 'Where it reaches people.'] },
+  { key: 'canvas', l: 2.5, t: 74.5, w: 50, text: ['The flow.', 'Each step it runs, in order.'] },
+  { key: 'crm', l: 68.75, t: 39.25, w: 28.75, text: ['CRM.', 'Every lead and reply, written down.'] },
+  { key: 'notice', l: 68.75, t: 70.25, w: 28.75, text: ['Inbox.', 'What it tells you, and what it hands you.'] },
 ];
 
 export default function AutomationHero() {
@@ -627,52 +455,51 @@ export default function AutomationHero() {
                 Five kinds of automation
               </p>
               <svg viewBox="0 0 1600 960" aria-hidden="true" focusable="false" fontFamily={INTER}>
-                {/* The laptop: the flow under its address bar, on a base. */}
-                <g data-p="drift-desk">
-                  <g {...tp('desk')}>
-                    <path className="aw-hero__frm" d={rr(560, 60, 760, 580, 28)} />
-                    <path className="aw-hero__thin" d="M560 120H1320" />
-                    {[594, 620, 646].map((cx) => (
-                      <circle key={cx} className="aw-hero__thin" cx={cx} cy="90" r="7" />
-                    ))}
-                    <path className="aw-hero__thin" d={rr(690, 74, 470, 32, 16)} />
-                    {KINDS.map((x) => (
-                      <text key={x.key} className={`aw-hero__url aw-v aw-v--${x.key}`} x="712" y="97" fontSize="19" fontWeight="500">
-                        {x.url}
-                      </text>
-                    ))}
-                    <Kinds art={DESK} x={560} y={120} />
-                    <path className="aw-hero__frm" d={rr(496, 648, 888, 30, 15)} />
-                  </g>
-                </g>
+                {/* The canvas's dot grid (inside the flow's group only, so no caption sits on dots) and the wires to its outputs. */}
+                <defs>
+                  <pattern id="aw-hero-dots" width="32" height="32" patternUnits="userSpaceOnUse">
+                    <circle className="aw-hero__dot" cx="16" cy="16" r="2.2" />
+                  </pattern>
+                  <clipPath id="aw-hero-canvas">
+                    <path d={rr(40, 40, 900, 660, 28)} />
+                  </clipPath>
+                </defs>
+                <rect x="40" y="40" width="900" height="660" fill="url(#aw-hero-dots)" clipPath="url(#aw-hero-canvas)" />
+                <path className="aw-hero__wire" d="M940 300C1020 300 1020 225 1100 225" />
+                <path className="aw-hero__wire" d="M940 440C1020 440 1020 590 1100 590" />
 
-                {/* The phone, in front of the laptop's corner. */}
-                <g data-p="drift-phone">
-                  <g {...tp('phone')}>
-                    <path className="aw-hero__frm" d={rr(1340, 300, 230, 480, 40)} />
-                    <path className="aw-hero__thin" d="M1430 324H1480" />
-                    <Kinds art={PHONE} x={1358} y={350} />
+                {/* The flow, on the canvas. */}
+                <g data-p="drift-canvas">
+                  <g {...tp('canvas')}>
+                    <path className="aw-hero__grp" d={rr(40, 40, 900, 660, 28)} />
+                    <g transform="translate(70 70) scale(1.12)">
+                      <Kinds art={DESK} x={0} y={0} />
+                    </g>
+                    <path className="aw-hero__frm" d={ring(940, 300, 8)} />
+                    <path className="aw-hero__frm" d={ring(940, 440, 8)} />
                   </g>
                 </g>
 
                 {/* The CRM, under its filter. */}
                 <g data-p="drift-crm">
                   <g {...tp('crm')}>
-                    <path className="aw-hero__frm" d={rr(40, 60, 460, 270, 24)} />
-                    <path className="aw-hero__thin" d={rr(64, 84, 412, 48, 24)} />
-                    <path className="aw-hero__thin" d={`${ring(94, 106, 10)}M101 113L110 122`} />
-                    <Kinds art={CRM} x={64} y={150} />
+                    <path className="aw-hero__frm" d={rr(1100, 90, 460, 270, 24)} />
+                    <path className="aw-hero__thin" d={rr(1124, 114, 412, 48, 24)} />
+                    <path className="aw-hero__thin" d={`${ring(1154, 136, 10)}M1161 143L1170 152`} />
+                    <Kinds art={CRM} x={1124} y={180} />
+                    <path className="aw-hero__frm" d={ring(1100, 225, 8)} />
                   </g>
                 </g>
 
                 {/* The inbox: what the automation tells you. */}
                 <g data-p="drift-notice">
                   <g {...tp('notice')}>
-                    <path className="aw-hero__frm" d={rr(40, 450, 460, 140, 24)} />
-                    <text className="aw-hero__now" x="476" y="486" fontSize="15" textAnchor="end">
+                    <path className="aw-hero__frm" d={rr(1100, 520, 460, 140, 24)} />
+                    <text className="aw-hero__now" x="1536" y="556" fontSize="15" textAnchor="end">
                       now
                     </text>
-                    <Kinds art={NOTICE} x={64} y={474} />
+                    <Kinds art={NOTICE} x={1124} y={544} />
+                    <path className="aw-hero__frm" d={ring(1100, 590, 8)} />
                   </g>
                 </g>
               </svg>

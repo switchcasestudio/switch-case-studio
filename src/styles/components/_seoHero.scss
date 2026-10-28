@@ -1,10 +1,13 @@
-// The SEO & AI Search world's hero: the five ways to be found on four
-// screens (SearchHero.js, 2026-10-27; the search desk before it is gone).
-// The frame, copy, captions, log and motion are the worlds' shared hero
-// (_worldHero.scss, `world-hero`); the one-screen fit, the draw-in, the
-// pills and the phone layout are the kinds heroes' layer (_kindsHero.scss,
-// `kinds-hero`), the same as the Web and AI worlds'. Cream lines on black,
-// orange the one accent (owner, 2026-10-24).
+// The SEO & AI Search world's hero: the five ways to be found, a results
+// page under a magnifying glass (SearchHero.js, 2026-10-27; the search
+// desk before it is gone). The frame, copy, captions, log and motion are
+// the worlds' shared hero (_worldHero.scss, `world-hero`); the one-screen
+// fit, the draw-in, the pills and the phone layout are the kinds heroes'
+// layer (_kindsHero.scss, `kinds-hero`), the same as the Web and AI
+// worlds'. Its own look (owner, 2026-10-27: "we need to get a little bit
+// of diversity"): the page's five places, the current one in orange, and
+// the glass. Cream lines on black, orange the one accent (owner,
+// 2026-10-24).
 
 $sw-field: #000;
 $sw-orange: $orange-color;
@@ -13,4 +16,60 @@ $sw-kinds: web, map, rich, answer, ad;
 .sw-hero {
   @include world-hero($sw-orange, $sw-field);
   @include kinds-hero(sw, $sw-orange, $sw-field, $sw-kinds);
+
+  // The page's five places: outlined, their insides faint; the current
+  // kind's place turns orange.
+  &__blk {
+    fill: none;
+    stroke: $white-color;
+    stroke-width: var(--kh-line);
+    transition:
+      stroke 0.3s ease,
+      fill 0.3s ease;
+  }
+
+  &__fill {
+    fill: none;
+    stroke: rgba(254, 247, 237, 0.3);
+    stroke-width: var(--kh-line);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &__lbl {
+    fill: rgba(254, 247, 237, 0.75);
+    transition: fill 0.3s ease;
+  }
+
+  @each $k in $sw-kinds {
+    &.is-k-#{$k} &__blk--#{$k} {
+      stroke: $sw-orange;
+      fill: rgba(255, 131, 74, 0.12);
+    }
+
+    &.is-k-#{$k} &__lbl--#{$k} {
+      fill: $sw-orange;
+    }
+  }
+
+  // The glass's inner rim.
+  &__rim {
+    fill: none;
+    stroke: rgba(254, 247, 237, 0.35);
+    stroke-width: var(--kh-line);
+  }
+
+  // The pills sit under the page's caption.
+  @media #{$wh-wide} {
+    .sw-hero__picks {
+      top: 81%;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &__blk,
+    &__lbl {
+      transition: none;
+    }
+  }
 }

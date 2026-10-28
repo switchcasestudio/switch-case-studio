@@ -2347,3 +2347,10 @@ Full system handoff (how every piece connects, secrets, release routine): privat
 - Verified: production build 64 pages, standing checks clean, US English clean, no Sass warnings from the new sheet; headless Chrome: header + hero = viewport at 11 sizes, every lesson inside its tile at 1440 x 900 and 1024 x 768, 390 stacked with no sideways scroll, every lesson and demo driven, no console errors.
 - Owner: "log commit push to main". Merged to main and pushed; `feat/seo-lessons` deleted.
 - **Open:** owner review; a phone pass for the map slider and the text fields.
+
+### 2026-10-27 — Three heroes, three compositions, thinner strokes (committed on `feat/hero-variety`, not pushed)
+- Owner: "All three services, hero, looking pretty much the same ... we need to get a little bit of diversity ... the stroke of the elements are too thick." Brand stays as it is ("working really great").
+- Web keeps its devices. AI is a flow canvas: dot grid, the flow in a dashed group, wires to the CRM and inbox that flow while live. SEO is a magnifying glass over a results page: five places top to bottom, the current one in orange, yours up close under the glass.
+- Strokes are about half as thick on wide screens (frames 8 to 4, lines 5 to 3 viewBox units), a little thinner on phones (6 and 4).
+- A kind switch no longer shows two kinds' words on top of each other.
+- Verified: production build, US English clean; header + hero = viewport at 11 sizes on all three pages; every kind shot at 1440; 390 phone shots; no console errors.
