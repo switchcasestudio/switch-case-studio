@@ -1,4 +1,6 @@
 import { useId, useState } from 'react';
+import { makeSearch, Marked } from '../worlds/retrieve';
+import { Range, Toggle } from '../worlds/lessonUi';
 
 /* The lessons of the AI world's stage (2026-10-27), the brand and Web
    worlds' "What we know" for automation: one live demo per thing every
@@ -16,36 +18,6 @@ import { useId, useState } from 'react';
 
 const INTER = "Inter, 'Inter Fallback', sans-serif";
 const META = { fontFamily: INTER, fontSize: 18, fontWeight: 700, letterSpacing: 2 };
-
-function Range({ id, label, value, min, max, step = 1, show, text, onChange }) {
-  return (
-    <div className="bw-lesson__ctl">
-      <label className="bw-ui__lab" htmlFor={id}>
-        {label}
-      </label>
-      <span className="bw-ui__val" aria-hidden="true">
-        {show}
-      </span>
-      <input
-        id={id}
-        className="bw-ui__range"
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        aria-valuetext={text}
-        onChange={(e) => onChange(+e.target.value)}
-      />
-    </div>
-  );
-}
-
-const Toggle = ({ on, onClick, children }) => (
-  <button type="button" className={`bw-lesson__toggle${on ? ' is-on' : ''}`} aria-pressed={on} onClick={onClick}>
-    {children}
-  </button>
-);
 
 /* ---- 01 Payback: minutes, times, weeks ---- */
 
@@ -154,71 +126,12 @@ export const NOTES = [
   { key: 'payment', title: 'Payment', text: 'We take cards, Apple Pay and bank transfer. Invoices are due in 14 days.' },
 ];
 
-// TF-IDF and cosine similarity, the classic way search scores a match by
-// the words two texts share, weighted by how rare each word is. A live
-// assistant also matches meaning (embeddings); the principle is the same.
-const STOP = new Set(
-  'a an and are as at be by can do does for from how i in is it its me my of on or our than that the their there this to up us we what when where which who will with you your yours if any not get'.split(
-    ' ',
-  ),
-);
-const stem = (w) => {
-  for (const [s, r] of [
-    ['ies', 'y'],
-    ['ing', ''],
-    ['ed', ''],
-    ['s', ''],
-  ]) {
-    if (w.endsWith(s) && w.length - s.length >= 3) return w.slice(0, -s.length) + r;
-  }
-  return w;
-};
-const words = (t) => (t.toLowerCase().match(/[a-z0-9]+/g) || []).filter((w) => !STOP.has(w)).map(stem);
-const docWords = NOTES.map((d) => words(`${d.title} ${d.text}`));
-const df = {};
-docWords.forEach((ws) =>
-  new Set(ws).forEach((w) => {
-    df[w] = (df[w] || 0) + 1;
-  }),
-);
-const idf = (w) => Math.log((NOTES.length + 1) / ((df[w] || 0) + 1)) + 1;
-const vec = (ws) => {
-  const v = {};
-  ws.forEach((w) => {
-    v[w] = (v[w] || 0) + 1;
-  });
-  Object.keys(v).forEach((w) => {
-    v[w] *= idf(w);
-  });
-  return v;
-};
-const size = (v) => Math.sqrt(Object.values(v).reduce((s, x) => s + x * x, 0)) || 1;
-const docVecs = docWords.map(vec);
-
-export function search(q) {
-  const qv = vec(words(q));
-  const qn = size(qv);
-  return NOTES.map((d, i) => {
-    let dot = 0;
-    Object.keys(qv).forEach((w) => {
-      if (docVecs[i][w]) dot += qv[w] * docVecs[i][w];
-    });
-    return { ...d, score: dot / (qn * size(docVecs[i])) };
-  }).sort((a, b) => b.score - a.score);
-}
+// Scored by the worlds' shared retrieval (worlds/retrieve.js): TF-IDF and
+// cosine similarity over these notes.
+export const search = makeSearch(NOTES);
 
 const LINE = 0.25;
 const ASK = ['Is delivery free?', 'Can I move my booking?', 'Do you take Apple Pay?', 'Do you sell gift cards?'];
-
-// The passage, with the words it shares with the question marked.
-function Marked({ text, q }) {
-  const want = new Set(words(q));
-  return text.split(/([A-Za-z0-9]+)/).map((part, i) => {
-    const w = part.toLowerCase();
-    const hit = /^[a-z0-9]+$/.test(w) && !STOP.has(w) && want.has(stem(w));
-    return hit ? <mark key={i}>{part}</mark> : part;
-  });
-}
 
 export function Grounding() {
   const id = useId();

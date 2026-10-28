@@ -1,377 +1,591 @@
-import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { f, q, qa } from '../servicePoster/usePosterEngine';
+import kindsParts, { INTER, rr, ring } from '../worlds/kindsParts';
+import useKindsHero from '../worlds/useKindsHero';
 
-/* The SEO & AI Search world's hero (2026-10-24): the search desk, the AI
-   world's workbench rebuilt for search. Same frame (`world-hero` in
-   _worldHero.scss), same rules: black field, cream lines, orange as the
-   only accent, no glow, captions in zones no line crosses.
+/* The SEO & AI Search world's hero (2026-10-27, owner: "last but not
+   least, lets do the SEO & AI search service page", after the brand, Web
+   and AI worlds learned to teach), the Web and AI heroes' sibling: they
+   run the five kinds of build and of automation, this one the five ways a
+   business is found in search (web result, map, rich result, AI answer,
+   ad). The frame, copy, captions, log and Pause are the shared
+   `world-hero`; the engine (worlds/useKindsHero.js), the drawing parts
+   (worlds/kindsParts.js) and the draw-in (`kinds-hero`) are the Web
+   hero's, so the three behave alike. It replaces the search desk
+   (2026-10-24), which ran one made-up search with made-up rankings; this
+   says how each way is earned and where it stops.
 
-   The drawing is the path a search takes to your business: the query (a
-   search bar with the Search button), your page (read line by line, each
-   line ticked), the index (striped box), the results (five rows; yours is
-   the orange one) and the AI answer (a bubble that writes itself and the
-   chip that cites your page). It is a machine that runs:
-   - Live: while the hero is on screen it runs a search on its own every
-     few seconds. The query types, the packet reads the page, the index
-     takes it, your row climbs a place or two, the answer writes and cites
-     you, or honestly does not. The crawl log gets four lines per search,
-     stamped in weeks, because search work is counted in weeks. A Pause
-     button stops all of it (WCAG 2.2.2).
-   - Reacting: the page's read line follows the pointer, hovering a part or
-     its caption lights both, Search runs the next search, and the query
-     bar, the page and the answer each start one.
-   The SSR markup is the rest state and is complete; the entrance is CSS
-   keyframes from first paint. Under reduced motion nothing moves on its
-   own and Search writes the log at once. Auto runs are not announced;
-   pressed runs are. Your row never reaches first place: nobody can promise
-   it, and the caption says so. */
+   One business, "Your business", on four screens at once: the results
+   page on a laptop, the same search on a phone, your side (what makes it
+   show: the head, the Business Profile, structured data, a passage, a
+   campaign) and what lands in your inbox. The log says how each is earned
+   and its limit; the local factors are Google's own (relevance, distance,
+   prominence). The SSR markup is the rest state (the web result) and is
+   complete; entrances are CSS keyframes from first paint. CSS owns every
+   color, the draw-in and which kind shows; GSAP writes only the drift. */
 
-const INTER = "Inter, 'Inter Fallback', sans-serif";
-const S = { fill: 'none', stroke: 'currentColor', strokeWidth: 8, strokeLinecap: 'round', strokeLinejoin: 'round' };
-const THIN = { ...S, strokeWidth: 5 };
-const ORANGE = '#ff834a';
-const STEP = 300 / 7;
-const AUTO_FIRST = 1700;
-const AUTO_GAP = 3600;
-const ROW_Y = (slot) => 40 + slot * 76;
-const REST_SLOT = 2;
-const OTHERS = [0, 1, 2, 3];
-const PAGE_LINES = [0, 1, 2, 3, 4, 5];
-const SCAN = { top: 330, bottom: 650 };
-
-// One search per kind: the query, where your row starts and lands (0 is
-// first place, never reached), whether the answer cites you, and the log
-// (weeks after the query, then the line).
-const JOBS = [
+// Log lines stay at about 37 characters: beside the drawing each is one
+// line with an ellipsis, and a cut line loses its point.
+const KINDS = [
   {
-    query: 'emergency plumber portland',
-    from: 4,
-    to: 2,
-    cited: true,
-    span: 8,
+    key: 'web',
+    name: 'Web result',
+    query: 'your service in your city',
     lines: [
-      [0, 'query: emergency plumber portland'],
-      [1, 'page read: title 74 chars, cut to 58'],
-      [5, 'rank: 5th to 3rd for the query'],
-      [7, 'cited in an AI answer, logged'],
+      ['kind', 'web result: a link, a title, a line'],
+      ['you', 'the title and line come from you'],
+      ['how', 'earned: content, links, a fast page'],
+      ['limit', 'free per click, but slow to earn'],
     ],
   },
   {
-    query: 'med spa near me',
-    from: 3,
-    to: 1,
-    cited: true,
-    span: 7,
+    key: 'map',
+    name: 'Map',
+    query: 'your service near me',
     lines: [
-      [0, 'query: med spa near me'],
-      [1, 'page read: no business schema, added'],
-      [4, 'rank: 4th to 2nd for the query'],
-      [6, 'cited in an AI answer, logged'],
+      ['kind', 'map: three businesses near you'],
+      ['you', 'it reads your Business Profile'],
+      ['how', 'relevance, distance, prominence'],
+      ['limit', 'it only shows near the searcher'],
     ],
   },
   {
-    query: 'website cost for a bakery',
-    from: 4,
-    to: 3,
-    cited: false,
-    span: 6,
+    key: 'rich',
+    name: 'Rich result',
+    query: 'your product price',
     lines: [
-      [0, 'query: website cost for a bakery'],
-      [1, 'page read: no prices on the page'],
-      [4, 'rank: 5th to 4th for the query'],
-      [5, 'not cited: prices added to the list'],
+      ['kind', 'rich result: stars, price, stock'],
+      ['you', 'it comes from structured data'],
+      ['how', 'same place, more room on the page'],
+      ['limit', 'Google decides whether it shows'],
     ],
   },
   {
-    query: 'roof repair tampa',
-    from: 4,
-    to: 2,
-    cited: true,
-    span: 9,
+    key: 'answer',
+    name: 'AI answer',
+    query: 'what does your service cost?',
     lines: [
-      [0, 'query: roof repair tampa'],
-      [1, 'page read: images 3 MB, compressed'],
-      [6, 'rank: 5th to 3rd for the query'],
-      [8, 'cited in an AI answer, logged'],
+      ['kind', 'AI answer: a summary with sources'],
+      ['you', 'it quotes a passage, not a page'],
+      ['how', 'its crawler has to be let in'],
+      ['limit', 'a citation is not always a click'],
+    ],
+  },
+  {
+    key: 'ad',
+    name: 'Ad',
+    query: 'your service today',
+    lines: [
+      ['kind', 'ad: paid, on top, marked Sponsored'],
+      ['you', 'you pick the words and the budget'],
+      ['how', 'it shows the day it starts'],
+      ['limit', 'it stops when the budget stops'],
     ],
   },
 ];
 
-// Each caption sits in a zone no line crosses (viewBox 1600 x 960): under
-// the Search button, under the page, under the index, beside the arrow
-// under the results, beside the answer's tail. Short copy, because the type
-// floors at 12px while the drawing keeps shrinking.
-const CAPS = [
-  { key: 'query', l: 23.75, t: 20, w: 26, text: ['Query.', 'What a customer types into Google, or asks an AI.'] },
-  { key: 'page', l: 2.5, t: 74.5, w: 26, text: ['Your page.', 'Title, schema, speed: read first, then fixed.'] },
-  { key: 'index', l: 30, t: 71.5, w: 26, text: ['Index.', 'A fixed page gets read again.'] },
-  { key: 'rank', l: 70, t: 44, w: 27.5, text: ['Rank.', 'It climbs. Nobody can promise first.'] },
-  { key: 'answer', l: 73.75, t: 89, w: 24, text: ['Answer.', 'Your page, cited as the source.'] },
-];
+/* ---- Drawing parts (worlds/kindsParts.js) ---- */
 
-const week = (n) => `wk ${String(((n - 1) % 52) + 1).padStart(2, '0')}`;
+const { D, B, L, A, T, Kinds } = kindsParts('sw', KINDS);
 
-const place = (el, path, len) => {
-  const pt = path.getPointAtLength(len);
-  el.setAttribute('transform', `translate(${f(pt.x)} ${f(pt.y)})`);
+const f1 = (n) => Math.round(n * 10) / 10;
+// A five-point star around (cx, cy), for ratings.
+const star = (cx, cy, r) =>
+  `${Array.from({ length: 10 }, (_, i) => {
+    const a = ((-90 + i * 36) * Math.PI) / 180;
+    const d = i % 2 ? r * 0.45 : r;
+    return `${i ? 'L' : 'M'}${f1(cx + d * Math.cos(a))} ${f1(cy + d * Math.sin(a))}`;
+  }).join('')}Z`;
+const Stars = ({ x, y, r, gap }) => <D a d={[0, 1, 2, 3, 4].map((i) => star(x + i * gap, y, r)).join('')} />;
+// A map pin with its tip at (x, y).
+const pin = (x, y, s = 1) =>
+  `M${x} ${y}C${x - 6 * s} ${y - 12 * s} ${x - 16 * s} ${y - 20 * s} ${x - 16 * s} ${y - 30 * s}a${16 * s} ${16 * s} 0 0 1 ${
+    32 * s
+  } 0C${x + 16 * s} ${y - 20 * s} ${x + 6 * s} ${y - 12 * s} ${x} ${y}Z${ring(x, y - 30 * s, 6 * s)}`;
+const lens = (cx, cy, r) => `${ring(cx, cy, r)}M${cx + r * 0.7} ${cy + r * 0.7}L${cx + r * 1.6} ${cy + r * 1.6}`;
+// A photo placeholder: a frame, a hill and a sun.
+const photo = (x, y, w, h) => `${rr(x, y, w, h, 12)}M${x + 14} ${y + h - 14}L${x + w * 0.38} ${y + h * 0.45}L${x + w * 0.6} ${
+  y + h * 0.7
+}L${x + w * 0.74} ${y + h * 0.58}L${x + w - 14} ${y + h - 14}${ring(x + w * 0.74, y + h * 0.28, Math.min(w, h) * 0.08)}`;
+
+// The page's search box, with the query in words.
+const Ask = ({ q }) => (
+  <>
+    <B x={36} y={22} w={600} h={52} r={26} />
+    <D d={lens(66, 46, 10)} />
+    <T x={92} y={55} size={19}>
+      {q}
+    </T>
+  </>
+);
+// Somebody else's result, as bars: url, title, line.
+const Other = ({ y, w = 420 }) => (
+  <>
+    <B x={36} y={y} w={190} h={12} r={6} />
+    <B x={36} y={y + 22} w={w} h={20} r={8} />
+    <B x={36} y={y + 52} w={600} h={10} r={5} />
+  </>
+);
+const Bars = ({ y, w = 150 }) => (
+  <>
+    <B x={14} y={y} w={96} h={8} r={4} />
+    <B x={14} y={y + 14} w={w} h={12} r={6} />
+    <B x={14} y={y + 34} w={166} h={8} r={4} />
+  </>
+);
+const PhoneAsk = ({ q }) => (
+  <>
+    <B x={14} y={14} w={166} h={34} r={17} />
+    <T x={28} y={36} size={12}>
+      {q}
+    </T>
+  </>
+);
+
+/* The laptop: the results page, 760 x 520 under the address bar. */
+const DESK = {
+  web: () => (
+    <>
+      <Ask q="your service in your city" />
+      <Other y={104} />
+      <D a d="M18 200V312" />
+      <T x={36} y={214} size={16}>
+        yourbusiness.com › services
+      </T>
+      <T x={36} y={250} size={26} w={700} a>
+        Your service in your city, same day
+      </T>
+      <T x={36} y={284} size={17}>
+        A written price before any work starts. Open
+      </T>
+      <T x={36} y={308} size={17}>
+        Monday to Saturday, 9 am to 6 pm.
+      </T>
+      <Other y={350} w={440} />
+      <Other y={440} w={380} />
+    </>
+  ),
+  map: () => (
+    <>
+      <Ask q="your service near me" />
+      <B x={36} y={96} w={688} h={236} r={16} />
+      <L x1={36} y1={196} x2={724} y2={170} />
+      <L x1={250} y1={96} x2={290} y2={332} />
+      <L x1={540} y1={96} x2={490} y2={332} />
+      <D d="M36 290C200 262 420 300 724 252" />
+      <D d={pin(160, 178, 0.8)} />
+      <D d={pin(630, 150, 0.8)} />
+      <D d={pin(410, 292, 0.8)} />
+      <D a d={pin(350, 232, 1.15)} />
+      <T x={36} y={382} size={21} w={700} a>
+        Your business
+      </T>
+      <T x={36} y={408} size={16}>
+        Your service · 0.4 mi · Open now
+      </T>
+      <A x={604} y={358} w={120} h={44} r={22} label="Call" size={18} />
+      <B x={36} y={436} w={220} h={16} r={8} />
+      <B x={36} y={460} w={300} h={10} r={5} />
+      <B x={604} y={434} w={120} h={40} r={20} />
+      <B x={36} y={488} w={180} h={14} r={7} />
+      <B x={36} y={508} w={260} h={8} r={4} />
+    </>
+  ),
+  rich: () => (
+    <>
+      <Ask q="your product price" />
+      <Other y={104} />
+      <D a d="M18 200V330" />
+      <T x={36} y={214} size={16}>
+        yourbusiness.com › Shop › Your product
+      </T>
+      <T x={36} y={250} size={26} w={700} a>
+        Your product, made to order
+      </T>
+      <Stars x={48} y={280} r={11} gap={26} />
+      <T x={172} y={287} size={17}>
+        4.8 · 126 reviews
+      </T>
+      <T x={36} y={322} size={18} w={600}>
+        $24.00 · In stock
+      </T>
+      <D d={photo(584, 196, 140, 140)} />
+      <Other y={370} w={440} />
+      <Other y={450} w={380} />
+    </>
+  ),
+  answer: () => (
+    <>
+      <Ask q="what does your service cost?" />
+      <B x={36} y={96} w={688} h={300} r={18} />
+      <T x={64} y={138} size={18} w={700}>
+        AI answer
+      </T>
+      <T x={64} y={178} size={19}>
+        It depends on the job. Your business lists its
+      </T>
+      <T x={64} y={206} size={19}>
+        prices on one page: from $90, with a written
+      </T>
+      <T x={64} y={234} size={19}>
+        price before any work starts.
+      </T>
+      <T x={64} y={286} size={16} w={700}>
+        Sources
+      </T>
+      <A x={64} y={304} w={230} h={44} r={22} label="yourbusiness.com" size={17} />
+      <B x={310} y={304} w={170} h={44} r={22} />
+      <B x={496} y={304} w={140} h={44} r={22} />
+      <Other y={420} />
+    </>
+  ),
+  ad: () => (
+    <>
+      <Ask q="your service today" />
+      <T x={36} y={124} size={16} w={700}>
+        Sponsored
+      </T>
+      <D a d="M18 136V286" />
+      <T x={36} y={154} size={16}>
+        yourbusiness.com
+      </T>
+      <T x={36} y={190} size={26} w={700} a>
+        Your service today: call for a price
+      </T>
+      <T x={36} y={224} size={17}>
+        Same-day visits, a written price first.
+      </T>
+      <B x={36} y={244} w={110} h={40} r={20} />
+      <T x={91} y={270} size={16} w={600} anchor="middle">
+        Prices
+      </T>
+      <B x={158} y={244} w={110} h={40} r={20} />
+      <T x={213} y={270} size={16} w={600} anchor="middle">
+        Book
+      </T>
+      <A x={280} y={244} w={110} h={40} r={20} label="Call" size={17} />
+      <T x={36} y={326} size={16} w={700}>
+        Sponsored
+      </T>
+      <B x={36} y={340} w={190} h={12} r={6} />
+      <B x={36} y={362} w={380} h={20} r={8} />
+      <L x1={0} y1={410} x2={760} y2={410} />
+      <Other y={432} />
+    </>
+  ),
 };
 
-// Where the other four rows sit when yours is in `slot`.
-const slotsAround = (slot) => [0, 1, 2, 3, 4].filter((s) => s !== slot);
+/* The phone's screen, 194 x 412 under the speaker. */
+const PHONE = {
+  web: () => (
+    <>
+      <PhoneAsk q="your service" />
+      <Bars y={62} />
+      <D a d="M6 106V188" />
+      <T x={14} y={116} size={11}>
+        yourbusiness.com
+      </T>
+      <T x={14} y={140} size={16} w={700} a>
+        Your service in
+      </T>
+      <T x={14} y={160} size={16} w={700} a>
+        your city
+      </T>
+      <T x={14} y={182} size={12}>
+        A written price first.
+      </T>
+      <Bars y={212} w={160} />
+      <Bars y={276} w={130} />
+    </>
+  ),
+  map: () => (
+    <>
+      <B x={14} y={14} w={166} h={196} r={14} />
+      <L x1={14} y1={92} x2={180} y2={72} />
+      <L x1={70} y1={14} x2={100} y2={210} />
+      <D d="M14 172C80 152 120 182 180 142" />
+      <D d={pin(48, 70, 0.55)} />
+      <D d={pin(150, 176, 0.55)} />
+      <D a d={pin(128, 128, 0.8)} />
+      <A x={14} y={222} w={166} h={92} r={14} />
+      <T x={28} y={250} size={15} w={700} on>
+        Your business
+      </T>
+      <T x={28} y={272} size={12} on>
+        0.4 mi · Open now
+      </T>
+      <T x={28} y={294} size={12} on>
+        Your service
+      </T>
+      <B x={14} y={326} w={78} h={38} r={19} />
+      <T x={53} y={350} size={13} w={700} anchor="middle">
+        Call
+      </T>
+      <B x={102} y={326} w={78} h={38} r={19} />
+      <T x={141} y={350} size={13} w={700} anchor="middle">
+        Route
+      </T>
+    </>
+  ),
+  rich: () => (
+    <>
+      <PhoneAsk q="your product price" />
+      <B x={14} y={62} w={166} h={232} r={14} />
+      <D d={photo(24, 72, 146, 100)} />
+      <T x={24} y={196} size={14} w={700}>
+        Your product
+      </T>
+      <Stars x={31} y={214} r={7} gap={16} />
+      <T x={110} y={219} size={11}>
+        4.8 (126)
+      </T>
+      <T x={24} y={246} size={15} w={700} a>
+        $24.00
+      </T>
+      <T x={24} y={270} size={12}>
+        In stock
+      </T>
+      <Bars y={308} />
+    </>
+  ),
+  answer: () => (
+    <>
+      <T x={14} y={28} size={15} w={700}>
+        AI chat
+      </T>
+      <L x1={0} y1={46} x2={194} y2={46} />
+      <B x={44} y={62} w={136} h={58} r={16} />
+      <T x={56} y={86} size={13}>
+        How much does
+      </T>
+      <T x={56} y={106} size={13}>
+        it cost?
+      </T>
+      <B x={14} y={134} w={166} h={86} r={16} />
+      <T x={26} y={160} size={13}>
+        From $90, with a
+      </T>
+      <T x={26} y={180} size={13}>
+        written price before
+      </T>
+      <T x={26} y={200} size={13}>
+        any work starts.
+      </T>
+      <A x={14} y={232} w={150} h={30} r={15} label="yourbusiness.com" size={12} />
+      <B x={14} y={356} w={166} h={40} r={20} />
+    </>
+  ),
+  ad: () => (
+    <>
+      <PhoneAsk q="your service today" />
+      <T x={14} y={72} size={11} w={700}>
+        Sponsored
+      </T>
+      <T x={14} y={92} size={11}>
+        yourbusiness.com
+      </T>
+      <T x={14} y={116} size={16} w={700} a>
+        Your service
+      </T>
+      <T x={14} y={136} size={16} w={700} a>
+        today
+      </T>
+      <T x={14} y={158} size={12}>
+        Call for a price.
+      </T>
+      <A x={14} y={172} w={166} h={40} r={20} label="Call" size={15} />
+      <Bars y={236} w={160} />
+      <Bars y={300} w={130} />
+    </>
+  ),
+};
+
+/* Your side: what makes each one show, 412 x 160 under its title bar
+   (the title sits above, in the bar). */
+const STORE = 'M4 18H40V44H4ZM0 18L6 4H38L44 18M16 44V30H28V44';
+const YOU = {
+  web: () => (
+    <>
+      <T x={52} y={-34} size={20} w={500}>
+        Your page · the head
+      </T>
+      <T x={0} y={20} size={17} w={600} a>
+        {'<title>Your service in your city</title>'}
+      </T>
+      <T x={0} y={56} size={16}>
+        {'<meta name="description" content="…">'}
+      </T>
+      <T x={0} y={92} size={16}>
+        {'<link rel="canonical" href="…">'}
+      </T>
+      <T x={0} y={128} size={16}>
+        {'<h1>Your service in your city</h1>'}
+      </T>
+    </>
+  ),
+  map: () => (
+    <>
+      <T x={52} y={-34} size={20} w={500}>
+        Business Profile
+      </T>
+      <D d={STORE} />
+      <T x={58} y={26} size={20} w={700}>
+        Your business
+      </T>
+      <T x={58} y={54} size={16}>
+        Your service · Your city
+      </T>
+      <A x={296} y={10} w={116} h={36} r={18} label="Open" size={16} />
+      <L x1={0} y1={84} x2={412} y2={84} />
+      <T x={0} y={120} size={17}>
+        Hours, photos and categories, all filled.
+      </T>
+    </>
+  ),
+  rich: () => (
+    <>
+      <T x={52} y={-34} size={20} w={500}>
+        product.html · JSON-LD
+      </T>
+      <T x={0} y={20} size={17} w={600} a>
+        {'"@type": "Product",'}
+      </T>
+      <T x={0} y={52} size={16}>
+        {'"name": "Your product",'}
+      </T>
+      <T x={0} y={84} size={16}>
+        {'"offers": { "price": "24.00" },'}
+      </T>
+      <T x={0} y={116} size={16}>
+        {'"aggregateRating": { "ratingValue": 4.8 }'}
+      </T>
+    </>
+  ),
+  answer: () => (
+    <>
+      <T x={52} y={-34} size={20} w={500}>
+        Your page · Prices
+      </T>
+      <T x={0} y={22} size={19} w={700}>
+        How much does it cost?
+      </T>
+      <T x={0} y={54} size={16}>
+        From $90, with a written price before
+      </T>
+      <T x={0} y={78} size={16}>
+        any work starts.
+      </T>
+      <L x1={0} y1={100} x2={412} y2={100} />
+      <T x={0} y={134} size={16} w={600} a>
+        User-agent: OAI-SearchBot · Allow: /
+      </T>
+    </>
+  ),
+  ad: () => (
+    <>
+      <T x={52} y={-34} size={20} w={500}>
+        Campaign · Search
+      </T>
+      <T x={0} y={24} size={18} w={700}>
+        Keywords
+      </T>
+      <A x={296} y={0} w={116} h={36} r={18} label="Live" size={16} />
+      <T x={0} y={54} size={16}>
+        your service near me, your service today
+      </T>
+      <L x1={0} y1={78} x2={412} y2={78} />
+      <T x={0} y={112} size={17} w={600}>
+        Budget: $30 a day
+      </T>
+      <T x={0} y={142} size={16}>
+        You pay when someone clicks.
+      </T>
+    </>
+  ),
+};
+
+/* The inbox: what each one brings in, 412 x 92 inside the card. */
+const NOTICE = {
+  web: () => (
+    <>
+      <D d={lens(22, 24, 13)} />
+      <T x={64} y={26} size={20} w={700}>
+        Visit from search
+      </T>
+      <T x={64} y={58} size={18} w={400}>
+        Read your prices, then sent the form.
+      </T>
+    </>
+  ),
+  map: () => (
+    <>
+      <D d={pin(26, 50, 0.9)} />
+      <T x={64} y={26} size={20} w={700}>
+        Call from the map
+      </T>
+      <T x={64} y={58} size={18} w={400}>
+        They tapped Call on your listing.
+      </T>
+    </>
+  ),
+  rich: () => (
+    <>
+      <D d="M8 18H44L40 48H12ZM18 18V12a8 8 0 0 1 16 0V18" />
+      <T x={64} y={26} size={20} w={700}>
+        Order from a result
+      </T>
+      <T x={64} y={58} size={18} w={400}>
+        They saw the price, then bought.
+      </T>
+    </>
+  ),
+  answer: () => (
+    <>
+      <D d={`${rr(4, 6, 44, 32, 10)}M16 38L14 48L26 38`} />
+      <T x={64} y={26} size={20} w={700}>
+        Visit from an AI answer
+      </T>
+      <T x={64} y={58} size={18} w={400}>
+        They clicked the source it named.
+      </T>
+    </>
+  ),
+  ad: () => (
+    <>
+      <A x={6} y={8} w={40} h={38} r={8} />
+      <T x={64} y={26} size={20} w={700}>
+        Form from the ad
+      </T>
+      <T x={64} y={58} size={18} w={400}>
+        One paid click, one lead.
+      </T>
+    </>
+  ),
+};
+
+// The screens, smallest first: the order the kinds draw in (`--d`) and
+// the order the entrance runs. Captions sit in the Web hero's zones (the
+// screens share its frames), short, because the type floors at 12px while
+// the drawing shrinks.
+const TOUCH = ['notice', 'crm', 'phone', 'desk'];
+const DRIFT = { notice: 1.4, crm: 1.2, phone: 1.3, desk: 0.6 };
+const CAPS = [
+  { key: 'crm', l: 2.5, t: 36.5, w: 28.75, text: ['Your side.', 'What makes each one show.'] },
+  { key: 'notice', l: 2.5, t: 63.5, w: 28.75, text: ['Inbox.', 'What each one brings in.'] },
+  { key: 'desk', l: 35, t: 73.5, w: 30, text: ['Results page.', 'Where it shows on a laptop.'] },
+  { key: 'phone', l: 83.75, t: 83.5, w: 14.5, text: ['Phone.', 'The same search, smaller.'] },
+];
+const url = (q) => `search?q=${q.replace(/\?/g, '').split(' ').join('+')}`;
 
 export default function SearchHero() {
-  const rootRef = useRef(null);
-  const engineRef = useRef(null);
-  const [runs, setRuns] = useState(0);
-  const [log, setLog] = useState([]);
-  const [phase, setPhase] = useState(null);
-  const [cite, setCite] = useState('yes');
-  const [hot, setHot] = useState(null);
-  const [live, setLive] = useState(false);
-  const [paused, setPaused] = useState(false);
-  const [announce, setAnnounce] = useState(false);
-
-  // The engine: searches, the schedule, visibility. Built once; everything
-  // it reads lives in refs, everything it shows goes through state setters.
-  useEffect(() => {
-    const root = rootRef.current;
-    const svg = root && root.querySelector('.sw-hero__stage svg');
-    if (!svg) return undefined;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const st = { busy: false, runs: 0, weeks: 0, next: 0, timer: 0, tl: null, visible: false, paused: false };
-
-    const canAuto = () => !reduced && st.visible && !st.paused && !document.hidden;
-    const sync = () => setLive(!reduced && st.visible && !st.paused && !document.hidden);
-    const push = (line) => setLog((l) => [...l, line].slice(-4));
-
-    const qtext = q(svg, 'qtext');
-    const pkt = q(svg, 'pkt');
-    const trail = qa(svg, 'trail');
-    const ilines = q(svg, 'ilines');
-    const you = q(svg, 'you');
-    const others = qa(svg, 'row');
-    const answer = qa(svg, 'aln');
-    const routes = ['r1', 'r2', 'r3', 'r4'].map((k) => q(svg, k));
-
-    const arrange = (slot, duration) => {
-      const spots = slotsAround(slot);
-      const targets = [[you, slot], ...others.map((row, i) => [row, spots[i]])];
-      if (!duration) {
-        targets.forEach(([row, s]) => gsap.set(row, { y: ROW_Y(s) }));
-        return null;
-      }
-      const tl = gsap.timeline();
-      targets.forEach(([row, s]) => tl.to(row, { y: ROW_Y(s), duration, ease: 'power2.inOut' }, 0));
-      return tl;
-    };
-    gsap.set([you, ...others], { x: 0 });
-    arrange(REST_SLOT, 0);
-
-    function schedule(delay) {
-      clearTimeout(st.timer);
-      if (!canAuto()) return;
-      st.timer = setTimeout(() => runJob(st.next, false), delay);
-    }
-
-    function runJob(index, manual) {
-      if (st.busy) return;
-      clearTimeout(st.timer);
-      const job = JOBS[index % JOBS.length];
-      st.next = (index + 1) % JOBS.length;
-      st.runs += 1;
-      setRuns(st.runs);
-      setAnnounce(manual);
-      const base = st.weeks;
-      st.weeks += job.span;
-      const lines = job.lines.map(([w, text]) => ({ at: week(base + w + 1), text, id: `${st.runs}-${w}` }));
-      if (reduced) {
-        qtext.textContent = job.query;
-        arrange(job.to, 0);
-        setCite(job.cited ? 'yes' : 'no');
-        setLog((l) => [...l, ...lines].slice(-4));
-        return;
-      }
-      st.busy = true;
-      const ride = (path, duration) => {
-        const len = path.getTotalLength();
-        const o = { p: 0 };
-        return gsap.to(o, {
-          p: 1,
-          duration,
-          ease: 'power1.inOut',
-          onUpdate: () => {
-            place(pkt, path, o.p * len);
-            trail.forEach((t, i) => place(t, path, Math.max(0, o.p * len - (i + 1) * 30)));
-          },
-        });
-      };
-      const typed = { n: 0 };
-      const tl = gsap.timeline({
-        onComplete: () => {
-          st.busy = false;
-          st.tl = null;
-          setPhase(null);
-          schedule(AUTO_GAP);
-        },
-      });
-      st.tl = tl;
-      // The query types itself while the results reset for it.
-      tl.call(
-        () => {
-          setPhase('type');
-          setCite('pending');
-          push(lines[0]);
-          qtext.textContent = '';
-        },
-        null,
-        0,
-      );
-      tl.add(arrange(job.from, 0.35), 0);
-      tl.set(answer, { attr: { 'stroke-dashoffset': 1 } }, 0);
-      tl.to(
-        typed,
-        {
-          n: job.query.length,
-          duration: job.query.length * 0.03,
-          ease: 'none',
-          onUpdate: () => {
-            qtext.textContent = job.query.slice(0, Math.round(typed.n));
-          },
-        },
-        0.05,
-      );
-      // The page is read, line by line.
-      tl.set(pkt, { attr: { opacity: 1 } }, 0.9);
-      trail.forEach((t, i) => tl.set(t, { attr: { opacity: [0.5, 0.28, 0.14][i] } }, 0.9));
-      tl.add(ride(routes[0], 0.45), 0.9);
-      tl.call(
-        () => {
-          setPhase('crawl');
-          push(lines[1]);
-        },
-        null,
-        1.35,
-      );
-      // Into the index; the stripes take it.
-      tl.add(ride(routes[1], 0.6), 2.0);
-      tl.call(() => setPhase('index'), null, 2.6);
-      tl.to(ilines, { y: -STEP, duration: 0.45, ease: 'power2.inOut' }, 2.6).set(ilines, { y: 0 });
-      // Out to the results; your row climbs.
-      tl.add(ride(routes[2], 0.7), 3.1);
-      tl.call(
-        () => {
-          setPhase('rank');
-          push(lines[2]);
-        },
-        null,
-        3.8,
-      );
-      tl.add(arrange(job.to, 0.6), 3.8);
-      // Down to the answer, which writes itself and cites you, or not.
-      tl.add(ride(routes[3], 0.6), 4.5);
-      tl.set([pkt, ...trail], { attr: { opacity: 0 } }, 5.1);
-      tl.call(() => setPhase('answer'), null, 5.1);
-      answer.forEach((ln, i) => tl.to(ln, { attr: { 'stroke-dashoffset': 0 }, duration: 0.35, ease: 'none' }, 5.1 + i * 0.3));
-      tl.call(
-        () => {
-          setCite(job.cited ? 'yes' : 'no');
-          setPhase('cite');
-          push(lines[3]);
-        },
-        null,
-        6.1,
-      );
-      tl.to({}, { duration: 0.9 }, 6.1);
-    }
-
-    const io = new IntersectionObserver(
-      ([e]) => {
-        st.visible = e.isIntersecting;
-        sync();
-        if (st.visible) schedule(st.runs ? AUTO_GAP / 2 : AUTO_FIRST);
-        else clearTimeout(st.timer);
-      },
-      { threshold: 0.25 },
-    );
-    io.observe(root);
-    const onVis = () => {
-      sync();
-      if (document.hidden) clearTimeout(st.timer);
-      else schedule(AUTO_GAP / 2);
-    };
-    document.addEventListener('visibilitychange', onVis);
-
-    engineRef.current = {
-      run: (index) => runJob(index ?? st.next, true),
-      setPaused: (p) => {
-        st.paused = p;
-        sync();
-        if (p) clearTimeout(st.timer);
-        else schedule(600);
-      },
-    };
-
-    return () => {
-      io.disconnect();
-      document.removeEventListener('visibilitychange', onVis);
-      clearTimeout(st.timer);
-      if (st.tl) st.tl.kill();
-      gsap.killTweensOf([you, ...others, ilines, ...answer]);
-      engineRef.current = null;
-    };
-  }, []);
-
-  // The pointer: the page's read line follows it. quickTo settles and
-  // stops on its own, so nothing ticks while the pointer is still or away.
-  // Fine pointers only.
-  useEffect(() => {
-    const root = rootRef.current;
-    const stage = root && root.querySelector('.sw-hero__stage');
-    const svg = stage && stage.querySelector('svg');
-    if (!svg) return undefined;
-    const ok = window.matchMedia(
-      '(hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)',
-    ).matches;
-    if (!ok) return undefined;
-    const scan = q(svg, 'scan');
-    const sy = gsap.quickTo(scan, 'y', { duration: 0.45, ease: 'power3' });
-    const onMove = (e) => {
-      const m = svg.getScreenCTM();
-      if (!m) return;
-      const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(m.inverse());
-      sy(Math.max(SCAN.top, Math.min(SCAN.bottom, p.y)) - SCAN.top);
-    };
-    const onLeave = () => sy(0);
-    stage.addEventListener('pointermove', onMove);
-    stage.addEventListener('pointerleave', onLeave);
-    return () => {
-      stage.removeEventListener('pointermove', onMove);
-      stage.removeEventListener('pointerleave', onLeave);
-      gsap.killTweensOf(scan);
-    };
-  }, []);
-
-  const run = () => engineRef.current && engineRef.current.run();
-  const togglePause = () => {
-    const p = !paused;
-    setPaused(p);
-    if (engineRef.current) engineRef.current.setPaused(p);
-  };
-  const hover = (key) => ({
-    onPointerEnter: () => setHot(key),
-    onPointerLeave: () => setHot(null),
+  const { rootRef, kind, log, hot, paused, announce, cls, pick, togglePause, hover, tp } = useKindsHero({
+    p: 'sw',
+    kinds: KINDS,
+    touch: TOUCH,
+    drift: DRIFT,
   });
 
-  const cls = ['sw-hero'];
-  if (live) cls.push('is-live');
-  if (phase) cls.push(`is-${phase}`);
-  if (cite !== 'yes') cls.push(`is-cite-${cite}`);
-  if (hot) cls.push('is-hot', `is-hot-${hot}`);
-
   return (
-    <section ref={rootRef} className={cls.join(' ')} aria-labelledby="sw-hero-title">
+    <section ref={rootRef} className={cls} aria-labelledby="sw-hero-title">
       <div className="sw-hero__frame">
         <div className="sw-hero__copy">
           <p className="sw-hero__kicker">SEO &amp; AI search</p>
@@ -379,15 +593,16 @@ export default function SearchHero() {
             Found on Google. Quoted by AI.
           </h1>
           <p className="sw-hero__lede">
-            Technical SEO and AI-search readiness, with every fix shipped on your site. This desk is running now: run a
-            search, or click a part.
+            Web results, the map, rich results, AI answers and ads: five ways to be found, each earned its own
+            way.<span className="sw-hero__hint"> Pick one to see where it shows up.</span>
           </p>
           <div className="sw-hero__ctas">
             <Link to="/contact" className="bw-cta sw-hero__cta">
               Start with an audit
             </Link>
             <Link to="/pricing/seo-ai-search" className="sw-hero__more">
-              Packages and prices
+              <span className="sw-hero__wide">Packages and prices</span>
+              <span className="sw-hero__narrow">Prices</span>
             </Link>
           </div>
         </div>
@@ -397,189 +612,65 @@ export default function SearchHero() {
             <div className="sw-hero__plate">
               <p className="sw-hero__tag">
                 <i aria-hidden="true" />
-                The search desk
+                Five ways to be found
               </p>
-              <svg viewBox="0 0 1600 960" aria-hidden="true" focusable="false">
-                <defs>
-                  <clipPath id="sw-hero-qclip">
-                    <rect x="140" y="75" width="405" height="80" />
-                  </clipPath>
-                  <clipPath id="sw-hero-iclip">
-                    <rect x="460" y="360" width="400" height="300" rx="40" />
-                  </clipPath>
-                </defs>
-
-                {/* The query: the search bar and its button. */}
-                <g data-part="query">
-                  <rect className="sw-hero__qbg" x="40" y="70" width="520" height="90" rx="45" {...S} />
-                  <circle cx="98" cy="111" r="19" {...THIN} />
-                  <path d="M112 125L128 141" {...THIN} />
-                  <text
-                    data-p="qtext"
-                    className="sw-hero__qtext"
-                    x="145"
-                    y="125"
-                    clipPath="url(#sw-hero-qclip)"
-                    fontFamily={INTER}
-                    fontSize="28"
-                    fontWeight="500"
-                  >
-                    roof repair tampa
-                  </text>
-                  <rect className="sw-hero__go" x="580" y="70" width="220" height="90" rx="45" {...S} />
-                  <text
-                    className="sw-hero__goword"
-                    x="690"
-                    y="127"
-                    textAnchor="middle"
-                    fontFamily={INTER}
-                    fontSize="36"
-                    fontWeight="600"
-                    letterSpacing="-1"
-                  >
-                    Search
-                  </text>
-                </g>
-
-                {/* Your page: read line by line, each line ticked. */}
-                <g data-part="page">
-                  <rect className="sw-hero__pbg" x="40" y="250" width="300" height="440" rx="24" {...S} />
-                  <path d="M40 300H340" {...THIN} />
-                  {[70, 94, 118].map((x) => (
-                    <circle key={x} cx={x} cy="275" r="6" fill="currentColor" />
-                  ))}
-                  {PAGE_LINES.map((r) => (
-                    <g key={r}>
-                      <circle className="sw-hero__tick" cx="80" cy={350 + r * 56} r="13" style={{ '--n': r }} {...THIN} />
-                      <path d={`M108 ${350 + r * 56}H${[300, 260, 290, 230, 280, 250][r]}`} {...THIN} />
-                    </g>
-                  ))}
-                  <path data-p="scan" className="sw-hero__scan" d={`M58 ${SCAN.top}H322`} {...THIN} />
-                </g>
-
-                {/* The index: the stripes advance one page per search. */}
-                <g data-part="index">
-                  <g clipPath="url(#sw-hero-iclip)">
-                    <rect className="sw-hero__ibg" x="460" y="360" width="400" height="300" />
-                    <rect className="sw-hero__inext" x="460" y="360" width="400" height={STEP} />
-                    <g data-p="ilines" className="sw-hero__ilines" {...THIN}>
-                      {[1, 2, 3, 4, 5, 6, 7].map((k) => (
-                        <path key={k} d={`M460 ${360 + STEP * k}H860`} />
-                      ))}
-                    </g>
-                  </g>
-                  <rect x="460" y="360" width="400" height="300" rx="40" {...S} />
-                </g>
-
-                {/* The results: five rows, yours in orange. */}
-                <g data-part="rank">
-                  {OTHERS.map((k) => (
-                    <g key={k} data-p="row" transform={`translate(0 ${ROW_Y(slotsAround(REST_SLOT)[k])})`}>
-                      <rect x="1040" y="0" width="520" height="62" rx="20" {...THIN} />
-                      <path d={`M1072 22H${[1330, 1280, 1350, 1300][k]}M1072 42H${[1210, 1240, 1190, 1225][k]}`} {...THIN} />
-                    </g>
-                  ))}
-                  <g data-p="you" className="sw-hero__you" transform={`translate(0 ${ROW_Y(REST_SLOT)})`}>
-                    <rect className="sw-hero__yourow" x="1040" y="0" width="520" height="62" rx="20" {...THIN} />
-                    <path className="sw-hero__youln" d="M1072 22H1360M1072 42H1250" {...THIN} />
+              <svg viewBox="0 0 1600 960" aria-hidden="true" focusable="false" fontFamily={INTER}>
+                {/* The laptop: the results page under its address bar, on a base. */}
+                <g data-p="drift-desk">
+                  <g {...tp('desk')}>
+                    <path className="sw-hero__frm" d={rr(560, 60, 760, 580, 28)} />
+                    <path className="sw-hero__thin" d="M560 120H1320" />
+                    {[594, 620, 646].map((cx) => (
+                      <circle key={cx} className="sw-hero__thin" cx={cx} cy="90" r="7" />
+                    ))}
+                    <path className="sw-hero__thin" d={rr(690, 74, 470, 32, 16)} />
+                    {KINDS.map((x) => (
+                      <text key={x.key} className={`sw-hero__url sw-v sw-v--${x.key}`} x="712" y="97" fontSize="19" fontWeight="500">
+                        {url(x.query)}
+                      </text>
+                    ))}
+                    <Kinds art={DESK} x={560} y={120} />
+                    <path className="sw-hero__frm" d={rr(496, 648, 888, 30, 15)} />
                   </g>
                 </g>
 
-                {/* The AI answer: it writes itself and cites your page. */}
-                <g data-part="answer">
-                  <path
-                    className="sw-hero__abg"
-                    d="M1070 560H1530a30 30 0 0 1 30 30V790a30 30 0 0 1-30 30H1150l-50 40v-40H1070a30 30 0 0 1-30-30V590a30 30 0 0 1 30-30z"
-                    {...S}
-                  />
-                  {[1500, 1460, 1380].map((x2, i) => (
-                    <path key={x2} data-p="aln" d={`M1080 ${615 + i * 40}H${x2}`} pathLength="1" strokeDasharray="1" {...THIN} />
-                  ))}
-                  <rect className="sw-hero__chip" x="1080" y="732" width="250" height="50" rx="25" {...THIN} />
-                  <text className="sw-hero__chipword" x="1205" y="765" textAnchor="middle" fontFamily={INTER} fontSize="24" fontWeight="600">
-                    your-site.com
-                  </text>
+                {/* The phone, in front of the laptop's corner. */}
+                <g data-p="drift-phone">
+                  <g {...tp('phone')}>
+                    <path className="sw-hero__frm" d={rr(1340, 300, 230, 480, 40)} />
+                    <path className="sw-hero__thin" d="M1430 324H1480" />
+                    <Kinds art={PHONE} x={1358} y={350} />
+                  </g>
                 </g>
 
-                {/* The arrows, and the current that runs along them. */}
-                <g className="sw-hero__arrows">
-                  <path className="sw-hero__draw" pathLength="1" d="M190 172V236" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M172 218L190 236L208 218" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M352 470H446" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M428 452L446 470L428 488" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M872 410C960 410 940 230 1024 230" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M1006 212L1024 230L1006 248" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M1080 418V538" {...S} />
-                  <path className="sw-hero__draw" pathLength="1" d="M1062 520L1080 538L1098 520" {...S} />
-                </g>
-                <g className="sw-hero__currents" fill="none" stroke={ORANGE} strokeWidth="5" strokeLinecap="round">
-                  <path pathLength="1" d="M352 470H440" />
-                  <path pathLength="1" d="M872 410C960 410 940 230 1018 230" />
-                  <path pathLength="1" d="M1080 418V530" />
+                {/* Your side, under its title bar. */}
+                <g data-p="drift-crm">
+                  <g {...tp('crm')}>
+                    <path className="sw-hero__frm" d={rr(40, 60, 460, 270, 24)} />
+                    <path className="sw-hero__thin" d={rr(64, 84, 412, 48, 24)} />
+                    <path className="sw-hero__thin" d="M86 98L76 108L86 118M96 98L106 108L96 118" />
+                    <Kinds art={YOU} x={64} y={150} />
+                  </g>
                 </g>
 
-                {/* The search's routes (invisible), the packet and its trail. */}
-                <path data-p="r1" d="M300 115H190V300" fill="none" stroke="none" />
-                <path data-p="r2" d="M190 300V470H660V510" fill="none" stroke="none" />
-                <path data-p="r3" d="M660 510V410H872C960 410 940 230 1024 230H1300" fill="none" stroke="none" />
-                <path data-p="r4" d="M1300 230H1080V757H1205" fill="none" stroke="none" />
-                {[11, 8, 5].map((r) => (
-                  <circle key={r} data-p="trail" r={r} fill={ORANGE} opacity="0" />
-                ))}
-                <circle data-p="pkt" r="16" fill={ORANGE} opacity="0" />
-
-                {/* Hit areas: hover lights a part; the query, the page and the answer run a search. */}
-                <rect
-                  className="sw-hero__hit sw-hero__hit--act"
-                  x="30"
-                  y="60"
-                  width="540"
-                  height="110"
-                  fill="transparent"
-                  {...hover('query')}
-                  onClick={run}
-                />
-                <rect
-                  className="sw-hero__hit sw-hero__hit--act"
-                  x="30"
-                  y="240"
-                  width="320"
-                  height="460"
-                  fill="transparent"
-                  {...hover('page')}
-                  onClick={run}
-                />
-                <rect className="sw-hero__hit" x="450" y="350" width="420" height="320" fill="transparent" {...hover('index')} />
-                <rect className="sw-hero__hit" x="1030" y="30" width="540" height="390" fill="transparent" {...hover('rank')} />
-                <rect
-                  className="sw-hero__hit sw-hero__hit--act"
-                  x="1030"
-                  y="550"
-                  width="540"
-                  height="280"
-                  fill="transparent"
-                  {...hover('answer')}
-                  onClick={run}
-                />
+                {/* The inbox: what it brings in. */}
+                <g data-p="drift-notice">
+                  <g {...tp('notice')}>
+                    <path className="sw-hero__frm" d={rr(40, 450, 460, 140, 24)} />
+                    <text className="sw-hero__now" x="476" y="486" fontSize="15" textAnchor="end">
+                      now
+                    </text>
+                    <Kinds art={NOTICE} x={64} y={474} />
+                  </g>
+                </g>
               </svg>
-
-              <button
-                type="button"
-                className="sw-hero__run"
-                style={{ left: '36.25%', top: '7.29%', width: '13.75%', height: '9.375%' }}
-                onClick={run}
-                onFocus={() => setHot('query')}
-                onBlur={() => setHot(null)}
-                {...hover('query')}
-                aria-label="Run one search through the desk"
-              />
             </div>
 
             <div className="sw-hero__caps">
               {CAPS.map((c, i) => (
                 <p
                   key={c.key}
-                  className={`sw-hero__cap sw-hero__cap--${c.key}${hot === c.key ? ' is-on' : ''}`}
+                  className={`sw-hero__cap${hot === c.key ? ' is-on' : ''}`}
                   style={{ left: `${c.l}%`, top: `${c.t}%`, width: `${c.w}%`, '--i': i }}
                   {...hover(c.key)}
                 >
@@ -587,33 +678,40 @@ export default function SearchHero() {
                 </p>
               ))}
             </div>
+
+            <div className="sw-hero__picks" role="group" aria-label="Show a way to be found">
+              {KINDS.map((c, i) => (
+                <button
+                  key={c.key}
+                  type="button"
+                  className={`sw-hero__pick${i === kind ? ' is-on' : ''}`}
+                  aria-pressed={i === kind}
+                  onClick={() => pick(i)}
+                >
+                  {c.name}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
         <div className="sw-hero__logbox">
           <div className="sw-hero__meta">
-            <span>The crawl log</span>
+            <span>The search log</span>
             <span className="sw-hero__count">
-              {runs ? `${runs} search${runs > 1 ? 'es' : ''}` : 'No searches yet'}
+              {`Kind ${kind + 1} of ${KINDS.length}`}
               <button type="button" className="sw-hero__pause" onClick={togglePause} aria-pressed={paused}>
                 {paused ? 'Resume' : 'Pause'}
               </button>
             </span>
           </div>
           <ol className="sw-hero__log" aria-live={announce ? 'polite' : 'off'}>
-            {log.length ? (
-              log.map((l) => (
-                <li key={l.id}>
-                  <time>{l.at}</time>
-                  <span>{l.text}</span>
-                </li>
-              ))
-            ) : (
-              <li>
-                <time>wk 00</time>
-                <span>waiting for a search</span>
+            {log.map((l) => (
+              <li key={l.id}>
+                <b>{l.tag}</b>
+                <span>{l.text}</span>
               </li>
-            )}
+            ))}
           </ol>
         </div>
       </div>

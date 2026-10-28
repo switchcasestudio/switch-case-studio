@@ -3,9 +3,10 @@
 // The SEO & AI Search world (2026-10-24): the brand world's sheet
 // (brandWorld.scss) plus the outline worlds' shared sheet
 // (_worldOutline.scss). This file keeps the SEO world's own: its first
-// stage field (mint), its bubbles field (mint, ink bubbles), the search
-// desk hero and the demo pieces the other worlds do not have (`.sw-*`).
-// The demos draw in currentColor, so each reads on its card's studio color.
+// stage field (mint), its bubbles field (mint, ink bubbles), the hero
+// (_seoHero.scss), the lessons (_seoLessons.scss, 2026-10-27) and the
+// deliverables' demo pieces the other worlds do not have (`.sw-*`). The
+// demos draw in currentColor, so each reads on its card's studio color.
 @import './worldOutline';
 @import './worldHero';
 
@@ -40,6 +41,7 @@
 }
 
 @import './seoHero';
+@import './seoLessons';
 
 /* ---- Demos ---- */
 $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
@@ -168,56 +170,6 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
 }
 
-// The AI answer: the citation chip lands when the answer finishes.
-.sw-answer {
-  .aw-chat__q,
-  .aw-chat__a {
-    font-size: 0.88rem;
-  }
-
-  .aw-chat__a {
-    max-width: 92%;
-  }
-
-  .aw-pill {
-    min-height: 40px;
-    padding: 0.35rem 0.75rem;
-    font-size: 0.8rem;
-  }
-
-  @media (pointer: coarse) {
-    .aw-pill {
-      min-height: 44px;
-    }
-  }
-}
-
-.sw-cite {
-  display: block;
-  width: fit-content;
-  margin-top: 0.4rem;
-  padding: 0.12rem 0.55rem;
-  border: 1.5px solid $ink;
-  border-radius: 999px;
-  background: $ink;
-  color: $cream;
-  font-size: 0.7rem;
-  font-weight: 500;
-  overflow-wrap: anywhere;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-
-  &.is-on {
-    opacity: 1;
-  }
-
-  &--none {
-    border-style: dashed;
-    background: transparent;
-    color: $ink;
-  }
-}
-
 // A switch with its name beside it.
 .sw-toggle {
   display: flex;
@@ -281,9 +233,11 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   overflow-wrap: anywhere;
 }
 
-// Structured data: the switch, the result it changes, the markup.
-.sw-schema,
-.sw-robots {
+// The demos laid out as a column: a control, what it changes, a note.
+.sw-share,
+.sw-addr,
+.sw-robots,
+.sw-events {
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
@@ -291,11 +245,158 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   padding: 0.9rem;
 }
 
-.sw-schema .sw-code {
-  margin-top: auto;
+// The demos' pill rows: 40px tall, 44 on touch.
+.sw-addr__fixes,
+.sw-vitals__fixes,
+.sw-events__acts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+
+  .aw-pill {
+    min-height: 40px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  @media (pointer: coarse) {
+    .aw-pill {
+      min-height: 44px;
+    }
+  }
+}
+
+// Share cards: the link in a chat, with the card its tags make.
+.sw-share {
+  &__chat {
+    flex: 1 1 auto;
+    display: grid;
+    align-content: start;
+    justify-items: end;
+    gap: 0.45rem;
+    padding: 0.6rem;
+    border-radius: 12px;
+    background: $cream;
+    color: $ink;
+  }
+
+  &__msg {
+    margin: 0;
+    padding: 0.3rem 0.75rem;
+    border-radius: 14px;
+    background: $ink;
+    color: $cream;
+    font-size: 0.8rem;
+  }
+
+  // A compact link preview: the picture beside the words.
+  &__card {
+    display: grid;
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    width: min(100%, 17rem);
+    border: 1px solid $soft-line;
+    border-radius: 12px;
+    background: #fff;
+    overflow: hidden;
+    animation: sl-in 0.35s ease backwards;
+
+    &.is-bare {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__img {
+    display: grid;
+    place-items: center;
+    padding: 0.3rem;
+    background: $ink;
+    color: $orange-color;
+    text-align: center;
+
+    b {
+      font-size: 0.7rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+  }
+
+  &__text {
+    display: grid;
+    align-content: center;
+    gap: 0.15rem;
+    padding: 0.5rem 0.65rem;
+  }
+
+  &__title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  &__site {
+    font-size: 0.7rem;
+    opacity: 0.7;
+  }
+
+  &__card.is-bare &__title {
+    font-weight: 500;
+  }
+}
+
+// One address per page: the count, the addresses, the fixes.
+.sw-addr {
+  &__read {
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 600;
+
+    b {
+      font-size: clamp(1.8rem, 14cqw, 2.6rem);
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.03em;
+    }
+
+    span {
+      font-weight: 500;
+      opacity: 0.8;
+    }
+  }
+
+  &__list {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+    padding: 0.5rem 0.7rem;
+    border-radius: 10px;
+    background: $ink;
+    color: $cream;
+    font-family: $mono;
+    font-size: 0.68rem;
+    line-height: 1.4;
+    list-style: none;
+
+    li {
+      overflow-wrap: anywhere;
+    }
+
+    .is-more {
+      opacity: 0.65;
+    }
+  }
+
+  &__fixes {
+    margin-top: auto;
+  }
 }
 
 .sw-robots {
+  &__switches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.1rem;
+  }
+
   .sw-code {
     flex: 1 1 auto;
   }
@@ -305,6 +406,76 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     min-height: 2.8em;
     font-size: 0.8rem;
     line-height: 1.4;
+  }
+}
+
+// Key events: the page's buttons, the report they write.
+.sw-events {
+  &__page {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.6rem 0.7rem;
+    border: 1.5px solid currentColor;
+    border-radius: 12px;
+  }
+
+  &__site {
+    font-size: 0.72rem;
+    opacity: 0.75;
+  }
+
+  &__report {
+    display: grid;
+    gap: 0.3rem;
+    margin: 0;
+    padding: 0.55rem 0.75rem;
+    border-radius: 10px;
+    background: $ink;
+    color: $cream;
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto 2rem;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: $mono;
+      font-size: 0.72rem;
+    }
+
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    em {
+      padding: 0.05rem 0.45rem;
+      border-radius: 999px;
+      background: $orange-color;
+      color: $ink;
+      font-family: $font-text;
+      font-size: 0.62rem;
+      font-style: normal;
+      font-weight: 700;
+    }
+
+    b {
+      grid-column: 3;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+  }
+
+  &__sum {
+    margin: auto 0 0;
+    font-size: 0.85rem;
+    font-weight: 500;
+
+    b {
+      font-size: 1.6rem;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
   }
 }
 
@@ -346,18 +517,24 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
   }
 
+  // The four parts of LCP side by side, darkest first; Google's two lines
+  // cross the bar.
   &__bar {
     position: relative;
+    display: flex;
     height: 16px;
     border: 1.5px solid currentColor;
     border-radius: 999px;
     overflow: hidden;
 
     b {
-      position: absolute;
-      inset: 0 auto 0 0;
-      background: $ink;
+      flex: none;
+      height: 100%;
       transition: width 0.4s ease;
+
+      & + b {
+        box-shadow: inset 2px 0 0 $orange-color;
+      }
     }
 
     i {
@@ -368,6 +545,62 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
       width: 2px;
       margin-left: -1px;
       background: $cream;
+    }
+  }
+
+  .is-ttfb {
+    --part: #{$ink};
+  }
+
+  .is-delay {
+    --part: rgba(20, 20, 20, 0.7);
+  }
+
+  .is-load {
+    --part: rgba(20, 20, 20, 0.45);
+  }
+
+  .is-render {
+    --part: rgba(20, 20, 20, 0.25);
+  }
+
+  &__bar b {
+    background: var(--part);
+  }
+
+  &__parts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.2rem 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: 0.72rem;
+
+    @container (max-width: 340px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    li {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-width: 0;
+    }
+
+    i {
+      flex: none;
+      width: 10px;
+      height: 10px;
+      border-radius: 3px;
+      background: var(--part);
+    }
+
+    b {
+      margin-left: auto;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
     }
   }
 
@@ -390,36 +623,16 @@ $mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   }
 
   &__fixes {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
     margin-top: auto;
-
-    .aw-pill {
-      min-height: 40px;
-      padding: 0.35rem 0.75rem;
-      font-size: 0.8rem;
-    }
-
-    @media (pointer: coarse) {
-      .aw-pill {
-        min-height: 44px;
-      }
-    }
-  }
-
-  &__note {
-    margin: 0;
-    font-size: 0.72rem;
-    opacity: 0.8;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .sw-cite,
+  .sw-share__card,
   .sw-toggle button,
   .sw-toggle button::after,
   .sw-vitals__bar b {
+    animation: none;
     transition: none;
   }
 }

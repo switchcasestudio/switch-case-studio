@@ -6,8 +6,8 @@ import SeoWorld from '../seoWorld/SeoWorld';
 /* /services/seo-ai-search (2026-10-24), the SEO & AI Search world (the
    slug predates the rename and stays, like its pricing page's). The service
    page is the experience; the price lives on /pricing/seo-ai-search only.
-   Exempt from the page-head rule on purpose: the h1 sits in the search
-   hero, beside the drawing that runs. Its own static route record in
+   Exempt from the page-head rule on purpose: the h1 sits in the hero,
+   beside the five ways to be found. Its own static route record in
    routes.js. */
 const SLUG = 'seo-ai-search';
 const PATH = `/services/${SLUG}`;
@@ -18,7 +18,7 @@ export default function SeoAiSearchPage() {
     <>
       <Seo
         title="SEO & AI Search | Switch Case Studio"
-        description="Technical SEO and AI-search readiness, with every fix shipped on your site. Every demo on this page runs: write a title, ask a question, watch the crawl."
+        description="Technical SEO and AI-search readiness, every fix shipped on your site. Five ways to be found, each with a demo you can run."
         path={PATH}
         jsonLd={[
           {

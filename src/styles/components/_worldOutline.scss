@@ -6,7 +6,7 @@
 // outlines, filled process cards, cream deliverables with one studio color
 // per demo, the cream close, the lavender pill), `.bw--<world>` only its
 // first stage field and its bubbles field. The demo controls below
-// (`.aw-pill`, `.aw-chat`, `.aw-tasks`, `.aw-drag`, `.aw-switch`, `.aw-live`)
+// (`.aw-pill`, `.aw-chat`, `.aw-tasks`, `.aw-drag`, `.aw-switch`)
 // kept the AI world's prefix when they became shared. Owner rules behind it
 // (2026-10-24): strokes thin, no glow, text never under a drawing, the full
 // studio palette outside the hero, one accent (orange) inside it.
@@ -20,20 +20,6 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
 .bw--outline {
   color: $cream;
-
-  // Drawings that run on the engine keep the field's color.
-  .aw-live {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    color: inherit;
-
-    svg {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-  }
 
   // The card is filled with its own field and the art steps away from it,
   // so no drawing ever runs under the copy.

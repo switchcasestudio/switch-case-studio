@@ -1,88 +1,93 @@
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
-import LiveArt from '../worlds/LiveArt';
 import SearchHero from './SearchHero';
 import Deliverables from './Deliverables';
-import * as ART from './tiles/art';
-import * as LIVE from './tiles/live';
+import { Crawl, MissingPage, Local, LocalFactors, Rich, RichRules, Quoted, QuotablePassage, CostPerLead, LeadMath } from './lessons';
 import '../../styles/components/brandWorld.scss';
 import '../../styles/components/seoWorld.scss';
 
-/* The SEO & AI Search world (2026-10-24): the AI world's sibling, built
+/* The SEO & AI Search world (2026-10-24), the AI world's sibling, built
    from the same kit (components/worlds) and the outline worlds' sheet
-   (_worldOutline.scss): thin outlines, captions that open in bold, every
-   drawing a machine that runs on the poster engine. The hero is the
-   search desk (SearchHero), black with orange as its only accent; outside
-   it the full studio palette. The stage runs mint, cream, blue, orange,
-   pink. Then deliverables, client bubbles, circles, pill. */
-const live = (name, cls = 'aw-live') => () => <LiveArt Art={ART[name]} create={LIVE[name]} className={cls} />;
-
+   (_worldOutline.scss): hero, pinned stage, deliverables, client bubbles,
+   circles, pill; black with orange in the hero, the full studio palette
+   outside it. Since 2026-10-27 it teaches the way the brand, Web and AI
+   worlds do (owner: "last but not least, lets do the SEO & AI search
+   service page"): the hero runs the five ways to be found on four
+   screens, and the stage is five lessons with a demo each, one per way,
+   in the hero's order (01 Crawl, 02 Local, 03 Rich results, 04 Quoted, 05
+   Cost per lead). The rules are Google's published ones; every figure is
+   arithmetic or computed on the visitor's own input. */
 const STATES = [
   {
-    key: 'audit',
+    key: 'crawl',
     field: '#79ccb6',
     ink: '#141414',
-    title: 'The audit',
-    copy: 'Every page crawled the way Google reads it: titles, links, schema, speed, whatever keeps a page out of the index. Then every fix shipped, not a PDF.',
+    title: 'Crawl',
+    copy: 'Google finds a page by following a link to it, then keeps it unless the page says not to. A page no link reaches is never found, however good it is.',
     side: 'right',
     corner: 'bl',
-    Art: live('Crawl'),
-    Sticker: live('Checklist'),
-    artRatio: '3/2',
-    stickerRatio: '1',
+    Art: () => <Crawl />,
+    Sticker: () => <MissingPage />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'ai-search',
+    key: 'local',
     field: '#fef7ed',
     ink: '#141414',
-    title: 'Ready for AI answers',
-    copy: 'llms.txt, structured data and pages written to be quoted. For the customers who ask ChatGPT before they ask Google.',
+    title: 'Local',
+    copy: 'Google ranks the map by relevance, distance and prominence. Relevance is yours to set, in the categories on your Business Profile; distance is where the searcher stands.',
     side: 'left',
     corner: 'tr',
-    Art: live('AnswerCard'),
-    Sticker: live('Braces'),
-    artRatio: '4/3',
-    stickerRatio: '1',
+    Art: () => <Local />,
+    Sticker: () => <LocalFactors />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'speed',
+    key: 'rich',
     field: '#1748ef',
     ink: '#fef7ed',
-    title: 'Speed',
-    copy: 'Core Web Vitals to 89+ at handoff, measured in Lighthouse before and after, on the same day.',
+    title: 'Rich results',
+    copy: "Structured data tells Google what a page is: a product, its price, its rating. Meet Google's required properties and the page is eligible for a richer result; Google still decides whether it shows.",
     side: 'right',
     corner: 'bl',
-    Art: live('Gauge'),
-    Sticker: live('Stopwatch'),
-    artRatio: '3/2',
-    stickerRatio: '1',
+    Art: () => <Rich />,
+    Sticker: () => <RichRules />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'ads',
+    key: 'quoted',
     field: '#ff834a',
     ink: '#141414',
-    title: 'Ads that land',
-    copy: 'Google and Meta campaigns, run by the people who built the page they land on. Every click followed to a call or a form.',
+    title: 'Quoted',
+    copy: 'An AI answer quotes a passage, not a page. The passage that answers one question on its own, with the facts in it, is the one it quotes, with your name on it.',
     side: 'left',
     corner: 'tr',
-    Art: live('AdCard'),
-    Sticker: live('Target'),
-    artRatio: '16/9',
-    stickerRatio: '1',
+    Art: () => <Quoted />,
+    Sticker: () => <QuotablePassage />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
   {
-    key: 'convert',
+    key: 'cost',
     field: '#eaa8c6',
     ink: '#141414',
-    title: 'Then it converts',
-    copy: 'Conversion work on the pages that get the traffic: one clear action per page, forms that ask less, a test before every change.',
+    title: 'Cost per lead',
+    copy: "An ad's cost per lead is the price of a click divided by the page's conversion rate. Twice the budget buys twice the leads at the same price; a page that converts twice as well halves the price of every lead.",
     side: 'right',
     corner: 'bl',
-    Art: live('ABTest'),
-    Sticker: live('Press'),
-    artRatio: '7/4',
-    stickerRatio: '1',
+    Art: () => <CostPerLead />,
+    Sticker: () => <LeadMath />,
+    artRatio: '16/10',
+    stickerRatio: '4/3',
+    tool: true,
   },
 ];
 
@@ -90,7 +95,7 @@ export default function SeoWorld() {
   return (
     <div className="bw bw--outline bw--seo">
       <SearchHero />
-      <ProcessStage states={STATES} label="How SEO and AI-search work is done here" heading="How it gets done" />
+      <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" />
       <Deliverables />
       <Bubbles title="Once they find you, clients say" offset={0} />
       <WorldClose
