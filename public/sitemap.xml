@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://switchcasestudio.com/</loc>
-    <lastmod>2026-10-26</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -57,7 +57,7 @@
   </url>
   <url>
     <loc>https://switchcasestudio.com/blog</loc>
-    <lastmod>2026-10-24</lastmod>
+    <lastmod>2026-10-29</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -68,6 +68,11 @@
   <url>
     <loc>https://switchcasestudio.com/unhurried-pro/</loc>
     <lastmod>2026-10-26</lastmod>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://switchcasestudio.com/blog/structured-data-for-small-business-websites</loc>
+    <lastmod>2026-10-29</lastmod>
     <priority>0.6</priority>
   </url>
   <url>

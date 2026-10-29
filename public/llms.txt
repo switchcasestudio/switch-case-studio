@@ -42,6 +42,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 
 ## Journal
 
+- [Structured Data for Small Business Websites](https://switchcasestudio.com/blog/structured-data-for-small-business-websites): Structured data helps search systems understand a business, but useful markup starts with accurate facts, restrained schema, and regular testing
 - [Directcut: Free, Open-Source AI Video at the Model Price](https://switchcasestudio.com/blog/directcut-open-source-ai-video): We released Directcut, a free app that runs AI video and image models on your own computer with your own OpenRouter key. No subscription, no credits
 - [How to Write an About Page That Builds Trust](https://switchcasestudio.com/blog/how-to-write-an-about-page-that-builds-trust): A useful About page replaces vague brand language with the facts, people, proof, and next step a potential customer needs to trust the business
 - [Automate Client Onboarding Without Going Cold](https://switchcasestudio.com/blog/how-to-automate-client-onboarding-without-going-cold): A useful onboarding workflow removes repetitive admin while keeping judgment, reassurance, and exceptions in human hands

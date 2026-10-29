@@ -1,5 +1,125 @@
 [
   {
+    "slug": "structured-data-for-small-business-websites",
+    "title": "Structured Data for Small Business Websites",
+    "excerpt": "Structured data helps search systems understand a business, but useful markup starts with accurate facts, restrained schema, and regular testing.",
+    "kicker": "SEO & Growth",
+    "category": "SEO & Growth",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-29",
+    "readingTime": "5 min read",
+    "coverImage": "/images/journal/structured-data-for-small-business-websites.webp",
+    "imageAlt": "Rows of wooden card catalog drawers with small labeled handles",
+    "tags": [
+      "Structured Data",
+      "Technical SEO",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Structured data gives search systems a more explicit description of what a page contains. It can identify a business, an article, a product, an event, or the place of a page within a site. For a small business, that clarity is useful. It is also easy to turn into a cupboard full of labels that no longer match what is inside."
+      },
+      {
+        "type": "paragraph",
+        "text": "The sensible goal is not to add every schema type a plugin offers. It is to describe the real business and the main subject of each page accurately. [Google explains that structured data can make a page eligible for richer search appearances](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data), but eligibility is not a promise that a special result will appear. Good markup reduces ambiguity. It does not manufacture authority."
+      },
+      {
+        "type": "heading",
+        "text": "Start with the business entity"
+      },
+      {
+        "type": "paragraph",
+        "text": "Begin with one consistent description of the company. Use Organization when that is the honest fit. Use the most specific LocalBusiness subtype when the business has a real physical location that customers can associate with the operation. Include only facts the business can keep current, such as its name, canonical website, logo, contact details, and verified public profiles."
+      },
+      {
+        "type": "paragraph",
+        "text": "A service-area business should not invent a public storefront to make LocalBusiness markup look complete. [Google's LocalBusiness documentation requires a physical address for eligibility](https://developers.google.com/search/docs/appearance/structured-data/local-business), while Schema.org also provides an areaServed property for describing where a service operates. The markup should reflect the operating model visible on the site, not the one that seems most convenient for a validator."
+      },
+      {
+        "type": "quote",
+        "text": "Schema is a label for reality, not a substitute for it.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Mark up the page that is actually there"
+      },
+      {
+        "type": "paragraph",
+        "text": "Once the business entity is clear, add page-level markup where it fits. An article can use Article. A product page can use Product when the page genuinely presents a product. BreadcrumbList can describe the visible hierarchy. A service page can describe a Service even though that type does not, by itself, guarantee a special Google result. The schema vocabulary is broader than Google's rich-result gallery, so do not confuse valid vocabulary with guaranteed search decoration."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Use Organization or an appropriate LocalBusiness subtype for the company.",
+          "Use Article or BlogPosting for a real editorial article.",
+          "Use BreadcrumbList when the page sits within a meaningful visible hierarchy.",
+          "Use Product, Event, JobPosting, or another specific type only when the page truly represents that thing.",
+          "Check [Google's supported structured-data features](https://developers.google.com/search/docs/appearance/structured-data/search-gallery) before promising any rich-result treatment."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The visible page and the markup must agree. If the page does not show a price, review, author, opening time, or event date, do not hide that claim inside JSON-LD. [Google's structured-data policies require markup to represent visible, relevant page content](https://developers.google.com/search/docs/appearance/structured-data/sd-policies). The quickest way to make schema unreliable is to let it become a second, invisible version of the website."
+      },
+      {
+        "type": "heading",
+        "text": "Prefer JSON-LD, then keep it maintainable"
+      },
+      {
+        "type": "paragraph",
+        "text": "JSON-LD is usually the cleanest implementation because it keeps the structured description separate from the presentation markup. [Google recommends JSON-LD when a site's setup allows it](https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data). That does not mean copying a generic block into every page. Generate shared organization details from one source, then add the fields that belong to the individual page."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use stable @id values to refer to the same business, website, author, or primary entity across pages. This helps the markup behave like a connected model instead of a pile of isolated snippets. The discipline is similar to the data modeling behind our [Jelly Belly Wiki project](/projects/jelly-belly-wiki): define the entities clearly, keep one source of truth, and let each interface use the same underlying facts."
+      },
+      {
+        "type": "heading",
+        "text": "Avoid the three common schema traps"
+      },
+      {
+        "type": "list",
+        "items": [
+          "Plugin sprawl: two SEO tools may emit competing Organization, WebSite, or Article blocks with different values.",
+          "Wishful markup: fake aggregate ratings, invented locations, and broad business types create claims the page cannot support.",
+          "Forgotten facts: old hours, former team members, retired services, and stale logos remain machine-readable long after the visible page changes."
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "More properties are not automatically better. Complete the required fields for the feature you are targeting, add recommended fields that are accurate and useful, and leave the rest alone. A short, coherent graph is more useful than a large one assembled from guesses."
+      },
+      {
+        "type": "heading",
+        "text": "Test the rendered page, not just the template"
+      },
+      {
+        "type": "paragraph",
+        "text": "Run the public URL through Google's Rich Results Test after deployment. Use the Schema Markup Validator when you need to inspect vocabulary that Google does not support as a rich result. Then check URL Inspection and the enhancement reports in Search Console. [Google's implementation guidance recommends testing the URL and inspecting the rendered output](https://developers.google.com/search/docs/appearance/structured-data/generate-structured-data-with-javascript), which matters when a framework or plugin injects JSON-LD at runtime."
+      },
+      {
+        "type": "paragraph",
+        "text": "Treat warnings with judgment. A required-property error needs attention. An optional field that does not apply to the business does not need invented data. Test a few representative templates whenever the site changes, especially the homepage, service pages, location pages, articles, and any product or event pages."
+      },
+      {
+        "type": "heading",
+        "text": "A practical first pass"
+      },
+      {
+        "type": "paragraph",
+        "text": "For most small-business sites, a useful first pass is modest: one accurate business entity, BreadcrumbList where it reflects the navigation, and specific markup for the page types that Google documents and the site actually contains. Connect those pieces, validate them, and make schema review part of normal content maintenance."
+      },
+      {
+        "type": "paragraph",
+        "text": "Structured data works best when the website already says clear things about a real business. If the service names, locations, authorship, or contact details are vague, fix the page first. Our [SEO and AI search work](/services/seo-ai-search) starts with that same principle: build a source that people can trust, then help machines read it correctly."
+      }
+    ]
+  },
+  {
     "slug": "directcut-open-source-ai-video",
     "title": "Directcut: Free, Open-Source AI Video at the Model Price",
     "excerpt": "We released Directcut, a free app that runs AI video and image models on your own computer with your own OpenRouter key. No subscription, no credits.",
