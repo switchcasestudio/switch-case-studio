@@ -1,6 +1,6 @@
 # STATUS — Switch Case Studio site (switchcasestudio.com, repo switchcasestudio/switch-case-studio, PUBLIC)
 
-updated 2026-10-30 (Unhurried follow-through) · facts as recorded in `.audit/summary.md` entries, not re-verified against production · Read this first; then `CLAUDE.md` (working rules), `.audit/rules.md`, `.audit/open-tickets.md`.
+updated 2026-10-30 (Unhurried follow-through, v1.0.2 release) · facts as recorded in `.audit/summary.md` entries, not re-verified against production · Read this first; then `CLAUDE.md` (working rules), `.audit/rules.md`, `.audit/open-tickets.md`.
 Sources: [S date] = `.audit/summary.md` entry (dated `###` entries, newest at the bottom; older sections in `.audit/history/summary-2026-05-to-2026-10-09.md`); [git] = repo checked 2026-10-27; (unverified) = no later entry confirms it.
 
 ## Current state
@@ -12,7 +12,7 @@ Sources: [S date] = `.audit/summary.md` entry (dated `###` entries, newest at th
 - Journal: covers required (2026-10-25); scheduler pushes posts to main at 14:00 UTC — fetch/rebase before touching `posts.json` [S 2026-10-09 handoff; 2026-10-25].
 
 ## Next actions (ours)
-0. 2026-10-31: confirm the directory post published (07:00 PT run) and Beau's packet went out (12:05 PM ET); confirm wordpress.org/themes/unhurried shows 1.0.2 and links the Theme URI; watch for Abby Brennan's reply; add the 1.0.2 line to the theme's `readme.txt` changelog [S 2026-10-30].
+0. 2026-10-31: confirm the directory post published (07:00 PT run) and Beau's packet went out (12:05 PM ET); confirm wordpress.org/themes/unhurried shows 1.0.2 and links the Theme URI; watch for Abby Brennan's reply [S 2026-10-30].
 1. Phone passes on real/simulated iPhone for the lesson controls: Web drag + tap; AI range + text; SEO map slider + text fields [S 2026-10-26/27, 10-27 ×2] (open).
 2. Owner review of the SEO world and of the home + Web heroes on the iPhone [S 2026-10-27].
 3. Whether the Brand world hero also fits one screen on phones after the 2026-10-27 hero pass (the pass verified Web/AI/SEO at 11 sizes; Brand "stays as it is") — check, (unverified).
