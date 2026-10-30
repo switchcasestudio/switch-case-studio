@@ -27,14 +27,14 @@ Moses asked for four blog posts about new studio products, published on a schedu
    `curl -sS -X POST https://n8n.switchcasestudio.com/webhook/scs-generate -H 'Content-Type: application/json' -d @content/promo/<file>.json`
    Set up one-off crons for the three dates if that is easier. If the URL is not live yet, wait and retry; do not inject before the post exists.
 4. If `pillar` "Studio News" is not one of the engine's pillars, change it to the closest valid one before injecting. You may sharpen the wording; keep every fact exactly as in "Facts you can use" below.
-5. **The held post:** when Moses says Unhurried is approved on WordPress.org, move `content/held/wordpress-org-unhurried-approved.json` to `content/scheduled/<YYYY-MM-DD>-unhurried-is-in-the-wordpress-theme-directory.json` (the next day's date), set its `"date"` to that day, commit, push, and inject the held packet after it is live.
+5. **The held post:** done on the studio side 2026-10-30: `content/scheduled/2026-10-31-unhurried-is-in-the-wordpress-theme-directory.json` publishes on the 2026-10-31 run. Inject the held packet (`content/promo/held-unhurried-is-in-the-wordpress-theme-directory.json`) after its URL is live.
 6. **Facebook:** added to the engine on 2026-09-25. Every packet (weekly and promo injects) now includes a Facebook Page post automatically: the IG caption body plus a clickable link to the article. Nothing extra to do.
 7. Report each injection in the SCS Telegram group, and log it in the SCS WORKLOG.
 8. **Git:** the scheduler pushes to `main` at 07:00 PT on those dates. Always `git pull --rebase` before your own Thursday push.
 
 ## Facts you can use (verified 2026-09-25)
 
-- **Unhurried** is a free WordPress block theme by Switch Case Studio. Download: https://github.com/switchcasestudio/unhurried/releases/latest/download/unhurried.zip . Submitted to WordPress.org (review pending, ticket 292908). Do not say it is "in the directory" until Moses confirms approval.
+- **Unhurried** is a free WordPress block theme by Switch Case Studio, in the WordPress.org theme directory since 2026-10-09: https://wordpress.org/themes/unhurried/ (inside WordPress: Appearance, Themes, Add New, search Unhurried). The GitHub zip still works: https://github.com/switchcasestudio/unhurried/releases/latest/download/unhurried.zip .
 - **Unhurried Pro** costs **$49, one payment**: https://switchcasestudio.com/unhurried-pro/ . Adds WooCommerce shop, product, cart and checkout pages, a Coming soon page, a Shop shelf pattern and a lead-story blog layout. Installs on top of the free theme.
 - **Office hour**: **$95**, one hour, one to one, over Google Meet, on SEO, design, code or WordPress. Pay first, then book. A recap follows by email.
 - **Student hour**: **free**, Wednesday and Friday, 18:00 to 19:00 Pacific time. Students give their school or course and their question when booking.

@@ -3,7 +3,7 @@
   "title": "Unhurried Is Now in the WordPress Theme Directory",
   "excerpt": "Our free block theme passed the WordPress.org review. You can now install Unhurried by searching for it inside WordPress.",
   "category": "Studio News",
-  "date": "HOLD-UNTIL-APPROVED",
+  "date": "2026-10-31",
   "tags": [
     "WordPress",
     "Block Theme",
@@ -12,7 +12,7 @@
   "body": [
     {
       "type": "paragraph",
-      "text": "Unhurried, the free block theme we released last month, has been approved for the official WordPress.org theme directory."
+      "text": "Unhurried, the free block theme we [released in September](/projects/unhurried), has been approved for the official WordPress.org theme directory."
     },
     {
       "type": "paragraph",
@@ -20,7 +20,7 @@
     },
     {
       "type": "paragraph",
-      "text": "Every theme in the directory goes through a review by volunteers on the WordPress Themes Team, who check the code, licensing and accessibility against published guidelines. Thank you to them for the careful read."
+      "text": "Every theme in the directory goes through a review by volunteers on the WordPress Themes Team, who check the code, licensing and accessibility against [published requirements](https://make.wordpress.org/themes/handbook/review/required/). Thank you to them for the careful read."
     },
     {
       "type": "link",
@@ -29,7 +29,7 @@
     },
     {
       "type": "paragraph",
-      "text": "If you run a shop, Unhurried Pro adds styled WooCommerce pages and a Coming soon page on top of the free theme."
+      "text": "If you run a shop, Unhurried Pro adds styled WooCommerce pages and a Coming soon page on top of the free theme. If you would rather have the site built for you, that is our [web development service](/services/web-development-mobile-apps)."
     },
     {
       "type": "link",
@@ -37,6 +37,6 @@
       "label": "See Unhurried Pro"
     }
   ],
-  "coverImage": "/unhurried-pro/img/og.jpg",
-  "imageAlt": "The Unhurried WordPress theme"
+  "coverImage": "/images/journal/unhurried-is-in-the-wordpress-theme-directory.webp",
+  "imageAlt": "The Unhurried theme home page: the headline Good work takes its time and care on a bone background"
 }

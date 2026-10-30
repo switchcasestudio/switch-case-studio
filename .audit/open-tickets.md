@@ -11,7 +11,7 @@ Last reviewed: 2026-09-25.
 2. **Approve social drafts** in the SCS Telegram group on 9/29, 10/2, 10/6 after 09:00 PT (Beau injects them). On 10/2 every platform posts ~2 min after approval (the engine's slot times are already past on a Friday inject).
 
 **Waiting on others:**
-3. **WordPress.org review, ticket #292908.** When feedback arrives: apply fixes, upload Unhurried **1.0.1+** (1.0.0 in review still says "Moshe"). When approved: move `content/held/wordpress-org-unhurried-approved.json` to `content/scheduled/<date>-unhurried-is-in-the-wordpress-theme-directory.json`, set its date, push, tell Beau (kit step 5), and switch the Shop and README links from the GitHub zip to wordpress.org/themes/unhurried.
+3. **WordPress.org review, ticket #292908: approved 2026-10-09** (50+ active installs, 266 downloads by 10-29; found 2026-10-30). Follow-through done 2026-10-30: held post scheduled for 2026-10-31, Shop, Pro page, thank-you page, kit facts and the theme README point at wordpress.org/themes/unhurried; 1.0.1 uploaded 2026-10-30 (ticket #297927, scan Pass, auto-approved as a live-theme update, live ~6h later).
 
 **Accepted gaps (revisit if they bite):**
 4. The Office Hour booking page URL is public, so someone could book without paying. Cancel and send the Stripe link if it happens.

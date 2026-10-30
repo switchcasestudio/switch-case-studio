@@ -6,9 +6,9 @@
       "kind": "WordPress theme",
       "name": "Unhurried",
       "price": "Free",
-      "blurb": "A calm, editorial WordPress block theme for studios, spas and makers. Full-page patterns, a blog and two style variations, all edited in the Site Editor.",
-      "cta": "Download free (.zip)",
-      "url": "https://github.com/switchcasestudio/unhurried/releases/latest/download/unhurried.zip",
+      "blurb": "A calm, editorial WordPress block theme for studios, spas and makers. Full-page patterns, a blog and two style variations, all edited in the Site Editor. Install it from inside WordPress.",
+      "cta": "Get it free on WordPress.org",
+      "url": "https://wordpress.org/themes/unhurried/",
       "external": true,
       "image": "/unhurried-pro/img/free.webp"
     },

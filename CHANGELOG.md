@@ -2,6 +2,12 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-10-30 · Unhurried in the WordPress.org directory
+
+- **Shop, Pro page, thank-you page**: the free theme's button goes to wordpress.org/themes/unhurried (approved 2026-10-09, 50+ active installations by 10-29). The GitHub zip stays as the fallback in the theme README.
+- **Journal**: "Unhurried Is Now in the WordPress Theme Directory" is scheduled for 2026-10-31, with a 1600x900 cover.
+- **Pro pages join the visit log** (`/unhurried-pro/visit.js`): the sales and thank-you pages are counted like every other page, cookie-free.
+
 ## 2026-09-26 · Unhurried case study
 
 - **New case study `/projects/unhurried`**: the free Unhurried WordPress theme and the $49 Pro add-on as one studio project, first on the home index and `/projects`. Metrics come from the theme repos (27 patterns, 3 style variations, 8 Pro templates, no sideways scroll 320–1440 px). Buttons: Shop, Unhurried Pro sales page, free-theme repo.
