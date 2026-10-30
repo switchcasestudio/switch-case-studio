@@ -1,49 +1,37 @@
-# STATUS — design refresh
+# STATUS — Switch Case Studio site (switchcasestudio.com, repo switchcasestudio/switch-case-studio, PUBLIC)
 
-**Branch:** `design-audit-refresh` (41 commits ahead of main; NOTHING pushed — never push without explicit instruction)
-**Phase:** 3 — **visual-elevation pass COMPLETE** (13 commits, `47e8923`…`643afee`, freehand-approved by Moses after the `VISUAL_ELEVATION.md` proposal). P1 batch also still awaiting its verify pass — both gates below. ClientStrip option A (real logos) remains open pending assets from Moses.
+updated 2026-10-27 (documentation consolidation) · facts as recorded in `.audit/summary.md` entries, not re-verified against production · Read this first; then `CLAUDE.md` (working rules), `.audit/rules.md`, `.audit/open-tickets.md`.
+Sources: [S date] = `.audit/summary.md` entry (dated `###` entries, newest at the bottom; older sections in `.audit/history/summary-2026-05-to-2026-10-09.md`); [git] = repo checked 2026-10-27; (unverified) = no later entry confirms it.
 
-## Elevation gate — Moses verifies (visible window; agent can't watch transitions under occlusion)
+## Current state
+- `main` = `da3c879` "Log the hero variety as live" (2026-10-27) = `origin/main`; working tree clean except one untracked file [git]. A git worktree `../scs-seo-titles` on branch `seo/titles-ctr` (`a4a0ae4`) is in active use by another session on 2026-10-27; its STATUS/summary copies are the branch's own [git].
+- The four service "worlds" are rebuilt as teaching pages with no invented clients: Brand (2026-10-22/25), Web Development & Mobile Apps (2026-10-26/27, `7b18fd7`), AI & Automation (2026-10-27, `f40b042`), SEO & AI Search (2026-10-27, `aaa9b90`); then three distinct hero compositions with thinner strokes (`f1c7222`, live). Production build 64 pages; standing checks and US-English sweep clean [S 2026-10-25…27].
+- Heroes fit one screen under iPhone Safari's glass bar via `--bar-tail` (`342b38f`, live) [S 2026-10-27]. iPhone passes 3–4 done in the iOS 27 Simulator, defects 1–8 fixed (`06c5ac9`) [S 2026-10-26].
+- SEO audit (2026-10-09, lab-only, health ~66/100): fixes 1–14 shipped on 2026-10-09 [S "SEO AUDIT FIXES …" sections, archived]. Apogee Watcher link swap live both ways (2026-10-24/25) [S 2026-10-25 note].
+- Journal: covers required (2026-10-25); scheduler pushes posts to main at 14:00 UTC — fetch/rebase before touching `posts.json` [S 2026-10-09 handoff; 2026-10-25].
 
-```bash
-npm run build && npm run preview   # http://localhost:4173
-```
+## Next actions (ours)
+1. Phone passes on real/simulated iPhone for the lesson controls: Web drag + tap; AI range + text; SEO map slider + text fields [S 2026-10-26/27, 10-27 ×2] (open).
+2. Owner review of the SEO world and of the home + Web heroes on the iPhone [S 2026-10-27].
+3. Whether the Brand world hero also fits one screen on phones after the 2026-10-27 hero pass (the pass verified Web/AI/SEO at 11 sizes; Brand "stays as it is") — check, (unverified).
+4. Keep `.audit/open-tickets.md` current (last reviewed 2026-09-25; 12 ticket headings incl. DEP-1 accepted risk, SEC-1 leaked host path in pushed history, ZAHAV-1/2, LINK-1).
 
-1. **/#contact** (desktop ≥1024): the hand-drawn video card sits tilted −2° in a cream frame with a lilac offset shadow; hover straightens + lifts it. At 390 the card is exactly as before (no frame, no tilt).
-2. **Hero / About CTA / "Ready to be next?"** booking pills pull gently toward the cursor on hover and the calendar still opens on click.
-3. **"Trusted by"**: orange ✳ between names; strip pauses while you hover it.
-4. **Footer**: the outline "switch case" slides slowly sideways as you scroll it into view; footer links get an underline sweep on hover.
-5. **Gradient stripe + FAQ orange**: faint print grain (very subtle — compare banding on the stripe); orb floats slightly up/down with scroll and stays vertically centered.
-6. **/pricing/web-development** (and any other pricing page): header, cards, outro stagger in; cards lift on hover; **with JS disabled the h1 is still visible** (it wasn't before this pass).
-7. **Arrow links** (View all case studies, tile "View Case Study", header CTA): arrow nudges right on hover.
-8. **Cursor**: no white square at top-left on load; dot appears on first mouse move, tightens while clicking.
-9. **Reduced motion** (System Settings → Accessibility → Display → Reduce motion): everything readable and static — About heading rests orange, About paragraphs visible, gradient heading static, About grid static, no marquee/typed/motion anywhere.
-10. **Scroll the whole home page slowly, stop mid-section** — nothing ever strands dim (same discipline as the P1 gate).
+## Blocked / waiting / owner decisions (from the 2026-10-09 handoff; no later entry resolves them — unverified)
+- Bluesky `switchcasestudio.bsky.social` ("Phoenix based", created 2026-07-14): ours or not? If ours, fix bio to Portland and add to `sameAs`.
+- Name collision with `switchcasestudios.com`: Clutch/Crunchbase/Wikidata profiles + a one-line definition on home/About would separate the entities.
+- Portland local page: only if local clients are wanted.
+- Beau's post pipeline must emit inline links `[label](url)`; `add-post.mjs` rejects bad URLs.
+- ClientStrip option A (real client logos) was waiting on assets (STATUS 2026-07-05); real logos went live 2026-09-03 [S archived] — treat as closed.
 
-## P1-batch gate — still open (from the previous session)
-1. **/** "Trusted by": wordmarks readable, screen reader hears the 7 names once.
-2. Services rows / "Built to perform" block / FAQ: settle at full opacity mid-scroll, nothing re-hides.
-3. FAQ ink-on-orange readable at every size.
-4. FAQ + footer same width as other sections.
-5. The three re-compressed case-study screenshots look sharp.
+## Constraints (do not revert; details in CLAUDE.md and `.audit/rules.md`)
+- NEVER push without explicit owner instruction; the owner's "log commit push to main" is the authorization pattern [S passim].
+- Repo is PUBLIC: no client-confidential data, host paths or private notes in tracked files (SEC-1; the 2026-08-04 confidentiality sweep). `switch-case-studio-action-plan.md` (private, git-ignored, Aug 2026, 34 unchecked boxes) stays untracked.
+- Teaching pages: no made-up clients, no em dashes on rendered surfaces, US spelling only, titles ≤60 / descriptions ≤160 chars, phones read at 16px and tap at 44px (`.audit/rules.md`).
+- Tokens from `_variables.scss` only; single transform owner per property; `useReducedMotion` on new motion; ScrollTrigger cleanup on unmount; protect proof density and the LCP/CLS budget; text never sits where a drawing can run under it.
+- Every fix from a review goes back into `CLAUDE.md`/`.audit/rules.md` (Rule 5). Log entries go at the bottom of `.audit/summary.md`; user-facing changes into `CHANGELOG.md` (newest first).
+- Dependabot PR #11 broke production once (2026-08-14): upgrade in batches with a build + route-count check.
 
-## Verification evidence (agent-side, this pass)
-- Every item: build green (27 routes) → live-DOM probe of the END state (transforms, opacity, computed backgrounds) + settled screenshots at 1440 + 390. Two real bugs found & fixed mid-pass: stripe orb lost its -50% centering to the percentage-transform poison (VE-9 hardened), pricing h1 shipped `opacity:0` in static HTML (VE-8 fixed).
-- Known limitation: with the automation window occluded, CSS transitions AND the GSAP ticker freeze — in-flight animation can't be observed, only end states. Documented in CLAUDE.md.
-
-## Contact relayout (2026-07-05, `0c5929b`) — owner to confirm on device
-Owner flagged the contact section: desktop form-width/balance, mobile padding,
-and mobile alignment (Send button left vs info/card centered). Fixed: the ≥1024
-two-column (form left + 288px card top-right, which stranded a bottom-right void)
-→ **form-forward single column at every width ≥769**, form centered, info + brand
-card as a signature band below (info left / card right, one shared left edge).
-Mobile: form/Send/info/card all left-aligned, card fills width on phones, side
-padding 1.5→1.75rem. Sticker tilt (≥1024) preserved. Verified 1440/860/500 + home
-contact section (same component). This SUPERSEDES the earlier "two-column" gate.
-
-## After this: remaining P2s
-Marquee clipping, raw "Loading..." Moon fallback, video poster (needs an encoded poster frame — no ffmpeg on this machine), pricing "from $X" index anchors, eyebrow grammar diet, mobile type/tap floors, z-index/breakpoint debt (opportunistic). GradientText swap (P2-14) softened: it now has a reduced-motion guard; full swap still optional.
-
-## Standing constraints
-- Tokens from `_variables.scss` only (motion tokens now exist: `$dur-*`/`$ease-*` + `src/animation/motionTokens.js` + `:root` custom props); single transform owner per property; `useReducedMotion` on new motion; ScrollTrigger cleanup on unmount; protect proof density, perf moat (LCP/CLS budget), FAQ-orange + footer-star moments, "Ready to be next?" beat.
-- Canonical worklog `.audit/summary.md`; user-facing log `CHANGELOG.md`.
+## Where history lives
+- `.audit/summary.md`: dated entries since the 2026-10-09 SEO handoff (bottom = newest); `.audit/history/summary-2026-05-to-2026-10-09.md`: everything earlier, oldest first, with a heading index at the top of the live file.
+- `CHANGELOG.md`: user-facing changes, newest first (last entry 2026-09-26). `.audit/cleanup-2026-10-{plan,log}.md`: the Oct 2026 legacy cleanup. `.audit/legacy-cleanup.md`, `ssg-recon.md`, `js-critical-path-recon.md`, `mobile-design-audit.md`: audits. `.audit/sha-metrics-*.json`: measurements.
+- Case-study source data for other projects: see each project's own repo; this site only publishes the measured results.

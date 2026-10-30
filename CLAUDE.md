@@ -11,7 +11,7 @@ Living instructions for AI work on this project. **Every fix from a review goes 
 
 ## Status
 
-Running audit + status doc: `.audit/summary.md` — keep it current with git, not behind it.
+Current state: `STATUS.md` (read first; rewrite it at the end of meaningful work). Running audit + work log: `.audit/summary.md` (dated entries at the bottom; entries before 2026-10-09 are in `.audit/history/`) — keep it current with git, not behind it.
 
 ## Blog (`/blog`, `/blog/:slug`) — data contract, do not break
 
