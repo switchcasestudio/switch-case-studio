@@ -40,7 +40,13 @@ const SOCIAL_PROFILES = [
   },
 ];
 
+/* Directory listings: in `sameAs`, not in the footer icon row. */
+const DIRECTORY_PROFILES = [
+  { key: 'wd', label: 'Wikidata', url: 'https://www.wikidata.org/wiki/Q141938459' },
+  { key: 'cl', label: 'Clutch', url: 'https://clutch.co/profile/switch-case-studio' },
+];
+
 /** Every external profile URL — this is exactly what `sameAs` must contain. */
-export const SOCIAL_URLS = SOCIAL_PROFILES.map((p) => p.url);
+export const SOCIAL_URLS = [...SOCIAL_PROFILES, ...DIRECTORY_PROFILES].map((p) => p.url);
 
 export default SOCIAL_PROFILES;
