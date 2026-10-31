@@ -44,3 +44,7 @@ Add P813 retrieved (the date you create the item) to every P854 reference.
 1. Copy the new Q-number.
 2. Add `https://www.wikidata.org/wiki/Q…` to `src/data/social.js` as a non-footer entry, or straight into the `sameAs` mirror in `index.html` (keep `check:sameas` green).
 3. Search Google for "Switch Case Studio Portland" a few weeks later to see whether a Knowledge Panel appears.
+
+## Created 2026-10-30: Q141938459
+
+https://www.wikidata.org/wiki/Q141938459, by account Switchcasestudio. The full reference list above tripped Wikidata's abuse filter ("too many external links", "Excessive self referring") on a new account, so the live item has no references to our own site: Clutch sources only P159 and P571. Every other statement above is in, unreferenced.
