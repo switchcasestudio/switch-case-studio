@@ -1,5 +1,52 @@
 [
   {
+    "slug": "unhurried-is-in-the-wordpress-theme-directory",
+    "title": "Unhurried Is Now in the WordPress Theme Directory",
+    "excerpt": "Our free block theme passed the WordPress.org review. You can now install Unhurried by searching for it inside WordPress.",
+    "kicker": "Studio News",
+    "category": "Studio News",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-10-31",
+    "readingTime": "1 min read",
+    "coverImage": "/images/journal/unhurried-is-in-the-wordpress-theme-directory.webp",
+    "imageAlt": "The Unhurried theme home page: the headline Good work takes its time and care on a bone background",
+    "tags": [
+      "WordPress",
+      "Block Theme",
+      "Open Source"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "Unhurried, the free block theme we [released in September](/projects/unhurried), has been approved for the official WordPress.org theme directory."
+      },
+      {
+        "type": "paragraph",
+        "text": "That means you no longer need to download a zip. In WordPress, go to Appearance, Themes, Add New, search for Unhurried, and click Install. Updates will arrive the same way as for any other theme."
+      },
+      {
+        "type": "paragraph",
+        "text": "Every theme in the directory goes through a review by volunteers on the WordPress Themes Team, who check the code, licensing and accessibility against [published requirements](https://make.wordpress.org/themes/handbook/review/required/). Thank you to them for the careful read."
+      },
+      {
+        "type": "link",
+        "url": "https://wordpress.org/themes/unhurried/",
+        "label": "Unhurried on WordPress.org"
+      },
+      {
+        "type": "paragraph",
+        "text": "If you run a shop, Unhurried Pro adds styled WooCommerce pages and a Coming soon page on top of the free theme. If you would rather have the site built for you, that is our [web development service](/services/web-development-mobile-apps)."
+      },
+      {
+        "type": "link",
+        "url": "/unhurried-pro/",
+        "label": "See Unhurried Pro"
+      }
+    ]
+  },
+  {
     "slug": "structured-data-for-small-business-websites",
     "title": "Structured Data for Small Business Websites",
     "excerpt": "Structured data helps search systems understand a business, but useful markup starts with accurate facts, restrained schema, and regular testing.",
