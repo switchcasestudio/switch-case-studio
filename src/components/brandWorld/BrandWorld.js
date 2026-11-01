@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import useTryHint from '../worlds/tryHint';
 import BrandHero from './BrandHero';
 import TypeTester from './TypeTester';
 import Deliverables from './Deliverables';
@@ -93,8 +95,10 @@ const STATES = [
 ];
 
 export default function BrandWorld() {
+  const rootRef = useRef(null);
+  useTryHint(rootRef);
   return (
-    <div className="bw">
+    <div ref={rootRef} className="bw">
       <BrandHero />
       <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" />
       <Deliverables />

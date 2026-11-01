@@ -1539,3 +1539,60 @@ $t-rule: rgba(20, 20, 20, 0.18);
     color: $promo-ink;
   }
 }
+
+/* The try-me pulse (worlds/tryHint.js): a small swell and a ring that opens
+   and fades, in the element's own ink. Scale and shadow only, so nothing
+   reflows. A field keeps its size, a slider pulses its thumb. */
+[data-hint] {
+  animation: bw-hint 0.9s ease-out var(--hint-at, 0s) both;
+}
+
+svg [data-hint] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+input[type='text'][data-hint],
+input:not([type])[data-hint],
+textarea[data-hint],
+[contenteditable][data-hint] {
+  animation-name: bw-hint-ring;
+}
+
+input[type='range'][data-hint] {
+  animation: none;
+
+  &::-webkit-slider-thumb {
+    animation: bw-hint 0.9s ease-out var(--hint-at, 0s) both;
+  }
+
+  &::-moz-range-thumb {
+    animation: bw-hint 0.9s ease-out var(--hint-at, 0s) both;
+  }
+}
+
+@keyframes bw-hint {
+  0% {
+    scale: 1;
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);
+  }
+
+  30% {
+    scale: 1.06;
+  }
+
+  100% {
+    scale: 1;
+    box-shadow: 0 0 0 8px transparent;
+  }
+}
+
+@keyframes bw-hint-ring {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 55%, transparent);
+  }
+
+  100% {
+    box-shadow: 0 0 0 8px transparent;
+  }
+}

@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import useTryHint from '../worlds/tryHint';
 import AutomationHero from './AutomationHero';
 import Deliverables from './Deliverables';
 import { Payback, PaybackTable, Grounding, AnswerSteps, Handoff, KeptHuman, Retries, Backoff, Masking, WhatLeaves } from './lessons';
@@ -93,8 +95,10 @@ const STATES = [
 ];
 
 export default function AiWorld() {
+  const rootRef = useRef(null);
+  useTryHint(rootRef);
   return (
-    <div className="bw bw--outline bw--ai">
+    <div ref={rootRef} className="bw bw--outline bw--ai">
       <AutomationHero />
       <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" />
       <Deliverables />

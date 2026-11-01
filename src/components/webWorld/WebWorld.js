@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import useTryHint from '../worlds/tryHint';
 import KindsHero from './KindsHero';
 import Deliverables from './Deliverables';
 import { PageLoad, Reflow, ShiftTest, InputDelay, A11yCard, VitalsCard, Breakpoints, ShiftFormula, FrameBudget, WcagCard } from './lessons';
@@ -92,8 +94,10 @@ const STATES = [
 ];
 
 export default function WebWorld() {
+  const rootRef = useRef(null);
+  useTryHint(rootRef);
   return (
-    <div className="bw bw--outline bw--web">
+    <div ref={rootRef} className="bw bw--outline bw--web">
       <KindsHero />
       <ProcessStage states={STATES} label="What every web build has to get right" heading="What we know" />
       <Deliverables />

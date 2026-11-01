@@ -1,6 +1,8 @@
+import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import useTryHint from '../worlds/tryHint';
 import SearchHero from './SearchHero';
 import Deliverables from './Deliverables';
 import { Crawl, MissingPage, Local, LocalFactors, Rich, RichRules, Quoted, QuotablePassage, CostPerLead, LeadMath } from './lessons';
@@ -92,8 +94,10 @@ const STATES = [
 ];
 
 export default function SeoWorld() {
+  const rootRef = useRef(null);
+  useTryHint(rootRef);
   return (
-    <div className="bw bw--outline bw--seo">
+    <div ref={rootRef} className="bw bw--outline bw--seo">
       <SearchHero />
       <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" />
       <Deliverables />

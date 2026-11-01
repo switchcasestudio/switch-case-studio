@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { play, halt } from './tryHint';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,6 +53,18 @@ export default function ProcessStage({ states, label, heading }) {
       const header = document.querySelector('.site-header');
       const top = header ? header.offsetHeight : 0;
       stage.style.setProperty('--bw-top', `${top}px`);
+      // The state on screen, once its entrance has landed, gets the try-me pulse.
+      let hinted = -1;
+      const hint = (self) => {
+        const t = self.progress * states.length;
+        const i = Math.min(Math.floor(t), states.length - 1);
+        const f = t - i;
+        const on = self.isActive && (i === 0 || f > 0.3) && (f < 0.8 || i === states.length - 1) ? i : -1;
+        if (on === hinted) return;
+        if (hinted >= 0) halt(els[hinted]);
+        hinted = on;
+        if (on >= 0) play(els[on]);
+      };
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out' },
         scrollTrigger: {
@@ -61,6 +74,8 @@ export default function ProcessStage({ states, label, heading }) {
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
+          onUpdate: hint,
+          onToggle: hint,
         },
       });
       // Hold the last state as long as the others: the timeline runs to
@@ -98,7 +113,10 @@ export default function ProcessStage({ states, label, heading }) {
           tl.set(el, { pointerEvents: 'none' }, at + 1);
         }
       });
-      return () => tl.scrollTrigger && tl.scrollTrigger.kill();
+      return () => {
+        if (hinted >= 0) halt(els[hinted]);
+        if (tl.scrollTrigger) tl.scrollTrigger.kill();
+      };
     });
     return () => mm.revert();
   }, [states]);
