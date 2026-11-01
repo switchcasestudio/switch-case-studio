@@ -205,7 +205,7 @@ function WatchDemo() {
       <p className="aw-watch__msg" aria-live="polite">
         {msg}
       </p>
-      <button type="button" className="aw-pill is-on" onClick={toggle}>
+      <button type="button" className="aw-pill is-on" data-try="twice" onClick={toggle}>
         {down ? 'Fix it' : 'Break the CRM'}
       </button>
     </div>

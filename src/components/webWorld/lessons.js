@@ -435,7 +435,7 @@ export function ShiftTest() {
   return (
     <div className="bw-lesson bw-lesson--light ww-shift">
       <div className="bw-lesson__bar">
-        <button type="button" className="bw-lesson__toggle is-on" onClick={() => load()}>
+        <button type="button" className="bw-lesson__toggle is-on" data-try="run" onClick={() => load()}>
           Load the page
         </button>
         <button

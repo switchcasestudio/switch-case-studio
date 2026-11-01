@@ -1540,11 +1540,11 @@ $t-rule: rgba(20, 20, 20, 0.18);
   }
 }
 
-/* The try-me pulse (worlds/tryHint.js): a small swell and a ring that opens
-   and fades, in the element's own ink. Scale and shadow only, so nothing
+/* The control a frame is working right now (worlds/tryHint.js): a small swell
+   and a ring that opens and fades, in the element's own ink. Scale and shadow only, so nothing
    reflows. A field keeps its size, a slider pulses its thumb. */
 [data-hint] {
-  animation: bw-hint 0.9s ease-out var(--hint-at, 0s) both;
+  animation: bw-hint 0.9s ease-out both;
 }
 
 svg [data-hint] {
@@ -1563,11 +1563,11 @@ input[type='range'][data-hint] {
   animation: none;
 
   &::-webkit-slider-thumb {
-    animation: bw-hint 0.9s ease-out var(--hint-at, 0s) both;
+    animation: bw-hint 0.9s ease-out both;
   }
 
   &::-moz-range-thumb {
-    animation: bw-hint 0.9s ease-out var(--hint-at, 0s) both;
+    animation: bw-hint 0.9s ease-out both;
   }
 }
 
