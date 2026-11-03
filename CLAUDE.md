@@ -71,7 +71,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l 'id="S:' build/**/*.html` matches nothing; `<h1` sits inside `<main>` on every page.
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
-- `find build -name '*.html' | wc -l` = route baseline (64 as of 2026-10-26: `/30-off` retired, 301 to `/pricing`); re-baseline in `.audit/rules.md` when routes change.
+- `find build -name '*.html' | wc -l` = route baseline (66 as of 2026-11-03: two journal posts on 10-29 and 10-31); re-baseline in `.audit/rules.md` when routes change.
 - `npm run check:us` (postbuild) is clean: US English only in built pages (text, alt/title/aria/meta, JSON-LD), in `src/`, `public/`, `content/` (comments too) and in `public/` file names (`scripts/check-us-english.mjs`, words in `scripts/british-words.mjs`). After adding an image or video with text: `npm run check:us:images` (OCR, local).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily). A post with no cover can no longer ship: `add-post.mjs` refuses it and `check:media` (prebuild) fails.

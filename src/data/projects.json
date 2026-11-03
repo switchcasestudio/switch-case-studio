@@ -13,12 +13,12 @@
     "longWeb": "/projects/prodani/long.webp",
     "imageAlt": "The Prodani Miami homepage after the v2 relaunch: a cake under a chocolate pour, headed Bite into Balance",
     "comparisonsLabel": "Before and after",
-    "comparisonsNote": "The original theme on the left, today's storefront (v2, live since 8 October 2026) on the right, both at 1150 × 1000. The original homepage, baker and contact shots are our record from August; the product page was shot again on 14 October through Shopify's theme preview, because the cake in the August shot is no longer sold.",
+    "comparisonsNote": "The original theme on the left, today's storefront (the Rounded theme, live since 2 November 2026) on the right, both shot on 3 November 2026 at 1150 × 1000 through Shopify's theme preview. The figures under each pair are from the 14 October measurement of the original theme against v2.",
     "comparisons": [
-      { "src": "/projects/prodani/compare-home.webp", "caption": "Homepage", "note": "−68% weight · −17% largest contentful paint", "alt": "The Prodani Miami homepage on the original theme and on v2, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-product.webp", "caption": "Product page", "note": "−72% largest contentful paint · −61% DOM elements", "alt": "The Personal Carrot Cake product page on the original theme and on v2, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-baker.webp", "caption": "Meet Your Baker", "note": "No layout shift · paints 20% later: the largest element is now a photo, not a paragraph", "alt": "The Prodani Miami Meet Your Baker page on the original theme and on v2, both at 1150 pixels wide" },
-      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "−28% largest contentful paint · a real inquiry form next to the address", "alt": "The Prodani Miami contact page on the original theme and on v2, both at 1150 pixels wide" }
+      { "src": "/projects/prodani/compare-home.webp", "caption": "Homepage", "note": "−68% weight · −17% largest contentful paint", "alt": "The Prodani Miami homepage on the original theme and on the Rounded theme, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-product.webp", "caption": "Product page", "note": "−72% largest contentful paint · −61% DOM elements", "alt": "The Personal Carrot Cake product page on the original theme and on the Rounded theme, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-baker.webp", "caption": "Meet Your Baker", "note": "No layout shift · paints 20% later: the largest element is now a photo, not a paragraph", "alt": "The Prodani Miami Meet Your Baker page on the original theme and on the Rounded theme, both at 1150 pixels wide" },
+      { "src": "/projects/prodani/compare-contact.webp", "caption": "Contact", "note": "−28% largest contentful paint · a real inquiry form next to the address", "alt": "The Prodani Miami contact page on the original theme and on the Rounded theme, both at 1150 pixels wide" }
     ],
     "title": "Prodani Miami",
     "subtitle": "High-Protein Dessert Brand, Miami, Florida",
