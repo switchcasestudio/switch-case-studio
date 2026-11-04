@@ -355,3 +355,4 @@ Entries from 2026-05 to 2026-10-09 (phases 1–4, design refresh, repositioning,
 - Owner: the studio was banned from X. Removed from `src/data/social.js` (footer) and the `sameAs` mirror in `index.html`.
 - `public/email-signature/` holds the Gmail signature's images (polaroid GIF, wordmark, 5 icons, Zahav banner). Do not rename them: sent emails point at these URLs forever.
 - **Open:** signature not installed yet; waits on phone number, title and Google review link. X is also listed on any outside profile that links to it, not checked.
+- 2026-11-03: Prodani case study images reshot on the live Rounded theme: hero detail/og:image, long band + 700w, index preview mockup + 600w; hero alt updated. The `comparisons[]` pairs from the earlier commit already showed it. Description text still says "calm champagne palette" (that describes v2, which the figures measure); owner to decide.
