@@ -5,11 +5,11 @@ import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeom
 import { CELLS, OUTLINE, W, H, tileColor } from './pixelInvaderGrid';
 
 /* The three.js half of PixelInvader: rounded glowing tiles on a dark outline
-   set back behind them, eyes as one glossy dark capsule each (with a shine) that blink and look toward
+   set back behind them, eyes as one dark pixel column each (with a square shine) that blink and look toward
    the pointer, feet that shuffle like a crab under a swaying body, a violet glow behind, and a
    soft shadow under it. `running` false stops the render loop, `still`
    holds one pose. */
-const TILE = 0.94;
+const TILE = 0.97;
 const FOOT_ROW = 12;
 const cx = (x) => x - (W - 1) / 2;
 const cy = (y) => (H - 1) / 2 - y;
@@ -80,23 +80,21 @@ function Invader({ palette, still }) {
   }, []);
 
   const res = useMemo(() => {
-    const tile = new RoundedBoxGeometry(TILE, TILE, 0.9, 4, 0.16);
-    const back = new RoundedBoxGeometry(1.06, 1.06, 0.7, 2, 0.06);
-    const eyeGeo = new RoundedBoxGeometry(1.1, 2.9, 0.6, 6, 0.42);
-    const shine = new THREE.SphereGeometry(0.17, 16, 12);
+    const tile = new RoundedBoxGeometry(TILE, TILE, 0.3, 2, 0.05);
+    const back = new RoundedBoxGeometry(1.02, 1.02, 0.24, 1, 0.02);
+    const eyeGeo = new RoundedBoxGeometry(1.0, 3.0, 0.26, 2, 0.06);
+    const shine = new THREE.PlaneGeometry(0.32, 0.32);
     const shineMat = new THREE.MeshBasicMaterial({ color: '#ffffff' });
     const glowTile = new THREE.MeshStandardMaterial({
-      roughness: 0.35,
+      roughness: 0.75,
       metalness: 0,
       emissive: new THREE.Color(palette.bottom),
-      emissiveIntensity: 0.35,
+      emissiveIntensity: 0.3,
     });
     const outline = new THREE.MeshStandardMaterial({ color: palette.outline, roughness: 0.8 });
     const eye = new THREE.MeshPhysicalMaterial({
       color: palette.eye,
-      roughness: 0.2,
-      clearcoat: 1,
-      clearcoatRoughness: 0.1,
+      roughness: 0.6,
     });
     const glowTex = radialTexture('rgba(150,90,255,0.55)', 'rgba(150,90,255,0)');
     const glowMat = new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false });
@@ -126,8 +124,8 @@ function Invader({ palette, still }) {
     const py = still ? -0.25 : pointer.current.y;
     const k = still ? 1 : 1 - Math.exp(-dt * 5);
 
-    g.rotation.x += (py * 0.4 - 0.08 - g.rotation.x) * k;
-    g.rotation.y += (px * 0.6 + Math.sin(t * 0.7) * 0.1 - g.rotation.y) * k;
+    g.rotation.x += (py * 0.22 - 0.04 - g.rotation.x) * k;
+    g.rotation.y += (px * 0.32 + Math.sin(t * 0.7) * 0.06 - g.rotation.y) * k;
 
     // Crab shuffle: the feet take turns sliding out and lifting, the body
     // sways over whichever foot is planted and bounces once per step.
@@ -170,7 +168,7 @@ function Invader({ palette, still }) {
       </mesh>
       <group ref={group}>
         <group ref={body}>
-          <Tiles cells={parts.bodyOutline} geometry={res.back} material={res.outline} z={-0.3} />
+          <Tiles cells={parts.bodyOutline} geometry={res.back} material={res.outline} z={-0.14} />
           <Tiles cells={parts.bodyCells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
           <group position={[0, eyeY, 0]}>
             <group ref={eyes}>
@@ -178,7 +176,7 @@ function Invader({ palette, still }) {
                 {parts.eyeShapes.map(([x, y]) => (
                   <group key={x} position={[x, y, 0.05]}>
                     <mesh geometry={res.eyeGeo} material={res.eye} />
-                    <mesh geometry={res.shine} material={res.shineMat} position={[0.2, 0.85, 0.3]} scale={[1, 1.3, 0.4]} />
+                    <mesh geometry={res.shine} material={res.shineMat} position={[0.18, 1.05, 0.14]} />
                   </group>
                 ))}
               </group>
@@ -192,7 +190,7 @@ function Invader({ palette, still }) {
               feet.current[i] = g;
             }}
           >
-            <Tiles cells={foot.outline} geometry={res.back} material={res.outline} z={-0.3} />
+            <Tiles cells={foot.outline} geometry={res.back} material={res.outline} z={-0.14} />
             <Tiles cells={foot.cells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
           </group>
         ))}
@@ -214,9 +212,9 @@ export default function PixelInvaderScene({ palette, running, still, onReady }) 
       gl={{ antialias: true, alpha: true }}
       onCreated={() => requestAnimationFrame(() => onReady?.())}
     >
-      <hemisphereLight args={['#f4eeff', '#2b1a5c', 1.3]} />
-      <directionalLight position={[-4, 8, 10]} intensity={2.2} />
-      <directionalLight position={[7, -2, 4]} intensity={0.7} color="#c7a8ff" />
+      <hemisphereLight args={['#ffffff', '#6a55a8', 2.2]} />
+      <directionalLight position={[-2, 4, 12]} intensity={0.9} />
+      <directionalLight position={[7, -2, 4]} intensity={0.3} color="#c7a8ff" />
       <Invader palette={palette} still={still} />
     </Canvas>
   );

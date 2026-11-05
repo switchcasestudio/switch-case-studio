@@ -55,16 +55,16 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invade
         {CELLS.filter((c) => c.kind !== 'eye').map(({ x, y, kind }) => (
           <rect
             key={`${x},${y}`}
-            x={x + 0.03}
-            y={y + 0.03}
-            width="0.94"
-            height="0.94"
-            rx="0.16"
+            x={x + 0.015}
+            y={y + 0.015}
+            width="0.97"
+            height="0.97"
+            rx="0.05"
             fill={tileColor(kind, y, palette, mixHex)}
           />
         ))}
         {EYE_COLS.map(([x, y, rows]) => (
-          <rect key={`e${x}`} x={x - 0.05} y={y} width="1.1" height={rows} rx="0.42" fill={palette.eye} />
+          <rect key={`e${x}`} x={x - 0.05} y={y} width="1.1" height={rows} rx="0.06" fill={palette.eye} />
         ))}
       </svg>
       {live && (
