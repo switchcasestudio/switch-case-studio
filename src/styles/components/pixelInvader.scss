@@ -5,6 +5,25 @@
   width: 100%;
   aspect-ratio: 1;
 
+  &__box {
+    position: absolute;
+    inset: 0;
+  }
+
+  // Walk mode: the root is a full-width track one invader tall; the box
+  // walks it (transform written by PixelInvader.js).
+  &--walk {
+    aspect-ratio: auto;
+    height: var(--pi-size, 160px);
+    overflow: hidden;
+  }
+
+  &--walk &__box {
+    right: auto;
+    width: var(--pi-size, 160px);
+    will-change: transform;
+  }
+
   &__poster {
     position: absolute;
     inset: 8%;

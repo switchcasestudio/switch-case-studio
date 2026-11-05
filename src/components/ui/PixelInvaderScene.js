@@ -49,7 +49,8 @@ function Tiles({ cells, geometry, material, z = 0, colorOf, meshRef }) {
   return <instancedMesh ref={ref} args={[geometry, material, cells.length]} />;
 }
 
-function Invader({ palette, still }) {
+function Invader({ palette, still, motion }) {
+  const stride = useRef(motion ? 0 : 1);
   const group = useRef(null);
   const body = useRef(null);
   const eyes = useRef(null);
@@ -128,25 +129,39 @@ function Invader({ palette, still }) {
     g.rotation.y += (px * 0.32 + Math.sin(t * 0.7) * 0.06 - g.rotation.y) * k;
 
     // Crab shuffle: the feet take turns sliding out and lifting, the body
-    // sways over whichever foot is planted and bounces once per step.
-    const w = 5;
-    const step = Math.sin(t * w);
+    // sways over whichever foot is planted and bounces once per step. With
+    // `motion` (scroll walking) the step phase is the distance walked and
+    // the stride fades out once the scroll stops; without it, time drives.
+    let phase = t * 5;
+    let target = 1;
+    let dir = 0;
+    if (motion?.current) {
+      const mo = motion.current;
+      phase = mo.phase;
+      dir = mo.dir;
+      target = still ? 0 : Math.max(0, 1 - (performance.now() - mo.at) / 220);
+    }
+    stride.current += (target - stride.current) * (1 - Math.exp(-dt * 10));
+    const a = stride.current;
+    const step = Math.sin(phase) * a;
     feet.current.forEach((f, i) => {
       if (!f) return;
-      const ph = t * w + (i === 0 ? 0 : Math.PI);
-      f.position.x = Math.sin(ph) * 0.45;
-      f.position.y = Math.max(0, Math.cos(ph)) * 0.4;
+      const ph = phase + (i === 0 ? 0 : Math.PI);
+      f.position.x = Math.sin(ph) * 0.45 * a;
+      f.position.y = Math.max(0, Math.cos(ph)) * 0.4 * a;
     });
     const bob = Math.abs(step);
     body.current.position.x = step * 0.32;
     body.current.position.y = bob * 0.14;
-    body.current.rotation.z = -step * 0.045;
+    // Lean into the walk.
+    body.current.rotation.z += (-step * 0.045 - dir * a * 0.07 - body.current.rotation.z) * k;
 
     // Eyes glance toward the pointer and blink every few seconds.
     const cycle = t % 3.8;
     const blink = cycle > 3.6 ? Math.abs(Math.cos(((cycle - 3.6) / 0.2) * Math.PI)) : 1;
     if (eyes.current) {
-      eyes.current.position.x = px * 0.14;
+      // Walking: look where it is going. Standing: watch the pointer.
+      eyes.current.position.x = dir && a > 0.1 ? dir * 0.2 : px * 0.14;
       eyes.current.position.y = -py * 0.1;
       eyes.current.scale.y = Math.max(0.12, blink);
     }
@@ -202,7 +217,7 @@ function Invader({ palette, still }) {
   );
 }
 
-export default function PixelInvaderScene({ palette, running, still, onReady }) {
+export default function PixelInvaderScene({ palette, running, still, motion, onReady }) {
   return (
     <Canvas
       className="pixel-invader__canvas"
@@ -215,7 +230,7 @@ export default function PixelInvaderScene({ palette, running, still, onReady }) 
       <hemisphereLight args={['#ffffff', '#6a55a8', 2.2]} />
       <directionalLight position={[-2, 4, 12]} intensity={0.9} />
       <directionalLight position={[7, -2, 4]} intensity={0.3} color="#c7a8ff" />
-      <Invader palette={palette} still={still} />
+      <Invader palette={palette} still={still} motion={motion} />
     </Canvas>
   );
 }
