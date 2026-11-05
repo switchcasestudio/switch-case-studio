@@ -377,3 +377,4 @@ Critique scored 28/40; owner approved all 11 fixes from before/after captures (m
 - Contact: phone is REQUIRED (owner): label "Phone", client gate ("Please add a phone number"), and `contact.mjs` returns 400 without one. Verified: empty phone blocks the submit and focuses the field; a filled one posts.
 - The 👾's first poke shows a link bubble, "You found it. See the work →", to `/projects`.
 - No change: the SCS·01-04 tile labels (brand device, a detector false positive).
+- 2026-11-05: PR #48 (design test fixes + required phone) merged to main (`3f3aab3`) and live: deploy preview checked first (`/reviews` 301 to `/testimonials`, phone `required`, `/api/contact` returns 400 without a phone), then production (hero button and redirect). `fix/design-test` deleted local and remote; main is the only branch.
