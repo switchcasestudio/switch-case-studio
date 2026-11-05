@@ -1,5 +1,137 @@
 [
   {
+    "slug": "website-maintenance-checklist-small-business",
+    "title": "A Website Maintenance Checklist for Small Businesses",
+    "excerpt": "Website maintenance should protect the paths that earn trust and revenue. Use this practical weekly, monthly, quarterly, and annual checklist.",
+    "kicker": "Web Development",
+    "category": "Web Development",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-11-05",
+    "readingTime": "5 min read",
+    "coverImage": "/images/journal/website-maintenance-checklist-small-business.webp",
+    "imageAlt": "A workbench covered with hand tools and repair equipment",
+    "tags": [
+      "Website Maintenance",
+      "Security",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A small-business website rarely fails in one dramatic moment. It drifts. A form stops sending. A staff photo becomes outdated. A plugin misses several updates. A service page keeps promising something the business no longer offers. Each issue looks minor until a customer lands on it."
+      },
+      {
+        "type": "paragraph",
+        "text": "Website maintenance is the habit of catching that drift before it becomes expensive. The useful version is not a vague monthly retainer or a ritual of clicking Update All. It is a short operating routine tied to the parts of the site that earn trust, generate inquiries, and help people complete a purchase."
+      },
+      {
+        "type": "heading",
+        "text": "Start with ownership, not software"
+      },
+      {
+        "type": "paragraph",
+        "text": "Every maintenance plan needs a named owner. That can be an employee, a developer, or an outside studio. What matters is that one person knows which checks happen, where credentials live, how failures are reported, and who can approve a fix. A checklist without ownership is just a document waiting to become outdated."
+      },
+      {
+        "type": "paragraph",
+        "text": "Write down the essentials before choosing a schedule: the domain registrar, hosting provider, content system, analytics account, Search Console property, form destination, backup location, and any third-party services used for payments, booking, email, or chat. Use a password manager and keep access attached to the business, not only to one contractor's personal account."
+      },
+      {
+        "type": "heading",
+        "text": "Weekly: test the paths that make money"
+      },
+      {
+        "type": "paragraph",
+        "text": "Weekly checks should be quick and close to the customer experience. Open the site on a phone and a desktop. Submit the main contact form, complete a booking flow, or run a low-risk test purchase if the site sells online. Confirm that the customer sees the right success message and that the business receives the notification. Testing only the button is not enough."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Load the homepage, primary service page, contact page, and any active campaign landing page.",
+          "Test the main inquiry, booking, checkout, or signup flow from beginning to end.",
+          "Check that automated emails arrive and contain current contact details and links.",
+          "Review uptime or error alerts, then assign any issue to a person instead of leaving it in an inbox."
+        ]
+      },
+      {
+        "type": "quote",
+        "text": "Maintain the customer journey first. The dashboard can wait.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "Monthly: update, back up, and inspect"
+      },
+      {
+        "type": "paragraph",
+        "text": "Once a month, review software updates in a staging environment when the stack allows it. Read release notes for the content system, theme, plugins, packages, and integrations that matter. Take or verify a backup before changing production, then test the same customer paths again after deployment. A backup is useful only if it can be restored, so schedule an occasional restore test instead of trusting a green badge forever."
+      },
+      {
+        "type": "paragraph",
+        "text": "Security maintenance is broader than installing patches. [MDN's operational security guidance](https://developer.mozilla.org/en-US/docs/Web/Security/Defenses/Operational_security) recommends secure backups, controlled dependency updates, logging, and alerts for suspicious activity. The exact tools depend on the stack, but the principle is stable: know what changed, preserve a recoverable version, and make failures visible."
+      },
+      {
+        "type": "paragraph",
+        "text": "Review Search Console for indexing, security, and page-experience issues. Google says there is [no need to sign in every day and suggests checking about once a month or after site changes](https://developers.google.com/search/docs/monitor-debug/search-console-start). Look for new errors and meaningful trends. Do not turn every small fluctuation into an emergency."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Install reviewed updates and confirm the production deploy completed cleanly.",
+          "Verify that a recent backup exists and that the restore process is documented.",
+          "Check Search Console, analytics, error logs, and security alerts for changes that need action.",
+          "Scan important pages for broken links, missing images, stale offers, and incorrect contact details."
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Quarterly: review the site as a business asset"
+      },
+      {
+        "type": "paragraph",
+        "text": "Quarterly maintenance is where the site stops being a technical object and becomes part of the business again. Review navigation, service descriptions, pricing language, team details, testimonials, hours, locations, and calls to action. Remove old campaigns. Make sure the homepage still reflects what the company most wants to sell now, not what it wanted to sell last year."
+      },
+      {
+        "type": "paragraph",
+        "text": "Run a focused accessibility and performance pass on representative pages. Check keyboard navigation, labels, contrast, heading order, image alternatives, layout shifts, and mobile overflow. Compare the results with the previous quarter so the team can spot regression. A score is a clue, not the whole experience."
+      },
+      {
+        "type": "paragraph",
+        "text": "Audit access at the same time. Remove former staff and vendors, confirm that recovery details belong to the business, and review who can publish, deploy, change DNS, or view customer data. This is also a sensible moment to test the custom 404 page and redirects. [Google recommends real 404 responses for missing pages and permanent redirects when content has moved](https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors)."
+      },
+      {
+        "type": "heading",
+        "text": "Annually: confirm the foundations"
+      },
+      {
+        "type": "paragraph",
+        "text": "The annual review covers the things that are easy to forget because they usually work. Confirm domain renewal, billing contacts, certificate handling, software licenses, privacy disclosures, cookie tools, legal pages, and the current owners of every critical account. Check whether the site's architecture still fits the business. A growing catalog, a new location, or a different lead process may need more than another page added to the menu."
+      },
+      {
+        "type": "paragraph",
+        "text": "Treat the annual review as a decision point, not an automatic redesign. Keep what is working. Repair weak paths. Rebuild only when the current system makes routine changes risky or unnecessarily slow. Our [Prodani Miami project](/projects/prodani-miami) is a useful example of this mindset: the rebuild included automated checks against staging and the live store, so maintenance was part of the system rather than an afterthought."
+      },
+      {
+        "type": "heading",
+        "text": "Match the schedule to the risk"
+      },
+      {
+        "type": "paragraph",
+        "text": "A five-page brochure site and a busy online store should not share the same checklist. Increase the frequency for anything tied to revenue, sensitive data, frequent content changes, or many integrations. Reduce busywork on stable pages that rarely change. The goal is not to perform the most maintenance. It is to give the most important failures less time to hide."
+      },
+      {
+        "type": "paragraph",
+        "text": "A good maintenance record is simple: date, check, result, owner, and next action. After a few months, that history shows where the site actually needs attention. It also makes handoffs much cleaner when staff or vendors change."
+      },
+      {
+        "type": "paragraph",
+        "text": "If the site has no owner, start there. Then test the inquiry path this week, establish the monthly technical review, and put the quarterly business review on the calendar. Our [web development and mobile app work](/services/web-development-mobile-apps) treats maintainability as part of the build, because a website is only finished for the day it launches."
+      }
+    ]
+  },
+  {
     "slug": "unhurried-is-in-the-wordpress-theme-directory",
     "title": "Unhurried Is Now in the WordPress Theme Directory",
     "excerpt": "Our free block theme passed the WordPress.org review. You can now install Unhurried by searching for it inside WordPress.",
