@@ -69,7 +69,7 @@ const HomeContent = () => (
     {/* The walking 👾 (owner, 2026-11-05): the page scroll walks it edge to
         edge and back, right before the work it "invades". */}
     <div className="home-invader">
-      <PixelInvader walk />
+      <PixelInvader walk reward={{ to: '/projects', label: 'You found it. See the work →' }} />
     </div>
     <CaseStudies />
     <ClientStrip />

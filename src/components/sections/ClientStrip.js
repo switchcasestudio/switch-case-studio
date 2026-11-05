@@ -69,7 +69,10 @@ const ClientMark = ({ client }) =>
       src={client.logo}
       alt={client.logoAlt || client.name}
       className="client-strip__logo-img"
-      loading="lazy"
+      // Eager at low priority (design test, 2026-11-05): lazy marks in a
+      // moving strip loaded late on iPhone, so the row showed only its label.
+      loading="eager"
+      fetchPriority="low"
       draggable="false"
     />
   ) : (

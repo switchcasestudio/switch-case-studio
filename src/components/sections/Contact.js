@@ -66,14 +66,14 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
       return;
     }
 
-    // Phone is OPTIONAL (required cost completions); when provided, check
-    // the format: allow + spaces dashes parens dots, need ~7+ digits.
-    // Form has noValidate, so this gate (not the browser) does the work.
+    // Phone is REQUIRED (owner, 2026-11-05). Format check: allow + spaces
+    // dashes parens dots, need ~7+ digits. Form has noValidate, so this gate
+    // (not the browser) does the work; the server checks presence again.
     const phone = formRef.current?.elements?.phone?.value?.trim() || '';
     const phoneValid =
       /^[+\d\s().-]+$/.test(phone) && phone.replace(/\D/g, '').length >= 7;
-    if (phone && !phoneValid) {
-      setPhoneError("That phone number doesn't look complete");
+    if (!phoneValid) {
+      setPhoneError(phone ? "That phone number doesn't look complete" : 'Please add a phone number');
       formRef.current?.elements?.phone?.focus();
       return;
     }
@@ -307,7 +307,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
               <div className="contact-form__field contact-form__field--phone">
                 <label htmlFor="phone" className="contact-form__label">
-                  Phone <span className="contact-form__optional">(optional, if you'd rather talk)</span>
+                  Phone
                 </label>
                 <input
                   type="tel"
@@ -315,6 +315,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   id="phone"
                   inputMode="tel"
                   autoComplete="tel"
+                  required
                   aria-invalid={phoneError ? 'true' : undefined}
                   aria-describedby={phoneError ? 'phone-error' : undefined}
                   onChange={() => phoneError && setPhoneError('')}

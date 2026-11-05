@@ -365,3 +365,15 @@ Home "Selected work" on phones (<=768px) shows the newest 5 projects (`PHONE_COU
 `PixelInvader` (`src/components/ui/`, voxel pixel-art emoji, three.js scene lazy-loaded behind an SVG poster, `hasWebGL` + IO gated) mounted with `walk` between Services and Case Studies (`.home-invader`, 180-360px): scroll since the strip entered the viewport walks it from the left edge, edge to edge and back, at 0.45 px/px, feet step only while scrolling, reduced motion holds still. Verified on the built home page in Chrome (desktop) and headless at 390 (live, no overflow). 67 HTML files.
 - Click, tap or Enter on the 👾 (a real button, "Poke the space invader"): a hop on the DOM box (never clipped by the canvas; the walk track clips x only), a full spin, a happy squint, a landing squash and a 14-pixel burst; reduced motion skips it. Verified by clicking on the built home page.
 - 2026-11-05: PR #46 (phone case-study list, `7826d78`) and PR #47 (walking 👾, `0333bc3`) merged to main. Branch cleanup: both feature branches deleted local and remote; main is the only branch.
+
+### 2026-11-05: design test fixes (iPhone 18 Pro in DeviceHub + desktop Chrome)
+Critique scored 28/40; owner approved all 11 fixes from before/after captures (main vs `fix/design-test`, headless Chrome at 390 and 1440).
+- Hero: "Book a strategy call" is the primary button (square, lavender border). Phone hero: intro under the button, the proof line ("Every case study...") back at the bottom.
+- Cookie banner: Accept and Decline weigh the same; on phones a flush full-width bar (174px to 149px covered, wording unchanged).
+- Mobile menu: `inert` on the closed panel (Tab reached 32 hidden links and slid the panel half on screen); menu label "Reviews" to match the desktop nav; `/reviews` 301s to `/testimonials`; menu CTA is the house button, not the gradient pill.
+- Client logos load eagerly at low priority (lazy marks left the iPhone strip empty).
+- Case study on phones: buttons before tags, 4 tags plus "+N more" ("View Live" 747px to 519px from the top).
+- Page kickers: sentence case at 1rem, no tracked caps (shared `page-kicker` mixin, all page heads).
+- Contact: phone is REQUIRED (owner): label "Phone", client gate ("Please add a phone number"), and `contact.mjs` returns 400 without one. Verified: empty phone blocks the submit and focuses the field; a filled one posts.
+- The 👾's first poke shows a link bubble, "You found it. See the work →", to `/projects`.
+- No change: the SCS·01-04 tile labels (brand device, a detector false positive).
