@@ -1,0 +1,73 @@
+@import '../_variables.scss';
+
+// PixelInvader: a square box; the SVG poster fills it until the 3D scene
+// takes over (`.is-live`), then fades out under the canvas.
+.pixel-invader {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+
+  &__box,
+  &__hop {
+    position: absolute;
+    inset: 0;
+  }
+
+  // The click target: a real button over the body, invisible until focused.
+  &__poke {
+    position: absolute;
+    inset: 14%;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  // Walk mode: the root is a full-width track one invader tall; the box
+  // walks it (transform written by PixelInvader.js).
+  &--walk {
+    aspect-ratio: auto;
+    height: var(--pi-size, 240px);
+    // Clip the walk sideways only: a hop rises above the track.
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  &--walk &__box {
+    right: auto;
+    width: var(--pi-size, 240px);
+    will-change: transform;
+  }
+
+  &__poster {
+    position: absolute;
+    inset: 8%;
+    width: 84%;
+    height: 84%;
+    transition: opacity 0.4s ease;
+  }
+
+  &.is-live &__poster {
+    opacity: 0;
+  }
+
+  &__canvas {
+    position: absolute !important;
+    inset: 0;
+  }
+}
+
+// Home: the walking strip between Services and Case Studies. Smaller on
+// phones so it never crowds the screen.
+.home-invader {
+  --pi-size: clamp(180px, 26vw, 360px);
+  // Top room clears the Services cards as their pinned pan lets go.
+  padding: clamp(3rem, 8vw, 8rem) $edge-pad 0;
+}

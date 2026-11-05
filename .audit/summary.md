@@ -360,3 +360,7 @@ Entries from 2026-05 to 2026-10-09 (phases 1–4, design refresh, repositioning,
 
 ### 2026-11-05: phone case-study list
 Home "Selected work" on phones (<=768px) shows the newest 5 projects (`PHONE_COUNT` in `CaseStudyIndex.js`) and a "See all 14 case studies" link to `/projects`; the grouped columns and the top link hide there. Desktop unchanged. Verified at 390 and 1440 (5 vs 3 groups visible, no overflow). 67 HTML files (scheduler post added today).
+
+### 2026-11-05: walking 👾 on home
+`PixelInvader` (`src/components/ui/`, voxel pixel-art emoji, three.js scene lazy-loaded behind an SVG poster, `hasWebGL` + IO gated) mounted with `walk` between Services and Case Studies (`.home-invader`, 180-360px): scroll since the strip entered the viewport walks it from the left edge, edge to edge and back, at 0.45 px/px, feet step only while scrolling, reduced motion holds still. Verified on the built home page in Chrome (desktop) and headless at 390 (live, no overflow). 67 HTML files.
+- Click, tap or Enter on the 👾 (a real button, "Poke the space invader"): a hop on the DOM box (never clipped by the canvas; the walk track clips x only), a full spin, a happy squint, a landing squash and a 14-pixel burst; reduced motion skips it. Verified by clicking on the built home page.

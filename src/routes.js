@@ -24,6 +24,7 @@ import projects from './data/projects.json';
 import services from './data/services.json';
 import posts from './data/posts.json';
 import RouteError from './components/util/RouteError';
+import PixelInvader from './components/ui/PixelInvader';
 import './styles/app.scss';
 
 // Route-only pages — lazy route records: vite-react-ssg resolves them during
@@ -64,6 +65,11 @@ const HomeContent = () => (
       </div>
       <LandingPageProof />
       <Services />
+    </div>
+    {/* The walking 👾 (owner, 2026-11-05): the page scroll walks it edge to
+        edge and back, right before the work it "invades". */}
+    <div className="home-invader">
+      <PixelInvader walk />
     </div>
     <CaseStudies />
     <ClientStrip />
