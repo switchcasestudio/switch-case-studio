@@ -19,9 +19,10 @@ const EYE_COLS = [...new Set(CELLS.filter((c) => c.kind === 'eye').map((c) => c.
 });
 const Scene = lazy(() => import('./PixelInvaderScene'));
 
-// Walk tuning: track pixels per scrolled pixel, and track pixels per step.
-const WALK_SPEED = 0.35;
-const STEP_PX = 26;
+// Walk tuning: track pixels per scrolled pixel, and one step's length as a
+// share of the invader's own width (so a bigger invader takes longer strides).
+const WALK_SPEED = 0.22;
+const STEP_SHARE = 0.16;
 
 const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invader', walk = false }) => {
   const rootRef = useRef(null);
@@ -65,7 +66,7 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invade
       const out = m < range;
       box.style.transform = `translate3d(${out ? m : 2 * range - m}px, 0, 0)`;
       const mo = motion.current;
-      mo.phase = d / STEP_PX;
+      mo.phase = d / (box.offsetWidth * STEP_SHARE);
       mo.dir = out ? 1 : -1;
       if (!first) mo.at = performance.now();
       first = false;

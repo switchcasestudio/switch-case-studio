@@ -14,13 +14,13 @@
   // walks it (transform written by PixelInvader.js).
   &--walk {
     aspect-ratio: auto;
-    height: var(--pi-size, 160px);
+    height: var(--pi-size, 240px);
     overflow: hidden;
   }
 
   &--walk &__box {
     right: auto;
-    width: var(--pi-size, 160px);
+    width: var(--pi-size, 240px);
     will-change: transform;
   }
 
