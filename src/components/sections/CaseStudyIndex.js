@@ -40,6 +40,12 @@ const featured = projectsData;
 // a case study sits. Unknown types land in a trailing "More work" group.
 const grouped = groupProjects(featured);
 
+// Phones (owner, 2026-11-05: "a list of names that doesn't mean anything"):
+// the three grouped columns give way to the newest few, then a link to the
+// full list. CSS picks which one shows, so static HTML and hydration agree.
+const PHONE_COUNT = 5;
+const phoneProjects = featured.slice(0, PHONE_COUNT);
+
 
 const CaseStudyIndex = () => {
   const [active, setActive] = useState(featured[0]?.slug);
@@ -56,7 +62,12 @@ const CaseStudyIndex = () => {
     const root = rootRef.current;
     if (!root) return undefined;
     const intro = root.querySelector('.csi__intro');
-    const entries = gsap.utils.toArray('.csi__entry, .csi__heading', root);
+    // Only what this breakpoint shows: the phone list and the grouped
+    // columns are each display:none at the other size, and a hidden element
+    // in a grid stagger skews its order. Hidden ones are never hidden by us.
+    const entries = gsap.utils
+      .toArray('.csi__entry, .csi__heading, .csi__more', root)
+      .filter((el) => el.offsetParent !== null);
     const slot = root.querySelector('.csi__slot');
     const all = [intro, ...entries, slot];
     if (reducedMotion) {
@@ -161,6 +172,18 @@ const CaseStudyIndex = () => {
         </div>
       ))}
 
+      <div className="csi__phone">
+        {phoneProjects.map((p) => (
+          <Link key={p.slug} to={`/projects/${p.slug}`} className="csi__entry">
+            <span className="csi__entry-title">{p.title}</span>
+            {p.indexLine && <span className="csi__entry-line">{p.indexLine}</span>}
+            <span className="csi__entry-meta">{p.type}</span>
+          </Link>
+        ))}
+        <Link to="/projects" className="csi__more">
+          See all {featured.length} case studies
+        </Link>
+      </div>
     </div>
   );
 };

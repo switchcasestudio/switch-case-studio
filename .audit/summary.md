@@ -358,6 +358,9 @@ Entries from 2026-05 to 2026-10-09 (phases 1–4, design refresh, repositioning,
 - 2026-11-03: Prodani case study images reshot on the live Rounded theme: hero detail/og:image, long band + 700w, index preview mockup + 600w; hero alt updated. The `comparisons[]` pairs from the earlier commit already showed it. Description text still says "calm champagne palette" (that describes v2, which the figures measure); owner to decide.
 - 2026-11-03: PR #44 (pairs) and #45 (hero, long band, previews) merged to main (`5d6327f`). Branch cleanup: `case/prodani-rounded-compare`, `email/signature-v2-photo`, `email/signature-v3-wordmark` (local + remote) and `seo/wikidata-sameas` (remote) deleted after `--no-merged origin/main` came back empty; only `main` remains on both sides.
 
+### 2026-11-05: phone case-study list
+Home "Selected work" on phones (<=768px) shows the newest 5 projects (`PHONE_COUNT` in `CaseStudyIndex.js`) and a "See all 14 case studies" link to `/projects`; the grouped columns and the top link hide there. Desktop unchanged. Verified at 390 and 1440 (5 vs 3 groups visible, no overflow). 67 HTML files (scheduler post added today).
+
 ### 2026-11-05: walking 👾 on home
 `PixelInvader` (`src/components/ui/`, voxel pixel-art emoji, three.js scene lazy-loaded behind an SVG poster, `hasWebGL` + IO gated) mounted with `walk` between Services and Case Studies (`.home-invader`, 180-360px): scroll since the strip entered the viewport walks it from the left edge, edge to edge and back, at 0.45 px/px, feet step only while scrolling, reduced motion holds still. Verified on the built home page in Chrome (desktop) and headless at 390 (live, no overflow). 67 HTML files.
 - Click, tap or Enter on the 👾 (a real button, "Poke the space invader"): a hop on the DOM box (never clipped by the canvas; the walk track clips x only), a full spin, a happy squint, a landing squash and a 14-pixel burst; reduced motion skips it. Verified by clicking on the built home page.
