@@ -1,3 +1,5 @@
+@import '../_variables.scss';
+
 // PixelInvader: a square box; the SVG poster fills it until the 3D scene
 // takes over (`.is-live`), then fades out under the canvas.
 .pixel-invader {
@@ -40,4 +42,12 @@
     position: absolute !important;
     inset: 0;
   }
+}
+
+// Home: the walking strip between Services and Case Studies. Smaller on
+// phones so it never crowds the screen.
+.home-invader {
+  --pi-size: clamp(140px, 20vw, 240px);
+  padding: clamp(2rem, 5vw, 4rem) $edge-pad 0;
+  background: #000;
 }
