@@ -20,7 +20,7 @@ const EYE_COLS = [...new Set(CELLS.filter((c) => c.kind === 'eye').map((c) => c.
 const Scene = lazy(() => import('./PixelInvaderScene'));
 
 // Walk tuning: track pixels per scrolled pixel, and track pixels per step.
-const WALK_SPEED = 0.8;
+const WALK_SPEED = 0.35;
 const STEP_PX = 26;
 
 const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invader', walk = false }) => {
