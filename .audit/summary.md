@@ -357,3 +357,6 @@ Entries from 2026-05 to 2026-10-09 (phases 1–4, design refresh, repositioning,
 - **Open:** signature not installed yet; waits on phone number, title and Google review link. X is also listed on any outside profile that links to it, not checked.
 - 2026-11-03: Prodani case study images reshot on the live Rounded theme: hero detail/og:image, long band + 700w, index preview mockup + 600w; hero alt updated. The `comparisons[]` pairs from the earlier commit already showed it. Description text still says "calm champagne palette" (that describes v2, which the figures measure); owner to decide.
 - 2026-11-03: PR #44 (pairs) and #45 (hero, long band, previews) merged to main (`5d6327f`). Branch cleanup: `case/prodani-rounded-compare`, `email/signature-v2-photo`, `email/signature-v3-wordmark` (local + remote) and `seo/wikidata-sameas` (remote) deleted after `--no-merged origin/main` came back empty; only `main` remains on both sides.
+
+### 2026-11-05: phone case-study list
+Home "Selected work" on phones (<=768px) shows the newest 5 projects (`PHONE_COUNT` in `CaseStudyIndex.js`) and a "See all 14 case studies" link to `/projects`; the grouped columns and the top link hide there. Desktop unchanged. Verified at 390 and 1440 (5 vs 3 groups visible, no overflow). 67 HTML files (scheduler post added today).
