@@ -7,9 +7,27 @@
   width: 100%;
   aspect-ratio: 1;
 
-  &__box {
+  &__box,
+  &__hop {
     position: absolute;
     inset: 0;
+  }
+
+  // The click target: a real button over the body, invisible until focused.
+  &__poke {
+    position: absolute;
+    inset: 14%;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
   }
 
   // Walk mode: the root is a full-width track one invader tall; the box
@@ -17,7 +35,9 @@
   &--walk {
     aspect-ratio: auto;
     height: var(--pi-size, 240px);
-    overflow: hidden;
+    // Clip the walk sideways only: a hop rises above the track.
+    overflow-x: clip;
+    overflow-y: visible;
   }
 
   &--walk &__box {

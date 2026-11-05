@@ -27,10 +27,12 @@ const Scene = lazy(() => import('./PixelInvaderScene'));
 const WALK_SPEED = 0.45;
 const STEP_SHARE = 0.2;
 
-const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invader', walk = false }) => {
+const PixelInvader = ({ palette = PALETTE, className = '', label = 'Poke the space invader', walk = false }) => {
   const rootRef = useRef(null);
   const boxRef = useRef(null);
   const motion = useRef({ phase: 0, dir: 1, at: 0 });
+  const hopRef = useRef(null);
+  const poke = useRef({ at: -1e9 });
   const [near, setNear] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
   const [webgl, setWebgl] = useState(false);
@@ -88,46 +90,65 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invade
     };
   }, [walk, reducedMotion]);
 
+  // Click (or Enter/Space): a hop up and back down on the DOM box, so the
+  // jump is never clipped by the canvas; the spin and burst are the scene's.
+  const onPoke = () => {
+    if (reducedMotion) return;
+    const now = performance.now();
+    if (now - poke.current.at < 750) return;
+    poke.current.at = now;
+    hopRef.current?.animate(
+      [
+        { transform: 'translateY(0)', easing: 'cubic-bezier(.2,.7,.3,1)' },
+        { transform: 'translateY(-30%)', offset: 0.45, easing: 'cubic-bezier(.6,0,.8,.4)' },
+        { transform: 'translateY(0)' },
+      ],
+      { duration: 750 },
+    );
+  };
+
   const live = webgl && near;
 
   return (
     <div
       ref={rootRef}
       className={`pixel-invader${walk ? ' pixel-invader--walk' : ''}${live && ready ? ' is-live' : ''} ${className}`.trim()}
-      role="img"
-      aria-label={label}
     >
       <div className="pixel-invader__box" ref={boxRef}>
-        <svg className="pixel-invader__poster" viewBox={`-1 -1 ${W + 2} ${H + 2}`} aria-hidden="true">
-          {OUTLINE.map(({ x, y }) => (
-            <rect key={`o${x},${y}`} x={x - 0.01} y={y - 0.01} width="1.02" height="1.02" fill={palette.outline} />
-          ))}
-          {CELLS.filter((c) => c.kind !== 'eye').map(({ x, y, kind }) => (
-            <rect
-              key={`${x},${y}`}
-              x={x + 0.015}
-              y={y + 0.015}
-              width="0.97"
-              height="0.97"
-              rx="0.05"
-              fill={tileColor(kind, y, palette, mixHex)}
-            />
-          ))}
-          {EYE_COLS.map(([x, y, rows]) => (
-            <rect key={`e${x}`} x={x - 0.05} y={y} width="1.1" height={rows} rx="0.06" fill={palette.eye} />
-          ))}
-        </svg>
-        {live && (
-          <Suspense fallback={null}>
-            <Scene
-              palette={palette}
-              running={onScreen}
-              still={reducedMotion}
-              motion={walk ? motion : undefined}
-              onReady={() => setReady(true)}
-            />
-          </Suspense>
-        )}
+        <div className="pixel-invader__hop" ref={hopRef}>
+          <svg className="pixel-invader__poster" viewBox={`-1 -1 ${W + 2} ${H + 2}`} aria-hidden="true">
+            {OUTLINE.map(({ x, y }) => (
+              <rect key={`o${x},${y}`} x={x - 0.01} y={y - 0.01} width="1.02" height="1.02" fill={palette.outline} />
+            ))}
+            {CELLS.filter((c) => c.kind !== 'eye').map(({ x, y, kind }) => (
+              <rect
+                key={`${x},${y}`}
+                x={x + 0.015}
+                y={y + 0.015}
+                width="0.97"
+                height="0.97"
+                rx="0.05"
+                fill={tileColor(kind, y, palette, mixHex)}
+              />
+            ))}
+            {EYE_COLS.map(([x, y, rows]) => (
+              <rect key={`e${x}`} x={x - 0.05} y={y} width="1.1" height={rows} rx="0.06" fill={palette.eye} />
+            ))}
+          </svg>
+          {live && (
+            <Suspense fallback={null}>
+              <Scene
+                palette={palette}
+                running={onScreen}
+                still={reducedMotion}
+                motion={walk ? motion : undefined}
+                poke={poke}
+                onReady={() => setReady(true)}
+              />
+            </Suspense>
+          )}
+        </div>
+        <button type="button" className="pixel-invader__poke" aria-label={label} onClick={onPoke} />
       </div>
     </div>
   );

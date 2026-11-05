@@ -49,8 +49,24 @@ function Tiles({ cells, geometry, material, z = 0, colorOf, meshRef }) {
   return <instancedMesh ref={ref} args={[geometry, material, cells.length]} />;
 }
 
-function Invader({ palette, still, motion }) {
+// Click burst: how many pixels fly out, and how long a hop lasts (seconds).
+const BURST = 14;
+const HOP_S = 0.75;
+const easeInOut = (p) => (p < 0.5 ? 4 * p * p * p : 1 - (-2 * p + 2) ** 3 / 2);
+
+function Invader({ palette, still, motion, poke }) {
   const stride = useRef(motion ? 0 : 1);
+  const spin = useRef(null);
+  const burst = useRef(null);
+  const burstDirs = useMemo(
+    () =>
+      Array.from({ length: BURST }, (_, i) => {
+        const a = (i / BURST) * Math.PI * 2 + (i % 3) * 0.17;
+        const v = 5.5 + (i % 4) * 1.1;
+        return [Math.cos(a) * v, Math.sin(a) * v + 2.5, (i % 2 ? 1 : -1) * 0.8];
+      }),
+    [],
+  );
   const group = useRef(null);
   const body = useRef(null);
   const eyes = useRef(null);
@@ -101,7 +117,8 @@ function Invader({ palette, still, motion }) {
     const glowMat = new THREE.MeshBasicMaterial({ map: glowTex, transparent: true, depthWrite: false });
     const shadowTex = radialTexture('rgba(10,5,25,0.6)', 'rgba(10,5,25,0)');
     const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false });
-    return { tile, back, eyeGeo, shine, shineMat, glowTile, outline, eye, glowTex, glowMat, shadowTex, shadowMat };
+    const spark = new THREE.MeshBasicMaterial({ color: palette.highlight });
+    return { tile, back, eyeGeo, shine, shineMat, glowTile, outline, eye, glowTex, glowMat, shadowTex, shadowMat, spark };
   }, [palette]);
 
   useLayoutEffect(() => () => Object.values(res).forEach((r) => r.dispose?.()), [res]);
@@ -166,6 +183,32 @@ function Invader({ palette, still, motion }) {
       eyes.current.scale.y = Math.max(0.12, blink);
     }
 
+    // Poked: a full spin, a happy squint, a crouch before and a squash after
+    // (the hop itself is the DOM box's, in PixelInvader.js), and a burst.
+    const since = poke?.current ? (performance.now() - poke.current.at) / 1000 : 99;
+    const hop = !still && since < HOP_S ? since / HOP_S : -1;
+    if (spin.current) {
+      spin.current.rotation.y = hop >= 0 ? easeInOut(hop) * Math.PI * 2 : 0;
+      let sy = 1;
+      if (hop >= 0 && hop < 0.12) sy = 1 - Math.sin((hop / 0.12) * Math.PI) * 0.12;
+      if (hop > 0.88) sy = 1 - Math.sin(((hop - 0.88) / 0.12) * Math.PI) * 0.14;
+      spin.current.scale.set(2 - sy, sy, 1);
+    }
+    if (hop >= 0 && eyes.current) eyes.current.scale.y = 0.14;
+    if (burst.current) {
+      const m = new THREE.Matrix4();
+      const live = !still && since < 0.9;
+      const life = live ? since / 0.9 : 1;
+      const sc = live ? 0.55 * (1 - life) : 0;
+      burstDirs.forEach(([vx, vy, vz], i) => {
+        const tt = live ? since : 0;
+        m.makeScale(sc, sc, sc);
+        m.setPosition(vx * tt, vy * tt - 9 * tt * tt, vz);
+        burst.current.setMatrixAt(i, m);
+      });
+      burst.current.instanceMatrix.needsUpdate = true;
+    }
+
     glow.current.material.opacity = 0.85 + Math.sin(t * 1.4) * 0.15;
     const s = 1 - bob * 0.04;
     shadow.current.scale.set(14 * s, 2.2 * s, 1);
@@ -181,34 +224,37 @@ function Invader({ palette, still, motion }) {
       <mesh ref={glow} position={[0, 0.6, -2]} scale={[22, 20, 1]} material={res.glowMat}>
         <planeGeometry args={[1, 1]} />
       </mesh>
+      <instancedMesh ref={burst} args={[res.tile, res.spark, BURST]} position={[0, 1, 1]} />
       <group ref={group}>
-        <group ref={body}>
-          <Tiles cells={parts.bodyOutline} geometry={res.back} material={res.outline} z={-0.14} />
-          <Tiles cells={parts.bodyCells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
-          <group position={[0, eyeY, 0]}>
-            <group ref={eyes}>
-              <group position={[0, -eyeY, 0]}>
-                {parts.eyeShapes.map(([x, y]) => (
-                  <group key={x} position={[x, y, 0.05]}>
-                    <mesh geometry={res.eyeGeo} material={res.eye} />
-                    <mesh geometry={res.shine} material={res.shineMat} position={[0.18, 1.05, 0.14]} />
-                  </group>
-                ))}
+        <group ref={spin}>
+          <group ref={body}>
+            <Tiles cells={parts.bodyOutline} geometry={res.back} material={res.outline} z={-0.14} />
+            <Tiles cells={parts.bodyCells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
+            <group position={[0, eyeY, 0]}>
+              <group ref={eyes}>
+                <group position={[0, -eyeY, 0]}>
+                  {parts.eyeShapes.map(([x, y]) => (
+                    <group key={x} position={[x, y, 0.05]}>
+                      <mesh geometry={res.eyeGeo} material={res.eye} />
+                      <mesh geometry={res.shine} material={res.shineMat} position={[0.18, 1.05, 0.14]} />
+                    </group>
+                  ))}
+                </group>
               </group>
             </group>
           </group>
+          {parts.footParts.map((foot, i) => (
+            <group
+              key={i}
+              ref={(g) => {
+                feet.current[i] = g;
+              }}
+            >
+              <Tiles cells={foot.outline} geometry={res.back} material={res.outline} z={-0.14} />
+              <Tiles cells={foot.cells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
+            </group>
+          ))}
         </group>
-        {parts.footParts.map((foot, i) => (
-          <group
-            key={i}
-            ref={(g) => {
-              feet.current[i] = g;
-            }}
-          >
-            <Tiles cells={foot.outline} geometry={res.back} material={res.outline} z={-0.14} />
-            <Tiles cells={foot.cells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
-          </group>
-        ))}
       </group>
       <mesh ref={shadow} position={[0, -8.6, -1]} rotation={[-Math.PI / 2.3, 0, 0]} material={res.shadowMat}>
         <planeGeometry args={[1, 1]} />
@@ -217,7 +263,7 @@ function Invader({ palette, still, motion }) {
   );
 }
 
-export default function PixelInvaderScene({ palette, running, still, motion, onReady }) {
+export default function PixelInvaderScene({ palette, running, still, motion, poke, onReady }) {
   return (
     <Canvas
       className="pixel-invader__canvas"
@@ -230,7 +276,7 @@ export default function PixelInvaderScene({ palette, running, still, motion, onR
       <hemisphereLight args={['#ffffff', '#6a55a8', 2.2]} />
       <directionalLight position={[-2, 4, 12]} intensity={0.9} />
       <directionalLight position={[7, -2, 4]} intensity={0.3} color="#c7a8ff" />
-      <Invader palette={palette} still={still} motion={motion} />
+      <Invader palette={palette} still={still} motion={motion} poke={poke} />
     </Canvas>
   );
 }
