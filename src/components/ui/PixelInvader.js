@@ -1,18 +1,22 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import hasWebGL from '../../utils/hasWebGL';
 import useReducedMotion from '../../hooks/useReducedMotion';
-import { FRAME_A, FRAME_B, cellsOf } from './pixelInvaderGrid';
+import { CELLS, OUTLINE, W, H, PALETTE, tileColor, mixHex } from './pixelInvaderGrid';
 
 import '../../styles/components/pixelInvader.scss';
 
-/* PixelInvader (2026-11-05): the 👾 emoji as voxels, our own 11×8 drawing.
-   The SVG below IS the poster (static HTML, no WebGL, reduced motion): the
-   three.js scene mounts over it only once WebGL is confirmed and the box is
-   near the viewport, and its module (three + fiber) loads only then. */
-const FRAMES = [FRAME_A, FRAME_B];
+/* PixelInvader (2026-11-05): the 👾 emoji as glowing 3D pixel tiles. The SVG
+   below IS the poster (static HTML, no WebGL): the three.js scene mounts over
+   it only once WebGL is confirmed and the box is near the viewport, and its
+   module (three + fiber) loads only then. Reduced motion holds one pose. */
+// Each eye column as one tall shape: [x, topY, rows].
+const EYE_COLS = [...new Set(CELLS.filter((c) => c.kind === 'eye').map((c) => c.x))].map((x) => {
+  const ys = CELLS.filter((c) => c.kind === 'eye' && c.x === x).map((c) => c.y);
+  return [x, Math.min(...ys), ys.length];
+});
 const Scene = lazy(() => import('./PixelInvaderScene'));
 
-const PixelInvader = ({ color = '#d99cff', className = '', label = 'Pixel space invader' }) => {
+const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invader' }) => {
   const rootRef = useRef(null);
   const [near, setNear] = useState(false);
   const [onScreen, setOnScreen] = useState(false);
@@ -43,16 +47,29 @@ const PixelInvader = ({ color = '#d99cff', className = '', label = 'Pixel space 
       className={`pixel-invader${live && ready ? ' is-live' : ''} ${className}`.trim()}
       role="img"
       aria-label={label}
-      style={{ '--pi-color': color }}
     >
-      <svg className="pixel-invader__poster" viewBox="0 0 11 8" aria-hidden="true">
-        {cellsOf(FRAME_A).map(([x, y]) => (
-          <rect key={`${x}-${y}`} x={x + 0.04} y={y + 0.04} width="0.92" height="0.92" />
+      <svg className="pixel-invader__poster" viewBox={`-1 -1 ${W + 2} ${H + 2}`} aria-hidden="true">
+        {OUTLINE.map(({ x, y }) => (
+          <rect key={`o${x},${y}`} x={x - 0.01} y={y - 0.01} width="1.02" height="1.02" fill={palette.outline} />
+        ))}
+        {CELLS.filter((c) => c.kind !== 'eye').map(({ x, y, kind }) => (
+          <rect
+            key={`${x},${y}`}
+            x={x + 0.03}
+            y={y + 0.03}
+            width="0.94"
+            height="0.94"
+            rx="0.16"
+            fill={tileColor(kind, y, palette, mixHex)}
+          />
+        ))}
+        {EYE_COLS.map(([x, y, rows]) => (
+          <rect key={`e${x}`} x={x - 0.05} y={y} width="1.1" height={rows} rx="0.42" fill={palette.eye} />
         ))}
       </svg>
       {live && (
         <Suspense fallback={null}>
-          <Scene color={color} running={onScreen} still={reducedMotion} frames={FRAMES} onReady={() => setReady(true)} />
+          <Scene palette={palette} running={onScreen} still={reducedMotion} onReady={() => setReady(true)} />
         </Suspense>
       )}
     </div>
