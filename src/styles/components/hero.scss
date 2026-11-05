@@ -284,8 +284,13 @@ $hero-pad-y: 1.5rem;
 
     // Full-bleed on phones too (owner, 2026-09-10): the 9:16 cut covers the
     // whole hero behind the copy; the first note takes the slack instead.
+    // Since the intro moved under the button (2026-11-05) the ident starts
+    // below it: at top 0 the wordmark, centered on the hero, ran into the
+    // intro's last line on an iPhone 18 Pro. Starting lower puts the
+    // wordmark between the intro and the proof line.
     .hero-ident {
       left: 0; // full-bleed on phones; the 9:16 cut fills it
+      top: 34%;
       bottom: var(--hero-tail);
 
       &__video {
