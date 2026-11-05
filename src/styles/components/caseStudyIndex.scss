@@ -186,6 +186,10 @@
     }
   }
 
+  &__phone {
+    display: none;
+  }
+
   &__preview {
     position: absolute;
     inset: 0;
@@ -238,8 +242,33 @@
     &__intro {
       display: block;
     }
-    &__slot {
+    &__slot,
+    &__group,
+    &__viewall {
       display: none;
+    }
+
+    // The short list (CaseStudyIndex.js PHONE_COUNT) and its way out.
+    &__phone {
+      display: block;
+      grid-column: 1;
+    }
+
+    &__more {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      margin-top: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: $g6;
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 4px;
+      }
     }
   }
 }
