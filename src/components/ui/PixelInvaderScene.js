@@ -6,10 +6,11 @@ import { CELLS, OUTLINE, W, H, tileColor } from './pixelInvaderGrid';
 
 /* The three.js half of PixelInvader: rounded glowing tiles on a dark outline
    set back behind them, eyes as one glossy dark capsule each (with a shine) that blink and look toward
-   the pointer, a bob, a violet glow behind, and a
+   the pointer, feet that shuffle like a crab under a swaying body, a violet glow behind, and a
    soft shadow under it. `running` false stops the render loop, `still`
    holds one pose. */
 const TILE = 0.94;
+const FOOT_ROW = 12;
 const cx = (x) => x - (W - 1) / 2;
 const cy = (y) => (H - 1) / 2 - y;
 const mixColor = (a, b, t) => `#${new THREE.Color(a).lerp(new THREE.Color(b), t).getHexString()}`;
@@ -52,12 +53,22 @@ function Invader({ palette, still }) {
   const group = useRef(null);
   const body = useRef(null);
   const eyes = useRef(null);
+  const feet = useRef([]);
   const glow = useRef(null);
   const shadow = useRef(null);
   const pointer = useRef({ x: 0, y: 0 });
 
   const parts = useMemo(() => {
-    const bodyCells = CELLS.filter((c) => c.kind === 'body' || c.kind === 'highlight');
+    const tiles = CELLS.filter((c) => c.kind === 'body' || c.kind === 'highlight');
+    // The feet (from FOOT_ROW down) step on their own, left and right.
+    const isFoot = (c) => c.y >= FOOT_ROW;
+    const left = (c) => c.x < W / 2;
+    const bodyCells = tiles.filter((c) => !isFoot(c));
+    const bodyOutline = OUTLINE.filter((c) => !isFoot(c));
+    const footParts = [true, false].map((side) => ({
+      cells: tiles.filter((c) => isFoot(c) && left(c) === side),
+      outline: OUTLINE.filter((c) => isFoot(c) && left(c) === side),
+    }));
     const eyeCells = CELLS.filter((c) => c.kind === 'eye');
     // Each eye column becomes one tall rounded shape: [centerX, centerY, rows].
     const cols = [...new Set(eyeCells.map((c) => c.x))];
@@ -65,7 +76,7 @@ function Invader({ palette, still }) {
       const ys = eyeCells.filter((c) => c.x === x).map((c) => c.y);
       return [cx(x), (cy(Math.min(...ys)) + cy(Math.max(...ys))) / 2, ys.length];
     });
-    return { bodyCells, eyeShapes };
+    return { bodyCells, bodyOutline, footParts, eyeShapes };
   }, []);
 
   const res = useMemo(() => {
@@ -118,8 +129,20 @@ function Invader({ palette, still }) {
     g.rotation.x += (py * 0.4 - 0.08 - g.rotation.x) * k;
     g.rotation.y += (px * 0.6 + Math.sin(t * 0.7) * 0.1 - g.rotation.y) * k;
 
-    const bob = Math.sin(t * 2.2);
-    body.current.position.y = bob * 0.25;
+    // Crab shuffle: the feet take turns sliding out and lifting, the body
+    // sways over whichever foot is planted and bounces once per step.
+    const w = 5;
+    const step = Math.sin(t * w);
+    feet.current.forEach((f, i) => {
+      if (!f) return;
+      const ph = t * w + (i === 0 ? 0 : Math.PI);
+      f.position.x = Math.sin(ph) * 0.45;
+      f.position.y = Math.max(0, Math.cos(ph)) * 0.4;
+    });
+    const bob = Math.abs(step);
+    body.current.position.x = step * 0.32;
+    body.current.position.y = bob * 0.14;
+    body.current.rotation.z = -step * 0.045;
 
     // Eyes glance toward the pointer and blink every few seconds.
     const cycle = t % 3.8;
@@ -131,9 +154,10 @@ function Invader({ palette, still }) {
     }
 
     glow.current.material.opacity = 0.85 + Math.sin(t * 1.4) * 0.15;
-    const s = 1 - bob * 0.06;
+    const s = 1 - bob * 0.04;
     shadow.current.scale.set(14 * s, 2.2 * s, 1);
-    shadow.current.material.opacity = 0.8 - bob * 0.15;
+    shadow.current.position.x = step * 0.3;
+    shadow.current.material.opacity = 0.8 - bob * 0.1;
   });
 
   // Eyes blink around their own center, so they live in a group there.
@@ -146,7 +170,7 @@ function Invader({ palette, still }) {
       </mesh>
       <group ref={group}>
         <group ref={body}>
-          <Tiles cells={OUTLINE} geometry={res.back} material={res.outline} z={-0.3} />
+          <Tiles cells={parts.bodyOutline} geometry={res.back} material={res.outline} z={-0.3} />
           <Tiles cells={parts.bodyCells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
           <group position={[0, eyeY, 0]}>
             <group ref={eyes}>
@@ -161,6 +185,17 @@ function Invader({ palette, still }) {
             </group>
           </group>
         </group>
+        {parts.footParts.map((foot, i) => (
+          <group
+            key={i}
+            ref={(g) => {
+              feet.current[i] = g;
+            }}
+          >
+            <Tiles cells={foot.outline} geometry={res.back} material={res.outline} z={-0.3} />
+            <Tiles cells={foot.cells} geometry={res.tile} material={res.glowTile} colorOf={colorOf} />
+          </group>
+        ))}
       </group>
       <mesh ref={shadow} position={[0, -8.6, -1]} rotation={[-Math.PI / 2.3, 0, 0]} material={res.shadowMat}>
         <planeGeometry args={[1, 1]} />
