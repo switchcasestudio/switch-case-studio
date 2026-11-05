@@ -55,13 +55,16 @@
       }
     }
 
+    // Same weight as Decline (design test, 2026-11-05): a bright Accept
+    // beside a gray Decline steers the choice, which consent must not do.
     &--primary {
-      background: $orange-color;
-      color: #fff;
-      border: 1px solid $orange-color;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.25);
 
       &:hover {
-        filter: brightness(1.08);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.5);
       }
     }
   }
@@ -82,16 +85,20 @@
 // the 44px touch target; they grow to 44 while tighter padding, gap and
 // leading keep the whole banner shorter than its old 166px (20% of an
 // 844px screen). The consent wording is untouched.
+// Design test (2026-11-05): a full-width bar flush with the bottom edge,
+// tighter padding, so it covers less of what the floating card did.
 @media (max-width: 600px) {
   .consent-banner {
-    left: 0.75rem;
-    right: 0.75rem;
-    bottom: 0.75rem;
-    gap: 0.7rem;
-    padding: 0.9rem 1rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    gap: 0.5rem;
+    padding: 0.7rem 0.9rem calc(0.7rem + env(safe-area-inset-bottom, 0px));
+    border-radius: 0;
+    border-width: 1px 0 0;
 
     &__text {
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
     &__actions {

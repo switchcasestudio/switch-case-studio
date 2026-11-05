@@ -350,6 +350,9 @@ const StaggeredMenu = ({
         ref={panelRef}
         className="staggered-menu-panel"
         aria-hidden={!open}
+        // inert keeps the closed panel out of Tab order and find-in-page
+        // (design test, 2026-11-05: aria-hidden alone left 20+ hidden stops).
+        inert={!open}
       >
         <div className="sm-panel-inner">
           <ul className="sm-panel-list">
@@ -397,7 +400,7 @@ const StaggeredMenu = ({
                 className="sm-panel-item"
                 onClick={handleNavClick('/testimonials')}
               >
-                <span className="sm-panel-itemLabel">Testimonials</span>
+                <span className="sm-panel-itemLabel">Reviews</span>
               </Link>
             </li>
 

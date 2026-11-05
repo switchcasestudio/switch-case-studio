@@ -78,6 +78,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- A closed off-canvas panel is `inert`, not only `aria-hidden` (design test, 2026-11-05): Tab reached 32 hidden mobile-menu links and slid the panel half on screen.
 - A client redesign reshoots every image the project record names (hero, long band + 700w, preview + 600w), not only the comparison pairs (Prodani, 2026-11-03).
 - Every service-page frame shows itself (owner, 2026-11-01: "an initial movement should happen in front of the user's eyes"; a pulse read as nothing moving): `worlds/tryHint.js` works a frame's real controls through React, capped at 5 s (WCAG 2.2.2), then resets; a real press, key or focus stops that frame for good. A new control type gets a step in `stepsFor`. Pinned states are driven by `ProcessStage` scroll progress.
 - Every public page carries the visit beacon, static ones included (2026-10-30): `/unhurried-pro/` had no script tag for five weeks, so its traffic was unknowable; a static page under `public/` loads `/unhurried-pro/visit.js` (the app's `visitLog.js` as plain JS, `utm_*` keys only) before `</body>`. A ticket that waits on a third party names a URL to poll: WordPress.org approved Unhurried on 10-09 and the launch checklist sat three weeks.

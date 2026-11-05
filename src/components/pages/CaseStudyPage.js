@@ -90,6 +90,8 @@ const ScrollFrame = ({ hint, label, onZoom, children }) => {
   );
 };
 
+const TAGS_SHOWN = 4;
+
 const CaseStudyPage = () => {
   const { slug } = useParams();
   const reducedMotion = useReducedMotion();
@@ -97,6 +99,11 @@ const CaseStudyPage = () => {
 
   // null = closed. Holds the src of the image being zoomed (any media tile).
   const [zoomSrc, setZoomSrc] = useState(null);
+
+  // Phones show the first TAGS_SHOWN service tags and a "+N more" button
+  // (design test, 2026-11-05: nine pills pushed the buttons off the screen).
+  const [tagsOpen, setTagsOpen] = useState(false);
+  useEffect(() => setTagsOpen(false), [slug]);
 
   // Find project + compute neighbor for "View next →"
   const { project, nextProject } = useMemo(() => {
@@ -447,12 +454,30 @@ const CaseStudyPage = () => {
           )}
 
           {services.length > 0 && (
-            <ul className="project-page__tags" aria-label="Services delivered">
-              {services.map((s) => (
-                <li key={s.label} className="project-page__tag">
+            <ul
+              className="project-page__tags"
+              aria-label="Services delivered"
+              data-open={tagsOpen || undefined}
+            >
+              {services.map((s, i) => (
+                <li
+                  key={s.label}
+                  className={`project-page__tag${i >= TAGS_SHOWN ? ' project-page__tag--extra' : ''}`}
+                >
                   {s.label.replace(/^#/, '')}
                 </li>
               ))}
+              {services.length > TAGS_SHOWN && !tagsOpen && (
+                <li className="project-page__tag-more-item">
+                  <button
+                    type="button"
+                    className="project-page__tag project-page__tag--more"
+                    onClick={() => setTagsOpen(true)}
+                  >
+                    +{services.length - TAGS_SHOWN} more
+                  </button>
+                </li>
+              )}
             </ul>
           )}
 

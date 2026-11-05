@@ -1,4 +1,5 @@
 import { lazy, Suspense, useEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import hasWebGL from '../../utils/hasWebGL';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import { CELLS, OUTLINE, W, H, PALETTE, tileColor, mixHex } from './pixelInvaderGrid';
@@ -27,7 +28,9 @@ const Scene = lazy(() => import('./PixelInvaderScene'));
 const WALK_SPEED = 0.45;
 const STEP_SHARE = 0.2;
 
-const PixelInvader = ({ palette = PALETTE, className = '', label = 'Poke the space invader', walk = false }) => {
+// `reward` ({ to, label }): the first poke also shows a link in a speech
+// bubble over the invader (design test, 2026-11-05: the click led nowhere).
+const PixelInvader = ({ palette = PALETTE, className = '', label = 'Poke the space invader', walk = false, reward }) => {
   const rootRef = useRef(null);
   const boxRef = useRef(null);
   const motion = useRef({ phase: 0, dir: 1, at: 0 });
@@ -37,6 +40,7 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Poke the spa
   const [onScreen, setOnScreen] = useState(false);
   const [webgl, setWebgl] = useState(false);
   const [ready, setReady] = useState(false);
+  const [found, setFound] = useState(false);
   const reducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -93,6 +97,7 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Poke the spa
   // Click (or Enter/Space): a hop up and back down on the DOM box, so the
   // jump is never clipped by the canvas; the spin and burst are the scene's.
   const onPoke = () => {
+    if (reward) setFound(true);
     if (reducedMotion) return;
     const now = performance.now();
     if (now - poke.current.at < 750) return;
@@ -149,6 +154,11 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Poke the spa
           )}
         </div>
         <button type="button" className="pixel-invader__poke" aria-label={label} onClick={onPoke} />
+        {reward && found && (
+          <Link to={reward.to} className="pixel-invader__reward">
+            {reward.label}
+          </Link>
+        )}
       </div>
     </div>
   );

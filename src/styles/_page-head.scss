@@ -7,14 +7,16 @@
 // (it stays on the brand marks only: footer wordmark, About marquee and
 // scrub heading). Per-page files may follow an include with their own
 // margins, never their own face, size or color.
+// Sentence case at reading size (design test, 2026-11-05): the tiny tracked
+// all-caps label over every page title read as template scaffolding; the
+// line stays (it carries context such as "Studio project") in a quieter voice.
 @mixin page-kicker {
   font-family: $font-text;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
+  letter-spacing: 0;
   color: $g6;
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
 }
 
 // 2026-10-23 (owner: "not bold enough, the hierarchy is not there"): the

@@ -119,6 +119,28 @@ $hero-pad-y: 1.5rem;
       outline: 2px solid $g6;
       outline-offset: 4px;
     }
+
+    // The booking link as the site's primary button (header.scss
+    // .headingCTA): square, lavender border, fills lavender on hover.
+    &__cta-item {
+      margin-top: 0.75rem;
+    }
+    &__cta {
+      display: inline-flex;
+      align-items: center;
+      min-height: 48px;
+      padding: 0.7rem 1.4rem;
+      border: 2px solid $g6;
+      background: #000;
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      transition: background-color $dur-fast $ease-out, color $dur-fast $ease-out;
+
+      &:hover,
+      &:focus-visible {
+        background: $g6;
+        color: #000;
+      }
+    }
   }
 
   // ── The ident. Wider screens: it plays on the stage RIGHT of the spine,
@@ -282,9 +304,9 @@ $hero-pad-y: 1.5rem;
       z-index: 1;
       inset: auto; // desktop top/left would otherwise nudge a relative box
     }
-    .hero-note--left {
-      margin-top: auto;
-    }
+    // Design test (2026-11-05): the intro sat at the very bottom, under the
+    // cookie banner; it now follows the nav, and the proof line (desktop's
+    // right note) takes the bottom of the screen.
 
     .hero-note {
       position: static;
@@ -292,10 +314,12 @@ $hero-pad-y: 1.5rem;
       font-size: 0.95rem;
 
       &--left {
-        order: 3;
+        order: 2;
       }
       &--right {
-        display: none; // phones: the second note pushed the CTA under the fold
+        order: 3;
+        margin-top: auto;
+        text-align: left;
       }
     }
     .hero-scroll {
@@ -318,6 +342,12 @@ $hero-pad-y: 1.5rem;
 
       &__link {
         font-size: 1rem;
+      }
+
+      // The button takes its own row under the four links.
+      &__cta-item {
+        flex-basis: 100%;
+        margin-top: 0.5rem;
       }
     }
   }

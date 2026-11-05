@@ -158,8 +158,10 @@ const Hero = () => {
                 </Link>
               </li>
             ))}
-            <li>
-              <BookCallCta className="hero-nav__link" />
+            <li className="hero-nav__cta-item">
+              {/* The site's one goal gets the primary button (design test,
+                  2026-11-05: as a plain link it read like "Shop"). */}
+              <BookCallCta className="hero-nav__link hero-nav__cta" />
             </li>
           </ul>
         </nav>

@@ -122,8 +122,9 @@ export default async (req, context) => {
   }
 
   const fields = Object.fromEntries(Object.entries(LIMITS).map(([k, max]) => [k, clean(body[k], max)]));
-  if (!fields.first_name || !fields.message || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
-    return json(400, { error: 'Name, a valid email and a message are required' });
+  // Phone required since 2026-11-05 (owner); its format is only flagged below.
+  if (!fields.first_name || !fields.message || !fields.phone || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
+    return json(400, { error: 'Name, a valid email, a phone number and a message are required' });
   }
   if (body.consent !== true) return json(400, { error: 'Consent is required' });
 
