@@ -47,7 +47,7 @@
 // Home: the walking strip between Services and Case Studies. Smaller on
 // phones so it never crowds the screen.
 .home-invader {
-  --pi-size: clamp(140px, 20vw, 240px);
-  padding: clamp(2rem, 5vw, 4rem) $edge-pad 0;
-  background: #000;
+  --pi-size: clamp(180px, 26vw, 360px);
+  // Top room clears the Services cards as their pinned pan lets go.
+  padding: clamp(3rem, 8vw, 8rem) $edge-pad 0;
 }

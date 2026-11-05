@@ -21,8 +21,11 @@ const Scene = lazy(() => import('./PixelInvaderScene'));
 
 // Walk tuning: track pixels per scrolled pixel, and one step's length as a
 // share of the invader's own width (so a bigger invader takes longer strides).
-const WALK_SPEED = 0.22;
-const STEP_SHARE = 0.16;
+// The walk is counted from the moment the track enters the viewport, so the
+// visitor always meets it at the left edge (owner, 2026-11-05: starting
+// mid-page, "the user can barely see the walking").
+const WALK_SPEED = 0.45;
+const STEP_SHARE = 0.2;
 
 const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invader', walk = false }) => {
   const rootRef = useRef(null);
@@ -49,8 +52,8 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invade
     return () => io.disconnect();
   }, []);
 
-  // Scroll walking: distance = scroll × speed, folded into a there-and-back
-  // trip across the track. Writes the box's transform directly (no render).
+  // Scroll walking: distance = scroll since the track entered × speed,
+  // folded into a there-and-back trip across the track. Writes the box's transform directly (no render).
   useEffect(() => {
     if (!walk || reducedMotion) return undefined;
     const root = rootRef.current;
@@ -61,7 +64,8 @@ const PixelInvader = ({ palette = PALETTE, className = '', label = 'Space invade
     const update = () => {
       raf = 0;
       const range = Math.max(1, root.clientWidth - box.offsetWidth);
-      const d = window.scrollY * WALK_SPEED;
+      const entered = window.innerHeight - root.getBoundingClientRect().top;
+      const d = Math.max(0, entered) * WALK_SPEED;
       const m = d % (2 * range);
       const out = m < range;
       box.style.transform = `translate3d(${out ? m : 2 * range - m}px, 0, 0)`;
