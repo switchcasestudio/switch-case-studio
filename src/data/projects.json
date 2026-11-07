@@ -79,7 +79,7 @@
   {
     "id": 12,
     "slug": "unhurried", "indexLine": "WordPress · Block theme",
-    "indexMetric": { "value": "27", "label": "block patterns in the free theme" },
+    "indexMetric": { "value": "36", "label": "block patterns in the free theme" },
     "studioProject": true,
     "type": "WordPress Theme",
     "badge": "Free + Pro Theme",
@@ -96,7 +96,7 @@
     "outcome": "",
     "year": "2026",
     "metrics": [
-      { "value": "27", "label": "block patterns in the free theme" },
+      { "value": "36", "label": "block patterns in the free theme" },
       { "value": "3", "label": "style variations: default, Nocturne, Linen" },
       { "value": "8", "label": "shop and store templates in Pro" },
       { "value": "320–1440", "label": "px tested with no sideways scroll" }
