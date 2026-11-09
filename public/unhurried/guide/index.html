@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Unhurried setup guide | Switch Case Studio</title>
+<meta name="description" content="Install the free Unhurried WordPress block theme, build a homepage in two minutes, and find the patterns, style variations and plugins that fit it.">
+<meta name="robots" content="index, follow">
+<link rel="icon" href="/unhurried-pro/img/icon-story.svg" type="image/svg+xml">
+<link rel="canonical" href="https://switchcasestudio.com/unhurried/guide/">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://switchcasestudio.com/unhurried/guide/">
+<meta property="og:title" content="Unhurried setup guide">
+<meta property="og:description" content="Install the free Unhurried WordPress block theme, build a homepage in two minutes, and find the patterns, style variations and plugins that fit it.">
+<meta property="og:image" content="https://switchcasestudio.com/unhurried-pro/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<style>
+@font-face{font-family:"Hanken Grotesk";src:url("/unhurried-pro/fonts/hanken-grotesk-latin.woff2") format("woff2");font-weight:100 900;font-display:swap}
+@font-face{font-family:Inter;src:url("/unhurried-pro/fonts/inter-latin-400.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Inter;src:url("/unhurried-pro/fonts/inter-latin-500.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:Fraunces;src:url("/unhurried-pro/fonts/fraunces-italic-latin.woff2") format("woff2");font-style:italic;font-weight:100 900;font-display:swap}
+</style>
+<style>
+:root{
+  color-scheme: light;
+  --bone:#F6F4EF; --stone:#ECEAE3; --ground:#E6E1D5; --ink:#16140F; --muted:#5A564E; --terra:#D44B19; --terra-deep:#B8421A; --hair:#D8D5CE;
+  --display:"Hanken Grotesk","Helvetica Neue",Arial,sans-serif;
+  --body:Inter,-apple-system,"Segoe UI",sans-serif;
+  --accent:Fraunces,Georgia,"Times New Roman",serif;
+  --gut:clamp(16px,5vw,64px);
+  --r-panel:40px; --r-card:24px; --r-media:16px;
+  --float:0 60px 120px -70px rgba(22,20,15,.45);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bone);color:var(--ink);font:400 17px/1.55 var(--body);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;letter-spacing:-.03em;margin:0;text-wrap:balance}
+h1 em,h2 em,h3 em{font-family:var(--accent);font-style:italic;font-weight:400;letter-spacing:-.01em}
+p{margin:0}
+.wrap{max-width:1360px;margin-inline:auto;padding-inline:var(--gut)}
+.narrow{max-width:900px}
+.eyebrow{font:500 12px/1.2 var(--display);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;padding:.95rem 1.9rem;font:500 15px/1.2 var(--display);letter-spacing:.02em;text-decoration:none;transition:background .3s,color .3s,border-color .3s}
+.btn-ink{background:var(--ink);color:var(--bone)}
+.btn-ink:hover{background:var(--terra-deep)}
+.btn-line{border:1px solid currentColor;color:var(--ink)}
+.btn-line:hover{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
+code{font-family:ui-monospace,"SF Mono",Menlo,monospace;font-size:.92em;background:var(--stone);padding:.1em .4em;border-radius:6px}
+/* header capsule */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;padding:10px clamp(10px,2vw,28px) 0}
+.top::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:env(safe-area-inset-top,0px);background:var(--bone)}
+.capsule{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--bone);border-radius:999px;padding:.5rem .5rem .5rem clamp(1rem,2vw,1.75rem);box-shadow:0 26px 60px -38px rgba(22,20,15,.45)}
+.capsule .brand{font:500 16px var(--display);letter-spacing:-.01em;text-decoration:none;white-space:nowrap}
+.capsule nav{display:flex;align-items:center;gap:1.4rem;font:500 15px var(--display)}
+.capsule nav a:not(.btn){text-decoration:none}
+.capsule nav a:not(.btn):hover{text-decoration:underline;text-underline-offset:5px}
+.capsule .btn{padding:.6rem 1.2rem;white-space:nowrap}
+@media (max-width:760px){.capsule nav a:not(.btn){display:none}}
+/* hero */
+.hero{background:var(--ground);padding-block:clamp(3rem,8vw,6rem) clamp(3rem,7vw,5rem)}
+.hero .eyebrow{margin-bottom:clamp(1.5rem,4vw,3rem)}
+.hero h1{font-size:clamp(2.8rem,8vw,7rem);line-height:.92;letter-spacing:-.04em;max-width:14ch}
+.hero-foot{display:flex;flex-wrap:wrap;gap:2rem 4rem;align-items:flex-end;justify-content:space-between;margin-top:clamp(2rem,5vw,3.5rem)}
+.hero-foot p{max-width:38ch;font-size:clamp(1.05rem,1.4vw,1.3rem);color:var(--muted);line-height:1.45}
+.hero-foot .cta{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;align-items:center}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;padding-block:clamp(2.5rem,5vw,4rem)}
+.facts div{border-top:1px solid var(--hair);padding-top:1rem}
+.facts b{display:block;font:500 clamp(1.3rem,2.2vw,1.9rem)/1.1 var(--display);letter-spacing:-.02em;margin-bottom:.3rem}
+.facts span{color:var(--muted);font-size:15px}
+@media (max-width:700px){.facts{grid-template-columns:1fr}}
+/* sections */
+.section{padding-block:clamp(3.5rem,8vw,7rem)}
+.section + .section{border-top:1px solid var(--hair)}
+.head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(1.5rem,4vw,5rem);align-items:start}
+.head h2{font-size:clamp(2.2rem,5vw,4.4rem);line-height:.98;position:sticky;top:5.5rem}
+.head .eyebrow{margin-bottom:.9rem}
+.body{display:grid;gap:1.25rem;max-width:62ch}
+.body p{color:var(--muted)}
+.body p.lead{color:var(--ink);font-size:clamp(1.05rem,1.4vw,1.25rem);line-height:1.45}
+@media (max-width:860px){.head{grid-template-columns:1fr}.head h2{position:static}}
+/* numbered steps */
+.steps{list-style:none;margin:0;padding:0;display:grid;gap:1.4rem;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2.6rem 1fr;gap:.6rem;align-items:baseline}
+.steps li::before{content:counter(s,decimal-leading-zero);font:italic 400 1.5rem/1 var(--accent);color:var(--muted)}
+.steps b{display:block;font:600 1.05rem var(--display);letter-spacing:0;margin-bottom:.2rem}
+.steps span{color:var(--muted);font-size:15px}
+.callout{background:var(--stone);border-radius:var(--r-media);padding:1rem 1.25rem;font-size:15px;color:var(--muted)}
+.callout b{color:var(--ink);font-weight:500}
+/* pattern groups */
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:clamp(1.5rem,3vw,2.5rem)}
+.groups h3{font-size:12px;letter-spacing:.16em;text-transform:uppercase;font-weight:600;color:var(--muted);margin-bottom:.8rem}
+.groups ul{list-style:none;margin:0;padding:0;display:grid;gap:.45rem}
+.groups li{padding-left:1rem;position:relative;font-size:15px}
+.groups li::before{content:"";position:absolute;left:0;top:.62em;width:5px;height:5px;border-radius:50%;background:var(--hair)}
+.groups li.new::before{background:var(--terra)}
+.groups small{color:var(--muted);font-size:13px;display:block;margin-top:.9rem}
+/* plugins */
+.disclosure{display:flex;gap:.8rem;align-items:flex-start;background:var(--stone);border-radius:var(--r-media);padding:1rem 1.25rem;font-size:15px;color:var(--muted);margin-bottom:1.5rem;max-width:70ch}
+.disclosure::before{content:"";flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:var(--terra);margin-top:.5rem}
+.plugins{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.plugin{border:1px solid var(--hair);border-radius:var(--r-card);padding:1.4rem 1.5rem;display:grid;gap:.6rem;align-content:start}
+.plugin h3{font-size:1.15rem;font-weight:600;letter-spacing:0}
+.plugin p{color:var(--muted);font-size:15px}
+.plugin a.link{font:500 15px var(--display);text-decoration:underline;text-underline-offset:5px;margin-top:.4rem;justify-self:start}
+.plugin a.link:hover{color:var(--terra-deep)}
+/* ink band */
+.ink{background:var(--ink);color:var(--bone)}
+.ink .eyebrow{color:rgba(246,244,239,.72)}
+.ink .body p{color:rgba(246,244,239,.78)}
+.ink .body p.lead{color:var(--bone)}
+.ink .btn-ink{background:var(--bone);color:var(--ink)}
+.ink .btn-ink:hover{background:var(--terra);color:var(--bone)}
+.ink .btn-line{color:var(--bone)}
+.ink .btn-line:hover{background:var(--bone);color:var(--ink);border-color:var(--bone)}
+.cta-row{display:flex;flex-wrap:wrap;gap:1rem 1.5rem;align-items:center;margin-top:.5rem}
+/* footer */
+footer{background:var(--ink);color:var(--bone);padding-block:clamp(4rem,9vw,7rem) 2rem}
+footer .row{display:flex;flex-wrap:wrap;gap:2rem;justify-content:space-between;align-items:flex-end}
+footer h2{font-size:clamp(2.4rem,5vw,4.5rem)}
+.wordmark{font:500 clamp(3.5rem,15vw,15rem)/.82 var(--display);letter-spacing:-.06em;margin-top:clamp(3rem,6vw,5rem);white-space:nowrap;overflow:hidden}
+.legal{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;border-top:1px solid rgba(246,244,239,.18);margin-top:2rem;padding-top:1rem;font-size:13px;color:rgba(246,244,239,.7)}
+footer .btn-ink{background:var(--bone);color:var(--ink)}
+footer .btn-ink:hover{background:var(--terra);color:var(--bone)}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="capsule">
+    <a class="brand" href="/">Switch Case Studio</a>
+    <nav aria-label="Page">
+      <a href="#install">Install</a>
+      <a href="#homepage">Homepage</a>
+      <a href="#patterns">Patterns</a>
+      <a href="#plugins">Plugins</a>
+      <a class="btn btn-ink" href="https://wordpress.org/themes/unhurried/">Get Unhurried free</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Setup guide · Unhurried 1.1</p>
+      <h1>Unhurried, set up in an <em>afternoon</em></h1>
+      <div class="hero-foot">
+        <p>Everything the free theme can do, in the order you will need it: install, a homepage in two minutes, the pages, the patterns, the styles, and the plugins that fit.</p>
+        <div class="cta">
+          <a class="btn btn-ink" href="https://wordpress.org/themes/unhurried/">Get it on WordPress.org</a>
+          <a class="btn btn-line" href="https://github.com/switchcasestudio/unhurried/releases/latest/download/unhurried.zip">Download the zip</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <div class="facts">
+      <div><b>36 patterns</b><span>four full pages, heroes, sections, two headers, two footers</span></div>
+      <div><b>20 looks</b><span>eight colour themes, ten tinted papers, Folio, and the default</span></div>
+      <div><b>2 minutes</b><span>from a blank site to a finished homepage</span></div>
+    </div>
+  </div>
+
+  <section class="section" id="install">
+    <div class="wrap head">
+      <div><p class="eyebrow">01 · Install</p><h2>Two ways <em>in</em></h2></div>
+      <div class="body">
+        <p class="lead">The directory is the easy way. Updates then arrive like any other theme's.</p>
+        <ol class="steps">
+          <li><div><b>From WordPress</b><span>Appearance → Themes → Add New. Search for <em>Unhurried</em>, click Install, then Activate.</span></div></li>
+          <li><div><b>Or from the zip</b><span>Download <code>unhurried.zip</code> from the latest GitHub release and upload it under Appearance → Themes → Add New → Upload Theme.</span></div></li>
+          <li><div><b>Keep the folder name</b><span>The theme folder must be called <code>unhurried</code>. GitHub's green Code button zip unpacks as <code>unhurried-main</code>, which breaks updates and Unhurried Pro. Use the release zip.</span></div></li>
+        </ol>
+        <p class="callout"><b>Works with</b> WordPress 6.6 or newer, PHP 7.4 or newer, block themes only. Tested on WordPress 7.1.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="homepage">
+    <div class="wrap head">
+      <div><p class="eyebrow">02 · Homepage</p><h2>Two minutes to a <em>front page</em></h2></div>
+      <div class="body">
+        <ol class="steps">
+          <li><div><b>Pages → Add New</b><span>In the page settings on the right, pick the <em>Ground artboard</em> template.</span></div></li>
+          <li><div><b>Pick the Homepage pattern</b><span>WordPress offers page patterns when the page is empty. Choose <em>Homepage</em>. Later, it is under + → Patterns → Pages.</span></div></li>
+          <li><div><b>Publish, then make it the front page</b><span>Settings → Reading → Your homepage displays → A static page.</span></div></li>
+          <li><div><b>Build the rest the same way</b><span>About, Services and Contact each have a page pattern. Use the <em>Canvas</em> template for those.</span></div></li>
+        </ol>
+        <p>Every section is a pattern you can add, move or remove. Pattern buttons link to your Contact and Services pages once those pages exist. There is a getting-started screen at Appearance → About Unhurried.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="patterns">
+    <div class="wrap head">
+      <div><p class="eyebrow">03 · Patterns</p><h2>What is on the <em>shelf</em></h2></div>
+      <div class="body" style="max-width:none">
+        <p class="lead">Find them under + → Patterns in any page or in the Site Editor. The marked ones are new in 1.1.</p>
+        <div class="groups">
+          <div><h3>Pages</h3><ul><li>Homepage</li><li>About page</li><li>Services page</li><li>Contact page</li></ul></div>
+          <div><h3>Heroes</h3><ul><li>Staggered type</li><li>Split with arched image</li><li>Type only</li><li>Type only, contact</li></ul></div>
+          <div><h3>Sections</h3><ul><li>Process panel</li><li>Services on image, accordion</li><li>Services index rows</li><li>Pricing tiers</li><li>Questions and answers</li><li>Staggered gallery</li><li>Statement on image</li><li class="new">Story rows</li><li>Team feature</li><li>Testimonial panel</li><li>Call to action</li><li class="new">Gift card</li></ul></div>
+          <div><h3>Contact and journal</h3><ul><li>Contact details and note card</li><li class="new">Opening hours card</li><li class="new">Map and directions</li><li class="new">Newsletter band</li><li class="new">Names strip</li><li>Latest journal notes</li><li>Posts grid</li></ul></div>
+          <div><h3>Headers and footers</h3><ul><li>Header, capsule (default)</li><li class="new">Header, centred title</li><li class="new">Header, quiet</li><li>Footer with wordmark (default)</li><li class="new">Footer, quiet</li></ul><small>Swap them in the Site Editor: select the header or footer, then Replace.</small></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="styles">
+    <div class="wrap head">
+      <div><p class="eyebrow">04 · Styles</p><h2>One theme, twenty <em>looks</em></h2></div>
+      <div class="body">
+        <p class="lead">Styles → Browse styles in the Site Editor. Each look changes only colours, or in Folio's case only the heading face, so your content never moves. Every text pair in every look passes WCAG AA.</p>
+        <ol class="steps">
+          <li><div><b>Colour themes</b><span>Three or four hues spread across the hero band, the quiet bands, the dark sections and the accent: Orchard (apricot, sage, fir, plum), Tide (sand, seafoam, navy, coral), Saffron (straw, mustard, ink, terracotta), Lagoon (deep teal, foam, lime), Rosewater (blush, rose, oxblood, sage), Studio (lemon, sky, charcoal, cobalt), Terrace (pale olive, olive, peat, rust) and Dusk (deep plum, peach, apricot).</span></div></li>
+          <li><div><b>Tinted papers</b><span>One paper, one ink, one accent: Nocturne, Linen, Mist, Moss, Harbour, Plum, Clay, Blush, Olive and Cobalt. Four of them are dark.</span></div></li>
+          <li><div><b>Folio</b><span>The default colours with headings in Fraunces italic and the accent word flipped to upright sans.</span></div></li>
+        </ol>
+        <p>Small things that are always on: write an <em>italic</em> word inside a heading and it becomes the Fraunces accent. Choose the <em>Reveal on scroll</em> block style for a gentle entrance. Add the class <code>unhurried-mono</code> to a block to show its images in greyscale, and the <em>Keep colour</em> image style to opt one image back out. Groups take the Panel, Card, Ink, Ground and Glass section styles.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="plugins">
+    <div class="wrap head">
+      <div><p class="eyebrow">05 · Plugins that fit</p><h2>Three that <em>belong</em></h2></div>
+      <div class="body" style="max-width:none">
+        <p class="disclosure">Some links on this page are affiliate links. If you buy through them, Switch Case Studio earns a commission at no cost to you. It helps pay for the free theme.</p>
+        <div class="plugins">
+          <div class="plugin">
+            <h3>WooCommerce</h3>
+            <p>Sell products. Unhurried Pro styles its shop, product, cart and checkout pages to match the rest of the site.</p>
+            <a class="link" href="https://wordpress.org/plugins/woocommerce/">WooCommerce on WordPress.org</a>
+          </div>
+          <div class="plugin">
+            <h3>Contact Form 7</h3>
+            <p>A plain form for the note card on the Contact page. Drop its block into the card and you are done.</p>
+            <a class="link" href="https://wordpress.org/plugins/contact-form-7/">Contact Form 7 on WordPress.org</a>
+          </div>
+          <div class="plugin">
+            <h3>ReviewScribe</h3>
+            <p>Collect and show customer reviews, with or without a shop. Automated review requests and photo reviews are in the paid version.</p>
+            <!-- REVIEWSCRIBE_REFERRAL: swap this href for the theme-partner referral link once it arrives -->
+            <a class="link" href="https://wordpress.org/plugins/reviewscribe/">ReviewScribe on WordPress.org</a>
+          </div>
+        </div>
+        <p style="margin-top:1.25rem">Nothing installs on its own. Install plugins from Plugins → Add New inside WordPress, or from the Plugins that fit card on the About Unhurried screen.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section ink" id="pro">
+    <div class="wrap head">
+      <div><p class="eyebrow">06 · Want a shop?</p><h2>Keep the calm all the way to <em>checkout</em></h2></div>
+      <div class="body">
+        <p class="lead">Unhurried Pro is a child theme. Your pages and Site Editor changes carry over untouched.</p>
+        <p>It styles the WooCommerce shop, product, cart and checkout pages, adds a Shop shelf pattern, a lead-story blog layout and a Coming soon page. One payment of $49, updates included, 14-day money-back guarantee.</p>
+        <div class="cta-row"><a class="btn btn-ink" href="/unhurried-pro/">See Unhurried Pro</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="help">
+    <div class="wrap head">
+      <div><p class="eyebrow">07 · Help</p><h2>Stuck <em>somewhere</em>?</h2></div>
+      <div class="body">
+        <p class="lead">Write to hello@switchcasestudio.com and say which step. We answer every note ourselves.</p>
+        <p>Need it set up with your own content, photos and colours? Book an office hour, or ask about a full setup, on the <a href="/shop/">shop page</a>. Found a bug? Open an issue on <a href="https://github.com/switchcasestudio/unhurried/issues">GitHub</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="row">
+      <h2>Take your <em>time.</em></h2>
+      <a class="btn btn-ink" href="https://wordpress.org/themes/unhurried/">Get Unhurried free</a>
+    </div>
+    <p class="wordmark" aria-hidden="true">Unhurried</p>
+    <div class="legal"><span>© 2026 Moses Atia Poston, Switch Case Studio</span><a href="https://switchcasestudio.com">switchcasestudio.com</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
