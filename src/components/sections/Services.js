@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import servicesData from "../../data/services.json";
 import { servicePath } from "../../data/navigation";
+import { fromPrices } from "../../data/fromPrice";
 import armSafetyNet from "../../animation/armSafetyNet";
 import ServicePoster from "../servicePoster/ServicePoster";
 import "../../styles/components/servicePoster.scss";
@@ -34,7 +35,7 @@ function ServiceItem({ service, index, delay = 0 }) {
     const rule = el.querySelector(".services__item-rule");
     const meta = el.querySelectorAll(".services__item-kicker, .services__item-cta");
     const title = el.querySelector(".services__item-title");
-    const body = el.querySelectorAll(".services__item-subtitle, .services__item-includes");
+    const body = el.querySelectorAll(".services__item-subtitle, .services__item-includes, .services__item-price");
     const pieces = [rule, ...meta, title, ...body];
 
     const ctx = gsap.context(() => {
@@ -130,6 +131,9 @@ function ServiceItem({ service, index, delay = 0 }) {
     </Fragment>
   ));
 
+  const prices = fromPrices(service.slug);
+  const price = prices.oneTime || prices.monthly ? prices : null;
+
   return (
     <div ref={itemRef} className="services__item">
       {/* A card lands on the service's own page where one exists and on its
@@ -158,6 +162,14 @@ function ServiceItem({ service, index, delay = 0 }) {
             <span className="services__item-title">{chars}</span>
           </span>
           <span className="services__item-subtitle">{service.subTitle}</span>
+          {/* A price on the home page (UX audit, 2026-11-10): `<main>` had
+              no dollar figure and no route to one. Derived, never typed. */}
+          {price && (
+            <span className="services__item-price">
+              from {price.oneTime || price.monthly}
+              {price.oneTime ? "" : " per month"}
+            </span>
+          )}
         </span>
         {/* The live poster sits last, under the name and line (owner,
             2026-09-11); the card element is still its hover area. */}

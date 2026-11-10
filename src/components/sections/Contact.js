@@ -71,6 +71,24 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
   const [errors, setErrors] = useState({}); // { first_name, email, phone, message, consent }
+  // The package a pricing board's "Start" link named (2026-11-10):
+  // /contact?service=<id>&package=<id>. Read after mount (the static page has
+  // no query) and resolved against pricingData, so only a real package name
+  // is ever shown or sent. The data loads only when the link carries a pair.
+  const [pkg, setPkg] = useState(null); // { service, name }
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const service = q.get('service');
+    const id = q.get('package');
+    if (!service || !id) return undefined;
+    let live = true;
+    import('../../data/fromPrice').then(({ findPackage }) => {
+      if (live) setPkg(findPackage(service, id));
+    });
+    return () => {
+      live = false;
+    };
+  }, []);
 
   const fieldValue = (name) => formRef.current?.elements?.[name]?.value?.trim() || '';
   const setFieldError = (name, message) =>
@@ -365,6 +383,18 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   autoComplete="off"
                 />
               </div>
+
+              {pkg && (
+                <p className="contact-form__about">
+                  <span>
+                    About: <strong>{pkg.name}</strong> ({pkg.service})
+                  </span>
+                  <button type="button" onClick={() => setPkg(null)}>
+                    Remove
+                  </button>
+                  <input type="hidden" name="project_type" value={pkg.name} />
+                </p>
+              )}
 
               {/* Visible persistent labels (placeholder-only labels vanish on
                   focus and doubled as the only affordance — P0-3). Field name

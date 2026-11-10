@@ -38,6 +38,31 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
     @include page-lede;
   }
 
+  &__lede-link {
+    margin: 1rem 0 0;
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      min-height: 44px;
+      font-family: $font-text;
+      font-size: 1rem;
+      color: $g6;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+
+      &:hover {
+        color: #fff;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 4px;
+      }
+    }
+  }
+
   // ── Service index grid (2026-09-14, matches Home Services teaser) ──
   // Same panel + hairline + live-poster look as `.services__item`
   // (services.scss), reused here as `.svi-card` — this page adds a price
@@ -212,6 +237,15 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
       font-weight: 600;
       color: #fff;
       font-variant-numeric: tabular-nums;
+    }
+
+    // The monthly alternative, on its own line under the one-time price.
+    &__price-alt {
+      display: block;
+      margin-top: 0.15rem;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: rgba(255, 255, 255, 0.7);
     }
 
     &__price-from {

@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import servicesData from '../../data/services.json';
-import pricingData from '../../data/pricingData.json';
+import { fromPrices } from '../../data/fromPrice';
 import ServicePoster from '../servicePoster/ServicePoster';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import BookCallCta from '../ui/BookCallCta';
@@ -25,6 +25,7 @@ const COPY = {
     titleTop: 'What we do,',
     titleBottom: 'shown not told.',
     lede: 'Four services, one studio. Pick one to see the work; the packages and prices are a page away.',
+    ledeLink: { to: '/pricing', label: 'Compare packages and prices' },
     bottomHeading: 'Not sure which service you need?',
     bottomBody: "Book a free call; we'll figure it out together.",
   },
@@ -43,19 +44,9 @@ const COPY = {
   },
 };
 
-// "from $X" for the /pricing variant — the lowest tier price per service,
-// derived from pricingData (keyed by the same slug) so the index stays in
-// sync with real pricing instead of a duplicated hardcoded number.
-
-const fromPrice = (slug) => {
-  const svc = pricingData.services.find((s) => s.id === slug);
-  const prices = (svc?.tiers || [])
-    .filter((t) => t.group !== 'Care') // care plans are add-ons, see above
-    .map((t) => t.price)
-    .filter((p) => typeof p === 'number');
-  if (!prices.length) return null;
-  return `$${Math.min(...prices).toLocaleString('en-US')}`;
-};
+// "from $X" for the /pricing variant comes from `fromPrices`
+// (src/data/fromPrice.js): derived from pricingData, one-time and monthly
+// kept apart, each printed with its period.
 
 /* Card grid (2026-09-14): matches the Home Services teaser — same live
    ServicePoster art, panel + hairline treatment, Inter title (services.scss
@@ -87,9 +78,16 @@ function PricingCard({ service, description, price, priced, index }) {
             <span className="svi-card__title">{service.title}</span>
           </span>
           {description && <span className="svi-card__subtitle">{description}</span>}
-          {priced && price && (
+          {priced && price && (price.oneTime || price.monthly) && (
             <span className="svi-card__price">
-              <span className="svi-card__price-from">from</span> {price}
+              <span className="svi-card__price-from">from</span>{' '}
+              {price.oneTime || price.monthly}{' '}
+              <span className="svi-card__price-from">
+                {price.oneTime ? 'one-time' : 'per month'}
+              </span>
+              {price.oneTime && price.monthly && (
+                <span className="svi-card__price-alt">or {price.monthly} per month</span>
+              )}
             </span>
           )}
         </span>
@@ -126,6 +124,15 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
           <p className="service-index__lede page-head-animate">
             {c.lede}
           </p>
+          {/* /services shows no prices; this is its one-tap route to them
+              (UX audit, 2026-11-10). */}
+          {c.ledeLink && (
+            <p className="service-index__lede-link page-head-animate">
+              <Link to={c.ledeLink.to}>
+                {c.ledeLink.label} <span aria-hidden="true">→</span>
+              </Link>
+            </p>
+          )}
         </header>
 
         {/* ── Service index ── */}
@@ -137,7 +144,7 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
               key={service.slug}
               service={service}
               description={service.subTitle}
-              price={variant === 'pricing' ? fromPrice(service.slug) : undefined}
+              price={variant === 'pricing' ? fromPrices(service.slug) : undefined}
               priced={variant === 'pricing'}
               index={index}
             />

@@ -4,6 +4,7 @@ import * as brandIdentity from "./spreads/brandIdentity";
 import * as webDevelopment from "./spreads/webDevelopment";
 import * as aiAutomation from "./spreads/aiAutomation";
 import * as seoSearch from "./spreads/seoSearch";
+import { packageSlug } from "../../data/fromPrice";
 import "../../styles/components/servicePoster.scss";
 import "../../styles/components/packageBoard.scss";
 
@@ -34,8 +35,9 @@ const BOARDS = {
 
 export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);
 
-// Package anchor: "Brand Starter Kit" -> "brand-starter-kit".
-const slug = (name) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+// Package anchor: "Brand Starter Kit" -> "brand-starter-kit". One definition
+// (src/data/fromPrice.js): the contact form resolves the same id.
+const slug = packageSlug;
 
 /* Rows fall into groups by the tiers that have them: every tier reads
    "In every <unit>"; one tier alone "Only in <tier>" (the top of a ladder
@@ -75,7 +77,7 @@ const Thumb = ({ Art }) => (
   </span>
 );
 
-function Board({ section, spec, formatPrice, note }) {
+function Board({ serviceId, section, spec, formatPrice, note }) {
   const best = (t) => (t.badge ? " is-best" : "");
   const titleId = `pb-title-${section.id}`;
   const anyProcess = spec.some((t) => t.process && t.process.length);
@@ -101,6 +103,17 @@ function Board({ section, spec, formatPrice, note }) {
                   <span className="pb__price-note">{t.billing === "monthly" ? "per month" : "one-time"}</span>
                 </span>
                 {t.for && <span className="pb__for">{t.for}</span>}
+                {/* Each package has its own way forward (UX audit,
+                    2026-11-10): the only actions were a generic call and a
+                    bare mailto under the whole page, so the choice was lost
+                    before contact. The form reads the pair and names it. */}
+                <Link
+                  className="pb__start"
+                  to={`/contact?service=${serviceId}&package=${slug(t.name)}`}
+                  aria-label={`Start with ${t.name}`}
+                >
+                  Start <span aria-hidden="true">→</span>
+                </Link>
               </th>
             ))}
           </tr>
@@ -235,6 +248,7 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
       {sections.map((s, i) => (
         <Board
           key={s.section.id}
+          serviceId={serviceId}
           section={s.section}
           spec={s.spec}
           formatPrice={formatPrice}

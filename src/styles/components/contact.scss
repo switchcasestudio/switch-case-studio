@@ -553,6 +553,45 @@
     }
   }
 
+  /* The package a pricing "Start" link carried in. */
+  &__about {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    margin: 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    font-size: max(0.95rem, 15px);
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+
+    strong {
+      font-weight: 600;
+      color: #fff;
+    }
+
+    button {
+      min-height: 44px;
+      padding: 0;
+      background: none;
+      border: 0;
+      font: inherit;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: underline;
+      cursor: pointer;
+
+      &:hover {
+        color: $g6;
+      }
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 2px;
+      }
+    }
+  }
+
   /* Sent confirmation (2026-11-10): takes the form's place and stays until
      the visitor asks for the form back. Reuses the form card. */
   &__done {

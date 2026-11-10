@@ -98,6 +98,30 @@
     margin-top: 0.4rem;
   }
 
+  // The package's own action, last in its column head.
+  &__start {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    min-height: 44px;
+    margin-top: 0.35rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: $promo-ink;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.22em;
+
+    &:hover {
+      text-decoration-color: $g1;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $promo-ink;
+      outline-offset: 2px;
+    }
+  }
+
   // ── Groups and rows ──
   &__group-row th {
     text-align: left;
@@ -352,6 +376,10 @@
 
     &__for {
       display: none;
+    }
+
+    &__start {
+      font-size: 0.75rem;
     }
 
     &__thumb {
