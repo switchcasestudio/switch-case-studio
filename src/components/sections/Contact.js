@@ -472,7 +472,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                     agreed ? 'contact-form__checkbox--checked' : ''
                   }`}
                   aria-label={CONSENT_TEXT}
-                  aria-pressed={agreed}
+                  // A checkbox, announced as one (it was a toggle button).
+                  role="checkbox"
+                  aria-checked={agreed}
                   aria-describedby={errors.consent ? 'consent-error' : undefined}
                 >
                   {agreed && (

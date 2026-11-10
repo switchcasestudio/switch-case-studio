@@ -64,6 +64,9 @@
   &__list {
     margin: 0 0 1.5rem;
     padding-left: 1.25rem;
+    // The reset leaves lists at `none`, so the orange marker below never
+    // showed and a checklist read as indented paragraphs (2026-11-10).
+    list-style: disc;
     display: flex;
     flex-direction: column;
     gap: 0.65rem;
@@ -120,6 +123,12 @@
       content: ' ↓';
       color: $orange-color;
     }
+  }
+
+  // A `link` block goes to a page, not a file: an arrow across, not down
+  // (it borrowed the download label's arrow on nine posts).
+  &__link &__download-label::after {
+    content: ' →';
   }
 
   &__download-note {

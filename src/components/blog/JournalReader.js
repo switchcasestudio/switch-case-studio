@@ -106,8 +106,25 @@ const JournalReader = ({ post, isIndex = false }) => {
         <JournalTag className="journal__name">
           <Link to="/blog">The Studio Journal</Link>
         </JournalTag>
+        {/* Phones put the article first, so the list sat about ten screens
+            down with no sign it existed (UX audit, 2026-11-10). This link is
+            shown at 900px and under only (journal.scss) and jumps to it. */}
+        <a
+          className="journal__browse"
+          href="#journal-list"
+          onClick={(e) => {
+            const list = document.getElementById('journal-list');
+            if (!list) return;
+            e.preventDefault();
+            // 'instant': under the site's smooth scrolling, 'auto' glides ten screens.
+            window.scrollTo({ top: list.getBoundingClientRect().top + window.scrollY - 96, behavior: 'instant' });
+            list.querySelector('a')?.focus({ preventScroll: true });
+          }}
+        >
+          All {sortedPosts.length} articles <span aria-hidden="true">↓</span>
+        </a>
 
-        <ol className="journal__list" aria-label="All articles">
+        <ol id="journal-list" className="journal__list" aria-label="All articles">
           {pagePosts.map((p) => {
             const active = p.slug === post.slug;
             return (

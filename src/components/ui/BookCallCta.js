@@ -20,6 +20,9 @@ const BookCallCta = ({ className, prefix, children }) => (
     {prefix}
     {BOOK_CALL_LABEL}
     {children}
+    {/* The link leaves the site for Google Calendar in a new tab; say so to
+        screen readers (UX audit, 2026-11-10). */}
+    <span className="sr-only"> (opens the booking calendar in a new tab)</span>
   </a>
 );
 

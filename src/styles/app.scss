@@ -366,3 +366,17 @@ main:focus {
     padding-inline: 1rem;
   }
 }
+
+// Text for screen readers only. Global since 2026-11-10 (BookCallCta's
+// new-tab note renders on every page); component sheets had their own copies.
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

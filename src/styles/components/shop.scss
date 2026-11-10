@@ -6,7 +6,9 @@
 .shop {
   max-width: $max-width;
   margin-inline: auto;
-  padding: 160px 24px 120px;
+  // Top padding scales down on phones (2026-11-10): at a fixed 160px the
+  // first phone screen showed no product.
+  padding: clamp(96px, 14vw, 160px) 24px 120px;
   color: #fff;
   font-family: $font-text;
 
