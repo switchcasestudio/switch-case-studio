@@ -14,7 +14,7 @@ The studio offers 4 services, each with published package prices. Where a case s
 ## Case studies
 
 - [Prodani Miami](https://switchcasestudio.com/projects/prodani-miami): High-Protein Dessert Brand, Miami, Florida. −72% product page paint
-- [Unhurried](https://switchcasestudio.com/projects/unhurried): A free WordPress block theme for studios, spas and makers, and a $49 Pro add-on that styles the shop. Studio project. 27 block patterns in the free theme
+- [Unhurried](https://switchcasestudio.com/projects/unhurried): A free WordPress block theme for studios, spas and makers, and a $49 Pro add-on that styles the shop. Studio project. 36 block patterns in the free theme
 - [My Challah Dealer](https://switchcasestudio.com/projects/my-challah-dealer): Home Bakery · Portland, Oregon. 100 Lighthouse accessibility, best practices and SEO
 - [Renewed Bodyworks](https://switchcasestudio.com/projects/renewed-bodyworks): Massage Therapy · Eugene and Portland, Oregon. −79% homepage weight on mobile
 - [Directcut](https://switchcasestudio.com/projects/directcut): A free, self-hosted app for AI video and images. Bring your own OpenRouter key and pay the model price, not a platform's markup. Studio project. 14 video and image models, one key
