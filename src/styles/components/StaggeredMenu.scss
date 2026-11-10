@@ -157,10 +157,36 @@
   transform-origin: 50% 100%;
 }
 
-/* ── Accordion trigger ────────────────────────── */
+/* ── Accordion row: the section link plus its own chevron button ── */
+.sm-accordion-row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
 .sm-accordion-trigger {
   @extend %menu-trigger-base;
-  gap: 0.5rem;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ── Where you are (2026-11-10): lavender plus an underline, so the marker
+   is not color alone. ── */
+.sm-panel-item[aria-current],
+.sm-accordion-link[aria-current] {
+  color: $g6;
+}
+
+.sm-panel-item[aria-current] .sm-panel-itemLabel {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 0.14em;
+}
+
+.sm-accordion-link[aria-current] {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
 }
 
 .sm-accordion-caret {
@@ -413,6 +439,13 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  // The legal links measured 38px tall (2026-11-10).
+  .sm-socials-link:not(.sm-cta-link) {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 }
 

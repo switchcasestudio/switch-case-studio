@@ -19,32 +19,47 @@ import '../../styles/components/StaggeredMenu.scss';
 /* ──────────────────────────────────────────────
    Accordion sub-component (CSS-only transition)
    ────────────────────────────────────────────── */
-const MenuAccordion = ({ label, labelTo, items, isOpen, onToggle, onNavClick }) => (
+// The row is a link plus its own 44px chevron button (2026-11-10). It was a
+// <Link> inside a <button>: tapping the word left the page when the visitor
+// meant to open the list, and a link inside a button is invalid HTML. A closed
+// submenu is `inert`: its links were still Tab stops and were exposed to iOS
+// assistive tech at 19pt while invisible.
+const MenuAccordion = ({ id, label, labelTo, items, isOpen, onToggle, onNavClick, current }) => (
   <li className="sm-panel-itemWrap">
-    <button
-      type="button"
-      className={`sm-panel-item sm-accordion-trigger${isOpen ? ' is-open' : ''}`}
-      aria-expanded={isOpen}
-      onClick={onToggle}
-    >
-      {labelTo ? (
-        <Link
-          to={labelTo}
-          className="sm-panel-itemLabel"
-          onClick={(e) => { e.stopPropagation(); onNavClick(); }}
-        >
-          {label}
-        </Link>
-      ) : (
+    <div className="sm-accordion-row">
+      <Link
+        to={labelTo}
+        className="sm-panel-item"
+        aria-current={current(labelTo)}
+        onClick={onNavClick}
+      >
         <span className="sm-panel-itemLabel">{label}</span>
-      )}
-      <span className="sm-accordion-caret" aria-hidden="true" />
-    </button>
+      </Link>
+      <button
+        type="button"
+        className={`sm-accordion-trigger${isOpen ? ' is-open' : ''}`}
+        aria-expanded={isOpen}
+        aria-controls={`sm-sub-${id}`}
+        aria-label={`${label} submenu`}
+        onClick={onToggle}
+      >
+        <span className="sm-accordion-caret" aria-hidden="true" />
+      </button>
+    </div>
 
-    <ul className={`sm-accordion-submenu${isOpen ? ' is-open' : ''}`}>
+    <ul
+      id={`sm-sub-${id}`}
+      className={`sm-accordion-submenu${isOpen ? ' is-open' : ''}`}
+      inert={!isOpen}
+    >
       {items.map((item) => (
         <li key={item.to} className="sm-accordion-subitem">
-          <Link to={item.to} className="sm-accordion-link" onClick={onNavClick}>
+          <Link
+            to={item.to}
+            className="sm-accordion-link"
+            aria-current={current(item.to, true)}
+            onClick={onNavClick}
+          >
             {item.label}
           </Link>
         </li>
@@ -80,6 +95,34 @@ const StaggeredMenu = ({
 
   // Scroll lock — preserves position across iOS + desktop
   useScrollLock(open);
+
+  // Current-page marker (2026-11-10): the menu gave no sign of where you are.
+  // The exact page is `aria-current="page"`; a section's top row is marked
+  // "true" while one of its pages is open (/pricing/web-… marks Pricing).
+  const here = location.pathname.replace(/\/+$/, '') || '/';
+  const current = (to, exactOnly = false) => {
+    if (here === to) return 'page';
+    return !exactOnly && here.startsWith(`${to}/`) ? 'true' : undefined;
+  };
+
+  /* ── Focus + inert while open (2026-11-10) ────
+     Opening moves focus into the panel and makes the page behind it inert, so
+     Tab cannot wander under the menu; closing hands focus back to the Menu
+     button when it would otherwise fall to <body> (Escape, or the panel going
+     inert under the focused link). */
+  useEffect(() => {
+    if (!open) return undefined;
+    const behind = [document.querySelector('main'), document.querySelector('footer')].filter(Boolean);
+    behind.forEach((el) => el.setAttribute('inert', ''));
+    panelRef.current?.querySelector('a[href], button')?.focus({ preventScroll: true });
+    return () => {
+      behind.forEach((el) => el.removeAttribute('inert'));
+      const active = document.activeElement;
+      if (!active || active === document.body || panelRef.current?.contains(active)) {
+        document.querySelector('.site-header_menuBtn')?.focus({ preventScroll: true });
+      }
+    };
+  }, [open]);
 
   /* ── GSAP initial setup ─────────────────────────
      useEffect, not useLayoutEffect: the offscreen start position lives in CSS
@@ -360,6 +403,7 @@ const StaggeredMenu = ({
               <Link
                 to="/about"
                 className="sm-panel-item"
+                aria-current={current('/about')}
                 onClick={handleNavClick('/about')}
               >
                 <span className="sm-panel-itemLabel">About</span>
@@ -367,18 +411,21 @@ const StaggeredMenu = ({
             </li>
 
             <MenuAccordion
+              id="services"
               label="Services"
               labelTo="/services"
               items={SERVICE_LINKS}
               isOpen={openAccordion === 'services'}
               onToggle={() => toggleAccordion('services')}
               onNavClick={onClose}
+              current={current}
             />
 
             <li className="sm-panel-itemWrap">
               <Link
                 to="/pricing"
                 className="sm-panel-item"
+                aria-current={current('/pricing')}
                 onClick={handleNavClick('/pricing')}
               >
                 <span className="sm-panel-itemLabel">Pricing</span>
@@ -386,18 +433,21 @@ const StaggeredMenu = ({
             </li>
 
             <MenuAccordion
+              id="projects"
               label="Case Studies"
               labelTo="/projects"
               items={PROJECT_LINKS}
               isOpen={openAccordion === 'projects'}
               onToggle={() => toggleAccordion('projects')}
               onNavClick={onClose}
+              current={current}
             />
 
             <li className="sm-panel-itemWrap">
               <Link
                 to="/testimonials"
                 className="sm-panel-item"
+                aria-current={current('/testimonials')}
                 onClick={handleNavClick('/testimonials')}
               >
                 <span className="sm-panel-itemLabel">Reviews</span>
@@ -408,6 +458,7 @@ const StaggeredMenu = ({
               <Link
                 to="/blog"
                 className="sm-panel-item"
+                aria-current={current('/blog')}
                 onClick={handleNavClick('/blog')}
               >
                 <span className="sm-panel-itemLabel">Blog</span>
@@ -418,6 +469,7 @@ const StaggeredMenu = ({
               <Link
                 to="/shop"
                 className="sm-panel-item"
+                aria-current={current('/shop')}
                 onClick={handleNavClick('/shop')}
               >
                 <span className="sm-panel-itemLabel">Shop</span>
@@ -428,6 +480,7 @@ const StaggeredMenu = ({
               <Link
                 to="/contact"
                 className="sm-panel-item"
+                aria-current={current('/contact')}
                 onClick={handleNavClick('/contact')}
               >
                 <span className="sm-panel-itemLabel">Contact Us</span>

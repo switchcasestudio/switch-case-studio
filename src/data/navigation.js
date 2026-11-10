@@ -50,11 +50,16 @@ export const EXPLORE_LINKS = [
 // section hashes (owner, 2026-09-30): a hero link lands on a page, so Services
 // goes to the /services index, not to the home services section. Order is
 // display order.
+// Pricing is here since 2026-11-10 (UX audit): the home page had no route to
+// a price, and "can I afford this?" is a cold visitor's first question.
 export const HERO_LINKS = [
-  { label: 'Shop', to: '/shop' },
-  { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Case Studies', to: '/projects' },
+  { label: 'Pricing', to: '/pricing' },
+  { label: 'About', to: '/about' },
+  // Five links wrap to a second row on a phone, which pushes the intro into
+  // the ident; the phone row keeps four (Shop stays in the menu and footer).
+  { label: 'Shop', to: '/shop', wideOnly: true },
 ];
 
 export const LEGAL_LINKS = [

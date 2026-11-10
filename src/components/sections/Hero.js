@@ -152,7 +152,7 @@ const Hero = () => {
         <nav className="hero-nav" aria-label="Hero">
           <ul>
             {HERO_LINKS.map((l) => (
-              <li key={l.label}>
+              <li key={l.label} className={l.wideOnly ? 'hero-nav__item--wide' : undefined}>
                 <Link to={l.to} className="hero-nav__link">
                   {l.label}
                 </Link>

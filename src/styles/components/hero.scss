@@ -342,17 +342,28 @@ $hero-pad-y: 1.5rem;
         flex-wrap: wrap;
         align-items: center;
         justify-content: flex-start;
-        gap: 0.5rem 1.25rem;
+        gap: 0 1.25rem;
       }
 
       &__link {
         font-size: 1rem;
+        // 44px tap height (2026-11-10): the links measured 21pt tall in iOS
+        // Safari. The row gap above stays visual; the box carries the target.
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
       }
 
-      // The button takes its own row under the four links.
+      // One row of four on a phone: see HERO_LINKS (navigation.js).
+      &__item--wide {
+        display: none;
+      }
+
+      // The button takes its own row under the links. No top margin: the
+      // links' 44px boxes already carry the space.
       &__cta-item {
         flex-basis: 100%;
-        margin-top: 0.5rem;
+        margin-top: 0;
       }
     }
   }
