@@ -5,8 +5,13 @@
 // record lands in Netlify Blobs (store "contact-submissions", private, kept 24
 // months by contact-records-purge.mjs, as the privacy policy says), then the
 // message is emailed through the EmailJS REST API with the record appended.
-// A suspicious submission is still delivered, flagged "⚠" in the subject; a
-// filled honeypot is recorded but not emailed (bots would burn the EmailJS quota).
+// A suspicious submission is still delivered, flagged "⚠" in the subject. A
+// filled honeypot (`hp_ref`) is recorded but not emailed (bots would burn the
+// EmailJS quota), unless the rest of it reads as a person: sent from a browser
+// with a phone number that is valid and matches the connection's country. That
+// one is delivered with the flag, so an autofilled trap cannot drop a real
+// lead while the page says "sent" (2026-11-10; the trap was named `company`,
+// which browsers and password managers fill, and that name is no longer read).
 //
 // Netlify environment variables (set in the Netlify UI, never in git):
 //   VITE_EMAILJS_SERVICE_ID / _TEMPLATE_ID / _USER_ID  same values the browser used
@@ -132,12 +137,15 @@ export default async (req, context) => {
   const received_at = now.toISOString();
   const id = `${received_at.slice(0, 7)}/${received_at.replace(/:/g, '-')}_${randomUUID().slice(0, 8)}`;
   const geo = context.geo || {};
-  const honeypot = Boolean(clean(body.company, 200));
+  const honeypot = Boolean(clean(body.hp_ref, 200));
+  const phoneProblems = phoneFlags(fields.phone, geo.country?.code, geo.country?.name);
+  // A trap filled by a person's autofill, not a bot: see the header note.
+  const looksHuman = Boolean(origin) && phoneProblems.length === 0;
 
   const flags = [
-    ...(honeypot ? ['hidden honeypot field was filled (bot)'] : []),
+    ...(honeypot ? [`hidden honeypot field was filled (${looksHuman ? 'delivered: the rest reads as a person' : 'bot'})`] : []),
     ...(origin ? [] : ['no Origin header (not sent from a browser)']),
-    ...phoneFlags(fields.phone, geo.country?.code, geo.country?.name),
+    ...phoneProblems,
   ];
 
   const record = {
@@ -173,7 +181,7 @@ export default async (req, context) => {
   await store.setJSON(id, record);
 
   // Tell a bot it worked; it gets no email and no hint.
-  if (honeypot) return json(200, { ok: true });
+  if (honeypot && !looksHuman) return json(200, { ok: true });
 
   if (process.env.CONTACT_DRY_RUN === '1') {
     record.delivery = { emailed: false, dry_run: true };

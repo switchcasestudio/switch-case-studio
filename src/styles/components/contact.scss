@@ -358,6 +358,12 @@
       transition: border-color 0.2s ease;
       resize: none;
 
+      // An invalid field is marked on the field too, not only by the message
+      // under it (2026-11-10).
+      &[aria-invalid='true'] {
+        border-bottom-color: $g1;
+      }
+
       &::placeholder {
         // 0.55 (was 0.4): placeholders are now examples, not labels, but
         // still need to be readable on #000.
@@ -372,6 +378,12 @@
         outline: 2px solid $g6;
         outline-offset: 2px;
       }
+    }
+
+    // 44px tap target on every single-line field (2026-11-10): Name and Email
+    // measured 32pt in iOS Safari; only Phone carried the floor.
+    input {
+      min-height: 44px;
     }
 
     textarea {
@@ -508,6 +520,9 @@
       opacity 0.2s ease,
       background 0.2s ease;
     width: fit-content;
+    // The label stays on one line when a status message appears beside it.
+    flex-shrink: 0;
+    white-space: nowrap;
 
     &:hover:not(:disabled) {
       transform: scale(1.05);
@@ -530,6 +545,59 @@
 
     &--error {
       color: #fca5a5; // soft red
+    }
+
+    a {
+      color: inherit;
+      text-decoration: underline;
+    }
+  }
+
+  /* Sent confirmation (2026-11-10): takes the form's place and stays until
+     the visitor asks for the form back. Reuses the form card. */
+  &__done {
+    gap: 0.75rem;
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 2px;
+    }
+  }
+
+  &__done-title {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 600;
+    color: #6ee7b7;
+  }
+
+  &__done-body {
+    margin: 0;
+    font-size: max(1rem, 16px);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  &__done-again {
+    align-self: flex-start;
+    min-height: 44px;
+    margin-top: 0.75rem;
+    padding: 0;
+    background: none;
+    border: 0;
+    font-family: inherit;
+    font-size: max(0.95rem, 15px);
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: $g6;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 2px;
     }
   }
 }

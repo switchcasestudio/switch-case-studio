@@ -78,6 +78,8 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- A list entrance is a CSS keyframe on visible HTML, never motion/react variants (UX audit P0, 2026-11-10): `initial="hidden"` server-rendered `opacity:0` on the `/services` and `/pricing` cards, and with Reduce Motion on nothing brought them back; `grep -c 'opacity:0' build/services.html build/pricing.html` stays 0.
+- The contact form names every problem on one submit, keeps its sent or failed message on screen (no timeout) and its spam trap is `hp_ref`, never a name autofill knows (UX audit, 2026-11-10): `company` could silently drop a real lead; a filled trap that reads as a person is delivered flagged.
 - A closed off-canvas panel is `inert`, not only `aria-hidden` (design test, 2026-11-05): Tab reached 32 hidden mobile-menu links and slid the panel half on screen.
 - A client redesign reshoots every image the project record names (hero, long band + 700w, preview + 600w), not only the comparison pairs (Prodani, 2026-11-03).
 - Every service-page frame shows itself (owner, 2026-11-01: "an initial movement should happen in front of the user's eyes"; a pulse read as nothing moving): `worlds/tryHint.js` works a frame's real controls through React, capped at 5 s (WCAG 2.2.2), then resets; a real press, key or focus stops that frame for good. A new control type gets a step in `stepsFor`. Pinned states are driven by `ProcessStage` scroll progress.

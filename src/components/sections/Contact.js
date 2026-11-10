@@ -30,6 +30,31 @@ const socials = [
   // { key: 'yt', label: 'YouTube',   href: 'https://youtube.com/@your-handle' },
 ];
 
+// Field checks (2026-11-10). The form is `noValidate`, so these run instead of
+// the browser's: every required field is checked on one submit and each
+// problem is named under its own field. Before this only consent and phone
+// were checked, one per submit, and a bad email came back from the server as
+// "Something went wrong". Values are trimmed first; the phone rule allows
+// + spaces dashes parens dots and needs 7+ digits. The server checks again.
+const STUDIO_EMAIL = 'hello@switchcasestudio.com';
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const FIELD_ORDER = ['first_name', 'email', 'phone', 'message'];
+const CHECKS = {
+  first_name: (v) => (v ? '' : 'Please add your name'),
+  email: (v) => {
+    if (!v) return 'Please add your email';
+    return EMAIL_RE.test(v) ? '' : "That email doesn't look complete (name@example.com)";
+  },
+  phone: (v) => {
+    if (!v) return 'Please add a phone number';
+    return /^[+\d\s().-]+$/.test(v) && v.replace(/\D/g, '').length >= 7
+      ? ''
+      : "That phone number doesn't look complete";
+  },
+  message: (v) => (v ? '' : 'Please tell us a little about your project'),
+};
+const CONSENT_ERROR = 'Please tick the agreement box first, then send.';
+
 // headingTag: 'h1' when Contact IS the page (/contact), 'h2' when it's a
 // section on the home page — a page must have exactly one h1.
 const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
@@ -41,11 +66,56 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
   const reducedMotion = useReducedMotion();
 
   const consentRef = useRef(null);
+  const doneRef = useRef(null);
 
   const [agreed, setAgreed] = useState(false);
   const [status, setStatus] = useState('idle'); // idle | sending | success | error
-  const [phoneError, setPhoneError] = useState('');
-  const [consentError, setConsentError] = useState('');
+  const [errors, setErrors] = useState({}); // { first_name, email, phone, message, consent }
+
+  const fieldValue = (name) => formRef.current?.elements?.[name]?.value?.trim() || '';
+  const setFieldError = (name, message) =>
+    setErrors((prev) => {
+      if ((prev[name] || '') === message) return prev;
+      const next = { ...prev };
+      if (message) next[name] = message;
+      else delete next[name];
+      return next;
+    });
+  // Typing clears that field's error and a stale send error; leaving a field
+  // re-checks it once it holds something (an untouched empty field stays quiet
+  // until submit).
+  const onFieldChange = (e) => {
+    if (errors[e.target.name]) setFieldError(e.target.name, '');
+    if (status === 'error') setStatus('idle');
+  };
+  const onFieldBlur = (e) => {
+    const { name } = e.target;
+    if (!CHECKS[name]) return;
+    const value = e.target.value.trim();
+    if (value || errors[name]) setFieldError(name, CHECKS[name](value));
+  };
+  const fieldProps = (name) => ({
+    'aria-invalid': errors[name] ? 'true' : undefined,
+    'aria-describedby': errors[name] ? `${name}-error` : undefined,
+    onChange: onFieldChange,
+    onBlur: onFieldBlur,
+  });
+  const fieldError = (name) =>
+    errors[name] ? (
+      <p id={`${name}-error`} className="contact-form__error" role="alert">
+        {errors[name]}
+      </p>
+    ) : null;
+  const toggleConsent = () => {
+    setAgreed((prev) => !prev);
+    setFieldError('consent', '');
+  };
+
+  // The confirmation replaces the form, so focus moves to it: a keyboard or
+  // screen-reader user is told it worked and is not left on a removed button.
+  useEffect(() => {
+    if (status === 'success') doneRef.current?.focus();
+  }, [status]);
 
   /* ------------------------------------------------------------------ *
    * Submit handler — posts to /api/contact (netlify/functions/contact.mjs),
@@ -58,26 +128,26 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
     e.preventDefault();
     if (status === 'sending') return;
 
-    // Consent gates SUBMISSION, not the button — a disabled-looking primary
-    // suppressed attempts (DESIGN_AUDIT P0-3). Explain + focus instead.
-    if (!agreed) {
-      setConsentError('Please tick the agreement box first, then send.');
+    // Every problem at once, each under its own field; focus goes to the
+    // first. Phone is REQUIRED (owner, 2026-11-05). Consent gates SUBMISSION,
+    // not the button: a disabled-looking primary suppressed attempts
+    // (DESIGN_AUDIT P0-3), so it is explained and focused instead.
+    const found = {};
+    FIELD_ORDER.forEach((name) => {
+      const message = CHECKS[name](fieldValue(name));
+      if (message) found[name] = message;
+    });
+    if (!agreed) found.consent = CONSENT_ERROR;
+    setErrors(found);
+    const firstBad = FIELD_ORDER.find((name) => found[name]);
+    if (firstBad) {
+      formRef.current?.elements?.[firstBad]?.focus();
+      return;
+    }
+    if (found.consent) {
       consentRef.current?.focus();
       return;
     }
-
-    // Phone is REQUIRED (owner, 2026-11-05). Format check: allow + spaces
-    // dashes parens dots, need ~7+ digits. Form has noValidate, so this gate
-    // (not the browser) does the work; the server checks presence again.
-    const phone = formRef.current?.elements?.phone?.value?.trim() || '';
-    const phoneValid =
-      /^[+\d\s().-]+$/.test(phone) && phone.replace(/\D/g, '').length >= 7;
-    if (!phoneValid) {
-      setPhoneError(phone ? "That phone number doesn't look complete" : 'Please add a phone number');
-      formRef.current?.elements?.phone?.focus();
-      return;
-    }
-    setPhoneError('');
 
     setStatus('sending');
 
@@ -95,17 +165,15 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
 
     sendContact(formRef.current, { source: 'contact', consent: agreed })
       .then(
+        // Both outcomes stay on screen (2026-11-10): they used to clear after
+        // 5 s, so a visitor who looked away came back to a blank form with no
+        // proof it was sent. Success swaps the form for a confirmation; an
+        // error stays until the next edit, with the input kept.
         () => {
           setStatus('success');
-          formRef.current?.reset();
           setAgreed(false);
-          // Auto-revert to idle after 5s so the form is reusable
-          setTimeout(() => setStatus('idle'), 5000);
         },
-        () => {
-          setStatus('error');
-          setTimeout(() => setStatus('idle'), 5000);
-        },
+        () => setStatus('error'),
       );
   };
 
@@ -252,6 +320,26 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
               Contact us
             </HeadingTag>
 
+            {status === 'success' ? (
+              <div
+                ref={doneRef}
+                className="contact-form contact-form__done"
+                role="status"
+                tabIndex={-1}
+              >
+                <p className="contact-form__done-title">Message sent.</p>
+                <p className="contact-form__done-body">
+                  We'll be in touch shortly.
+                </p>
+                <button
+                  type="button"
+                  className="contact-form__done-again"
+                  onClick={() => setStatus('idle')}
+                >
+                  Send another message
+                </button>
+              </div>
+            ) : (
             <form
               ref={formRef}
               onSubmit={handleSubmit}
@@ -263,13 +351,16 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
               noValidate
             >
               {/* Honeypot: off screen and off the tab order. A person leaves it
-                  empty; the function records a filled one and emails nothing. */}
+                  empty. Named so autofill has no reason to fill it: it was
+                  `company` / "Company" until 2026-11-10, a field browsers
+                  and password managers do fill, and a filled trap dropped
+                  the message while the page said "sent". */}
               <div className="contact-form__hp" aria-hidden="true">
-                <label htmlFor="contact-company">Company</label>
+                <label htmlFor="contact-hp-ref">Leave empty</label>
                 <input
                   type="text"
-                  id="contact-company"
-                  name="company"
+                  id="contact-hp-ref"
+                  name="hp_ref"
                   tabIndex={-1}
                   autoComplete="off"
                 />
@@ -289,7 +380,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   id="first_name"
                   autoComplete="name"
                   required
+                  {...fieldProps('first_name')}
                 />
+                {fieldError('first_name')}
               </div>
 
               <div className="contact-form__field">
@@ -302,7 +395,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   id="email"
                   autoComplete="email"
                   required
+                  {...fieldProps('email')}
                 />
+                {fieldError('email')}
               </div>
 
               <div className="contact-form__field contact-form__field--phone">
@@ -316,19 +411,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   inputMode="tel"
                   autoComplete="tel"
                   required
-                  aria-invalid={phoneError ? 'true' : undefined}
-                  aria-describedby={phoneError ? 'phone-error' : undefined}
-                  onChange={() => phoneError && setPhoneError('')}
+                  {...fieldProps('phone')}
                 />
-                {phoneError && (
-                  <p
-                    id="phone-error"
-                    className="contact-form__error"
-                    role="alert"
-                  >
-                    {phoneError}
-                  </p>
-                )}
+                {fieldError('phone')}
               </div>
 
               <div className="contact-form__field">
@@ -341,7 +426,9 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   placeholder="Tell us about your project…"
                   rows={3}
                   required
+                  {...fieldProps('message')}
                 />
+                {fieldError('message')}
               </div>
 
               {/* Privacy checkbox — gates submission in handleSubmit (with an
@@ -350,16 +437,13 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                 <button
                   ref={consentRef}
                   type="button"
-                  onClick={() => {
-                    setAgreed((prev) => !prev);
-                    setConsentError('');
-                  }}
+                  onClick={toggleConsent}
                   className={`contact-form__checkbox ${
                     agreed ? 'contact-form__checkbox--checked' : ''
                   }`}
                   aria-label={CONSENT_TEXT}
                   aria-pressed={agreed}
-                  aria-describedby={consentError ? 'consent-error' : undefined}
+                  aria-describedby={errors.consent ? 'consent-error' : undefined}
                 >
                   {agreed && (
                     <svg
@@ -384,8 +468,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   onClick={(e) => {
                     // Let the links navigate; toggle on any other click.
                     if (e.target.closest('a')) return;
-                    setAgreed((prev) => !prev);
-                    setConsentError('');
+                    toggleConsent();
                   }}
                 >
                   {/* Words must stay equal to CONSENT_TEXT (src/data/legal.js):
@@ -394,13 +477,13 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   the <Link to="/privacy">Privacy Policy</Link>
                 </label>
               </div>
-              {consentError && (
+              {errors.consent && (
                 <p
                   id="consent-error"
                   className="contact-form__error"
                   role="alert"
                 >
-                  {consentError}
+                  {errors.consent}
                 </p>
               )}
 
@@ -414,24 +497,18 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                   {status === 'sending' ? 'Sending…' : 'Send message'}
                 </button>
 
-                {status === 'success' && (
-                  <p
-                    className="contact-form__status contact-form__status--success"
-                    role="status"
-                  >
-                    Message sent. We'll be in touch shortly.
-                  </p>
-                )}
                 {status === 'error' && (
                   <p
                     className="contact-form__status contact-form__status--error"
                     role="alert"
                   >
-                    Something went wrong. Please try again or email us directly.
+                    Your message did not send. Please try again, or email{' '}
+                    <a href={`mailto:${STUDIO_EMAIL}`}>{STUDIO_EMAIL}</a>
                   </p>
                 )}
               </div>
             </form>
+            )}
           </div>
 
           {/* ---------- Contact info + banner graphic (below the form) ---------- */}
@@ -443,11 +520,8 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                 Portland, Oregon
               </p>
 
-              <a
-                className="contact-left__email"
-                href="mailto:hello@switchcasestudio.com"
-              >
-                hello@switchcasestudio.com
+              <a className="contact-left__email" href={`mailto:${STUDIO_EMAIL}`}>
+                {STUDIO_EMAIL}
               </a>
 
               <BookCallCta className="contact-left__cta"> →</BookCallCta>
