@@ -77,6 +77,15 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
     border-radius: 12px;
     transition: border-color $dur-fast $ease-out;
 
+    // Entrance (2026-11-10): the card is visible in the static HTML and with
+    // Reduce Motion on; only motion-tolerant visitors get the rise. `backwards`
+    // holds the first frame through the stagger delay and releases the
+    // transform afterward, so the hover styles still apply.
+    @media (prefers-reduced-motion: no-preference) {
+      animation: svi-rise 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94) backwards;
+      animation-delay: calc(var(--i, 0) * 0.1s);
+    }
+
     @media (hover: hover) and (pointer: fine) {
       &:hover {
         border-color: $orange-color;
@@ -280,5 +289,14 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
         outline-offset: 4px;
       }
     }
+  }
+}
+
+// Starts at .01, not 0, so Chrome still counts a card as a paint (see
+// journal-enter).
+@keyframes svi-rise {
+  from {
+    opacity: 0.01;
+    transform: translateY(30px) scale(0.97);
   }
 }

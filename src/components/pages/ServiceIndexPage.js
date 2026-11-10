@@ -1,15 +1,10 @@
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
-import { motion, useReducedMotion } from 'motion/react';
 import servicesData from '../../data/services.json';
 import pricingData from '../../data/pricingData.json';
 import ServicePoster from '../servicePoster/ServicePoster';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
-import {
-  containerVariants,
-  cardVariants,
-} from '../../utils/motionVariants';
 import BookCallCta from '../ui/BookCallCta';
 import { SERVICE_PAGES, servicePath } from '../../data/navigation';
 import '../../styles/components/serviceIndexPage.scss';
@@ -68,17 +63,19 @@ const fromPrice = (slug) => {
    "from $X" price line the home teaser doesn't carry). The flat text list
    this replaced (ServiceRow) didn't match the illustrated cards a visitor
    arrives from when they click "See pricing" on the home page. Entrance
-   stays on the page's existing motion/react variants (reveal on MOUNT, not
-   scroll — REFRESH-1: a scroll `amount` threshold on a tall grid can strand
-   rows on mobile), so no new motion system is introduced for this page. */
-function PricingCard({ service, description, price, priced, variants }) {
+   is a CSS keyframe (`svi-rise`, serviceIndexPage.scss) staggered by `--i`
+   and gated on `prefers-reduced-motion: no-preference` (2026-11-10): the
+   motion/react variants it replaced server-rendered `opacity: 0`, and under
+   Reduce Motion nothing ever animated the cards back in, so both indexes
+   were blank. The static HTML now ships every card visible. */
+function PricingCard({ service, description, price, priced, index }) {
   const itemRef = useRef(null);
   // The services index lands on the service page where one exists (same
   // rule as the home cards, navigation.js); the pricing index on the packages.
   const to = priced ? `/pricing/${service.slug}` : servicePath(service.slug);
   const cta = priced || !SERVICE_PAGES.includes(service.slug) ? 'See pricing' : 'See the work';
   return (
-    <motion.li ref={itemRef} className="svi-card" variants={variants}>
+    <li ref={itemRef} className="svi-card" style={{ '--i': index }}>
       <Link to={to} className="svi-card__link">
         <span className="svi-card__meta">
           <span className="svi-card__kicker">{service.kicker}</span>
@@ -98,17 +95,15 @@ function PricingCard({ service, description, price, priced, variants }) {
         </span>
         <ServicePoster slug={service.slug} cardRef={itemRef} />
       </Link>
-    </motion.li>
+    </li>
   );
 }
 
 const ServiceIndexPage = ({ variant = 'pricing' }) => {
-  const reduced = useReducedMotion();
-  const v = (motionVariant) => (reduced ? undefined : motionVariant);
   /* LC-26e: header is GSAP-revealed (static HTML ships visible) — see
    * usePageHeaderReveal. This component serves BOTH /services and /pricing,
-   * so the fix repairs both routes' headers. motion
-   * still owns the row list + CTA below. */
+   * so the fix repairs both routes' headers. The card list below enters
+   * with a CSS keyframe; the bottom CTA is static. */
   const headerRef = useRef(null);
   usePageHeaderReveal(headerRef);
   const c = COPY[variant];
@@ -134,40 +129,27 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
         </header>
 
         {/* ── Service index ── */}
-        {/* Reveal on MOUNT (animate), not on scroll: a scroll `amount`
-            threshold on this tall single-column list can be missed on mobile,
-            stranding rows invisible (the /projects + /testimonials bug). */}
-        <motion.ul
-          className="service-index__grid"
-          aria-label="Service list"
-          variants={v(containerVariants)}
-          initial="hidden"
-          animate="visible"
-        >
-          {servicesData.map((service) => (
+        {/* Visible in the static HTML; the entrance is CSS (`svi-rise`), on
+            load and not on scroll, so no row can be stranded invisible. */}
+        <ul className="service-index__grid" aria-label="Service list">
+          {servicesData.map((service, index) => (
             <PricingCard
               key={service.slug}
               service={service}
               description={service.subTitle}
               price={variant === 'pricing' ? fromPrice(service.slug) : undefined}
               priced={variant === 'pricing'}
-              variants={v(cardVariants)}
+              index={index}
             />
           ))}
-        </motion.ul>
+        </ul>
 
         {/* ── Bottom CTA ── */}
-        <motion.div
-          className="service-index__bottom"
-          variants={v(cardVariants)}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-        >
+        <div className="service-index__bottom">
           <h2 className="service-index__bottom-heading">{c.bottomHeading}</h2>
           <p className="service-index__bottom-body">{c.bottomBody}</p>
           <BookCallCta className="service-index__bottom-btn" />
-        </motion.div>
+        </div>
       </article>
     </>
   );
