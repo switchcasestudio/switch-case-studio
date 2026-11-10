@@ -78,6 +78,8 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- Anything that advances on its own ships with the shared `.carousel-pause` button, a hover-and-focus hold and a reduced-motion stop; carousel dots are 24px buttons with the mark drawn inside (UX audit, 2026-11-10: home reviews, `RotatingProof`, `/testimonials`; names there switch on click, not hover).
+- Phone navigation (UX audit, 2026-11-10): hero links are 44px boxes in one row of four (Pricing in, Shop `wideOnly`); the open menu takes focus, makes `<main>` and `<footer>` inert, hands focus back to the Menu button, keeps closed submenus `inert` and marks the current page with `aria-current`; an accordion row is a link plus a chevron button, never a link inside a button; "Skip to content" is the first Tab stop.
 - A list entrance is a CSS keyframe on visible HTML, never motion/react variants (UX audit P0, 2026-11-10): `initial="hidden"` server-rendered `opacity:0` on the `/services` and `/pricing` cards, and with Reduce Motion on nothing brought them back; `grep -c 'opacity:0' build/services.html build/pricing.html` stays 0.
 - The contact form names every problem on one submit, keeps its sent or failed message on screen (no timeout) and its spam trap is `hp_ref`, never a name autofill knows (UX audit, 2026-11-10): `company` could silently drop a real lead; a filled trap that reads as a person is delivered flagged.
 - A closed off-canvas panel is `inert`, not only `aria-hidden` (design test, 2026-11-05): Tab reached 32 hidden mobile-menu links and slid the panel half on screen.

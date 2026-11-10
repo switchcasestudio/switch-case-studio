@@ -172,7 +172,7 @@
       width: 100%;
       background: $g6;
       transform-origin: left center;
-      animation: rv-progress 20s linear both;
+      animation: rv-progress var(--rv-ms, 20s) linear both;
     }
   }
 
@@ -193,17 +193,31 @@
     &:last-child { margin-bottom: 0; }
   }
 
-  // Live and wide: one panel at a time, the incoming one rises in.
+  // Live and wide: one panel at a time, the incoming one rises in. Every
+  // panel shares one grid cell and the hidden ones still take their height
+  // (2026-11-10), so the stage is as tall as the longest review and the name
+  // list never moves under the pointer (it ranged from 354 to 824px, and a
+  // click after a reflow landed on the wrong name).
   @media (min-width: 901px) {
+    &.is-live &__stage {
+      display: grid;
+    }
+
     &.is-live &__panel {
-      display: none;
+      grid-area: 1 / 1;
+      margin: 0;
+      visibility: hidden;
 
       &.is-active {
-        display: block;
-        margin: 0;
+        visibility: visible;
         animation: rv-in 0.4s $ease-out both;
       }
     }
+  }
+
+  &__pause {
+    align-self: flex-start;
+    margin-top: 1rem;
   }
 
   &__quote {

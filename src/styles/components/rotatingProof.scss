@@ -8,15 +8,22 @@
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   padding-top: 1.5rem;
 
+  // Every quote shares one grid cell; hidden sizer copies of all of them make
+  // the cell as tall as the longest, so nothing below moves on a switch and a
+  // long quote cannot run into the dots (it overflowed a fixed 116px stage).
   &__stage {
-    position: relative;
+    display: grid;
     min-height: 116px;
   }
 
   &__quote {
-    position: absolute;
-    inset: 0;
+    grid-area: 1 / 1;
     margin: 0;
+
+    &--sizer {
+      visibility: hidden;
+      pointer-events: none;
+    }
   }
 
   &__head {
@@ -68,24 +75,49 @@
 
   &__dots {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    gap: 0.4rem;
     margin-top: 1rem;
   }
 
+  // The button is the 24px target (WCAG 2.5.8); the mark inside keeps its
+  // size. It measured 7x7pt in iOS Safari.
   &__dot {
-    width: 6px;
-    height: 6px;
+    display: grid;
+    place-items: center;
+    width: 24px;
+    height: 24px;
     padding: 0;
     border: none;
-    border-radius: 999px;
-    background: rgba($g6, 0.3);
+    background: none;
     cursor: pointer;
-    transition: width 0.25s ease, background-color 0.25s ease;
+
+    &::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba($g6, 0.3);
+      transition: width 0.25s ease, background-color 0.25s ease;
+    }
 
     &.is-active {
-      width: 18px;
-      background: $g6;
+      width: 36px;
+
+      &::before {
+        width: 18px;
+        background: $g6;
+      }
     }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 2px;
+    }
+  }
+
+  &__pause {
+    margin-left: 0.75rem;
   }
 }

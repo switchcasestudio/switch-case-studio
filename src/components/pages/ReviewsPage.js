@@ -24,6 +24,15 @@ const company = (title = '') => title.replace(/^(Owner at|Founder of|Owner of)\s
 const small = (src) => src.replace(/\.webp$/, '-600.webp');
 
 const AUTO_MS = 20000;
+// Time on stage (2026-11-10): 20 s was shorter than six of the eight reviews
+// take to read. Each one gets its own reading time at 238 words a minute (the
+// mean silent reading rate, Brysbaert 2019) plus 4 s, never under the 20 s
+// the owner asked for.
+const readMs = (id) => {
+  const t = testimonialsData.find((x) => x.id === id);
+  const words = `${t.highlight} ${t.testimonial}`.trim().split(/\s+/).length;
+  return Math.max(AUTO_MS, Math.ceil((words / 238) * 60000) + 4000);
+};
 const nextId = (id) => {
   const i = testimonialsData.findIndex((t) => t.id === id);
   return testimonialsData[(i + 1) % testimonialsData.length].id;
@@ -36,22 +45,28 @@ const ReviewsPage = () => {
    * on wide screens only, never under reduced motion, paused while the
    * pointer or focus is on the stage or the list, skipped while the tab is
    * hidden, and OFF for good once the visitor picks a name: a person who
-   * chose a review is reading it. The active name shows a 20s progress
-   * line while it runs. */
+   * chose a review is reading it. The active name shows a progress line
+   * while it runs. A Pause button stops and restarts it (2026-11-10), and
+   * names switch on click or Enter only: switching on hover flipped three
+   * reviews on a diagonal path to one name. */
   const [auto, setAuto] = useState(true);
   const [paused, setPaused] = useState(false);
   const rootRef = useRef(null);
   usePageHeaderReveal(rootRef, '.page-head-animate, .rv');
   useEffect(() => setLive(true), []);
   useEffect(() => {
+    if (!live) return;
+    // Reduced motion: it never runs, and the button says so ("Play").
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) setAuto(false);
+  }, [live]);
+  useEffect(() => {
     if (!live || !auto || paused) return undefined;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined;
     if (!window.matchMedia('(min-width: 901px)').matches) return undefined;
     const id = setInterval(() => {
       if (document.visibilityState === 'visible') setActive((a) => nextId(a));
-    }, AUTO_MS);
+    }, readMs(active));
     return () => clearInterval(id);
-  }, [live, auto, paused]);
+  }, [live, auto, paused, active]);
   const pick = (id) => {
     setActive(id);
     setAuto(false);
@@ -81,6 +96,7 @@ const ReviewsPage = () => {
 
         <div
           className={`rv${live ? ' is-live' : ''}${auto ? ' is-auto' : ''}${paused ? ' is-paused' : ''}`}
+          style={{ '--rv-ms': `${readMs(active)}ms` }}
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
           onFocus={() => setPaused(true)}
@@ -95,13 +111,19 @@ const ReviewsPage = () => {
                 className={`rv__pick${t.id === active ? ' is-active' : ''}`}
                 aria-pressed={t.id === active}
                 onClick={() => pick(t.id)}
-                onMouseEnter={() => pick(t.id)}
-                onFocus={() => pick(t.id)}
               >
                 <span className="rv__pick-name">{t.name}</span>
                 <span className="rv__pick-company">{company(t.title)}</span>
               </button>
             ))}
+            <button
+              type="button"
+              className="carousel-pause rv__pause"
+              onClick={() => setAuto((a) => !a)}
+              aria-label={auto ? 'Pause the reviews' : 'Play the reviews'}
+            >
+              {auto ? 'Pause' : 'Play'}
+            </button>
           </nav>
 
           <div className="rv__stage">

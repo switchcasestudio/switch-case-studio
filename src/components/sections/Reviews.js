@@ -32,6 +32,10 @@ const CURSOR_HIDE_CLASS = 'is-carousel-hover';
 const Reviews = () => {
   const [current, setCurrent] = useState(0);
   const [isHovering, setIsHovering] = useState(false);
+  const [isFocused, setIsFocused] = useState(false);
+  // The visitor's own stop (2026-11-10, WCAG 2.2.2): the Pause button, any
+  // touch on the card, or reduced motion. Hover and focus only hold it.
+  const [userPaused, setUserPaused] = useState(false);
   const containerRef = useRef(null);
 
   const total = testimonialsData.length;
@@ -84,12 +88,18 @@ const Reviews = () => {
     setCurrent((c) => (c - 1 + total) % total);
   }, [total]);
 
-  /* ── Auto-advance every 10s. Pauses on hover. ── */
+  /* ── Auto-advance every 10s. Holds on hover and focus; stops on Pause,
+        on touch (a phone reader lost reviews mid-sentence) and never runs
+        under reduced motion. ── */
   useEffect(() => {
-    if (isHovering) return;
+    if (prefersReducedMotion) setUserPaused(true);
+  }, [prefersReducedMotion]);
+  const running = !isHovering && !isFocused && !userPaused;
+  useEffect(() => {
+    if (!running) return undefined;
     const id = setInterval(next, AUTO_ADVANCE_MS);
     return () => clearInterval(id);
-  }, [next, isHovering, current]);
+  }, [next, running, current]);
 
   /* ── VE-7: "Ready to be next?" beat entrance — house safe-reveal.
    * Primary CTA, so strand-proof is non-negotiable: SSG HTML ships
@@ -181,6 +191,15 @@ const Reviews = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
           onMouseMove={handleMouseMove}
+          onTouchStart={(e) => {
+            // The Pause button toggles on its own click; a touch anywhere
+            // else on the card means someone is reading.
+            if (!e.target.closest('.testimonial-pause')) setUserPaused(true);
+          }}
+          onFocus={() => setIsFocused(true)}
+          onBlur={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget)) setIsFocused(false);
+          }}
           role="button"
           tabIndex={0}
           aria-roledescription="carousel"
@@ -323,7 +342,7 @@ const Reviews = () => {
                         }}
                         transition={{
                           duration:
-                            idx === current && !isHovering
+                            idx === current && running
                               ? AUTO_ADVANCE_MS / 1000
                               : 0,
                           ease: 'linear',
@@ -331,6 +350,18 @@ const Reviews = () => {
                       />
                     </button>
                   ))}
+                  <button
+                    type="button"
+                    className="carousel-pause testimonial-pause"
+                    aria-label={userPaused ? 'Play the reviews' : 'Pause the reviews'}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setUserPaused((p) => !p);
+                    }}
+                    onKeyDown={(e) => e.stopPropagation()}
+                  >
+                    {userPaused ? 'Play' : 'Pause'}
+                  </button>
                 </div>
               </div>
             </div>

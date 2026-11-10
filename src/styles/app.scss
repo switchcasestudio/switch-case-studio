@@ -331,3 +331,38 @@ main {
 main:focus {
   outline: none;
 }
+
+// Pause / Play for anything that advances on its own (WCAG 2.2.2): the
+// worlds' `__pause` pill (_worldHero.scss), shared by the home reviews, the
+// pricing quotes and /testimonials.
+.carousel-pause {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0.3rem 0.75rem;
+  border: 1px solid rgba(218, 184, 255, 0.5);
+  border-radius: 999px;
+  background: none;
+  color: $g5;
+  font-family: $font-text;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+
+  &:hover,
+  &:focus-visible {
+    background: rgba(218, 184, 255, 0.14);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $g5;
+    outline-offset: 2px;
+  }
+
+  @media (pointer: coarse) {
+    min-height: 44px;
+    min-width: 44px;
+    padding-inline: 1rem;
+  }
+}
