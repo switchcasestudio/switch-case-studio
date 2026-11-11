@@ -62,6 +62,9 @@ export default function useKindsHero({ p, kinds, touch, drift }) {
         setLog(lines);
         return;
       }
+      // The log starts clean: it kept the last kind's lines for a moment and
+      // described the wrong build (UX audit, 2026-11-10).
+      setLog([]);
       // One line per screen as it draws in, smallest screen first.
       const tl = gsap.timeline({
         onComplete: () => {

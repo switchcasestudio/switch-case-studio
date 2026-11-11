@@ -134,7 +134,11 @@ export default function ProcessStage({ states, label, heading }) {
           style={{ '--bw-field': s.field, '--bw-ink': s.ink }}
         >
           <p className="bw-state__title">
-            <span className="bw-state__n">0{i + 1}</span> {s.title}
+            <span className="bw-state__n">
+              0{i + 1}
+              <span className="bw-state__of"> / 0{states.length}</span>
+            </span>{' '}
+            {s.title}
           </p>
           {s.full ? (
             <div className="bw-state__full">

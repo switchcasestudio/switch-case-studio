@@ -1424,6 +1424,21 @@ $t-rule: rgba(20, 20, 20, 0.18);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     opacity: 0.6;
+
+    // The business, linked to its case study. The 44px box is the pseudo
+    // element, so the line keeps its height.
+    a {
+      position: relative;
+      color: inherit;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: -14px -6px;
+      }
+    }
   }
 }
 
@@ -1507,15 +1522,26 @@ $t-rule: rgba(20, 20, 20, 0.18);
 }
 
 // The way to the service's pricing page, inside the note.
+// A button, so the price is not the quietest thing at the decision point.
 .bw-circles__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 48px;
+  margin-top: 1rem;
+  padding: 0.6rem 1.4rem;
+  border: 2px solid currentColor;
   color: inherit;
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
 
   &:hover,
   &:focus-visible {
-    text-decoration-thickness: 2px;
+    background: $promo-ink;
+    border-color: $promo-ink;
+    color: #fff;
   }
 }
 

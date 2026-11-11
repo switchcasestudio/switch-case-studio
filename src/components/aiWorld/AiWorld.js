@@ -102,14 +102,13 @@ export default function AiWorld() {
       <AutomationHero />
       <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" />
       <Deliverables />
-      <Bubbles title="Once it runs, clients say" offset={3} />
+      <Bubbles title="Once it runs, clients say" service="ai-automation" offset={3} />
       <WorldClose
         title="Your first automation is next."
         note="Every automation starts with a free call. This page is what they do; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/ai-automation' }}
+        pricing={{ label: 'See packages and prices', to: '/pricing/ai-automation' }}
         primary={{ label: 'Start an automation', to: '/contact' }}
         secondary={{ label: 'See Scout, a studio product', to: '/projects/scout' }}
-        pill={{ label: 'Book a free call', to: '/contact' }}
       />
     </div>
   );

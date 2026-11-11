@@ -162,10 +162,21 @@ $kh-tight: '(min-width: 1024px) and (max-height: 820px), (min-width: 1024px) and
 
   // A phone with its browser's bars showing (about 660px on a 390 phone):
   // the drawing keeps its room, so the log lines and the kicker step out.
+  // One log line stays (UX audit, 2026-11-10): the drawing's own words are
+  // 2 to 8px tall on a phone, so with the whole log gone the hero switched
+  // between screens it never named.
   @media #{$wh-narrow} and (max-height: 760px) {
-    .#{$p}-hero__log,
     .#{$p}-hero__kicker {
       display: none;
+    }
+
+    .#{$p}-hero__log {
+      min-height: calc(1.45em + 0.6rem + 1px);
+      font-size: 0.875rem;
+
+      li:nth-last-child(n + 2) {
+        display: none;
+      }
     }
   }
 

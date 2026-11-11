@@ -101,14 +101,13 @@ export default function SeoWorld() {
       <SearchHero />
       <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" />
       <Deliverables />
-      <Bubbles title="Once they find you, clients say" offset={0} />
+      <Bubbles title="Once they find you, clients say" service="seo-ai-search" offset={0} />
       <WorldClose
         title="Your first fix is next."
         note="Every SEO engagement starts with a free call. This page is what the work does; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/seo-ai-search' }}
+        pricing={{ label: 'See packages and prices', to: '/pricing/seo-ai-search' }}
         primary={{ label: 'Start with an audit', to: '/contact' }}
         secondary={{ label: "See Zahav's calls", to: '/projects/zahav-medspa' }}
-        pill={{ label: 'Book a free call', to: '/contact' }}
       />
     </div>
   );

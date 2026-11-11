@@ -35,6 +35,34 @@ const LEAD = 0.5; // s, for the eyes to land on the frame
 const running = new WeakMap();
 const done = new WeakSet();
 
+/* A run is the page working its own controls, so nothing it changes is news
+   to a screen-reader user (UX audit, 2026-11-10: 23 to 38 polite updates in
+   6 s, "63 px, 62 px, 61 px"). The frame's live regions go quiet for the
+   run and come back a beat after it ends, once React has painted the reset.
+   A real press gets them back at once. */
+const LIVE = '[aria-live], [role="status"], [role="alert"], [role="log"], output';
+const hushed = new WeakMap();
+function hush(frame) {
+  const h = hushed.get(frame);
+  if (h) {
+    clearTimeout(h.timer);
+    h.timer = 0;
+    return;
+  }
+  const els = [...frame.querySelectorAll(LIVE)].map((el) => [el, el.getAttribute('aria-live')]);
+  els.forEach(([el]) => el.setAttribute('aria-live', 'off'));
+  hushed.set(frame, { els, timer: 0 });
+}
+function unhush(frame, wait = 400) {
+  const h = hushed.get(frame);
+  if (!h) return;
+  clearTimeout(h.timer);
+  h.timer = setTimeout(() => {
+    h.els.forEach(([el, was]) => (was === null ? el.removeAttribute('aria-live') : el.setAttribute('aria-live', was)));
+    hushed.delete(frame);
+  }, wait);
+}
+
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const nativeValue = (el) =>
   Object.getOwnPropertyDescriptor(el.tagName === 'TEXTAREA' ? HTMLTextAreaElement.prototype : HTMLInputElement.prototype, 'value').set;
@@ -246,6 +274,7 @@ function pulse(el) {
 }
 
 async function rehearse(frame, run, steps) {
+  hush(frame);
   await hold(run, LEAD);
   for (const s of steps) {
     run.unpulse = pulse(s.el);
@@ -256,6 +285,9 @@ async function rehearse(frame, run, steps) {
     run.unpulse = null;
   }
   running.delete(frame);
+  unhush(frame);
+  // One full showing per frame: it replayed on every scroll back.
+  done.add(frame);
 }
 
 async function pulses(frame, run) {
@@ -283,13 +315,14 @@ export function play(frame) {
   rehearse(frame, run, steps);
 }
 
-export function halt(frame) {
+export function halt(frame, wait) {
   const run = running.get(frame);
   if (!run) return;
   running.delete(frame);
   if (run.tween) run.tween.kill();
   if (run.undo) run.undo();
   if (run.unpulse) run.unpulse();
+  unhush(frame, wait);
 }
 
 export default function useTryHint(rootRef) {
@@ -316,7 +349,7 @@ export default function useTryHint(rootRef) {
       const frame = e.target.closest && e.target.closest(FRAMES);
       if (!frame) return;
       done.add(frame);
-      halt(frame);
+      halt(frame, 0);
     };
     const events = ['pointerdown', 'keydown', 'focusin'];
     events.forEach((t) => root.addEventListener(t, stop, true));

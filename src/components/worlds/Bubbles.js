@@ -1,11 +1,17 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { Link } from 'react-router-dom';
 import testimonials from '../../data/testimonials.json';
+import projects from '../../data/projects.json';
 
 /* Client lines as speech bubbles on a field (2026-10-22), the reference's
    testimonial billboard. Real reviews from testimonials.json (the highlight
-   line, five from `offset`, so two worlds show different voices). They
-   float a little while in view. */
+   line). With a `service`, the voices are the clients whose case study is
+   filed under that service, and each names its business and links the case
+   study (UX audit, 2026-11-10: the brand page quoted web and SEO clients,
+   and no quote could be tied to a real site). A service with fewer than
+   three such reviews falls back to five from `offset`. They float a little
+   while in view. */
 const SPOTS = [
   { l: 4, t: 8 },
   { l: 54, t: 4 },
@@ -14,8 +20,21 @@ const SPOTS = [
   { l: 28, t: 74 },
 ];
 
-export default function Bubbles({ title, offset = 0 }) {
-  const lines = testimonials.slice(offset, offset + SPOTS.length);
+// Three voices sit on a diagonal instead of leaving the field half empty.
+const SPOTS_3 = [
+  { l: 4, t: 6 },
+  { l: 52, t: 34 },
+  { l: 12, t: 64 },
+];
+
+const SOLD_UNDER = Object.fromEntries(projects.map((p) => [p.slug, p.servicePages || []]));
+// "Owner at Renewed Bodyworks" -> "Renewed Bodyworks"
+const business = (t) => (t.title || '').replace(/^.*?\b(?:at|of)\s+/, '');
+
+export default function Bubbles({ title, offset = 0, service }) {
+  const sold = service ? testimonials.filter((t) => (SOLD_UNDER[t.project] || []).includes(service)) : [];
+  const lines = sold.length >= 3 ? sold.slice(0, SPOTS.length) : testimonials.slice(offset, offset + SPOTS.length);
+  const spots = lines.length <= 3 ? SPOTS_3 : SPOTS;
   const ref = useRef(null);
   useEffect(() => {
     const root = ref.current;
@@ -34,9 +53,23 @@ export default function Bubbles({ title, offset = 0 }) {
       </h2>
       <ul className="bw-bubbles__field">
         {lines.map((t, i) => (
-          <li key={t.id} className="bw-bubble" style={{ left: `${SPOTS[i].l}%`, top: `${SPOTS[i].t}%` }}>
+          <li key={t.id} className="bw-bubble" style={{ left: `${spots[i].l}%`, top: `${spots[i].t}%` }}>
             <q>{t.highlight}</q>
-            <span className="bw-bubble__who">{t.name}</span>
+            <span className="bw-bubble__who">
+              {t.name}
+              {business(t) && (
+                <>
+                  ,{' '}
+                  {t.project ? (
+                    <Link to={`/projects/${t.project}`} aria-label={`${business(t)} case study`}>
+                      {business(t)}
+                    </Link>
+                  ) : (
+                    business(t)
+                  )}
+                </>
+              )}
+            </span>
           </li>
         ))}
       </ul>

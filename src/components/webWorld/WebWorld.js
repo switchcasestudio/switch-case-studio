@@ -101,14 +101,13 @@ export default function WebWorld() {
       <KindsHero />
       <ProcessStage states={STATES} label="What every web build has to get right" heading="What we know" />
       <Deliverables />
-      <Bubbles title="Once it's live, clients say" offset={2} />
+      <Bubbles title="Once it's live, clients say" service="web-development-mobile-apps" offset={2} />
       <WorldClose
         title="Your build is next."
         note="Every build starts with a free call. This page is what we build; the packages are on the pricing page."
-        pricing={{ label: 'See packages and prices.', to: '/pricing/web-development-mobile-apps' }}
+        pricing={{ label: 'See packages and prices', to: '/pricing/web-development-mobile-apps' }}
         primary={{ label: 'Start a project', to: '/contact' }}
         secondary={{ label: 'See client work', to: '/projects' }}
-        pill={{ label: 'Book a free call', to: '/contact' }}
       />
     </div>
   );
