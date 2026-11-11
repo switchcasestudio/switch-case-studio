@@ -40,6 +40,7 @@
       "kind": "Office hours",
       "name": "Office hour",
       "price": "$95",
+      "priceNote": "plus tax where it applies",
       "blurb": "One hour, one to one, on SEO, design, code or WordPress. Pay, then pick a time that suits you. You bring the questions and we work through them together; a short recap follows by email.",
       "cta": "Book an office hour, $95",
       "url": "https://buy.stripe.com/cNifZh9wq7QYboj2ix33W04",

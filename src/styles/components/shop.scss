@@ -70,10 +70,46 @@
     @media (max-width: 760px) {
       grid-template-columns: 1fr;
     }
+
+    // One item in a group fills the row (UX audit, 2026-11-10): half an
+    // empty row looked like something had failed to load. With a picture,
+    // the picture keeps its half and the copy takes the other.
+    > li:only-child {
+      grid-column: 1 / -1;
+
+      @media (min-width: 761px) {
+        &.has-image {
+          flex-direction: row;
+
+          .shop-card__image {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
+
+  // Under the office hours: the free call that starts a project.
+  &__project {
+    margin: 20px 0 0;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &__project-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: $orange-color;
+    font-weight: 600;
+    text-underline-offset: 0.2em;
   }
 }
 
 .shop-card {
+  // Hosts the stretched link below: the whole card rings on hover, so the
+  // whole card opens (it was only the button).
+  position: relative;
   display: flex;
   flex-direction: column;
   background: #111;
@@ -129,6 +165,21 @@
     color: $orange-color;
     font-weight: 600;
     white-space: nowrap;
+    text-align: right;
+  }
+
+  &__price-note {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  &__cta::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 24px;
   }
 
   &__cta {

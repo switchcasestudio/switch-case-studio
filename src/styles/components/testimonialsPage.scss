@@ -243,6 +243,60 @@
     color: rgba(255, 255, 255, 0.7);
   }
 
+  // Phones (ReviewsPage.js): every review is stacked, so each shows its
+  // pull quote and figure and opens in full on request; the ask comes after
+  // the third. Wide screens show one review at a time, in full.
+  &__more,
+  &__mid {
+    display: none;
+  }
+
+  @media (max-width: 900px) {
+    &.is-live &__panel:not(.is-open):not(.is-short) &__full {
+      display: none;
+    }
+
+    &.is-live &__more {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: $g6;
+      font-family: inherit;
+      font-size: 1rem;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      cursor: pointer;
+
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: 4px;
+      }
+    }
+
+    &__panel.is-open &__more {
+      margin-top: 0.75rem;
+    }
+
+    &__mid {
+      display: grid;
+      gap: 1rem;
+      justify-items: start;
+      margin: 0 0 4rem;
+      padding: 1.75rem 0;
+      border-block: 1px solid rgba(255, 255, 255, 0.14);
+
+      p {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 500;
+        color: #fff;
+      }
+    }
+  }
+
   &__who {
     display: flex;
     align-items: center;

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import testimonialsData from '../../data/testimonials.json';
@@ -71,6 +71,12 @@ const ReviewsPage = () => {
     setActive(id);
     setAuto(false);
   };
+  /* Phones stack all the reviews, and at full length the ask sat about nine
+     screens down (UX audit, 2026-11-10). There each review shows its pull
+     quote and figure; the full text opens on request (`is-open`, styled at
+     900px and under only, and only once the page is live, so with no
+     JavaScript every review is still there in full). */
+  const [opened, setOpened] = useState({});
 
   return (
     <>
@@ -89,8 +95,8 @@ const ReviewsPage = () => {
             Real results.
           </h1>
           <p className="testimonials-page__lede page-head-animate">
-            {CLIENT_COUNT} clients in their own words. Where the work is on this site, the number
-            they saw sits next to the words.
+            {CLIENT_COUNT} clients in their own words. Where the work is on this site, the measured
+            figure from their case study sits next to the words.
           </p>
         </header>
 
@@ -127,22 +133,38 @@ const ReviewsPage = () => {
           </nav>
 
           <div className="rv__stage">
-            {testimonialsData.map((t) => {
+            {testimonialsData.map((t, i) => {
               const project = projectOf(t);
+              const hasMore = t.testimonial && t.testimonial !== t.highlight;
               const metric = t.metric || (project && project.indexMetric
                 ? { ...project.indexMetric, href: `/projects/${project.slug}` }
                 : null);
               const shot = project && (project.preview || project.imageSrc);
               return (
+                <Fragment key={t.id}>
                 <figure
-                  key={t.id}
-                  className={`rv__panel${t.id === active ? ' is-active' : ''}`}
+                  className={`rv__panel${t.id === active ? ' is-active' : ''}${opened[t.id] ? ' is-open' : ''}${
+                    hasMore ? '' : ' is-short'
+                  }`}
                   aria-label={`Review by ${t.name}`}
                 >
                   <blockquote className="rv__quote">
                     <p className="rv__pull">&ldquo;{t.highlight}&rdquo;</p>
-                    <p className="rv__full">{t.testimonial}</p>
+                    <p className="rv__full" id={`rv-full-${t.id}`}>
+                      {t.testimonial}
+                    </p>
                   </blockquote>
+                  {hasMore && (
+                    <button
+                      type="button"
+                      className="rv__more"
+                      aria-expanded={!!opened[t.id]}
+                      aria-controls={`rv-full-${t.id}`}
+                      onClick={() => setOpened((o) => ({ ...o, [t.id]: !o[t.id] }))}
+                    >
+                      {opened[t.id] ? 'Show less' : 'Read the full review'}
+                    </button>
+                  )}
                   <figcaption className="rv__who">
                     <img src={t.image} alt="" className="rv__avatar" loading="lazy" width="56" height="56" />
                     <span className="rv__who-text">
@@ -194,6 +216,14 @@ const ReviewsPage = () => {
                     </div>
                   )}
                 </figure>
+                {/* Phones: the ask, a third of the way down the stack. */}
+                {i === 2 && (
+                  <div className="rv__mid">
+                    <p>Ready to be next? The first call is free.</p>
+                    <BookCallCta className="testimonials-page__bottom-btn" />
+                  </div>
+                )}
+                </Fragment>
               );
             })}
           </div>

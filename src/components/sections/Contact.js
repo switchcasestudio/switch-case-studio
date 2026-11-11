@@ -337,6 +337,17 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
             <HeadingTag className="contact-right__heading contact-animate">
               Contact us
             </HeadingTag>
+            {/* The other way in, before the form (UX audit, 2026-11-10): the
+                call was a small link under the whole form on a phone, and
+                nothing said it is free or that it opens another tab. */}
+            {status !== 'success' && (
+              <p className="contact-right__talk contact-animate">
+                <span>Prefer to talk? The call is free.</span>
+                <BookCallCta className="contact-right__talk-link">
+                  <span aria-hidden="true"> ↗</span>
+                </BookCallCta>
+              </p>
+            )}
 
             {status === 'success' ? (
               <div
