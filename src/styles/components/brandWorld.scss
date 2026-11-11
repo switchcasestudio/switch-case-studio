@@ -1380,6 +1380,82 @@ $t-rule: rgba(20, 20, 20, 0.18);
 }
 
 /* ---- Client bubbles ---- */
+/* ---- Real client marks (ClientMarks.js) ---- */
+// On the page's own black: the cut logos are light marks on transparent,
+// the same files the home strip uses.
+.bw-marks {
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: 0 clamp(0rem, 2vw, 2rem);
+
+  &__title {
+    @include bw-h2;
+    color: #fff;
+  }
+
+  &__row {
+    list-style: none;
+    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(1rem, 2.5vw, 2rem);
+
+    @media (max-width: 767px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__item {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: start;
+    height: 100%;
+    padding: 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.28);
+    border-radius: 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: border-color 0.2s ease;
+
+    &:hover,
+    &:focus-visible {
+      border-color: $g6;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  &__logo {
+    display: block;
+    height: 72px;
+    width: auto;
+    max-width: 100%;
+    margin-bottom: 1rem;
+    object-fit: contain;
+  }
+
+  &__name {
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  &__work {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  &__more {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $g6;
+  }
+}
+
 .bw-bubbles {
   margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
   padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 4vw, 4rem);

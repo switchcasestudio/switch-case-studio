@@ -6,6 +6,7 @@ import useTryHint from '../worlds/tryHint';
 import BrandHero from './BrandHero';
 import TypeTester from './TypeTester';
 import Deliverables from './Deliverables';
+import ClientMarks from './ClientMarks';
 import PixelTile from './PixelTile';
 import { LogoSize, ColorMix, TypeScale, Composition, PaletteCard, SpacingScale, ReadingOrder } from './lessons';
 import '../../styles/components/brandWorld.scss';
@@ -102,6 +103,7 @@ export default function BrandWorld() {
       <BrandHero />
       <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" />
       <Deliverables />
+      <ClientMarks />
       <Bubbles title="Once it ships, clients say" service="graphic-design-brand-identity" />
       <WorldClose
         title="Your mark is next."
