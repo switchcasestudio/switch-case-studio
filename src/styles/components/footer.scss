@@ -414,6 +414,9 @@
 
 .footer-bottom {
   padding-top: 1.5rem;
+  // Room for the cookie banner while it is open, so the legal links can be
+  // scrolled clear of it (UX audit, 2026-11-10).
+  padding-bottom: var(--consent-h, 0px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   flex-direction: column;

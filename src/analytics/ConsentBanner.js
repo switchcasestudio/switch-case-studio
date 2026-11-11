@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { analyticsEnabled, getStoredConsent, setConsent } from "./ga";
 import { pixelEnabled } from "./metaPixel";
@@ -20,6 +20,30 @@ export default function ConsentBanner() {
     if ((analyticsEnabled || pixelEnabled) && !getStoredConsent()) setVisible(true);
   }, []);
 
+  /* The banner's footprint as `--consent-h` on <html> (UX audit,
+     2026-11-10): it sat on top of the home hero's proof line and, at full
+     scroll, on the footer's legal links. Whatever it would cover reads the
+     variable and steps out of the way; it is 0 once a choice is made. */
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!visible || !el) return undefined;
+    const root = document.documentElement;
+    const publish = () => {
+      const gap = window.innerHeight - el.getBoundingClientRect().bottom;
+      root.style.setProperty("--consent-h", `${Math.round(el.offsetHeight + Math.max(gap, 0))}px`);
+    };
+    publish();
+    const ro = typeof ResizeObserver === "function" ? new ResizeObserver(publish) : null;
+    ro?.observe(el);
+    window.addEventListener("resize", publish);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", publish);
+      root.style.removeProperty("--consent-h");
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
   const choose = (granted) => {
@@ -29,6 +53,7 @@ export default function ConsentBanner() {
 
   return (
     <div
+      ref={ref}
       className="consent-banner"
       role="dialog"
       aria-label="Cookie consent"

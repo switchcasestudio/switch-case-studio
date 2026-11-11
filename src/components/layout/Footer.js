@@ -223,6 +223,7 @@ const Footer = () => {
             className="footer-cta__button"
           >
             Start New Project
+            <span className="sr-only"> (opens the booking calendar in a new tab)</span>
           </a>
         </div>
 

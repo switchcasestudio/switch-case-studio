@@ -51,9 +51,10 @@ const Hero = () => {
       return undefined;
     }
     const ctx = gsap.context(() => {
-      gsap.set(items, { autoAlpha: 0, yPercent: 6 });
+      // Translate only (UX audit, 2026-11-10): a fade from 0 after first
+      // paint blinked the nav and the button out for over a second.
+      gsap.set(items, { yPercent: 6 });
       gsap.to(items, {
-        autoAlpha: 1,
         yPercent: 0,
         duration: DUR_SLOW,
         stagger: REVEAL_STAGGER,
@@ -62,11 +63,8 @@ const Hero = () => {
         overwrite: "auto",
       });
       const safety = gsap.delayedCall(REVEAL_SAFETY_DELAY, () => {
-        if (
-          !items.some((el) => gsap.isTweening(el)) &&
-          items.some((el) => gsap.getProperty(el, "opacity") < 1)
-        ) {
-          gsap.set(items, { autoAlpha: 1, yPercent: 0 });
+        if (!items.some((el) => gsap.isTweening(el))) {
+          gsap.set(items, { yPercent: 0 });
         }
       });
 

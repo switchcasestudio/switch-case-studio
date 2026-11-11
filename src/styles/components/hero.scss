@@ -184,6 +184,11 @@ $hero-pad-y: 1.5rem;
     &--right {
       right: $hero-pad-x;
       text-align: right;
+      // Sits above the cookie banner while it is open (`--consent-h`,
+      // ConsentBanner.js; 0 otherwise). `bottom`, not `translate`: GSAP
+      // writes `translate: none` inline on everything it transforms. Phones
+      // lay the note out in flow, where `bottom` does nothing.
+      bottom: calc(#{$hero-pad-y} + var(--hero-tail) + var(--consent-h, 0px));
     }
 
     // "Every case study" → /projects; the underline says it's a link.
