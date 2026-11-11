@@ -25,6 +25,10 @@ import "../../styles/components/packageBoard.scss";
      SECTIONS  [{ id, title, unit, tiers: [names], rows: [{ id, label, Art,
                cells: { [tier]: true | "note" } }] }]
      TIERS     { [tier]: { for, process, examples: [{ slug, label }] } }
+               (an example label carries a soft hyphen, \u00AD, in any word
+               wider than a phone column, about 47px at 12px: a client name
+               is capitalized, the browser's own hyphenation skipped it and
+               "Bodyworks" ran into the next column, 2026-11-10)
      NOTE      an optional line under the last board. */
 const BOARDS = {
   "graphic-design-brand-identity": brandIdentity,

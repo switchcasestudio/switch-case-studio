@@ -119,8 +119,8 @@ export const TIERS = {
   [SP]: {
     for: "One-time, audit to implementation",
     examples: [
-      { slug: "renewed-bodyworks", label: "Renewed Bodyworks" },
-      { slug: "florida-green-improvements", label: "Florida Green Improvements" },
+      { slug: "renewed-bodyworks", label: "Re\u00ADnewed Body\u00ADworks" },
+      { slug: "florida-green-improvements", label: "Florida Green Improve\u00ADments" },
     ],
   },
   [GR]: { for: "Ads, SEO and conversion work, every month", examples: [{ slug: "zahav-medspa", label: "Zahav Medspa" }] },

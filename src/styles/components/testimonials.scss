@@ -187,7 +187,11 @@
     justify-content: space-between;
     gap: 1.5rem;
 
-    @media (max-width: 768px) {
+    // Stacked until the row has room for both (2026-11-10): the marks and
+    // Pause are about 550px wide and do not shrink, so from 769px to about
+    // 1200px they squeezed the name to zero width, one word per line, and
+    // ran through the role text (and past the column's right edge at 820).
+    @media (max-width: 1199px) {
       flex-direction: column;
       align-items: flex-start;
       gap: 1.5rem;
@@ -254,8 +258,8 @@
 
     // Eight 3rem dashes are 468px; on a phone they share the column
     // instead (the last ones ran off the screen, iOS 27 simulator pass,
-    // 2026-10-26).
-    @media (max-width: 768px) {
+    // 2026-10-26). Same breakpoint as the stacked row above.
+    @media (max-width: 1199px) {
       justify-content: flex-start;
       gap: 0.5rem;
       // The column is `align-items: flex-start`, so without this the row

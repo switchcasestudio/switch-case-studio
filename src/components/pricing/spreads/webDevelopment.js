@@ -294,8 +294,8 @@ const VP = "VPS & Self-Hosted";
 // calls, 2026-09-26).
 export const TIERS = {
   [LP]: { for: "Campaigns, launches, lead capture", examples: [{ slug: "my-challah-dealer", label: "My Challah Dealer" }] },
-  [SW]: { for: "Small businesses and portfolios", examples: [{ slug: "jo-marketing-11", label: "Jo Marketing 11" }] },
-  [BB]: { for: "A full business site, run by you", examples: [{ slug: "renewed-bodyworks", label: "Renewed Bodyworks" }] },
+  [SW]: { for: "Small businesses and portfolios", examples: [{ slug: "jo-marketing-11", label: "Jo Mar\u00ADket\u00ADing 11" }] },
+  [BB]: { for: "A full business site, run by you", examples: [{ slug: "renewed-bodyworks", label: "Re\u00ADnewed Body\u00ADworks" }] },
   [GS]: {
     for: "E-commerce, web apps, complex builds",
     examples: [
