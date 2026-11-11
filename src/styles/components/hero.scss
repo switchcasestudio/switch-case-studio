@@ -101,6 +101,12 @@ $hero-pad-y: 1.5rem;
       display: grid;
       justify-items: end;
       gap: 0.35rem;
+
+      // Touch at any width (iPads, 2026-11-10): the 44px boxes below carry
+      // the spacing, so the stack needs no gap of its own.
+      @media (hover: none) and (pointer: coarse) {
+        gap: 0;
+      }
     }
 
     &__link {
@@ -113,6 +119,14 @@ $hero-pad-y: 1.5rem;
       // No hover underline: the cursor wraps the link in its own border
       // (owner, 2026-10-14), so a second mark read as doubled.
       text-decoration: none;
+
+      // 44px tap height wherever the pointer is a finger, not only at phone
+      // width: an iPad measured these 21px tall (2026-11-10).
+      @media (hover: none) and (pointer: coarse) {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+      }
     }
 
     &__link:focus-visible {
@@ -196,6 +210,11 @@ $hero-pad-y: 1.5rem;
       color: inherit;
       text-underline-offset: 0.2em;
 
+      // Inline padding grows the tap box to 44px without moving a line.
+      @media (hover: none) and (pointer: coarse) {
+        padding-block: 13px;
+      }
+
       &:hover {
         color: $g6;
       }
@@ -215,6 +234,13 @@ $hero-pad-y: 1.5rem;
     font-size: clamp(1rem, 1.25vw, 1.2rem);
     color: $hero-ink;
     text-decoration: none;
+
+    // 44px tap box on touch (it measured 20px on an iPad); the negative
+    // margin keeps the words where they were.
+    @media (hover: none) and (pointer: coarse) {
+      padding-block: 12px;
+      margin-bottom: -12px;
+    }
 
     // Two soft pulses, then a hold, on repeat (owner, 2026-09-11). Opacity
     // only, on the INNER span: GSAP owns the link's own opacity/transform.

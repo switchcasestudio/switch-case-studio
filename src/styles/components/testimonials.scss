@@ -230,6 +230,11 @@
       color: $white-color;
       text-decoration-color: $white-color;
     }
+
+    // 44px tap box on touch; inline padding moves no line.
+    @media (hover: none) and (pointer: coarse) {
+      padding-block: 12px;
+    }
   }
 
   // --------------------------------------------------------------------

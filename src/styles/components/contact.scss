@@ -236,6 +236,15 @@
     &:hover {
       color: $g6;
     }
+
+    // 44px tap box on touch; the negative margin gives back most of the
+    // height so the column keeps its rhythm.
+    @media (hover: none) and (pointer: coarse) {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-block: -0.5rem;
+    }
   }
 
   &__cta {
@@ -250,6 +259,13 @@
     &:hover {
       color: $g7;
       transform: translateX(2px);
+    }
+
+    @media (hover: none) and (pointer: coarse) {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-block: -0.5rem;
     }
   }
 
@@ -498,6 +514,17 @@
 
     &:hover {
       border-color: $g6;
+    }
+
+    // The box stays 20px; an invisible 44px area around it takes the tap.
+    @media (hover: none) and (pointer: coarse) {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        inset: -12px;
+      }
     }
 
     &--checked {

@@ -296,6 +296,23 @@
     & + & {
       margin-top: 0.35rem;
     }
+
+    // 44px tap box on touch (19px on an iPad, 2026-11-10). The first and
+    // last link borrow the cell's own padding, so a cell with one link keeps
+    // its height; several links stack at 44px each.
+    @media (hover: none) and (pointer: coarse) {
+      padding-block: 12px;
+
+      & + & {
+        margin-top: 0;
+      }
+      &:first-child {
+        margin-top: -11px;
+      }
+      &:last-child {
+        margin-bottom: -11px;
+      }
+    }
   }
 
   // ── Text rows (process, full list) ──

@@ -245,6 +245,13 @@
         letter-spacing: 0.08em;
         text-decoration: none;
         transition: color $dur-fast $ease-out;
+
+        // 15px tall text links on a phone (2026-11-10).
+        @media (hover: none) and (pointer: coarse) {
+          display: inline-flex;
+          align-items: center;
+          min-height: 44px;
+        }
       }
 
       &__read {

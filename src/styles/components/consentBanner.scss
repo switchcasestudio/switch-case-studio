@@ -112,6 +112,21 @@
   }
 }
 
+// Touch at any width (2026-11-10): the phone rule above stops at 600px, so
+// an iPad got 33px buttons. The policy link sits in a sentence, so it grows
+// to the 24px minimum with inline padding, which moves no line.
+@media (hover: none) and (pointer: coarse) {
+  .consent-banner {
+    &__btn {
+      min-height: 44px;
+    }
+
+    &__link {
+      padding-block: 4px;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .consent-banner {
     animation: none;

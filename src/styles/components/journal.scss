@@ -65,6 +65,11 @@
     a {
       color: inherit;
       text-decoration: none;
+
+      // 44px tap box on touch; inline padding moves no line.
+      @media (hover: none) and (pointer: coarse) {
+        padding-block: 12px;
+      }
     }
   }
 
@@ -98,6 +103,12 @@
     &:focus-visible {
       outline: 2px solid $g6;
       outline-offset: 4px;
+    }
+
+    // One-line rows were 30px tall on an iPad (2026-11-10).
+    @media (hover: none) and (pointer: coarse) {
+      min-height: 44px;
+      align-content: center;
     }
   }
 
