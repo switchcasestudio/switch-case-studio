@@ -325,6 +325,32 @@
     color: rgba(255, 255, 255, 0.55);
   }
 
+  // The figure's term in plain words, on its own line (metricGloss.js).
+  &__gloss {
+    flex-basis: 100%;
+    font-size: 0.75rem;
+    line-height: 1.35;
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  // Touch only: with no hover there was nothing to say a card opens.
+  &__more {
+    display: none;
+
+    @media (hover: none) {
+      display: block;
+      margin-top: 0.9rem;
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: $g6;
+    }
+  }
+
+  &__body > :not(&__figure) + &__more {
+    margin-top: auto;
+    padding-top: 0.9rem;
+  }
+
   // Keeps the tile bottoms level when a card has no figure.
   &__line:last-child {
     margin-bottom: 0;

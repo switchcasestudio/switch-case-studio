@@ -146,6 +146,29 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     margin: 0 0 2rem;
   }
 
+  // The headline figure under the lede (CaseStudyPage.js).
+  &__lead-figure {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 0.75rem;
+    margin: -0.75rem 0 2rem;
+    font-family: $font-text;
+  }
+
+  &__lead-value {
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: $g6;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__lead-label {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
   &__tags {
     list-style: none;
     padding: 0;
@@ -655,6 +678,88 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     font-size: 0.8125rem;
     line-height: 1.4;
     color: rgba(255, 255, 255, 0.6);
+  }
+
+  // The term in plain words, under a metric's label (metricGloss.js).
+  &__metric-gloss {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: $font-text;
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  // ── Closing band: client line, the call, the next case study ──
+  &__close {
+    max-width: $pp-max;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+    display: grid;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      padding: 2rem 1.25rem 3rem;
+    }
+  }
+
+  &__close-quote {
+    margin: 0;
+
+    blockquote {
+      quotes: none;
+    }
+
+    figcaption {
+      margin: 1rem 0 0 1.5rem;
+      font-family: $font-text;
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.7);
+
+      a {
+        color: $g6;
+        text-underline-offset: 0.2em;
+      }
+    }
+  }
+
+  &__close-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.25rem 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  &__close-next {
+    display: grid;
+    gap: 0.15rem;
+    min-height: 44px;
+    align-content: center;
+    font-family: $font-text;
+    color: $white-color;
+    text-decoration: none;
+
+    &:hover .project-page__close-next-title {
+      color: $g6;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $g6;
+      outline-offset: 4px;
+    }
+  }
+
+  &__close-next-label {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  &__close-next-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
   }
 
   // ── Result quote band ────────────────────────────────

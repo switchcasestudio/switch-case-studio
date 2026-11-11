@@ -15,6 +15,10 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 import projectsData from '../../data/projects.json';
 import servicesData from '../../data/services.json';
+import testimonialsData from '../../data/testimonials.json';
+import { servicePath } from '../../data/navigation';
+import { metricGloss } from '../../data/metricGloss';
+import BookCallCta from '../ui/BookCallCta';
 import useReducedMotion from '../../hooks/useReducedMotion';
 
 import ScrollingShot from '../ui/ScrollingShot';
@@ -220,6 +224,10 @@ const CaseStudyPage = () => {
     metrics = [],
     result,
     kicker,
+    // The project's kind ("Rebuild + SEO") and its one headline figure, both
+    // already shown on /projects.
+    type,
+    indexMetric,
     // True for self-initiated work (no paying client). Optional; absent on
     // every client project, so nothing renders there.
     studioProject,
@@ -319,6 +327,13 @@ const CaseStudyPage = () => {
     .map((s) => servicesData.find((x) => x.slug === s))
     .filter(Boolean);
   const hasSummary = !!description || highlights.length > 0 || hasResults;
+
+  // The closing band (UX audit, 2026-11-10): the page ended on a caption,
+  // with no ask. The client's own line where a review exists for this
+  // project, then the call and the next case study in the data's order.
+  const review = testimonialsData.find((t) => t.project === project.slug);
+  const at = projectsData.findIndex((p) => p.slug === project.slug);
+  const nextCase = projectsData[(at + 1) % projectsData.length];
 
   /* ── Reusable image tile (optionally click-to-zoom) ── */
   const ImageTile = ({ tile, className = '' }) => {
@@ -423,7 +438,10 @@ const CaseStudyPage = () => {
               {servicePageLinks.map((s) => (
                 <Link
                   key={s.slug}
-                  to={`/pricing/${s.slug}`}
+                  // The service's own page (its pricing page until it has
+                  // one): the label says "Services", so it no longer lands
+                  // on a price board.
+                  to={servicePath(s.slug)}
                   className="project-page__service-link"
                 >
                   {s.title}
@@ -437,9 +455,11 @@ const CaseStudyPage = () => {
         <header className="project-page__hero reveal">
           {/* `studioProject` is the self-initiated disclosure — it rides the
               kicker line so it can't be missed and can't shift layout. */}
-          {(kicker || year || studioProject) && (
+          {/* The kicker is the project's kind: every page read "In depth on",
+              a phrase that led nowhere (UX audit, 2026-11-10). */}
+          {(type || kicker || year || studioProject) && (
             <p className="project-page__kicker">
-              {[kicker, year, studioProject && 'Studio project']
+              {[type || kicker, year, studioProject && 'Studio project']
                 .filter(Boolean)
                 .join(' · ')}
             </p>
@@ -451,6 +471,15 @@ const CaseStudyPage = () => {
 
           {(outcome || subtitle) && (
             <p className="project-page__lede">{outcome || subtitle}</p>
+          )}
+
+          {/* What changed, on the first screen: the project's headline
+              figure, the same one its /projects card carries. */}
+          {indexMetric && (
+            <p className="project-page__lead-figure">
+              <span className="project-page__lead-value">{indexMetric.value}</span>{' '}
+              <span className="project-page__lead-label">{indexMetric.label}</span>
+            </p>
           )}
 
           {services.length > 0 && (
@@ -663,6 +692,11 @@ const CaseStudyPage = () => {
                       <span className="project-page__metric-label">
                         {m.label}
                       </span>
+                      {metricGloss(m.label) && (
+                        <span className="project-page__metric-gloss">
+                          {metricGloss(m.label)}
+                        </span>
+                      )}
                     </div>
                   ))}
 
@@ -802,6 +836,30 @@ const CaseStudyPage = () => {
             ))}
           </section>
         )}
+
+        {/* ── Closing band: the client's line, the ask, the next case ── */}
+        <section className="project-page__close reveal" aria-label="Next step">
+          {review && (
+            <figure className="project-page__close-quote">
+              <blockquote className="project-page__result-text">{review.highlight}</blockquote>
+              <figcaption>
+                {review.name}, {review.title}.{' '}
+                <Link to="/testimonials">Read the full review</Link>
+              </figcaption>
+            </figure>
+          )}
+          <div className="project-page__close-actions">
+            <BookCallCta className="project-page__cta-button project-page__cta-button--primary" />
+            {nextCase && nextCase.slug !== project.slug && (
+              <Link to={`/projects/${nextCase.slug}`} className="project-page__close-next">
+                <span className="project-page__close-next-label">Next case study</span>
+                <span className="project-page__close-next-title">
+                  {nextCase.title} <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            )}
+          </div>
+        </section>
 
         {/* ── Lightbox (any zoomable tile) ── */}
         {zoomSrc && (

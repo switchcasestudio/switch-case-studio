@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import projectsData from '../../data/projects.json';
+import { metricGloss } from '../../data/metricGloss';
 import { groupProjects } from '../../data/projectGroups';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import { ORG_REF, SITE, WEBSITE_REF } from '../../utils/schemaIds';
@@ -135,8 +136,16 @@ const CaseStudiesPage = () => {
                           <span className="pt__figure">
                             <span className="pt__value">{p.indexMetric.value}</span>
                             <span className="pt__label">{p.indexMetric.label}</span>
+                            {metricGloss(p.indexMetric.label) && (
+                              <span className="pt__gloss">{metricGloss(p.indexMetric.label)}</span>
+                            )}
                           </span>
                         )}
+                        {/* The link cue was hover-only, so on touch the cards
+                            read as a gallery (UX audit, 2026-11-10). */}
+                        <span className="pt__more" aria-hidden="true">
+                          Read the case study →
+                        </span>
                       </span>
                     </Link>
                   );

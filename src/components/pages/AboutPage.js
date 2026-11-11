@@ -14,6 +14,8 @@ import teamData from '../../data/team.json';
 import { ORG_ID, personId } from '../../utils/schemaIds';
 import posts from '../../data/posts.json';
 import projects from '../../data/projects.json';
+import testimonials from '../../data/testimonials.json';
+import { metricGloss } from '../../data/metricGloss';
 import '../../styles/components/aboutPage.scss';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -72,11 +74,13 @@ const RUN_OURSELVES = [
 
 // [slug, metric index]: the figure is read from projects.json, so it can't
 // drift from the case study that sources it.
+// The business result leads; the build figures follow, each with its term
+// in plain words (metricGloss.js).
 const PROOF = [
+  ['zahav-medspa', 3],
   ['florida-green-improvements', 0],
   ['renewed-bodyworks', 2],
   ['prodani-miami', 0],
-  ['zahav-medspa', 3],
 ]
   .map(([slug, i]) => {
     const p = projects.find((x) => x.slug === slug);
@@ -84,6 +88,9 @@ const PROOF = [
     return p && m ? { slug, title: p.title, value: m.value, label: m.label } : null;
   })
   .filter(Boolean);
+
+// The newest review in testimonials.json, quoted under the proof tiles.
+const LEAD_REVIEW = testimonials[0];
 
 // Timings quoted in the process section, also read from projects.json.
 const timing = (slug) => {
@@ -308,7 +315,7 @@ function MetricTile({ metric, index }) {
   const itemRef = useRef(null);
   useBuildReveal(
     itemRef,
-    { rule: '.ap-metric__line', title: '.ap-metric__value', body: '.ap-metric__label, .ap-metric__who' },
+    { rule: '.ap-metric__line', title: '.ap-metric__value', body: '.ap-metric__label, .ap-metric__gloss, .ap-metric__who' },
     { delay: index * 0.06 },
   );
   return (
@@ -319,6 +326,7 @@ function MetricTile({ metric, index }) {
           <span className="ap-metric__value">{metric.value}</span>
         </span>
         <span className="ap-metric__label">{metric.label}</span>
+        {metricGloss(metric.label) && <span className="ap-metric__gloss">{metricGloss(metric.label)}</span>}
         <span className="ap-metric__who">{metric.title}</span>
       </Link>
     </li>
@@ -426,6 +434,30 @@ const AboutPage = () => {
           )}
         </section>
 
+        {/* ── Proof: straight after the people (UX audit, 2026-11-10). It
+            was the fifth of six sections, seven screens down a phone, so a
+            visitor checking credibility met principles before any result.
+            A client's own line and the way to all reviews close it. ── */}
+        <section className="ap-section" aria-labelledby="ap-proof">
+          <div className="ap-wrap">
+            <SectionHead id="ap-proof" kicker="Numbers you can check" title="Measured, sourced, linked." />
+            <ul className="ap-metrics">
+              {PROOF.map((m, i) => (
+                <MetricTile key={m.slug} metric={m} index={i} />
+              ))}
+            </ul>
+            {LEAD_REVIEW && (
+              <figure className="ap-proof-quote ap-reveal">
+                <blockquote>{LEAD_REVIEW.highlight}</blockquote>
+                <figcaption>
+                  {LEAD_REVIEW.name}, {LEAD_REVIEW.title}.{' '}
+                  <Link to="/testimonials">Read all reviews</Link>
+                </figcaption>
+              </figure>
+            )}
+          </div>
+        </section>
+
         {/* ── Principles ── */}
         <section className="ap-section" aria-labelledby="ap-principles">
           <div className="ap-wrap">
@@ -468,10 +500,10 @@ const AboutPage = () => {
                 <h3 className="ap-stack__label">We build with</h3>
                 <ul className="ap-stack__chips">
                   {BUILD_WITH.map((t) => (
+                    // Plain tags: they pulled toward the cursor and filled on
+                    // hover like buttons, and did nothing when clicked.
                     <li key={t} className="ap-stack__chip">
-                      <MagneticButton distance={0.4} className="ap-stack__chip-pull">
-                        {t}
-                      </MagneticButton>
+                      <span className="ap-stack__chip-pull">{t}</span>
                     </li>
                   ))}
                 </ul>
@@ -488,18 +520,6 @@ const AboutPage = () => {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* ── Proof ── */}
-        <section className="ap-section" aria-labelledby="ap-proof">
-          <div className="ap-wrap">
-            <SectionHead id="ap-proof" kicker="Numbers you can check" title="Measured, sourced, linked." />
-            <ul className="ap-metrics">
-              {PROOF.map((m, i) => (
-                <MetricTile key={m.slug} metric={m} index={i} />
-              ))}
-            </ul>
           </div>
         </section>
 

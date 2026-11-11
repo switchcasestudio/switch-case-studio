@@ -384,18 +384,12 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 
   // The chip itself renders inside MagneticButton's wrapper div (a li can't
   // be the magnetic element and stay a valid list child at the same time).
+  // A tag, not a control: no hover fill, no pull (UX audit, 2026-11-10).
   &__chip-pull {
+    display: block;
     border: 1px solid rgba(255, 255, 255, 0.28);
     padding: 0.6rem 1.1rem;
     font-size: 1rem;
-    cursor: default;
-    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-
-    &:hover {
-      background: #fff;
-      color: #000;
-      border-color: #fff;
-    }
   }
 
   &__list {
@@ -494,6 +488,13 @@ $ap-muted: rgba(255, 255, 255, 0.62);
     font-size: 0.95rem;
     line-height: 1.5;
     color: $ap-muted;
+  }
+
+  // The label's term in plain words (metricGloss.js).
+  &__gloss {
+    font-size: 0.8125rem;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.82);
   }
 
   &__who {
@@ -645,5 +646,34 @@ $ap-muted: rgba(255, 255, 255, 0.62);
 
   @media (max-width: 480px) {
     width: 100%;
+  }
+}
+
+// A client's own line under the proof tiles, with the way to every review.
+.ap-proof-quote {
+  margin: clamp(2rem, 5vw, 3.5rem) 0 0;
+  max-width: 60ch;
+
+  blockquote {
+    margin: 0;
+    padding-left: 1.25rem;
+    border-left: 3px solid $g6;
+    font-size: clamp(1.15rem, 2vw, 1.6rem);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  figcaption {
+    margin: 0.9rem 0 0 1.25rem;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.7);
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      color: $g6;
+      text-underline-offset: 0.2em;
+    }
   }
 }
