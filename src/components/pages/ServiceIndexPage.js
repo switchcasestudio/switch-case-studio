@@ -64,7 +64,7 @@ function PricingCard({ service, description, price, priced, index }) {
   // The services index lands on the service page where one exists (same
   // rule as the home cards, navigation.js); the pricing index on the packages.
   const to = priced ? `/pricing/${service.slug}` : servicePath(service.slug);
-  const cta = priced || !SERVICE_PAGES.includes(service.slug) ? 'See pricing' : 'See the work';
+  const cta = priced || !SERVICE_PAGES.includes(service.slug) ? 'See pricing' : 'Explore the service';
   return (
     <li ref={itemRef} className="svi-card" style={{ '--i': index }}>
       <Link to={to} className="svi-card__link">
@@ -134,6 +134,30 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
             </p>
           )}
         </header>
+
+        {/* Phones, /pricing only: the four "from" prices in one screen. The
+            cards are 525px or taller there, so comparing them meant holding
+            four prices across four screens (UX audit, 2026-11-10). */}
+        {variant === 'pricing' && (
+          <ul className="service-index__quick" aria-label="Prices at a glance">
+            {servicesData.map((service) => {
+              const p = fromPrices(service.slug);
+              const first = p.oneTime || p.monthly;
+              if (!first) return null;
+              return (
+                <li key={service.slug}>
+                  <Link to={`/pricing/${service.slug}`}>
+                    <span className="service-index__quick-name">{service.title}</span>
+                    <span className="service-index__quick-price">
+                      from {first}
+                      {p.oneTime ? '' : ' per month'}
+                    </span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        )}
 
         {/* ── Service index ── */}
         {/* Visible in the static HTML; the entrance is CSS (`svi-rise`), on

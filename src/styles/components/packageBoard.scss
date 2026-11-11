@@ -81,13 +81,51 @@
     margin-top: 0.45rem;
   }
 
+  // "one-time" / "per month" is the only cue that a price repeats, so it is
+  // read at full ink and 12px (UX audit, 2026-11-10; it was 10px at 60%).
   &__price-note {
-    font-size: 0.62rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     margin-left: 0.45rem;
-    opacity: 0.6;
+  }
+
+  // Phones only (see the phone block): who each package is for.
+  &__fits {
+    display: none;
+  }
+
+  // The package names, stuck under the site header once the head row has
+  // scrolled away (PackageBoard.js). Zero height, so it never moves the
+  // table; the bar hangs below it.
+  &__stick {
+    position: sticky;
+    top: 77px;
+    height: 0;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &__stick-bar {
+    display: grid;
+    grid-template-columns: 34% repeat(var(--pb-cols, 3), minmax(0, 1fr));
+    visibility: hidden;
+    background-color: $white-color;
+    border-bottom: 2px solid $promo-ink;
+    box-shadow: 0 6px 12px -8px rgba($promo-ink, 0.45);
+  }
+
+  &.is-past-head &__stick-bar {
+    visibility: visible;
+  }
+
+  &__stick-name {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
 
   &__for {
@@ -378,6 +416,35 @@
       display: none;
     }
 
+    &__fits {
+      display: grid;
+      gap: 0.3rem;
+      list-style: none;
+      margin: 0 0 1rem;
+      padding: 0;
+      font-size: 0.8125rem;
+      line-height: 1.35;
+
+      strong {
+        font-weight: 700;
+        margin-right: 0.3rem;
+      }
+    }
+
+    &__stick {
+      top: 65px; // the phone header's height
+    }
+
+    &__stick-bar {
+      grid-template-columns: 40% repeat(var(--pb-cols, 3), minmax(0, 1fr));
+    }
+
+    &__stick-name {
+      padding: 0.4rem 0.3rem;
+      font-size: 0.75rem;
+      hyphens: auto;
+    }
+
     &__start {
       font-size: 0.75rem;
     }
@@ -428,9 +495,21 @@
     margin: 0.25rem 0 0;
   }
 
+  .pb__stick-bar {
+    grid-template-columns: 28% repeat(var(--pb-cols, 4), minmax(0, 1fr));
+  }
+
   @media (max-width: 720px) {
     .pb__corner {
       width: 30%;
+    }
+
+    .pb__stick-bar {
+      grid-template-columns: 30% repeat(var(--pb-cols, 4), minmax(0, 1fr));
+    }
+
+    .pb__stick-name {
+      padding-inline: 0.2rem;
     }
 
     .pb__thumb {

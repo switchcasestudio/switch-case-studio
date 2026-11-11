@@ -234,6 +234,9 @@ export const PricingGuide = ({ serviceId, serviceSlug }) => {
         >
           Email the studio
         </a>
+        {/* The page never said the call costs nothing or that it leaves the
+            site (UX audit, 2026-11-10). */}
+        <p className="pg-footer__note">The call is free. It opens our booking calendar in a new tab.</p>
       </footer>
     </section>
   );

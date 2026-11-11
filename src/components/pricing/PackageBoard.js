@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import * as brandIdentity from "./spreads/brandIdentity";
 import * as webDevelopment from "./spreads/webDevelopment";
@@ -79,19 +79,59 @@ const Thumb = ({ Art }) => (
 
 function Board({ serviceId, section, spec, formatPrice, note }) {
   const best = (t) => (t.badge ? " is-best" : "");
+  /* The column heads scroll away on a long board and the columns become
+     unlabeled dots (UX audit, 2026-11-10). Once the head row has passed
+     under the site header, a slim strip of the package names sticks there.
+     It repeats the heads for the eye only (`aria-hidden`); the table's own
+     `th scope="col"` still name the columns for a screen reader. */
+  const headRef = useRef(null);
+  const [pastHead, setPastHead] = useState(false);
+  useEffect(() => {
+    const head = headRef.current;
+    if (!head || typeof IntersectionObserver !== "function") return undefined;
+    const io = new IntersectionObserver(
+      ([e]) => setPastHead(!e.isIntersecting && e.boundingClientRect.top < 120),
+      { rootMargin: "-80px 0px 0px 0px" },
+    );
+    io.observe(head);
+    return () => io.disconnect();
+  }, []);
+  const fits = spec.filter((t) => t.for);
   const titleId = `pb-title-${section.id}`;
   const anyProcess = spec.some((t) => t.process && t.process.length);
   const anyExample = spec.some((t) => t.examples && t.examples.length);
   const groups = groupRows(section);
 
   return (
-    <div className={`pb pg-animate${spec.length > 3 ? " pb--wide" : ""}`}>
+    <div className={`pb pg-animate${spec.length > 3 ? " pb--wide" : ""}${pastHead ? " is-past-head" : ""}`}>
       {/* The page's h2 for this board; the table is named by it. */}
       <h2 id={titleId} className="pb__caption">
         {section.title}
       </h2>
+      {/* Phones only: who each package is for. The head cells are too narrow
+          to carry the line there (58px on a four-package board), and without
+          it a phone visitor had no hint which one fits. */}
+      {fits.length > 0 && (
+        <ul className="pb__fits">
+          {fits.map((t) => (
+            <li key={t.name}>
+              <strong>{t.name}</strong> {t.for}
+            </li>
+          ))}
+        </ul>
+      )}
+      <div className="pb__stick" aria-hidden="true" style={{ "--pb-cols": spec.length }}>
+        <div className="pb__stick-bar">
+          <span />
+          {spec.map((t) => (
+            <span key={t.name} className={`pb__stick-name${best(t)}`}>
+              {t.name}
+            </span>
+          ))}
+        </div>
+      </div>
       <table className="pb__table" aria-labelledby={titleId}>
-        <thead>
+        <thead ref={headRef}>
           <tr>
             <td className="pb__corner" />
             {spec.map((t) => (
