@@ -315,6 +315,12 @@ export const SECTIONS = [
     title: "What's in each build",
     unit: "build",
     tiers: [LP, SW, BB, GS],
+    // Year two (UX audit P1, 2026-11-10): the builds include a year of
+    // hosting and said nothing about the second. The care plans below are
+    // that answer; their lowest price comes from pricingData. The domain
+    // range is what registrars charge to renew a .com (checked 2026-11-10).
+    note: ({ careFrom }) =>
+      `After the first year, hosting continues on a care plan${careFrom ? `, from ${careFrom} per month` : ""} (see "Keep it running" below). Domain renewal is billed at cost, about $10 to $25 a year for a .com.`,
     rows: [
       { id: "design", label: "Custom design", Art: DesignArt, cells: { [LP]: "From scratch", [SW]: "To your brand", [BB]: "To your brand", [GS]: "Fully custom" } },
       { id: "pages", label: "Pages", Art: PagesArt, cells: { [LP]: "1 page", [SW]: "Up to 5", [BB]: "Up to 10", [GS]: "Unlimited" } },
@@ -336,6 +342,8 @@ export const SECTIONS = [
     title: "Mobile apps",
     unit: "app",
     tiers: [MA],
+    // Fees from the stores' own pages (checked 2026-11-10).
+    note: "The stores bill their developer accounts to you: Apple charges $99 a year, Google $25 once.",
     rows: [
       { id: "platforms", label: "iOS and Android", Art: PhonesArt, cells: { [MA]: "One React Native codebase" } },
       { id: "app-design", label: "Custom app design", Art: DesignArt, cells: { [MA]: "Screens, flows, app icon" } },
@@ -352,6 +360,7 @@ export const SECTIONS = [
     title: "Keep it running",
     unit: "plan",
     tiers: [SC, GC, VP],
+    note: "Domain renewal and SSL are billed once a year at cost (about $10 to $25 for a .com). On VPS & Self-Hosted the server itself is billed at the provider's rate on top of the plan, often $5 to $25 a month for a small one.",
     rows: [
       { id: "care-hosting", label: "Hosting", Art: CareHostingArt, cells: { [SC]: "Shared or managed WordPress, 5 GB", [GC]: "VPS or cloud with staging, 15 GB", [VP]: "Your own server, provisioned and hardened" } },
       { id: "domain", label: "Domain and SSL", Art: DomainArt, cells: { [SC]: "Renewal and SSL, at cost", [GC]: "Renewal and SSL, at cost", [VP]: "SSL with provisioning" } },

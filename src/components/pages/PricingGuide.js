@@ -190,7 +190,7 @@ export const PricingGuide = ({ serviceId, serviceSlug }) => {
                   title={tier.name}
                   subtitle={tier.description}
                   price={{
-                    current: formatMoney(tier.price),
+                    current: `from ${formatMoney(tier.price)}`,
                     note: tier.billing === 'monthly' ? 'per month' : 'one-time',
                   }}
                   benefits={tierBenefits(tier)}
@@ -209,9 +209,9 @@ export const PricingGuide = ({ serviceId, serviceSlug }) => {
 
       <div className="pg-outro pg-animate">
         <p className="pg-outro__line">
-          Think of this as a starting point - real pricing depends on the size,
-          complexity, and goals of your project. Let’s talk through the details
-          so we can put together the right plan for you.
+          Every price here is where a package starts. Your quote depends on the size,
+          complexity and goals of your project. Let’s talk through the details so we
+          can put together the right plan for you.
         </p>
         {/* Each service links its cost guide (SEO audit fix 10, 2026-10-09):
             price searches rank long guides, and the guide is where these

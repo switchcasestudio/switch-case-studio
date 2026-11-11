@@ -77,7 +77,7 @@ const Thumb = ({ Art }) => (
   </span>
 );
 
-function Board({ serviceId, section, spec, formatPrice, note }) {
+function Board({ serviceId, section, spec, formatPrice, note, careFrom }) {
   const best = (t) => (t.badge ? " is-best" : "");
   /* The column heads scroll away on a long board and the columns become
      unlabeled dots (UX audit, 2026-11-10). Once the head row has passed
@@ -139,7 +139,10 @@ function Board({ serviceId, section, spec, formatPrice, note }) {
                 {t.badge && <span className="pb__badge">{t.badge}</span>}
                 <span className="pb__name">{t.name}</span>
                 <span className="pb__price">
-                  {formatPrice(t.price)}
+                  {/* Prices are starting points (owner, 2026-11-10): the
+                      heads printed a bare figure while the page's last line
+                      called it "a starting point". */}
+                  <span className="pb__price-from">from</span> {formatPrice(t.price)}
                   <span className="pb__price-note">{t.billing === "monthly" ? "per month" : "one-time"}</span>
                 </span>
                 {t.for && <span className="pb__for">{t.for}</span>}
@@ -245,6 +248,12 @@ function Board({ serviceId, section, spec, formatPrice, note }) {
           </tr>
         </tfoot>
       </table>
+      {/* What the board's prices leave out or bring later (year two, fees
+          billed by others). A section's `note` may be a function of the
+          care plans' lowest monthly price, so that figure is never typed. */}
+      {section.note && (
+        <p className="pb__after">{typeof section.note === "function" ? section.note({ careFrom }) : section.note}</p>
+      )}
       {note && <p className="pb__foot">{note}</p>}
     </div>
   );
@@ -276,6 +285,8 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
 
   if (!board) return null;
   const byName = Object.fromEntries(tiers.map((t) => [t.name, t]));
+  const care = tiers.filter((t) => t.group === "Care" && t.billing === "monthly").map((t) => t.price);
+  const careFrom = care.length ? formatPrice(Math.min(...care)) : null;
   const sections = board.SECTIONS.map((section) => ({
     section,
     // Data tier + board meta, in the section's order; a name the data no
@@ -292,6 +303,7 @@ export default function PackageBoard({ serviceId, tiers, formatPrice }) {
           section={s.section}
           spec={s.spec}
           formatPrice={formatPrice}
+          careFrom={careFrom}
           note={i === sections.length - 1 ? board.NOTE : null}
         />
       ))}

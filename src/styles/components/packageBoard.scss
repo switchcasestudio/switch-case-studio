@@ -81,6 +81,24 @@
     margin-top: 0.45rem;
   }
 
+  // "from", small, on the price's own line start (prices are starting
+  // points, owner 2026-11-10).
+  &__price-from {
+    margin-right: 0.35rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0;
+  }
+
+  // What comes after or on top of the board's prices: year two, fees billed
+  // by others. Read at body size, not as fine print.
+  &__after {
+    margin: 1.25rem 0 0;
+    max-width: 70ch;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
   // "one-time" / "per month" is the only cue that a price repeats, so it is
   // read at full ink and 12px (UX audit, 2026-11-10; it was 10px at 60%).
   &__price-note {
@@ -391,11 +409,14 @@
       font-size: 1.05rem;
     }
 
+    // Regular weight and no tracking here: at 600 "ONE-TIME" ran into the
+    // next column on the four-package board.
     &__price-note {
       display: block;
       margin: 0.2rem 0 0;
       font-size: 0.625rem;
-      letter-spacing: 0.04em;
+      font-weight: 500;
+      letter-spacing: 0;
       white-space: nowrap;
     }
 
@@ -414,6 +435,16 @@
 
     &__for {
       display: none;
+    }
+
+    &__price-from {
+      display: block;
+      margin: 0;
+      font-size: 0.625rem;
+    }
+
+    &__after {
+      font-size: 0.8125rem;
     }
 
     &__fits {
@@ -493,6 +524,11 @@
   .pb__price-note {
     display: block;
     margin: 0.25rem 0 0;
+  }
+
+  .pb__price-from {
+    display: block;
+    margin: 0;
   }
 
   .pb__stick-bar {

@@ -45,7 +45,7 @@ const out = `# Switch Case Studio
 
 > An engineer-led design and development studio in Portland, Oregon. Websites, online stores, web apps and AI systems, designed, built and measured by the people you talk to.
 
-The studio offers ${services.length} services, each with published package prices. Where a case study has a measured figure it is listed below; each case study page says how it was measured.
+The studio offers ${services.length} services, each with published starting prices for its packages. Where a case study has a measured figure it is listed below; each case study page says how it was measured.
 
 ## Services
 

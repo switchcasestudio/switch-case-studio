@@ -32,13 +32,13 @@ const COPY = {
   pricing: {
     seoTitle: 'Pricing | Switch Case Studio',
     seoDescription:
-      'Packages and prices for all four Switch Case Studio services: brand identity, web and mobile apps, AI and automation, SEO. Fixed prices, no hourly billing.',
+      'Packages and prices for all four Switch Case Studio services: brand identity, web and mobile apps, AI and automation, SEO. Starting prices, no hourly billing.',
     path: '/pricing',
     ariaLabel: 'Pricing',
     kicker: 'Pricing',
     titleTop: 'What it costs,',
     titleBottom: 'package by package.',
-    lede: 'Pick a service to see what each package includes and what it costs. Every price is on the page.',
+    lede: 'Pick a service to see what each package includes and where its price starts. Every starting price is on the page.',
     bottomHeading: 'Not sure which package you need?',
     bottomBody: "Book a free call; we'll figure it out together.",
   },
