@@ -1,16 +1,48 @@
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigationType } from 'react-router-dom';
 
 function getHeaderOffset() {
   const header = document.querySelector('.site-header');
   return header ? header.offsetHeight : 0;
 }
 
+// Where each history entry was last scrolled to, by its router key. The
+// browser's own restore runs before the old page is back in the DOM (the
+// document is still too short), so on Back the position is put back here.
+const positions = new Map();
+
 export default function ScrollToTop() {
   const location = useLocation();
-  const { pathname, hash } = location;
+  const { pathname, hash, key } = location;
 
   useEffect(() => {
+    const save = () => positions.set(key, window.scrollY);
+    window.addEventListener('scroll', save, { passive: true });
+    return () => window.removeEventListener('scroll', save);
+  }, [key]);
+
+  // Back and Forward (and a reload) are POP: the browser puts the reader
+  // back where they were, and scrolling to the top undid it (UX audit,
+  // 2026-11-10: Back from a post landed ten screens above the list).
+  const navType = useNavigationType();
+
+  useEffect(() => {
+    if (navType === 'POP' && !hash) {
+      const y = positions.get(key);
+      if (!y) return undefined;
+      // Wait (up to a second) for the page to be tall enough again.
+      let tries = 0;
+      const id = setInterval(() => {
+        tries += 1;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        if (max >= y - 4 || tries >= 20) {
+          clearInterval(id);
+          window.scrollTo({ top: y, left: 0, behavior: 'instant' });
+        }
+      }, 50);
+      return () => clearInterval(id);
+    }
+
     // Helper to run on the next paint (after layout)
     const nextFrame = (fn) =>
       requestAnimationFrame(() => requestAnimationFrame(fn));
@@ -22,7 +54,7 @@ export default function ScrollToTop() {
       nextFrame(() => {
         window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
       });
-      return;
+      return undefined;
     }
 
     // B) HASH NAVIGATION → wait for element, then scroll
@@ -50,7 +82,7 @@ export default function ScrollToTop() {
     }, 50);
 
     return () => clearInterval(interval);
-  }, [pathname, hash]);
+  }, [pathname, hash, navType, key]);
 
   return null;
 }

@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import postsData from '../../data/posts.json';
+import servicesData from '../../data/services.json';
+import { servicePath } from '../../data/navigation';
+import { BLOG_CATEGORIES } from './categories';
 import BookCallCta from '../ui/BookCallCta';
 import { Block, formatDate } from './blogBlocks';
 import { plainText } from './inlineLinks';
@@ -30,7 +33,24 @@ const shortDate = (iso) => {
 // Posts per list page. 11 so the current 12 posts paginate (owner,
 // 2026-09-11): page 1 holds 11, page 2 the oldest.
 const PAGE_SIZE = 11;
-const pageCount = Math.ceil(sortedPosts.length / PAGE_SIZE);
+
+/* Topic filter and list page live in the URL (`?topic=seo-growth&page=2`),
+   so Back from a post returns to the list as it was left (UX audit,
+   2026-11-10: 29 posts in date order, no way to see one topic, and Back
+   reopened page 1). Only topics that have a post are offered. */
+const topicSlug = (c) => c.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+const TOPICS = BLOG_CATEGORIES.filter((c) => sortedPosts.some((p) => p.category === c));
+const inTopic = (topic) => (topic ? sortedPosts.filter((p) => p.category === topic) : sortedPosts);
+const pagesOf = (list) => Math.max(1, Math.ceil(list.length / PAGE_SIZE));
+
+// The service a reader of this category would hire (none for studio news).
+const CATEGORY_SERVICE = {
+  'Web Design': 'web-development-mobile-apps',
+  'Web Development': 'web-development-mobile-apps',
+  'Brand Identity': 'graphic-design-brand-identity',
+  'SEO & Growth': 'seo-ai-search',
+  'AI & Automation': 'ai-automation',
+};
 
 /* Column rhythm (owner, 2026-09-11): the body is cut into sections at each
    heading, and each section is set in one or two columns. The intro (before
@@ -77,12 +97,34 @@ const JournalReader = ({ post, isIndex = false }) => {
   // The list opens on the page that holds the open post. Derived from the
   // route (not the viewport), so the static HTML and hydration agree.
   const postPage = Math.max(0, Math.floor(idx / PAGE_SIZE));
-  const [page, setPage] = useState(postPage);
-  useEffect(() => setPage(postPage), [postPage]);
+  // The URL's topic and page are applied after mount: the static HTML has
+  // neither, so the first render must not read them.
+  const [params, setParams] = useSearchParams();
+  const [view, setView] = useState({ topic: '', page: postPage });
+  useEffect(() => {
+    const topic = TOPICS.find((c) => topicSlug(c) === params.get('topic')) || '';
+    const n = Number(params.get('page'));
+    const ok = Number.isInteger(n) && n >= 1 && n <= pagesOf(inTopic(topic));
+    setView({ topic, page: ok ? n - 1 : topic ? 0 : postPage });
+  }, [postPage, params]);
+  const { topic, page } = view;
+  const listPosts = inTopic(topic);
+  const pageCount = pagesOf(listPosts);
+  const go = (next) => {
+    const v = { ...view, ...next };
+    setView(v);
+    const q = {};
+    if (v.topic) q.topic = topicSlug(v.topic);
+    if (v.page !== (v.topic ? 0 : postPage)) q.page = String(v.page + 1);
+    setParams(q, { replace: true, preventScrollReset: true });
+  };
   const rootRef = useRef(null);
   useJournalMotion(rootRef, post.slug, page);
-  const pagePosts = sortedPosts.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
+  const pagePosts = listPosts.slice(page * PAGE_SIZE, page * PAGE_SIZE + PAGE_SIZE);
   const nextPost = sortedPosts[(idx + 1) % sortedPosts.length];
+  // The end of an article: who can do this, and more on the same topic.
+  const service = servicesData.find((s) => s.slug === CATEGORY_SERVICE[post.category]);
+  const related = sortedPosts.filter((p) => p.category === post.category && p.slug !== post.slug).slice(0, 3);
   const TitleTag = isIndex ? 'h2' : 'h1';
   const JournalTag = isIndex ? 'h1' : 'p';
   const {
@@ -124,7 +166,24 @@ const JournalReader = ({ post, isIndex = false }) => {
           All {sortedPosts.length} articles <span aria-hidden="true">↓</span>
         </a>
 
-        <ol id="journal-list" className="journal__list" aria-label="All articles">
+        {/* Phones: the list follows the article, so it gets a heading there
+            (the rows read as stray links under "Next article"). */}
+        <p className="journal__list-head" aria-hidden="true">
+          More from the Journal
+        </p>
+        <label className="journal__topic">
+          <span>Topic</span>
+          <select value={topic} onChange={(e) => go({ topic: e.target.value, page: 0 })}>
+            <option value="">All topics ({sortedPosts.length})</option>
+            {TOPICS.map((c) => (
+              <option key={c} value={c}>
+                {c} ({inTopic(c).length})
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <ol id="journal-list" className="journal__list" aria-label={topic ? `Articles on ${topic}` : 'All articles'}>
           {pagePosts.map((p) => {
             const active = p.slug === post.slug;
             return (
@@ -144,7 +203,7 @@ const JournalReader = ({ post, isIndex = false }) => {
           })}
           {/* A short last page keeps its full height (owner, 2026-09-11): empty
               rows with the same markup, so the pager and details never jump. */}
-          {Array.from({ length: pageCount > 1 ? PAGE_SIZE - pagePosts.length : 0 }, (_, n) => (
+          {Array.from({ length: !topic && pageCount > 1 ? PAGE_SIZE - pagePosts.length : 0 }, (_, n) => (
             <li key={`pad-${n}`} aria-hidden="true">
               <span className="journal__item">
                 <span className="journal__item-title">&nbsp;</span>
@@ -158,7 +217,7 @@ const JournalReader = ({ post, isIndex = false }) => {
             <button
               type="button"
               className="journal__pager-step"
-              onClick={() => setPage((n) => Math.max(0, n - 1))}
+              onClick={() => go({ page: Math.max(0, page - 1) })}
               disabled={page === 0}
               aria-label="Previous page"
             >
@@ -169,7 +228,7 @@ const JournalReader = ({ post, isIndex = false }) => {
                 key={n}
                 type="button"
                 className={`journal__pager-num${n === page ? ' is-current' : ''}`}
-                onClick={() => setPage(n)}
+                onClick={() => go({ page: n })}
                 aria-current={n === page ? 'page' : undefined}
                 aria-label={`Page ${n + 1}`}
               >
@@ -179,7 +238,7 @@ const JournalReader = ({ post, isIndex = false }) => {
             <button
               type="button"
               className="journal__pager-step"
-              onClick={() => setPage((n) => Math.min(pageCount - 1, n + 1))}
+              onClick={() => go({ page: Math.min(pageCount - 1, page + 1) })}
               disabled={page === pageCount - 1}
               aria-label="Next page"
             >
@@ -255,6 +314,16 @@ const JournalReader = ({ post, isIndex = false }) => {
             {title}
           </TitleTag>
           {excerpt && <p className="journal__lede">{excerpt}</p>}
+          {/* Who wrote it and how long it takes, before the reading starts:
+              the details list sits under the whole article on a phone and
+              is clipped on a short laptop (UX audit, 2026-11-10). */}
+          {(author || date || readingTime) && (
+            <p className="journal__byline">
+              {[author && `${author}${authorRole ? `, ${authorRole}` : ''}`, date && formatDate(date), readingTime]
+                .filter(Boolean)
+                .join(' · ')}
+            </p>
+          )}
         </header>
 
         <div className="journal__body">
@@ -271,6 +340,27 @@ const JournalReader = ({ post, isIndex = false }) => {
         </div>
 
         <footer className="journal__foot">
+          {/* A finished reader first gets the service behind the topic and
+              more on it; the call comes third (UX audit, 2026-11-10: the end
+              was a sales call and a post picked by date). */}
+          {service && (
+            <Link to={servicePath(service.slug)} className="journal__next journal__next--service">
+              <span className="journal__next-label">The service behind this article</span>
+              <span className="journal__next-title">{service.title} &rarr;</span>
+            </Link>
+          )}
+          {related.length > 0 && (
+            <nav className="journal__related" aria-label={`More on ${post.category}`}>
+              <p className="journal__next-label">More on {post.category}</p>
+              <ul>
+                {related.map((p) => (
+                  <li key={p.slug}>
+                    <Link to={`/blog/${p.slug}`}>{p.title}</Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          )}
           <p className="journal__cta-line">Like how we think? Let's build something together.</p>
           <BookCallCta className="journal__cta" />
           {nextPost && nextPost.slug !== post.slug && (
