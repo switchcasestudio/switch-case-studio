@@ -1,6 +1,6 @@
 # STATUS — Switch Case Studio site (switchcasestudio.com, repo switchcasestudio/switch-case-studio, PUBLIC)
 
-updated 2026-11-11 (call label and length) · facts as recorded in `.audit/summary.md` entries, not re-verified against production · Read this first; then `CLAUDE.md` (working rules), `.audit/rules.md`, `.audit/open-tickets.md`.
+updated 2026-11-11 (session handoff: UX audit follow-up) · facts as recorded in `.audit/summary.md` entries, not re-verified against production · Read this first; then `CLAUDE.md` (working rules), `.audit/rules.md`, `.audit/open-tickets.md`.
 Sources: [S date] = `.audit/summary.md` entry (dated `###` entries, newest at the bottom; older sections in `.audit/history/summary-2026-05-to-2026-10-09.md`); [git] = repo checked 2026-10-27; (unverified) = no later entry confirms it.
 
 ## Current state
@@ -17,6 +17,7 @@ Sources: [S date] = `.audit/summary.md` entry (dated `###` entries, newest at th
 - Journal: covers required (2026-10-25); scheduler pushes posts to main at 14:00 UTC — fetch/rebase before touching `posts.json` [S 2026-10-09 handoff; 2026-10-25].
 
 ## Next actions (ours)
+00. 2026-11-11, UX audit follow-up: `main` = `origin/main`, everything live. Waiting on the owner (24 findings less the call and Prodani items): office-hour hours and refund rule; review dates and platforms; why the contact form requires a phone number; board row grades; each project's `outcome` line; confirm year two on a care plan and store accounts billed to the client. Offered: one fresh Prodani measurement on the live Rounded theme. Owed by us: a simulator pass of the 11-11 changes; a `CHANGELOG.md` entry for the audit work [S 2026-11-11 handoff].
 0. 2026-10-31: confirm the directory post published (07:00 PT run) and Beau's packet went out (12:05 PM ET); confirm wordpress.org/themes/unhurried shows 1.0.2 and links the Theme URI; watch for Abby Brennan's reply [S 2026-10-30].
 1. Phone passes on real/simulated iPhone for the lesson controls: Web drag + tap; AI range + text; SEO map slider + text fields [S 2026-10-26/27, 10-27 ×2] (open).
 2. Owner review of the SEO world and of the home + Web heroes on the iPhone [S 2026-10-27].
