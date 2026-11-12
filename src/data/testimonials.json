@@ -54,7 +54,7 @@
     "project": "prodani-miami",
     "highlight": "One of the most professional studios out there – you can truly feel the passion and love they put into their work, and it shows in the results.",
     "testimonial": "One of the most professional studios out there – you can truly feel the passion and love they put into their work, and it shows in the results. I deeply appreciate the professionalism, determination, availability, and commitment to helping me reach my exact business goals. It's clear that Switch Case Studio brings the knowledge and experience needed to guide you in the right direction – with a well-balanced, thoughtful approach that connects all the elements your business needs. Thank you so much. I'm so glad I got to work with you – here's to many more years of collaboration!",
-    "metric": { "value": "−74%", "label": "homepage weight after the rebuild, 6.95MB to 1.83MB", "source": "Measured before and after the rebuild", "href": "/projects/prodani-miami" },
+    "metric": { "value": "−74%", "label": "homepage weight after the first rebuild, 6.95MB to 1.83MB", "source": "Measured August 2026; the October relaunch in the case study measures −68%", "href": "/projects/prodani-miami" },
     "image": "/images/dani.avif"
   },
   {
