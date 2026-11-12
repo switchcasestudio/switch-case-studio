@@ -336,7 +336,7 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
 
     // Square, like every CTA since 2026-09-12 (see aboutPage.scss `.ap-btn`) —
     // was a pill with a lilac glow on hover, the one CTA on this page still
-    // out of step with the nav "Book a strategy call" button above it.
+    // out of step with the nav call button above it.
     &-btn {
       display: inline-flex;
       align-items: center;

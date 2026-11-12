@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import useTryHint from '../worlds/tryHint';
 import BrandHero from './BrandHero';
 import TypeTester from './TypeTester';
@@ -107,7 +108,7 @@ export default function BrandWorld() {
       <Bubbles title="Once it ships, clients say" service="graphic-design-brand-identity" />
       <WorldClose
         title="Your mark is next."
-        note="Every identity starts with a free call. This page is the work; the packages are on the pricing page."
+        note={`Every identity starts with a ${BOOK_CALL_KIND}. This page is the work; the packages are on the pricing page.`}
         pricing={{ label: 'See packages and prices', to: '/pricing/graphic-design-brand-identity' }}
         primary={{ label: 'Start a brand', to: '/contact' }}
         secondary={{ label: 'See client work', to: '/projects' }}

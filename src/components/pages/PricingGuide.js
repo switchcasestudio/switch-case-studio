@@ -9,7 +9,7 @@ import SinglePricingCard from '../ui/SinglePricingCard';
 import RotatingProof from '../ui/RotatingProof';
 import PackageBoard, { hasPackageBoard } from '../pricing/PackageBoard';
 import BookCallCta from '../ui/BookCallCta';
-import { BOOK_CALL_URL, BOOK_CALL_LABEL } from '../../data/cta';
+import { BOOK_CALL_URL, BOOK_CALL_LABEL, BOOK_CALL_LENGTH } from '../../data/cta';
 import { SERVICE_PAGES, servicePath } from '../../data/navigation';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import {
@@ -236,7 +236,7 @@ export const PricingGuide = ({ serviceId, serviceSlug }) => {
         </a>
         {/* The page never said the call costs nothing or that it leaves the
             site (UX audit, 2026-11-10). */}
-        <p className="pg-footer__note">The call is free. It opens our booking calendar in a new tab.</p>
+        <p className="pg-footer__note">The call is free and takes {BOOK_CALL_LENGTH}. It opens our booking calendar in a new tab.</p>
       </footer>
     </section>
   );

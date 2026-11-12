@@ -414,6 +414,12 @@
         background-color 0.2s ease,
         border-color 0.2s ease;
 
+      // "Book a free discovery call" in capitals is 318px at this padding and
+      // a 360px phone has 312px, so it broke to two lines (2026-11-11).
+      @media (max-width: 380px) {
+        padding-inline: 1rem;
+      }
+
       .cta-arrow {
         transition: transform 0.2s ease;
       }

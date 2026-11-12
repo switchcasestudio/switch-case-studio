@@ -9,6 +9,7 @@ import useBuildReveal from '../../hooks/useBuildReveal';
 import armSafetyNet from '../../animation/armSafetyNet';
 import Polaroids from '../sections/Polaroids';
 import BookCallCta from '../ui/BookCallCta';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import MagneticButton from '../ui/MagneticButton';
 import teamData from '../../data/team.json';
 import { ORG_ID, personId } from '../../utils/schemaIds';
@@ -57,7 +58,7 @@ const PRINCIPLES = [
 ];
 
 const STEPS = [
-  { title: 'Call', body: 'A strategy call about your goals, your customers and what the site or system has to do.' },
+  { title: 'Call', body: `A ${BOOK_CALL_KIND} about your goals, your customers and what the site or system has to do.` },
   { title: 'Plan', body: 'A written scope, priced from our published tiers, before any work starts.' },
   { title: 'Design', body: 'Layouts and brand built on your real content, reviewed with you before code.' },
   { title: 'Build', body: 'Hand-written code with the AI and automations wired in, checked at phone and desktop sizes.' },

@@ -49,15 +49,31 @@
   // Three columns (owner, 2026-09-11): an empty left column (the fixed logo
   // floats there), the nav centered, the booking button alone on the right.
   // Equal 1fr sides keep the nav on the true center of the bar.
+  // The right column never drops under the button's one-line width
+  // (2026-11-11): with `minmax(0, 1fr)` the button was squeezed to 120px at
+  // 1024 and wrapped to three lines, four with the longer label, so the bar
+  // grew from 78px to 125px and the sticky offsets below it were wrong.
+  // Under about 1250px the left column gives up the room and the nav sits
+  // left of center.
   &_inner {
     max-width: none;
     margin: 0 auto;
     padding-inline: 32px;
     min-height: 57px; // = logo height, so the 10px padding centers it
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto minmax(max-content, 1fr);
     align-items: center;
     column-gap: 28px;
+
+    // Narrow desktops: the row tightens so the nav still clears the fixed
+    // logo (115px from the left edge) with the button on one line.
+    @media (min-width: 961px) and (max-width: 1099px) {
+      column-gap: 20px;
+    }
+    @media (min-width: 961px) and (max-width: 1019px) {
+      padding-inline: 16px;
+      column-gap: 16px;
+    }
   }
 
   &_nav {
@@ -71,6 +87,8 @@
 
   .headingCTA {
     // Square, border-only on black (owner, 2026-09-12); fills on hover.
+    // One line always: the grid's right column is sized to it.
+    white-space: nowrap;
     font-weight: 400;
     background: #000;
     padding: 10px 16px;
@@ -94,6 +112,13 @@
       display: flex;
       align-items: center;
       gap: 24px;
+
+      @media (min-width: 961px) and (max-width: 1099px) {
+        gap: 16px;
+      }
+      @media (min-width: 961px) and (max-width: 1019px) {
+        gap: 12px;
+      }
       list-style: none;
       margin: 0;
       padding: 0;

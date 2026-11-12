@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import useTryHint from '../worlds/tryHint';
 import KindsHero from './KindsHero';
 import Deliverables from './Deliverables';
@@ -104,7 +105,7 @@ export default function WebWorld() {
       <Bubbles title="Once it's live, clients say" service="web-development-mobile-apps" offset={2} />
       <WorldClose
         title="Your build is next."
-        note="Every build starts with a free call. This page is what we build; the packages are on the pricing page."
+        note={`Every build starts with a ${BOOK_CALL_KIND}. This page is what we build; the packages are on the pricing page.`}
         pricing={{ label: 'See packages and prices', to: '/pricing/web-development-mobile-apps' }}
         primary={{ label: 'Start a project', to: '/contact' }}
         secondary={{ label: 'See client work', to: '/projects' }}

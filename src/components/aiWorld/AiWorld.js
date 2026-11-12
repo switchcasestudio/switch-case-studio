@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import useTryHint from '../worlds/tryHint';
 import AutomationHero from './AutomationHero';
 import Deliverables from './Deliverables';
@@ -105,7 +106,7 @@ export default function AiWorld() {
       <Bubbles title="Once it runs, clients say" service="ai-automation" offset={3} />
       <WorldClose
         title="Your first automation is next."
-        note="Every automation starts with a free call. This page is what they do; the packages are on the pricing page."
+        note={`Every automation starts with a ${BOOK_CALL_KIND}. This page is what they do; the packages are on the pricing page.`}
         pricing={{ label: 'See packages and prices', to: '/pricing/ai-automation' }}
         primary={{ label: 'Start an automation', to: '/contact' }}
         secondary={{ label: 'See Scout, a studio product', to: '/projects/scout' }}

@@ -6,6 +6,7 @@ import { fromPrices } from '../../data/fromPrice';
 import ServicePoster from '../servicePoster/ServicePoster';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import BookCallCta from '../ui/BookCallCta';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import { SERVICE_PAGES, servicePath } from '../../data/navigation';
 import '../../styles/components/serviceIndexPage.scss';
 
@@ -27,7 +28,7 @@ const COPY = {
     lede: 'Four services, one studio. Pick one to see the work; the packages and prices are a page away.',
     ledeLink: { to: '/pricing', label: 'Compare packages and prices' },
     bottomHeading: 'Not sure which service you need?',
-    bottomBody: "Book a free call; we'll figure it out together.",
+    bottomBody: `Book a ${BOOK_CALL_KIND}; we'll figure it out together.`,
   },
   pricing: {
     seoTitle: 'Pricing | Switch Case Studio',
@@ -40,7 +41,7 @@ const COPY = {
     titleBottom: 'package by package.',
     lede: 'Pick a service to see what each package includes and where its price starts. Every starting price is on the page.',
     bottomHeading: 'Not sure which package you need?',
-    bottomBody: "Book a free call; we'll figure it out together.",
+    bottomBody: `Book a ${BOOK_CALL_KIND}; we'll figure it out together.`,
   },
 };
 

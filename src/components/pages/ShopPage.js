@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import Seo from '../util/Seo';
 import shop from '../../data/shop.json';
 import BookCallCta from '../ui/BookCallCta';
+import { BOOK_CALL_LENGTH } from '../../data/cta';
 import '../../styles/components/shop.scss';
 
 /**
@@ -39,7 +40,7 @@ const GROUPS = [
     title: 'Office hours',
     kind: 'Office hours',
     note: 'You bring the questions. We teach, you do the work.',
-    // The paid hour sat beside the "strategy call" with nothing to tell them
+    // The paid hour sat beside the free call with nothing to tell them
     // apart (UX audit, 2026-11-10): one teaches, the other starts a project.
     project: true,
   },
@@ -99,7 +100,7 @@ const ShopPage = () => (
         </ul>
         {group.project && (
           <p className="shop__project">
-            Hiring us for a project? That call is free.{' '}
+            Hiring us for a project? That call is free and takes {BOOK_CALL_LENGTH}.{' '}
             <BookCallCta className="shop__project-link" />
           </p>
         )}

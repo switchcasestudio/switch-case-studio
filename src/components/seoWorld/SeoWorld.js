@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import useTryHint from '../worlds/tryHint';
 import SearchHero from './SearchHero';
 import Deliverables from './Deliverables';
@@ -104,7 +105,7 @@ export default function SeoWorld() {
       <Bubbles title="Once they find you, clients say" service="seo-ai-search" offset={0} />
       <WorldClose
         title="Your first fix is next."
-        note="Every SEO engagement starts with a free call. This page is what the work does; the packages are on the pricing page."
+        note={`Every SEO engagement starts with a ${BOOK_CALL_KIND}. This page is what the work does; the packages are on the pricing page.`}
         pricing={{ label: 'See packages and prices', to: '/pricing/seo-ai-search' }}
         primary={{ label: 'Start with an audit', to: '/contact' }}
         secondary={{ label: "See Zahav's calls", to: '/projects/zahav-medspa' }}

@@ -12,6 +12,7 @@ import inkPoster from '../../assets/videos/contact-ink-poster.jpg';
 import useReducedMotion from '../../hooks/useReducedMotion';
 import playMuted from '../../utils/playMuted';
 import BookCallCta from '../ui/BookCallCta';
+import { BOOK_CALL_LENGTH } from '../../data/cta';
 import { trackEvent } from '../../analytics/ga';
 import sendContact from '../../utils/sendContact';
 import { CONSENT_TEXT } from '../../data/legal';
@@ -342,7 +343,7 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
                 nothing said it is free or that it opens another tab. */}
             {status !== 'success' && (
               <p className="contact-right__talk contact-animate">
-                <span>Prefer to talk? The call is free.</span>
+                <span>Prefer to talk? The call is free and takes {BOOK_CALL_LENGTH}.</span>
                 <BookCallCta className="contact-right__talk-link">
                   <span aria-hidden="true"> ↗</span>
                 </BookCallCta>

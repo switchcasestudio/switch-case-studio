@@ -5,6 +5,7 @@ import testimonialsData from '../../data/testimonials.json';
 import projectsData from '../../data/projects.json';
 import usePageHeaderReveal from '../../hooks/usePageHeaderReveal';
 import BookCallCta from '../ui/BookCallCta';
+import { BOOK_CALL_KIND } from '../../data/cta';
 import '../../styles/components/testimonialsPage.scss';
 
 // The lede's count follows the data, so a new review can't leave it stale.
@@ -232,7 +233,7 @@ const ReviewsPage = () => {
         <div className="testimonials-page__bottom">
           <h2 className="testimonials-page__bottom-heading">Ready to be next?</h2>
           <p className="testimonials-page__bottom-body">
-            Book a free call and let&apos;s talk about your project.
+            Book a {BOOK_CALL_KIND} and let&apos;s talk about your project.
           </p>
           <BookCallCta className="testimonials-page__bottom-btn" />
         </div>

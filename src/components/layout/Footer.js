@@ -88,8 +88,7 @@ const SERVICES_LINKS = SERVICE_LINKS;
 
 const CONNECT_LINKS = [
   {
-    // Unified CTA (label + URL from src/data/cta.js): "Book a strategy
-    // call" since 2026-09-11, no 'free' badge.
+    // Unified CTA (label + URL from src/data/cta.js).
     label: BOOK_CALL_LABEL,
     href: BOOK_CALL_URL,
     external: true,
@@ -209,7 +208,7 @@ const Footer = () => {
     >
       <div className="site-footer__inner">
         {/* ============================================================
-         * CTA band — giant email + "Start New Project" button
+         * CTA band: giant email + the call button (one label, from cta.js)
          * ============================================================ */}
         <div className="footer-cta footer-col-animate">
           <a href={`mailto:${CONTACT_EMAIL}`} className="footer-cta__email">
@@ -222,7 +221,7 @@ const Footer = () => {
             rel="noopener noreferrer"
             className="footer-cta__button"
           >
-            Start New Project
+            {BOOK_CALL_LABEL}
             <span className="sr-only"> (opens the booking calendar in a new tab)</span>
           </a>
         </div>

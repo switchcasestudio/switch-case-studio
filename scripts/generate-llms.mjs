@@ -66,7 +66,7 @@ ${[
   link('AI and automation service', '/services/ai-automation', 'What an assistant, an agent and a workflow from the studio do, shown running'),
   link('Client reviews', '/testimonials'),
   link('Shop', '/shop', 'WordPress themes and one-to-one office hours'),
-  link('Contact', '/contact', 'Book a strategy call or send a message'),
+  link('Contact', '/contact', 'Book a free discovery call or send a message'),
 ].join('\n')}
 
 ## Journal

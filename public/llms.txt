@@ -38,7 +38,7 @@ The studio offers 4 services, each with published starting prices for its packag
 - [AI and automation service](https://switchcasestudio.com/services/ai-automation): What an assistant, an agent and a workflow from the studio do, shown running
 - [Client reviews](https://switchcasestudio.com/testimonials)
 - [Shop](https://switchcasestudio.com/shop): WordPress themes and one-to-one office hours
-- [Contact](https://switchcasestudio.com/contact): Book a strategy call or send a message
+- [Contact](https://switchcasestudio.com/contact): Book a free discovery call or send a message
 
 ## Journal
 
