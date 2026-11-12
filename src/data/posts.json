@@ -1,5 +1,148 @@
 [
   {
+    "slug": "logo-file-formats-small-business",
+    "title": "Which Logo File Formats Does Your Business Need?",
+    "seoTitle": "Logo File Formats for Small Businesses",
+    "excerpt": "A practical guide to SVG, PNG, JPG, PDF, and source files, including what to request so your logo works on websites, signs, print, and social media.",
+    "kicker": "Brand Identity",
+    "category": "Brand Identity",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-11-12",
+    "readingTime": "5 min read",
+    "coverImage": "/images/journal/logo-file-formats-small-business.webp",
+    "imageAlt": "White file organizers and books arranged on a pale office desk",
+    "tags": [
+      "Logo Design",
+      "Brand Assets",
+      "File Formats"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A logo handoff is not finished when a designer sends one JPG. That file may look fine in an email signature, then fall apart when a sign shop enlarges it or a developer needs a transparent version for the website. A useful logo package gives the business the right file for each job, with enough structure that nobody has to rebuild the mark later."
+      },
+      {
+        "type": "paragraph",
+        "text": "For most small businesses, the practical set is simple: an editable vector source, an SVG, a transparent PNG, a JPG, and a print-ready PDF. The formats are not duplicates. Each solves a different problem."
+      },
+      {
+        "type": "heading",
+        "text": "Start with vector and raster"
+      },
+      {
+        "type": "paragraph",
+        "text": "Logo files fall into two broad families. Raster files are grids of pixels. Vector files describe shapes and paths. [MDN's guide to vector graphics](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Including_vector_graphics_in_HTML) explains why that distinction matters: a vector can scale cleanly, while a raster file has a fixed pixel grid."
+      },
+      {
+        "type": "paragraph",
+        "text": "That makes the vector file the master. It can become a tiny website icon, a storefront sign, or a vehicle graphic without inventing detail that was never there. Raster exports are still useful, but they should be made from the master at the size the job needs. Enlarging a small PNG does not turn it into a vector. It turns it into a larger blurry PNG."
+      },
+      {
+        "type": "heading",
+        "text": "SVG: the everyday web logo"
+      },
+      {
+        "type": "paragraph",
+        "text": "SVG is usually the best logo format for a modern website. The [W3C defines SVG](https://www.w3.org/TR/SVG2/) as an XML-based language for two-dimensional vector graphics, so it stays sharp across phone screens, large monitors, and high-density displays. It can also keep a transparent background."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use SVG for website headers, footers, interface marks, and many digital documents. Keep a clean exported SVG for use, plus the editable source file it came from. An SVG can be opened and changed, but an exported file is not always organized like the designer's working document."
+      },
+      {
+        "type": "heading",
+        "text": "PNG: the transparent fallback"
+      },
+      {
+        "type": "paragraph",
+        "text": "PNG is a raster format, but it is valuable because it supports transparency and preserves sharp edges without lossy compression. [MDN recommends PNG](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types) when precise reproduction or transparency matters. That makes it useful for presentation software, email signatures, marketplace profiles, and tools that will not accept SVG."
+      },
+      {
+        "type": "paragraph",
+        "text": "Ask for more than one size. A small PNG is efficient for a profile image, while a larger export gives a vendor room to work. Both should have a transparent background unless a specific color field is part of the composition."
+      },
+      {
+        "type": "heading",
+        "text": "JPG: convenient, but not the master"
+      },
+      {
+        "type": "paragraph",
+        "text": "JPG is easy to preview and accepted almost everywhere, which makes it useful for quick sharing and platforms with limited upload options. It is also lossy and does not support transparency, so it is a poor master logo file. [Adobe's image format guide](https://www.adobe.com/express/discover/tips/image-file/guide) notes that transparent areas in a JPG are flattened to a solid background."
+      },
+      {
+        "type": "paragraph",
+        "text": "Use a JPG when you need a logo already placed on white, black, or another approved background. Do not send it to a fabricator and expect a clean cut path."
+      },
+      {
+        "type": "heading",
+        "text": "PDF: the vendor-friendly print file"
+      },
+      {
+        "type": "paragraph",
+        "text": "A properly exported vector PDF is useful for printers, sign shops, and packaging vendors. It can preserve the paths, type, and page setup that production software expects. Adobe notes that [PDF can preserve editable vector paths](https://helpx.adobe.com/illustrator/desktop/get-started/learn-the-basics/supported-file-formats-in-illustrator.html) when it is saved with the appropriate editing capabilities."
+      },
+      {
+        "type": "paragraph",
+        "text": "The word properly matters. A low-resolution JPG placed inside a PDF is still a low-resolution image. The container does not improve the artwork. Keep the original vector source and export the PDF from that source."
+      },
+      {
+        "type": "heading",
+        "text": "AI or another editable source: the file you archive"
+      },
+      {
+        "type": "paragraph",
+        "text": "The editable source is the file used to build the logo, often an AI file in an Adobe workflow. This is the archive copy for future revisions, new lockups, or vendor exports. You may not open it often, and that is fine. Store it somewhere the business controls, alongside the fonts and license notes the identity requires."
+      },
+      {
+        "type": "paragraph",
+        "text": "EPS still appears in older print workflows. If a current vendor requests it, export one from the vector master. Most businesses do not need to make EPS the center of their asset library when SVG and PDF already cover their normal web and print work."
+      },
+      {
+        "type": "heading",
+        "text": "The file package is only half the job"
+      },
+      {
+        "type": "paragraph",
+        "text": "Every useful logo package should also include variants. At minimum, provide the primary lockup, a compact or horizontal lockup if the brand uses one, a symbol, a one-color version, and versions approved for light and dark backgrounds. A single full-color logo is not enough when the next placement is a square avatar, a one-color invoice, or a dark trade show wall."
+      },
+      {
+        "type": "list",
+        "items": [
+          "Editable vector source for the archive",
+          "SVG for the website and scalable digital use",
+          "Transparent PNG exports in practical small and large sizes",
+          "JPG exports on approved solid backgrounds",
+          "Vector PDF for print and production vendors",
+          "Primary, compact, symbol, one-color, light-background, and dark-background variants",
+          "A short usage guide with colors, spacing, and minimum-size rules"
+        ]
+      },
+      {
+        "type": "heading",
+        "text": "Name the files so people can use them"
+      },
+      {
+        "type": "paragraph",
+        "text": "Good naming removes guesswork. `brand-primary-full-color-rgb.svg` tells a developer much more than `final-logo-7.svg`. Separate web and print folders. Label RGB and CMYK assets. Include the background or color treatment in the filename. The goal is not a museum archive. It is a system a busy person can use correctly without opening every file."
+      },
+      {
+        "type": "paragraph",
+        "text": "This is why [brand identity work](/services/graphic-design-brand-identity) should end with decisions and usable assets, not only a presentation. On projects such as [Prodani Miami](/projects/prodani-miami), the identity has to move across the storefront, packaging, and trade show materials without becoming a different brand at every stop. The file package is the quiet infrastructure that makes that consistency possible."
+      },
+      {
+        "type": "quote",
+        "text": "A logo file is useful when the next person can choose it correctly without calling the designer.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "paragraph",
+        "text": "If your current logo lives only as a JPG pulled from an old website, do not wait for the next print deadline. Find the original source now, rebuild it if necessary, and make a clean package once. That small piece of housekeeping prevents a surprising amount of future friction."
+      }
+    ]
+  },
+  {
     "slug": "website-maintenance-checklist-small-business",
     "title": "A Website Maintenance Checklist for Small Businesses",
     "excerpt": "Website maintenance should protect the paths that earn trust and revenue. Use this practical weekly, monthly, quarterly, and annual checklist.",

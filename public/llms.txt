@@ -42,6 +42,7 @@ The studio offers 4 services, each with published starting prices for its packag
 
 ## Journal
 
+- [Which Logo File Formats Does Your Business Need?](https://switchcasestudio.com/blog/logo-file-formats-small-business): A practical guide to SVG, PNG, JPG, PDF, and source files, including what to request so your logo works on websites, signs, print, and social media
 - [A Website Maintenance Checklist for Small Businesses](https://switchcasestudio.com/blog/website-maintenance-checklist-small-business): Website maintenance should protect the paths that earn trust and revenue. Use this practical weekly, monthly, quarterly, and annual checklist
 - [Unhurried Is Now in the WordPress Theme Directory](https://switchcasestudio.com/blog/unhurried-is-in-the-wordpress-theme-directory): Our free block theme passed the WordPress.org review. You can now install Unhurried by searching for it inside WordPress
 - [Structured Data for Small Business Websites](https://switchcasestudio.com/blog/structured-data-for-small-business-websites): Structured data helps search systems understand a business, but useful markup starts with accurate facts, restrained schema, and regular testing
