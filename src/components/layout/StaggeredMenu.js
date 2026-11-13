@@ -489,7 +489,7 @@ const StaggeredMenu = ({
           </ul>
 
           <div className="sm-socials" aria-label="Quick links">
-            <h3 className="sm-socials-title">Quick Links</h3>
+            <p className="sm-socials-title">Quick Links</p>
             <ul className="sm-socials-list">
               <li className="sm-socials-item">
                 <BookCallCta className="sm-socials-link sm-cta-link" />

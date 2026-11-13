@@ -233,3 +233,14 @@
   from = "/pricing/hosting-maintenance"
   to = "/pricing/web-development-mobile-apps"
   status = 301
+
+# Markdown copies of every page (is-agentic scan, 2026-11-13), written by
+# scripts/generate-markdown.mjs at postbuild and served by the edge function
+# netlify/edge-functions/markdown.js to Accept: text/markdown requests. Read
+# directly at /<page>.md they are duplicates of the HTML, so keep them out
+# of search.
+[[headers]]
+  for = "/*.md"
+  [headers.values]
+    Content-Type = "text/markdown; charset=utf-8"
+    X-Robots-Tag = "noindex"

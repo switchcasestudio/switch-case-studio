@@ -65,3 +65,6 @@ linkedin-posts/
 # Ad/commercial production (Remotion project, renders) — local only
 ADS/
 .env
+
+# Written by the Netlify CLI when it bundles edge functions locally
+deno.lock

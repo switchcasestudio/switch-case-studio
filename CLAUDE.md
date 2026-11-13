@@ -71,13 +71,14 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - `grep -l 'id="S:' build/**/*.html` matches nothing; `<h1` sits inside `<main>` on every page.
 - `grep -l '__SCS_LANDING_PATHNAME__' build/assets/app-*.js` matches (entry chunk only).
 - `grep -o '—' build/**/*.html build/assets/*` returns only `clampAtWord`'s regex.
-- `find build -name '*.html' | wc -l` = route baseline (68 as of 2026-11-10); re-baseline in `.audit/rules.md` when routes change.
+- `find build -name '*.html' | wc -l` = route baseline (69 as of 2026-11-13, with `/unhurried/guide/`); re-baseline in `.audit/rules.md` when routes change. `find build -name '*.md' | wc -l` = 67 (every page but the two noindex ones) and `npm test` passes.
 - `npm run check:us` (postbuild) is clean: US English only in built pages (text, alt/title/aria/meta, JSON-LD), in `src/`, `public/`, `content/` (comments too) and in `public/` file names (`scripts/check-us-english.mjs`, words in `scripts/british-words.mjs`). After adding an image or video with text: `npm run check:us:images` (OCR, local).
 - Every `<title>` ≤ 60, every meta description ≤ 160; `grep -c "SCS Display" build/assets/*.css` hits only the app bundle.
 - Before blog work: fetch + rebase (scheduler pushes to main daily). A post with no cover can no longer ship: `add-post.mjs` refuses it and `check:media` (prebuild) fails.
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- Agents read every page as Markdown from the same URL (`Accept: text/markdown`, edge function `markdown.js`, .md files from `generate-markdown.mjs` at postbuild), a missing page answers 404 in Markdown, `llms.txt` opens with "When to use", the first heading on every page is the `h1` (is-agentic scan, 2026-11-13).
 - A client report on a service page is rebuilt as live text, names the client and never redraws Google's logos; a clip-path wipe on wrapping text needs `inline-block` or it clips to the first line (`seoWorld/ReportProof.js`, 2026-11-12; the case study carries the screenshot itself as `evidence`).
 - A figure shown away from its case study names the build and date it measured (owner, 2026-11-11: Prodani's review keeps −74%, labeled "after the first rebuild", measured August 2026, and names the case study's −68% for the October relaunch); re-measuring a case study means checking `testimonials.json` `metric` the same day.
 - The call's label and length live once in `src/data/cta.js` (owner, 2026-11-11: "Book a free discovery call", 30 minutes; sentences read `BOOK_CALL_LENGTH` / `BOOK_CALL_KIND`, the footer band uses the label too); the header's right column is `minmax(max-content, 1fr)` with a `nowrap` button so the bar stays 78px (it was 125px at 1024), and a label change is measured on every calendar link at six widths against live.

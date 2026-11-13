@@ -241,7 +241,7 @@ const Footer = () => {
 
           {/* Services */}
           <div className="footer-col footer-col-animate">
-            <h4 className="footer-col__title">Services</h4>
+            <h2 className="footer-col__title">Services</h2>
             <ul className="footer-nav">
               {SERVICES_LINKS.map((link) => (
                 <li key={link.to}>
@@ -255,7 +255,7 @@ const Footer = () => {
               full 8-project list (also in the header dropdown) was half of
               why the mobile footer scrolled forever. */}
           <div className="footer-col footer-col-animate">
-            <h4 className="footer-col__title">Case Studies</h4>
+            <h2 className="footer-col__title">Case Studies</h2>
             <ul className="footer-nav">
               {PROJECT_LINKS.slice(0, 6).map((proj) => (
                 <li key={proj.to}>
@@ -272,7 +272,7 @@ const Footer = () => {
 
           {/* Connect */}
           <div className="footer-col footer-col-animate">
-            <h4 className="footer-col__title">Connect</h4>
+            <h2 className="footer-col__title">Connect</h2>
             <ul className="footer-nav">
               {CONNECT_LINKS.map((link) => (
                 <li key={link.label} className="footer-nav__item">
