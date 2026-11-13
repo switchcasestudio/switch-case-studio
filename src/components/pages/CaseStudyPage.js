@@ -259,6 +259,9 @@ const CaseStudyPage = () => {
     brandKitNote,
     // Optional motion piece: { mp4, webm?, poster, alt, caption?, note? }.
     motion,
+    // Optional source behind the Results (a client's analytics report):
+    // { src, srcSmall?, width, height, alt, caption?, label? }. Absent → no band.
+    evidence,
     imageAlt,
     // ── Optional bento media. Each tile renders ONLY if its field exists. ──
     mediaMobile,
@@ -706,6 +709,40 @@ const CaseStudyPage = () => {
                 </div>
               </div>
             )}
+          </section>
+        )}
+
+        {/* ── Evidence band: the source behind the Results, shown whole ──
+            A client's own report (screenshot, unedited apart from the crop),
+            so a reader can check the figures above against it. Contain-fit at
+            its own ratio, never a 4/3 cover tile: it has to be read. */}
+        {evidence?.src && (
+          <section className="project-page__evidence reveal" aria-label={evidence.label || 'Source'}>
+            <h2 className="project-page__section-label">{evidence.label || 'Source'}</h2>
+            <figure className="project-page__evidence-item">
+              <button
+                type="button"
+                className="project-page__evidence-frame"
+                onClick={() => setZoomSrc(evidence.src)}
+                aria-label={`Zoom into ${evidence.alt}`}
+              >
+                <img
+                  src={evidence.src}
+                  srcSet={evidence.srcSmall ? `${evidence.srcSmall} ${evidence.width / 2}w, ${evidence.src} ${evidence.width}w` : undefined}
+                  sizes="(max-width: 840px) 100vw, 760px"
+                  width={evidence.width}
+                  height={evidence.height}
+                  alt={evidence.alt}
+                  className="project-page__evidence-img"
+                  loading="lazy"
+                />
+              </button>
+              {evidence.caption && (
+                <figcaption className="project-page__compare-caption">
+                  <span>{evidence.caption}</span>
+                </figcaption>
+              )}
+            </figure>
           </section>
         )}
 

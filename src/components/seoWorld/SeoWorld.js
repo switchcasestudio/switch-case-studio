@@ -6,6 +6,7 @@ import { BOOK_CALL_KIND } from '../../data/cta';
 import useTryHint from '../worlds/tryHint';
 import SearchHero from './SearchHero';
 import Deliverables from './Deliverables';
+import ReportProof from './ReportProof';
 import { Crawl, MissingPage, Local, LocalFactors, Rich, RichRules, Quoted, QuotablePassage, CostPerLead, LeadMath } from './lessons';
 import '../../styles/components/brandWorld.scss';
 import '../../styles/components/seoWorld.scss';
@@ -102,6 +103,7 @@ export default function SeoWorld() {
       <SearchHero />
       <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" />
       <Deliverables />
+      <ReportProof />
       <Bubbles title="Once they find you, clients say" service="seo-ai-search" offset={0} />
       <WorldClose
         title="Your first fix is next."

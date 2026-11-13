@@ -858,6 +858,7 @@
       { "value": "68%", "label": "of Google search visits engaged, 19 of 28, Oct 16 to Nov 12, 2026 (Google Analytics)" },
       { "value": "< 2 weeks", "label": "design to live" }
     ],
+    "evidence": { "label": "From the client's report", "src": "/projects/florida-energy-assistance/ga4-report.webp", "srcSmall": "/projects/florida-energy-assistance/ga4-report-720.webp", "width": 1440, "height": 1102, "alt": "Google Analytics performance report for October 16 to November 12, 2026: 75 active users, up 120.59%; 74 new users, up 124.24%; 47 seconds average engagement time, up 6.86%; 377 events, up 117.92%", "caption": "Google Analytics, as emailed to the client, October 16 to November 12, 2026. Arrows compare with the 28 days before." },
     "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns: structured for quality score, designed for conversion.",
     "servicePages": ["web-development-mobile-apps", "seo-ai-search"],
     "services": [

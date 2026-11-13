@@ -1,0 +1,208 @@
+// A client's month, in Google's words (2026-11-12, `seoWorld/ReportProof.js`):
+// a Google Analytics report email rebuilt as live text on an ink panel.
+// Static HTML is the finished report. With motion allowed the script adds
+// `.is-live`: the track grows tall and the sheet sticks under the header
+// while scroll drives the assembly. Colors are the report's own (Google's
+// orange date, green deltas) on a white sheet; GSAP only moves things.
+.sw-report {
+  --sw-green: #188038;
+  --sw-green-soft: #ceead6;
+  --sw-orange: #e8710a;
+  --sw-line: #dadce0;
+  --sw-ink: #202124;
+  --sw-gray: #5f6368;
+
+  margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.25rem, 4vw, 4rem);
+  border-radius: 24px;
+  background: $promo-ink;
+  color: $white-color;
+
+  &__title {
+    font-family: $font-text;
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    font-weight: 500;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+    max-width: 22ch;
+    text-wrap: balance;
+  }
+
+  &__track {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
+
+  // Never `overflow: hidden` on any ancestor of the pin: it breaks sticky.
+  &.is-live &__track {
+    height: 260vh;
+  }
+
+  &.is-live &__pin {
+    position: sticky;
+    top: var(--sw-top, 0px);
+    height: calc(100svh - var(--sw-top, 0px));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__fig {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 880px;
+  }
+
+  &__sheet {
+    background: #fff;
+    color: var(--sw-ink);
+    border-radius: 18px;
+    padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1rem, 3vw, 2.5rem) clamp(1.25rem, 3vw, 2.25rem);
+    text-align: center;
+  }
+
+  &__brand {
+    display: flex;
+    justify-content: space-between;
+    font-family: $font-text;
+    font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+    color: var(--sw-gray);
+
+    span:first-child {
+      font-weight: 600;
+      color: var(--sw-ink);
+    }
+  }
+
+  &__rule {
+    display: block;
+    height: 1px;
+    margin: clamp(0.6rem, 1.4vw, 1rem) calc(-1 * clamp(1rem, 3vw, 2.5rem)) 0;
+    background: var(--sw-line);
+  }
+
+  &__h {
+    margin: clamp(1rem, 3vh, 2rem) auto 0;
+    max-width: 18ch;
+    font-family: $font-text;
+    font-size: clamp(1.6rem, 4.2vw, 3rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  &__line {
+    display: inline-block;
+  }
+
+  // One box, not an inline run: a clip-path on an inline element that wraps
+  // clips to its first line, so "November 12th" never showed.
+  &__date {
+    display: inline-block;
+    color: var(--sw-orange);
+  }
+
+  &__sub {
+    margin: clamp(0.6rem, 2vh, 1.25rem) auto 0;
+    max-width: 44ch;
+    font-family: $font-text;
+    font-size: clamp(0.95rem, 1.5vw, 1.15rem);
+    line-height: 1.45;
+    color: var(--sw-gray);
+  }
+
+  &__cards {
+    list-style: none;
+    margin: clamp(1rem, 3vh, 2rem) 0 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.5rem, 1.2vw, 0.9rem);
+
+    @media (max-width: 639px) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.35rem, 1vh, 0.75rem);
+    padding: clamp(0.75rem, 2vh, 1.4rem) 0.5rem;
+    border: 1px solid var(--sw-line);
+    border-radius: 12px;
+    font-family: $font-text;
+  }
+
+  &__label {
+    font-size: clamp(0.85rem, 1.3vw, 1rem);
+    font-weight: 600;
+    line-height: 1.25;
+    min-height: 2.5em;
+    display: flex;
+    align-items: center;
+  }
+
+  &__num {
+    font-size: clamp(1.9rem, 4vw, 2.75rem);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    color: #3c4043;
+  }
+
+  &__delta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: clamp(0.95rem, 1.5vw, 1.2rem);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    color: var(--sw-green);
+  }
+
+  &__arrow {
+    width: 1.15em;
+    height: 1.15em;
+    flex: none;
+  }
+
+  &__arrow-dot {
+    fill: var(--sw-green-soft);
+  }
+
+  &__arrow-mark {
+    fill: none;
+    stroke: var(--sw-ink);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  &__cap {
+    margin: 1rem auto 0;
+    max-width: 62ch;
+    font-family: $font-text;
+    font-size: 1rem;
+    line-height: 1.55;
+    color: rgba($white-color, 0.8);
+    text-align: center;
+
+    a {
+      color: $white-color;
+      text-decoration: underline;
+      text-underline-offset: 0.2em;
+      white-space: nowrap;
+    }
+  }
+
+  // Short screens: the pinned report must fit between the header and the
+  // bottom edge, so the sub line steps out first.
+  @media (max-height: 760px) {
+    &.is-live &__sub {
+      display: none;
+    }
+  }
+}

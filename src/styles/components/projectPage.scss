@@ -485,6 +485,41 @@ $pp-tile-bg: rgba(255, 255, 255, 0.02);
     }
   }
 
+  // ── Evidence band ────────────────────────────────────
+  // A client's report shown whole at its own ratio, the source of the
+  // Results above it. Large enough to read at 760px; a tap zooms it.
+  &__evidence {
+    max-width: $pp-max;
+    margin: 0 auto;
+    padding: 1rem 1.5rem 0;
+
+    @media (max-width: 960px) {
+      padding: 1rem 1.25rem 0;
+    }
+  }
+
+  &__evidence-item {
+    margin: 0 0 1.5rem;
+    max-width: 760px;
+  }
+
+  &__evidence-frame {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #fff;
+    cursor: zoom-in;
+  }
+
+  &__evidence-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
   // ── Brand kit ────────────────────────────────────────
   // Behance-style boards: full width, whole, stacked tight. Boards are 16:10
   // and designed to read at column width, so no min-width scroll here (the

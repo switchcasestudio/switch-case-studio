@@ -32,6 +32,7 @@ for (const p of readJson('src/data/projects.json')) {
   if (p.preview?.endsWith('preview.webp')) need(who, 'preview (600w sibling)', p.preview.replace(/preview\.webp$/, 'preview-600.webp'));
   if (p.longWeb?.endsWith('/long.webp')) need(who, 'longWeb (700w sibling)', p.longWeb.replace(/long\.webp$/, 'long-700.webp'));
   for (const c of p.comparisons || []) need(who, 'comparisons[].src', c.src);
+  if (p.evidence) { need(who, 'evidence.src', p.evidence.src); need(who, 'evidence.srcSmall', p.evidence.srcSmall); }
   for (const b of p.brandKit || []) { need(who, 'brandKit[].src', b.src); need(who, 'brandKit[].srcSmall', b.srcSmall); }
   if (p.imageSrc && !/\.(jpe?g|png|webp)$/i.test(p.imageSrc)) problems.push(`${who}: imageSrc ${p.imageSrc} is the og:image and must be JPEG, PNG or WebP`);
 }
