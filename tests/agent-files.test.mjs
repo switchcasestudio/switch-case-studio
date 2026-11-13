@@ -70,6 +70,7 @@ test('llms.txt tells agents when to use the studio and how to engage', () => {
   assert.match(txt, /^## When to use Switch Case Studio$/m);
   assert.match(txt, /How an agent should engage:/);
   assert.match(txt, /https:\/\/switchcasestudio\.com\/contact/);
+  assert.match(txt, /\+1 925-323-1356/);
   assert.match(txt, /Accept: text\/markdown/);
   assert.match(txt, /\(from \$\d/); // prices read from pricingData.json
   assert.ok(!/—/.test(txt), 'no em dash');
@@ -81,6 +82,9 @@ test('Organization JSON-LD has contactPoint and address', () => {
   assert.equal(org.contactPoint['@type'], 'ContactPoint');
   assert.ok(org.contactPoint.contactType);
   assert.match(org.contactPoint.email, /@switchcasestudio\.com$/);
+  assert.equal(org.contactPoint.telephone, '+1-925-323-1356');
+  assert.equal(org.telephone, org.contactPoint.telephone);
+  assert.deepEqual(org.areaServed.map((a) => a.name), ['United States', 'Worldwide']);
   assert.equal(org.address['@type'], 'PostalAddress');
 });
 
