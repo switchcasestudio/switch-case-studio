@@ -838,7 +838,7 @@
   {
     "id": 1,
     "slug": "florida-energy-assistance", "indexLine": "Home energy programs",
-    "indexMetric": { "value": "< 2 weeks", "label": "design to live" },
+    "indexMetric": { "value": "3%", "label": "of visitors applied, Oct to Nov 2026" },
     "type": "Landing Page",
     "badge": "Landing Page",
     "featured": true,
@@ -853,8 +853,8 @@
     "outcome": "",
     "year": "2026",
     "metrics": [
-      { "value": "Single CTA", "label": "one conversion path, zero friction" },
-      { "value": "Mobile-first", "label": "built for paid traffic sources" },
+      { "value": "3%", "label": "of visitors applied: 2 of 75, Oct 16 to Nov 12, 2026 (Google Analytics)" },
+      { "value": "68%", "label": "of Google search visits engaged, 19 of 28, Oct 16 to Nov 12, 2026 (Google Analytics)" },
       { "value": "< 2 weeks", "label": "design to live" }
     ],
     "description": "A performance landing page for a Florida home energy lead campaign. The brief was simple: explain a complex government program in plain English, build trust fast, and make it easy for homeowners to submit their eligibility. Built mobile-first, form-first, with a single conversion path and zero friction. This is the type of page we build for Google Ads and Meta campaigns: structured for quality score, designed for conversion.",

@@ -13,6 +13,7 @@ const GLOSSES = [
   [/structured data/i, 'Structured data is the labeling that lets Google show rich results.'],
   [/allowed to index/i, 'Indexed pages are the ones Google can show in search.'],
   [/average Google position/i, 'Where the page ranks in Google results. 1 is the top.'],
+  [/visits engaged/i, 'Google counts a visit as engaged when it lasts over 10 seconds or opens a second page.'],
 ];
 
 export const metricGloss = (label = '') => {
