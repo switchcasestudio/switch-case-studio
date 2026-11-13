@@ -78,6 +78,7 @@ Full text, evidence and verification steps: **`.audit/rules.md`**. Read the matc
 - Never write VPS specifics (paths, hosts, IPs, ports) into this file or `.audit/`: both are public.
 
 **Index:**
+- A page's URL is the word its link uses and no internal link goes through a redirect: Reviews lives at `/reviews` (`/testimonials` 301s there), and `tests/links.test.mjs` fails on any built link to a redirect source or a slash URL (2026-11-13).
 - Agents read every page as Markdown from the same URL (`Accept: text/markdown`, edge function `markdown.js`, .md files from `generate-markdown.mjs` at postbuild), a missing page answers 404 in Markdown, `llms.txt` opens with "When to use", the first heading on every page is the `h1` (is-agentic scan, 2026-11-13).
 - A client report on a service page is rebuilt as live text, names the client and never redraws Google's logos; a clip-path wipe on wrapping text needs `inline-block` or it clips to the first line (`seoWorld/ReportProof.js`, 2026-11-12; the case study carries the screenshot itself as `evidence`).
 - A figure shown away from its case study names the build and date it measured (owner, 2026-11-11: Prodani's review keeps −74%, labeled "after the first rebuild", measured August 2026, and names the case study's −68% for the October relaunch); re-measuring a case study means checking `testimonials.json` `metric` the same day.

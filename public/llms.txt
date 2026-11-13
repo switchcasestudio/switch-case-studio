@@ -59,7 +59,7 @@ Reading this site: every page is available as Markdown. Request any page URL wit
 - [Pricing](https://switchcasestudio.com/pricing): Packages and prices for all 4 services
 - [Graphic design and brand identity service](https://switchcasestudio.com/services/graphic-design-brand-identity): What a brand identity from the studio looks like, shown not told
 - [AI and automation service](https://switchcasestudio.com/services/ai-automation): What an assistant, an agent and a workflow from the studio do, shown running
-- [Client reviews](https://switchcasestudio.com/testimonials)
+- [Client reviews](https://switchcasestudio.com/reviews)
 - [Shop](https://switchcasestudio.com/shop): WordPress themes and one-to-one office hours
 - [Contact](https://switchcasestudio.com/contact): Book a free discovery call or send a message
 

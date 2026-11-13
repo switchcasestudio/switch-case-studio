@@ -452,7 +452,7 @@ const AboutPage = () => {
                 <blockquote>{LEAD_REVIEW.highlight}</blockquote>
                 <figcaption>
                   {LEAD_REVIEW.name}, {LEAD_REVIEW.title}.{' '}
-                  <Link to="/testimonials">Read all reviews</Link>
+                  <Link to="/reviews">Read all reviews</Link>
                 </figcaption>
               </figure>
             )}

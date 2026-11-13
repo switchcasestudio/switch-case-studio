@@ -105,7 +105,7 @@ const urls = [
   { loc: '/services/ai-automation', lastmod: lastmodOf('src/components/pages/AiAutomationPage.js', 'src/components/aiWorld', 'src/components/worlds'), priority: '0.8' },
   { loc: '/services/web-development-mobile-apps', lastmod: lastmodOf('src/components/pages/WebDevelopmentPage.js', 'src/components/webWorld', 'src/components/worlds'), priority: '0.8' },
   { loc: '/services/seo-ai-search', lastmod: lastmodOf('src/components/pages/SeoAiSearchPage.js', 'src/components/seoWorld', 'src/components/worlds'), priority: '0.8' },
-  { loc: '/testimonials', lastmod: page('ReviewsPage.js', 'src/data/testimonials.json'), priority: '0.7' },
+  { loc: '/reviews', lastmod: page('ReviewsPage.js', 'src/data/testimonials.json'), priority: '0.7' },
   { loc: '/contact', lastmod: page('ContactPage.js', 'src/components/sections/Contact.js'), priority: '0.7' },
   { loc: '/blog', lastmod: newestPost, priority: '0.7' },
   { loc: '/shop', lastmod: page('ShopPage.js', 'src/data/shop.json'), priority: '0.7' },

@@ -104,7 +104,7 @@ ${[
   link('Pricing', '/pricing', `Packages and prices for all ${services.length} services`),
   link('Graphic design and brand identity service', '/services/graphic-design-brand-identity', 'What a brand identity from the studio looks like, shown not told'),
   link('AI and automation service', '/services/ai-automation', 'What an assistant, an agent and a workflow from the studio do, shown running'),
-  link('Client reviews', '/testimonials'),
+  link('Client reviews', '/reviews'),
   link('Shop', '/shop', 'WordPress themes and one-to-one office hours'),
   link('Contact', '/contact', 'Book a free discovery call or send a message'),
 ].join('\n')}

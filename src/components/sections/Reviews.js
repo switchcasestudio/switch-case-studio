@@ -373,7 +373,7 @@ const Reviews = () => {
         <p className="testimonials-cta-text">Ready to be next?</p>
         <div className="testimonials-cta-actions">
           <Link
-            to="/testimonials"
+            to="/reviews"
             className="testimonials-cta-button testimonials-cta-button--ghost"
           >
             Read all reviews

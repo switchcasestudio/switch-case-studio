@@ -365,9 +365,9 @@ const Header = () => {
 
               <li className="nav_item">
                 <Link
-                  to="/testimonials"
-                  className={`nav_link ${isActive("/testimonials") ? "is-active" : ""}`}
-                  aria-current={isActive("/testimonials") ? "page" : undefined}
+                  to="/reviews"
+                  className={`nav_link ${isActive("/reviews") ? "is-active" : ""}`}
+                  aria-current={isActive("/reviews") ? "page" : undefined}
                 >
                   Reviews
                 </Link>

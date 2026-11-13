@@ -12,7 +12,7 @@ import '../../styles/components/testimonialsPage.scss';
 const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
 const CLIENT_COUNT = COUNT_WORDS[testimonialsData.length] ?? String(testimonialsData.length);
 
-/* /testimonials (2026-09-27, owner: "update the presentation"): one voice at
+/* /reviews (/testimonials until 2026-11-13; 2026-09-27, owner: "update the presentation"): one voice at
  * a time. The pull-quote set large, the person, the full review at reading
  * size, and, where the review has a case study on this site, the client's
  * site shot and a sourced figure with a link. The names run down the
@@ -84,7 +84,7 @@ const ReviewsPage = () => {
       <Seo
         title="Client Reviews | Switch Case Studio"
         description="See what clients say about Switch Case Studio: real results from real businesses we've helped grow."
-        path="/testimonials"
+        path="/reviews"
       />
 
       <article className="testimonials-page" aria-label="Client reviews" ref={rootRef}>

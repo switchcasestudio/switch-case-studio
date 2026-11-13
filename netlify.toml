@@ -118,11 +118,13 @@
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 
-# The nav says "Reviews" (design test, 2026-11-05) and the page lives at
-# /testimonials, so a typed /reviews lands there instead of the 404.
+# The page is /reviews, the word the nav uses (2026-11-13). It lived at
+# /testimonials until then (indexed and in the sitemap), so the old URL
+# 301s here in one hop. Before that, /reviews was itself a 301 to
+# /testimonials (2026-11-05), so every typed /reviews took a detour.
 [[redirects]]
-  from = "/reviews"
-  to = "/testimonials"
+  from = "/testimonials"
+  to = "/reviews"
   status = 301
 
 # /agents was removed 2026-09-02 (owner decision, refresh branch). It had been

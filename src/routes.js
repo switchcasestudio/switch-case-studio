@@ -248,7 +248,7 @@ export const routes = [
 
       // Standalone section pages
       {
-        path: 'testimonials',
+        path: 'reviews',
         lazy: page(() => import('./components/pages/ReviewsPage')),
       },
       {

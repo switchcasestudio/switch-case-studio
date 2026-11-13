@@ -881,7 +881,7 @@ const CaseStudyPage = () => {
               <blockquote className="project-page__result-text">{review.highlight}</blockquote>
               <figcaption>
                 {review.name}, {review.title}.{' '}
-                <Link to="/testimonials">Read the full review</Link>
+                <Link to="/reviews">Read the full review</Link>
               </figcaption>
             </figure>
           )}

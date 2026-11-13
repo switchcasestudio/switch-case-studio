@@ -445,10 +445,10 @@ const StaggeredMenu = ({
 
             <li className="sm-panel-itemWrap">
               <Link
-                to="/testimonials"
+                to="/reviews"
                 className="sm-panel-item"
-                aria-current={current('/testimonials')}
-                onClick={handleNavClick('/testimonials')}
+                aria-current={current('/reviews')}
+                onClick={handleNavClick('/reviews')}
               >
                 <span className="sm-panel-itemLabel">Reviews</span>
               </Link>
