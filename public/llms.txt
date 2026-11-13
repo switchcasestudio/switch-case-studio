@@ -26,7 +26,7 @@ The studio offers 4 services, each with published starting prices for its packag
 - [Sha Design Studio](https://switchcasestudio.com/projects/sha-design-studio): Toy Design Studio Website. 100 Lighthouse accessibility and SEO
 - [Jelly Belly Wiki](https://switchcasestudio.com/projects/jelly-belly-wiki): Python scraper → MySQL → C# / .NET API → React client. A four-stage data pipeline, built solo. Studio project. 317 records served across 5 resources
 - [Birth of Venus](https://switchcasestudio.com/projects/birth-of-venus): Interactive Art History Website. Studio project
-- [Florida Energy Assistance](https://switchcasestudio.com/projects/florida-energy-assistance): Landing Page for Florida Home Energy Programs. 2.7% of visitors applied, Oct to Nov 2026
+- [Florida Energy Assistance](https://switchcasestudio.com/projects/florida-energy-assistance): Landing Page for Florida Home Energy Programs. 3% of visitors applied, Oct to Nov 2026
 
 ## Pages
 
