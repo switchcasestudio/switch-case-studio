@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
+import StageLead, { LEAD_HOW } from '../worlds/StageLead';
+import ClientRow, { workFor } from '../worlds/ClientRow';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import { BOOK_CALL_KIND } from '../../data/cta';
@@ -101,8 +103,16 @@ export default function AiWorld() {
   return (
     <div ref={rootRef} className="bw bw--outline bw--ai">
       <AutomationHero />
-      <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" continuous />
+      <StageLead
+        breath="An automation is trusted on five points: it pays back, it answers from your facts, it knows when to hand over, it survives a failure and it keeps private data private."
+        how={LEAD_HOW}
+        line="What every automation has to get right."
+        field="#dab8ff"
+        ink="#141414"
+      />
+      <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" />
       <Deliverables />
+      <ClientRow id="aw-row-title" title="AI products we built" items={workFor('ai-automation')} />
       <Bubbles title="Once it runs, clients say" service="ai-automation" offset={3} />
       <WorldClose
         title="Your first automation is next."

@@ -1,16 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { play, halt, scrub } from './tryHint';
+import { scrub } from './tryHint';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* A world's process stage (2026-10-22): what the reference builds from 67
-   fixed layers. One pinned viewport, five states; per state the field color
-   fades over the last, the artifact scales in, the text card lands on the
-   other side, the sticker comes in from the other corner. Timeline on a
-   pinned ScrollTrigger (house pattern), same gate as the collage. Under
-   1024px or reduced motion the states stack as plain sections.
+/* A world's process stage: one pinned viewport, five states (2026-10-22),
+   played as one continuous shot (2026-11-15). Read frame by frame against
+   the owner's reference recording, the first timeline was a slideshow: every
+   part faded to nothing, the field crossfaded on an empty screen, the next
+   state faded in, and about 30% of a state's scroll showed a ghosted or
+   empty stage. The reference keeps a plate on screen at full strength on
+   every frame. So nothing here fades. The next plate grows out of the middle
+   of the one before it while both slide to the new side, the field cuts
+   under them, a card leaves by its edge before the next comes in by the
+   other, and a sticker rides up its lane for the whole hold. A `full`
+   state's plate is its whole article: the world grows out of the plate
+   before it and closes back in to the next. The stage arrives with its
+   first plate large and settles as it pins, and for as long as a state
+   holds, the visitor's scroll runs its demo (`scrub`, tryHint.js).
+   Under 1024px or reduced motion the states stack as plain sections; with
+   motion allowed, each stacked demo is run by its own pass up the screen.
    Shared by the worlds: `states` come from the page. A state:
      { key, field, ink, title, copy, side: 'left'|'right', corner: 'tr'|'bl',
        Art, Sticker, artRatio, stickerRatio, narrow?, lazy? }
@@ -19,24 +29,12 @@ gsap.registerPlugin(ScrollTrigger);
    `full` gives the Art the whole stage under the title, with no card and
    no sticker (the brand world's type tester, 2026-10-25); `tool` marks an
    Art with controls in it: it steps away from its card so no control sits
-   under it, and stacked it takes the height its content needs. */
-const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
-
-/* The continuous stage (2026-11-15, `continuous` prop; the brand world first).
-   Read against the owner's reference recording frame by frame, the classic
-   timeline below is a slideshow: every part fades to nothing, the field
-   crossfades on an empty screen, the next state fades in, and about 30% of a
-   state's scroll shows a ghosted or empty stage. The reference is one shot:
-   a plate is on screen at full strength on every frame. So here nothing
-   fades. The next plate grows out of the middle of the one before it while
-   both slide to the new side, the field flips under them, a card leaves by
-   its edge before the next comes in by the other, and a sticker drifts up
-   its lane for the whole hold. A `full` state's plate is its whole article:
-   the world grows out of the plate before it and shrinks back into the next.
-   The stage arrives with its first plate large and settles as it pins.
+   under it, and stacked it takes the height its content needs.
    Every clip-path tween is a fromTo with both strings written out: the
    computed value comes back shortened ("inset(0px round 14px)") and GSAP
    cannot pair its numbers with a four-value target. */
+const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
+const STACKED = '(max-width: 1023px) and (prefers-reduced-motion: no-preference)';
 const INTRO = 0.5; // timeline units before the first hold; a state is 1
 const R = 14; // a plate's corner radius, px
 const inset = (t, r, b, l, round = R) => `inset(${t}px ${r}px ${b}px ${l}px round ${round}px)`;
@@ -55,7 +53,7 @@ const alike = (a, b) => {
   return Math.max(Math.abs(x[0] - y[0]), Math.abs(x[1] - y[1]), Math.abs(x[2] - y[2])) < 40;
 };
 
-function buildContinuous(stage, els, states, tl) {
+function build(stage, els, states, tl) {
   const W = () => stage.clientWidth;
   const H = () => stage.clientHeight;
   const P = els.map((el, i) => ({
@@ -253,7 +251,7 @@ function buildContinuous(stage, els, states, tl) {
   return { total: at(last) + 1, intro };
 }
 
-export default function ProcessStage({ states, label, heading, continuous = false }) {
+export default function ProcessStage({ states, label, heading }) {
   const stageRef = useRef(null);
   const [near, setNear] = useState(false);
 
@@ -284,12 +282,10 @@ export default function ProcessStage({ states, label, heading, continuous = fals
       const header = document.querySelector('.site-header');
       const top = header ? header.offsetHeight : 0;
       stage.style.setProperty('--bw-top', `${top}px`);
-      // The state on screen, once its entrance has landed, gets the try-me pulse.
-      let hinted = -1;
       // Timeline units: one per state, after `intro` units of arrival.
       const span = { total: states.length, intro: 0 };
-      // The continuous stage: scroll is each demo's clock for as long as its
-      // state holds (the first one from the moment the stage arrives).
+      // Scroll is each demo's clock for as long as its state holds (the
+      // first one from the moment the stage arrives).
       const seen = states.map(() => 0);
       const run = (self) => {
         const t = self.progress * span.total - span.intro;
@@ -301,85 +297,84 @@ export default function ProcessStage({ states, label, heading, continuous = fals
           scrub(el, u);
         });
       };
-      const hint = (self) => {
-        if (continuous) {
-          run(self);
-          return;
-        }
-        const t = Math.max(0, self.progress * span.total - span.intro);
-        const i = Math.min(Math.floor(t), states.length - 1);
-        const f = t - i;
-        const on = self.isActive && (i === 0 || f > 0.3) && (f < 0.8 || i === states.length - 1) ? i : -1;
-        if (on === hinted) return;
-        if (hinted >= 0) halt(els[hinted]);
-        hinted = on;
-        if (on >= 0) play(els[on]);
-      };
       const tl = gsap.timeline({
         defaults: { ease: 'power2.out' },
         scrollTrigger: {
           trigger: stage,
           start: `top top+=${top}`,
-          end: `+=${(states.length + (continuous && !states[0].full ? INTRO : 0)) * 120}%`,
+          end: `+=${(states.length + (states[0].full ? 0 : INTRO)) * 120}%`,
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          onUpdate: hint,
-          onToggle: hint,
+          onUpdate: run,
+          onToggle: run,
         },
       });
-      if (continuous) {
-        stage.classList.add('is-continuous');
-        Object.assign(span, buildContinuous(stage, els, states, tl));
-        return () => {
-          els.forEach((el) => scrub(el, 0));
-          if (tl.scrollTrigger) tl.scrollTrigger.kill();
-          stage.classList.remove('is-continuous');
-        };
-      }
-      // Hold the last state as long as the others: the timeline runs to
-      // states.length seconds, one per state.
-      tl.to({}, { duration: 0.01 }, states.length);
-      els.forEach((el, i) => {
-        const s = states[i];
-        const art = el.querySelector('.bw-state__art, .bw-state__full');
-        // A full state has no card and no sticker.
-        const card = el.querySelector('.bw-state__card');
-        const sticker = el.querySelector('.bw-state__sticker');
-        const title = el.querySelector('.bw-state__title');
-        const parts = [art, card, title].filter(Boolean);
-        const at = i;
-        const cardX = s.side === 'right' ? 80 : -80;
-        const stX = s.corner === 'tr' ? 120 : -120;
-        const stY = s.corner === 'tr' ? -80 : 80;
-        if (i === 0) {
-          // The first state is already on when the stage pins; it only
-          // leaves. (A scrubbed entrance at progress 0 is a blank stage.)
-          gsap.set(stage, { backgroundColor: s.field, color: s.ink });
-          gsap.set(el, { autoAlpha: 1, pointerEvents: 'auto' });
-          gsap.set([...parts, sticker].filter(Boolean), { autoAlpha: 1 });
-        } else {
-          tl.to(stage, { backgroundColor: s.field, color: s.ink, duration: 0.3 }, at);
-          tl.set(el, { autoAlpha: 1, pointerEvents: 'auto' }, at);
-          tl.fromTo(art, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.3 }, at);
-          if (card) tl.fromTo(card, { autoAlpha: 0, x: cardX }, { autoAlpha: 1, x: 0, duration: 0.3 }, at + 0.05);
-          tl.fromTo(title, { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.25 }, at + 0.05);
-          if (sticker) tl.fromTo(sticker, { autoAlpha: 0, x: stX, y: stY }, { autoAlpha: 1, x: 0, y: 0, duration: 0.35 }, at + 0.15);
-        }
-        if (i < states.length - 1) {
-          tl.to(parts, { autoAlpha: 0, duration: 0.2 }, at + 0.8);
-          if (sticker) tl.to(sticker, { autoAlpha: 0, x: -stX, y: -stY, duration: 0.2 }, at + 0.8);
-          tl.set(el, { pointerEvents: 'none' }, at + 1);
-        }
-      });
+      // The class is on only while the pin runs: the stacked sheet never
+      // sees the styles that hang off it.
+      stage.classList.add('is-continuous');
+      Object.assign(span, build(stage, els, states, tl));
       return () => {
-        if (hinted >= 0) halt(els[hinted]);
+        els.forEach((el) => scrub(el, 0));
         if (tl.scrollTrigger) tl.scrollTrigger.kill();
+        stage.classList.remove('is-continuous');
+      };
+    });
+    // Stacked: a demo is run by its own pass up the screen, from 85% of the
+    // viewport's height to 15%, so the page moves under a thumb too. Stacked,
+    // a demo is as tall as its content, and a swept slider changes that (the
+    // type sample grew past two screens): the page would stretch and shrink
+    // under the scroll that drives it. So a demo keeps its resting height
+    // for as long as scroll runs it, and gets its own back when it is at
+    // rest or the visitor takes it over.
+    mm.add(STACKED, () => {
+      const els = [...stage.querySelectorAll('.bw-state')];
+      const demos = els.map((el) => el.querySelector('.bw-state__art, .bw-state__full') || el);
+      const seen = els.map(() => -1);
+      const held = els.map(() => false);
+      const hold = (i, on) => {
+        if (held[i] === on) return;
+        held[i] = on;
+        const d = demos[i];
+        d.style.height = on ? `${d.offsetHeight}px` : '';
+        d.style.overflow = on ? 'hidden' : '';
+      };
+      let raf = 0;
+      const tick = () => {
+        raf = 0;
+        const vh = window.innerHeight;
+        demos.forEach((d, i) => {
+          const r = d.getBoundingClientRect();
+          const u = Math.min(1, Math.max(0, (vh * 0.85 - (r.top + r.height / 2)) / (vh * 0.7)));
+          if (u === seen[i]) return;
+          seen[i] = u;
+          // Hold the height before the first value moves, at rest height.
+          if (u > 0 && u < 1 && !held[i]) hold(i, true);
+          const ours = scrub(els[i], u);
+          if (!ours || u <= 0 || u >= 1) hold(i, false);
+        });
+      };
+      const onScroll = () => {
+        if (!raf) raf = requestAnimationFrame(tick);
+      };
+      // A tap that takes a demo over also gives it its height back.
+      const onTap = () => requestAnimationFrame(() => els.forEach((el, i) => held[i] && !scrub(el, seen[i]) && hold(i, false)));
+      window.addEventListener('scroll', onScroll, { passive: true });
+      stage.addEventListener('pointerup', onTap);
+      tick();
+      return () => {
+        window.removeEventListener('scroll', onScroll);
+        stage.removeEventListener('pointerup', onTap);
+        cancelAnimationFrame(raf);
+        els.forEach((el, i) => {
+          scrub(el, 0);
+          hold(i, false);
+        });
       };
     });
     return () => mm.revert();
-  }, [states, continuous]);
+  }, [states]);
 
   return (
     <section ref={stageRef} className="bw-stage" aria-label={label}>

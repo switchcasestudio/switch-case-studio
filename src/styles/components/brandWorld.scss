@@ -986,6 +986,46 @@ $t-rule: rgba(20, 20, 20, 0.18);
   }
 }
 
+/* ---- The lead into the stage (worlds/StageLead.js) ---- */
+// One paragraph in a screen of air, then an inset plate that names what is
+// coming. Both static: the stage under them is the motion.
+.bw-lead {
+  &__breath {
+    max-width: 62ch;
+    margin: 0 auto;
+    padding: clamp(5rem, 22vh, 12rem) $edge-pad;
+    font-size: clamp(1rem, 1.25vw, 1.15rem);
+    line-height: 1.6;
+    text-align: center;
+    text-wrap: balance;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  // What answers to scroll: said only where something does.
+  &__how {
+    display: block;
+    margin-top: 0.75em;
+    color: #fff;
+
+    @media (prefers-reduced-motion: reduce) {
+      display: none;
+    }
+  }
+
+  &__board {
+    margin: 0 $edge-pad;
+    padding: clamp(3.5rem, 16vh, 9rem) clamp(1.5rem, 4vw, 4rem);
+    border-radius: 24px;
+    background: var(--bw-field);
+    color: var(--bw-ink);
+    text-align: center;
+  }
+
+  &__line {
+    @include bw-h2;
+  }
+}
+
 /* ---- Process stage ---- */
 // Full bleed, no corners (owner, 2026-10-22): an inset rounded card showed
 // its left corners while the pin clipped the right edge, which read as a
@@ -1178,8 +1218,10 @@ $t-rule: rgba(20, 20, 20, 0.18);
     margin-bottom: 2rem;
     padding: 1rem;
     border-radius: 18px;
-    background: $white-color;
-    color: $promo-ink;
+    // Each stacked state keeps its own field, as on the pinned stage
+    // (2026-11-15: five cream cards in a row lost the stage's color beat).
+    background: var(--bw-field, #{$white-color});
+    color: var(--bw-ink, #{$promo-ink});
 
     &__title,
     &__art,
@@ -1195,6 +1237,7 @@ $t-rule: rgba(20, 20, 20, 0.18);
     &__card {
       padding: 0;
       background: transparent;
+      color: inherit;
     }
 
     &__sticker {
@@ -1405,76 +1448,159 @@ $t-rule: rgba(20, 20, 20, 0.18);
 /* ---- Real client marks (ClientMarks.js) ---- */
 // On the page's own black: the cut logos are light marks on transparent,
 // the same files the home strip uses.
-.bw-marks {
+/* ---- Client row (worlds/ClientRow.js) ---- */
+// A lavender plate, a title, a row of real case studies. A wrapped grid by
+// default; on the pin gate one line, which the page's scroll pans when it is
+// wider than the plate (`is-panning`, set by the script once it pins).
+.bw-row {
   margin: clamp(3rem, 8vh, 6rem) $edge-pad 0;
-  padding: 0 clamp(0rem, 2vw, 2rem);
+  padding: clamp(2rem, 5vw, 3.5rem) 0;
+  border-radius: 24px;
+  background: $g5;
+  color: $promo-ink;
+  overflow: hidden;
 
   &__title {
     @include bw-h2;
-    color: #fff;
+    padding: 0 clamp(1.5rem, 4vw, 4rem);
+    text-align: center;
   }
 
-  &__row {
-    list-style: none;
-    margin: clamp(1.5rem, 3vw, 2.5rem) 0 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(1rem, 2.5vw, 2rem);
+  &__view {
+    margin-top: clamp(1.5rem, 3vw, 2.5rem);
+  }
 
-    @media (max-width: 767px) {
-      grid-template-columns: minmax(0, 1fr);
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0 clamp(1.5rem, 4vw, 4rem);
+    display: grid;
+    // Two across on a phone: six one-column cards were six screens of row.
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 120px), 1fr));
+    gap: clamp(1rem, 2vw, 1.5rem);
+
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     }
   }
 
-  &__item {
+  &__card {
     display: grid;
-    gap: 0.35rem;
-    justify-items: start;
+    align-content: start;
+    gap: 0.6rem;
     height: 100%;
-    padding: 1.5rem;
-    border: 2px solid rgba(255, 255, 255, 0.28);
-    border-radius: 24px;
-    color: #fff;
+    color: inherit;
     text-decoration: none;
-    transition: border-color 0.2s ease;
+
+    &:focus-visible {
+      outline: 2px solid $promo-ink;
+      outline-offset: 4px;
+      border-radius: 14px;
+    }
+
+    // Hover flips color, nothing else moves.
+    &:hover .bw-row__pill,
+    &:focus-visible .bw-row__pill {
+      background: $promo-ink;
+      color: $white-color;
+    }
+  }
+
+  &__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    min-height: 44px;
+    padding: 0.4rem 1.1rem;
+    // A long name wraps to two lines in a phone column: 22px stays a pill.
+    border-radius: 22px;
+    background: $orange-color;
+    color: $promo-ink;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  &__cell:nth-child(even) &__pill {
+    background: $blue-color;
+    color: $white-color;
+  }
+
+  &__tile {
+    display: block;
+    aspect-ratio: 16 / 10;
+    border: 2px solid $promo-ink;
+    border-radius: 14px;
+    background: $white-color;
+    overflow: hidden;
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    // A client's cut logo is drawn for the site's black.
+    &--logo {
+      display: grid;
+      place-items: center;
+      background: $promo-ink;
+
+      img {
+        width: auto;
+        height: 72px;
+        max-width: 70%;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__line {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+
+  &__card--more {
+    place-content: center;
+    min-height: 8rem;
+    padding: 1.5rem;
+    border-radius: 14px;
+    background: $orange-color;
+    text-align: center;
 
     &:hover,
     &:focus-visible {
-      border-color: $g6;
-    }
-
-    &:focus-visible {
-      outline: 2px solid $g6;
-      outline-offset: 4px;
+      background: $promo-ink;
+      color: $white-color;
     }
   }
 
-  &__logo {
-    display: block;
-    height: 72px;
-    width: auto;
-    max-width: 100%;
-    margin-bottom: 1rem;
-    object-fit: contain;
-  }
-
-  &__name {
+  &__more {
     font-size: 1.15rem;
     font-weight: 600;
   }
 
-  &__work {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: rgba(255, 255, 255, 0.75);
-  }
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    // Until the script pins it (or with no script), the line scrolls sideways.
+    &__view {
+      overflow-x: auto;
+    }
 
-  &__more {
-    margin-top: 0.75rem;
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: $g6;
+    &.is-panning &__view {
+      overflow: hidden;
+    }
+
+    &__list {
+      display: flex;
+      width: max-content;
+      min-width: 100%;
+      justify-content: center;
+    }
+
+    &__cell {
+      flex: 0 0 clamp(280px, 26vw, 380px);
+    }
   }
 }
 

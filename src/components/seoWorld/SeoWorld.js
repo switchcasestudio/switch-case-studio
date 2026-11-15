@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
+import StageLead, { LEAD_HOW } from '../worlds/StageLead';
+import ClientRow, { workFor } from '../worlds/ClientRow';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import { BOOK_CALL_KIND } from '../../data/cta';
@@ -101,9 +103,17 @@ export default function SeoWorld() {
   return (
     <div ref={rootRef} className="bw bw--outline bw--seo">
       <SearchHero />
-      <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" continuous />
+      <StageLead
+        breath="Being found is five separate jobs: get crawled, show on the map, earn the rich result, get quoted by AI and know what a lead costs."
+        how={LEAD_HOW}
+        line="What each way to be found takes."
+        field="#eaa8c6"
+        ink="#141414"
+      />
+      <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" />
       <Deliverables />
       <ReportProof />
+      <ClientRow id="sw-row-title" title="Search work for real businesses" items={workFor('seo-ai-search')} />
       <Bubbles title="Once they find you, clients say" service="seo-ai-search" offset={0} />
       <WorldClose
         title="Your first fix is next."

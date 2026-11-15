@@ -1,5 +1,6 @@
 import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
+import StageLead, { LEAD_HOW } from '../worlds/StageLead';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import { BOOK_CALL_KIND } from '../../data/cta';
@@ -102,7 +103,14 @@ export default function BrandWorld() {
   return (
     <div ref={rootRef} className="bw">
       <BrandHero />
-      <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" continuous />
+      <StageLead
+        breath="An identity is five decisions: the mark, the type, the color, the rhythm and the composition."
+        how={LEAD_HOW}
+        line="What a brand identity is made of."
+        field="#1748ef"
+        ink="#fef7ed"
+      />
+      <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" />
       <Deliverables />
       <ClientMarks />
       <Bubbles title="Once it ships, clients say" service="graphic-design-brand-identity" />

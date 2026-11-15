@@ -1,5 +1,7 @@
 import { useRef } from 'react';
 import ProcessStage from '../worlds/ProcessStage';
+import StageLead, { LEAD_HOW } from '../worlds/StageLead';
+import ClientRow, { workFor } from '../worlds/ClientRow';
 import Bubbles from '../worlds/Bubbles';
 import WorldClose from '../worlds/WorldClose';
 import { BOOK_CALL_KIND } from '../../data/cta';
@@ -100,8 +102,16 @@ export default function WebWorld() {
   return (
     <div ref={rootRef} className="bw bw--outline bw--web">
       <KindsHero />
-      <ProcessStage states={STATES} label="What every web build has to get right" heading="What we know" continuous />
+      <StageLead
+        breath="A build makes five promises to a visitor: fast, fitted to the screen, steady, quick to answer and open to everyone."
+        how={LEAD_HOW}
+        line="What every web build has to get right."
+        field="#ff834a"
+        ink="#141414"
+      />
+      <ProcessStage states={STATES} label="What every web build has to get right" heading="What we know" />
       <Deliverables />
+      <ClientRow id="ww-row-title" title="Sites and apps we built" items={workFor('web-development-mobile-apps')} />
       <Bubbles title="Once it's live, clients say" service="web-development-mobile-apps" offset={2} />
       <WorldClose
         title="Your build is next."

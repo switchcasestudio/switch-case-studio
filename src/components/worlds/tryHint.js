@@ -12,9 +12,9 @@ gsap.registerPlugin(Draggable);
    goes back when it ends. A run is capped at 5 s (WCAG 2.2.2), and a real
    press, key or focus in the frame undoes it and stops it for good. Heroes
    already run themselves and links do nothing to show, so those two only
-   pulse. Scroll position starts it: the pinned stage calls play/halt (its
-   states are stacked, so an observer would see all five), every other frame
-   is watched here. Pulse styles in brandWorld.scss. */
+   pulse. The stage's own states are not run here: the visitor's scroll runs
+   them (`scrub`, below, called by ProcessStage); every other frame is
+   watched here and gets its one run. Pulse styles in brandWorld.scss. */
 const PULSE_ONLY = '[class*="-hero__tp"], [class*="-hero__pick"], .bw-circle';
 const CONTROLS = [
   'button:not(:disabled)',
@@ -330,25 +330,40 @@ export function play(frame) {
    run. */
 const SCRUB_MAX = 4;
 
+/* A track reads where its control stands at the moment it leaves rest, never
+   at build: the type tester fits its size to its width after mount, and a
+   start read early (110px) swept a phone's 44px sample to 178px and "rested"
+   it at 110. */
 function rangeTrack(el) {
-  const start = +el.value;
-  const min = +el.min || 0;
-  const max = el.max === '' ? 100 : +el.max;
-  const step = +el.step || 1;
-  const span = (max - min) * 0.35;
-  const to = start + span <= max ? span : -span;
-  const snap = (v) => min + Math.round((v - min) / step) * step;
+  let start = null;
   return (u) => {
-    const v = snap(start + to * Math.sin(u * Math.PI));
+    if (u <= 0 || u >= 1) {
+      if (start !== null && +el.value !== start) setValue(el, String(start));
+      start = null;
+      return;
+    }
+    if (start === null) start = +el.value;
+    const min = +el.min || 0;
+    const max = el.max === '' ? 100 : +el.max;
+    const step = +el.step || 1;
+    const span = (max - min) * 0.35;
+    const to = start + span <= max ? span : -span;
+    const v = min + Math.round((start + to * Math.sin(u * Math.PI) - min) / step) * step;
     if (Math.abs(v - +el.value) > step / 2) setValue(el, String(+v.toFixed(6)));
   };
 }
 
 function textTrack(el) {
-  const start = el.value;
-  const bit = start ? start.slice(-Math.min(8, start.length)) : 'you@';
-  const base = start ? start.slice(0, -bit.length) : '';
+  let start = null;
   return (u) => {
+    if (u <= 0 || u >= 1) {
+      if (start !== null && el.value !== start) setValue(el, start);
+      start = null;
+      return;
+    }
+    if (start === null) start = el.value;
+    const bit = start ? start.slice(-Math.min(8, start.length)) : 'you@';
+    const base = start ? start.slice(0, -bit.length) : '';
     const k = Math.abs(2 * u - 1);
     const v = base + bit.slice(0, Math.round(bit.length * (start ? k : 1 - k)));
     if (v !== el.value) setValue(el, v);
@@ -431,21 +446,26 @@ function tracksFor(frame) {
 
 const scrubs = new WeakMap();
 
+// Returns whether the frame is still scroll's to run (false once a visitor
+// has taken it, or there is nothing in it to seek).
 export function scrub(frame, u) {
-  if (!frame || done.has(frame) || reduced()) return;
+  if (!frame || done.has(frame) || reduced()) return false;
   let s = scrubs.get(frame);
   if (!s) {
-    // Built at rest, the first time the frame is asked for anything.
+    // Built at rest, the first time the frame has somewhere to go: at mount
+    // a demo may not have settled into its layout yet.
+    if (u <= 0 || u >= 1) return true;
     s = { tracks: tracksFor(frame), live: false };
     scrubs.set(frame, s);
   }
   const n = s.tracks.length;
-  if (!n) return;
+  if (!n) return false;
   const on = u > 0 && u < 1;
   if (on && !s.live) hush(frame);
   s.tracks.forEach((seek, k) => seek(Math.min(1, Math.max(0, u * n - k))));
   if (!on && s.live) unhush(frame);
   s.live = on;
+  return true;
 }
 
 export function halt(frame, wait) {
@@ -463,7 +483,8 @@ export default function useTryHint(rootRef) {
     const root = rootRef.current;
     if (!root || reduced()) return undefined;
     const frames = [...root.querySelectorAll(FRAMES)];
-    const pinned = (el) => el.matches('.bw-state') && window.matchMedia('(min-width: 1024px)').matches;
+    // The stage runs its own states, by scroll (ProcessStage calls `scrub`).
+    const pinned = (el) => el.matches('.bw-state');
     // The middle half of the viewport: a frame taller than a phone still counts.
     const io = new IntersectionObserver(
       (entries) => {
@@ -477,8 +498,7 @@ export default function useTryHint(rootRef) {
     );
     frames.forEach((el) => io.observe(el));
     // isTrusted: the run's own events must not stop the run.
-    const stop = (e) => {
-      if (!e.isTrusted) return;
+    const own = (e) => {
       const frame = e.target.closest && e.target.closest(FRAMES);
       if (!frame) return;
       done.add(frame);
@@ -486,7 +506,28 @@ export default function useTryHint(rootRef) {
       // A scrubbed frame has no run to halt, but its live regions are quiet.
       unhush(frame, 0);
     };
-    const events = ['pointerdown', 'keydown', 'focusin'];
+    // A finger that lands on a frame is usually on its way to scroll the
+    // page, and every swipe starts with a pointerdown: on a phone that ended
+    // each demo before it began. A touch owns the frame only if it lifts
+    // without having become a scroll (the browser cancels the pointer then).
+    let touch = null;
+    const stop = (e) => {
+      if (!e.isTrusted) return;
+      if (e.type === 'pointerdown' && e.pointerType === 'touch') {
+        touch = e.pointerId;
+        return;
+      }
+      if (e.type === 'pointercancel') {
+        if (e.pointerId === touch) touch = null;
+        return;
+      }
+      if (e.type === 'pointerup') {
+        if (e.pointerId !== touch) return;
+        touch = null;
+      }
+      own(e);
+    };
+    const events = ['pointerdown', 'pointerup', 'pointercancel', 'keydown', 'focusin'];
     events.forEach((t) => root.addEventListener(t, stop, true));
     return () => {
       io.disconnect();
