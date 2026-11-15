@@ -3,6 +3,7 @@
 // node scripts/probe-stage.mjs <url> <outDir> <units> <intro> [from to step] [W H]
 //   units = states + intro (5.5 for a continuous stage, 5 and intro 0 for a classic one);
 //   t is in states: 0 is the first hold, a boundary is a whole number.
+//   RANGES="0.85:1.15,1.85:2.15" (env) probes several windows in one run.
 // Then: ffmpeg -pattern_type glob -i '<outDir>/p*.jpg' -vf "scale=480:-1,tile=6x5" -frames:v 1 sheet.png
 import { spawn } from "node:child_process";
 import { mkdirSync, writeFileSync } from "node:fs";
@@ -42,7 +43,10 @@ const dist = +UNITS * 1.2 * g.vh;
 const to = TO === "" ? +UNITS - +INTRO : +TO;
 const rows = [];
 let n = 0;
-for (let t = +FROM; t <= to + 1e-9; t += +STEP) {
+// RANGES="0.85:1.15,1.85:2.15" probes several windows in one run.
+const ranges = process.env.RANGES ? process.env.RANGES.split(",").map((r) => r.split(":").map(Number)) : [[+FROM, to]];
+const ticks = ranges.flatMap(([a, b]) => { const o = []; for (let t = a; t <= b + 1e-9; t += +STEP) o.push(t); return o; });
+for (const t of ticks) {
   const y = Math.round(start + ((t + +INTRO) / +UNITS) * dist);
   await ev(`window.scrollTo({top:${y},behavior:'instant'})`);
   await sleep(1100);

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { play, halt } from './tryHint';
+import { play, halt, scrub } from './tryHint';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,27 +65,60 @@ function buildContinuous(stage, els, states, tl) {
     card: el.querySelector('.bw-state__card'),
     sticker: el.querySelector('.bw-state__sticker'),
     title: el.querySelector('.bw-state__title'),
-    side: states[i].side,
-    corner: states[i].corner,
   }));
-  // A plate's box at rest, in stage pixels, read from layout: transforms do
-  // not move offsetLeft, and an art is centered on its left/top by a -50%
-  // translate, so its (offsetLeft, offsetTop) is its center.
-  const box = (p) =>
-    p.full
-      ? { cx: W() / 2, cy: H() / 2, w: W(), h: H() }
-      : { cx: p.plate.offsetLeft, cy: p.plate.offsetTop, w: p.plate.offsetWidth, h: p.plate.offsetHeight };
+  // Two stage layouts share this timeline: the brand world centers its art
+  // and card on a point with a -50% translate; the outline worlds place them
+  // by their edges, no transform. Read which, once, before GSAP writes any.
+  const centered = (el, axis) => {
+    if (!el) return false;
+    const m = new DOMMatrix(getComputedStyle(el).transform);
+    return axis === 'x' ? Math.abs(m.e + el.offsetWidth / 2) < 2 : Math.abs(m.f + el.offsetHeight / 2) < 2;
+  };
+  P.forEach((p) => {
+    p.cx = !p.full && centered(p.plate, 'x');
+    p.cy = !p.full && centered(p.plate, 'y');
+    p.cardY = centered(p.card, 'y');
+  });
+  // An element's box at rest, in stage pixels, read from layout (transforms
+  // do not move offsetLeft): { l, t, w, h }.
+  const rest = (el, cx, cy) => ({
+    l: el.offsetLeft - (cx ? el.offsetWidth / 2 : 0),
+    t: el.offsetTop - (cy ? el.offsetHeight / 2 : 0),
+    w: el.offsetWidth,
+    h: el.offsetHeight,
+  });
+  // A plate's box by its center.
+  const box = (p) => {
+    if (p.full) return { cx: W() / 2, cy: H() / 2, w: W(), h: H() };
+    const r = rest(p.plate, p.cx, p.cy);
+    return { cx: r.l + r.w / 2, cy: r.t + r.h / 2, w: r.w, h: r.h };
+  };
   const whole = (p) => (p.full ? inset(0, 0, 0, 0, 0) : inset(0, 0, 0, 0));
-  // How far a card or a sticker travels to clear its edge of the stage.
-  const off = (el, toRight) => (toRight ? W() - el.offsetLeft + 24 : -(el.offsetLeft + el.offsetWidth + 24));
-  const cardOff = (p) => () => off(p.card, p.side === 'right');
-  const stickerOff = (p) => () => off(p.sticker, p.corner === 'tr');
-  const drift = () => H() * 0.24;
+  // How far a card or a sticker travels to clear the nearer edge of the stage.
+  const off = (r) => (r.l + r.w / 2 > W() / 2 ? W() - r.l + 24 : -(r.l + r.w + 24));
+  const cardOff = (p) => () => off(rest(p.card, false, p.cardY));
+  const stickerOff = (p) => () => off(rest(p.sticker));
+  // A sticker's ride: up to 24% of the stage, ending as high above its place
+  // as the lane is free (its own card or the title row may sit above it) and
+  // starting the rest of the way below, never more than a third cut off.
+  const label = stage.querySelector('.bw-stage__h');
+  const lane = (p) => {
+    const D = H() * 0.24;
+    const st = rest(p.sticker);
+    const above = [p.card && rest(p.card, false, p.cardY), p.title && rest(p.title), label && rest(label)]
+      .filter((r) => r && r.l < st.l + st.w && r.l + r.w > st.l && r.t + r.h <= st.t + 8)
+      .map((r) => r.t + r.h);
+    const up = Math.max(0, Math.min(D, st.t - Math.max(0, ...above) - 16));
+    const down = Math.max(0, Math.min(D - up, H() - (st.t + st.h) + st.h * 0.33));
+    return { from: down, to: -up };
+  };
 
   // Take the CSS percentage transforms over, or a later x tween is poisoned.
   P.forEach((p) => {
-    if (!p.full) gsap.set(p.plate, { xPercent: -50, yPercent: -50, x: 0, y: 0, clipPath: whole(p) });
-    if (p.card) gsap.set(p.card, { yPercent: -50, x: 0, y: 0 });
+    if (!p.full) {
+      gsap.set(p.plate, { xPercent: p.cx ? -50 : 0, yPercent: p.cy ? -50 : 0, x: 0, y: 0, clipPath: whole(p) });
+    }
+    if (p.card) gsap.set(p.card, { yPercent: p.cardY ? -50 : 0, x: 0, y: 0 });
   });
   gsap.set(stage, { backgroundColor: states[0].field, color: states[0].ink });
   gsap.set(P[0].el, { autoAlpha: 1, pointerEvents: 'auto' });
@@ -114,10 +147,9 @@ function buildContinuous(stage, els, states, tl) {
   P.forEach((p, i) => {
     // A sticker rides up its lane for the whole hold, in from its edge and out by it.
     if (p.sticker) {
-      const from = i === 0 ? 0.3 : at(i) + 0.06;
+      const from = i === 0 ? 0.3 : at(i) + 0.08;
       const to = i === last ? at(i) + 1 : at(i) + 0.98;
-      const up = p.corner === 'tr' ? { a: drift, b: 0 } : { a: 0, b: () => -drift() };
-      tl.fromTo(p.sticker, { y: up.a }, { y: up.b, duration: to - from, ease: 'none' }, from);
+      tl.fromTo(p.sticker, { y: () => lane(p).from }, { y: () => lane(p).to, duration: to - from, ease: 'none' }, from);
       tl.fromTo(p.sticker, { x: stickerOff(p) }, { x: 0, duration: 0.16, ease: 'power2.out' }, from);
       if (i < last) {
         tl.fromTo(p.sticker, { x: 0 }, { x: stickerOff(p), duration: 0.12, ease: 'power2.in', immediateRender: false }, to - 0.12);
@@ -211,7 +243,7 @@ function buildContinuous(stage, els, states, tl) {
       tl.fromTo(n.plate, { clipPath: () => inset(box(n).h / 2, box(n).w / 2, box(n).h / 2, box(n).w / 2) }, { clipPath: whole(n), ...move }, t0);
     }
 
-    if (n.card) tl.fromTo(n.card, { x: cardOff(n) }, { x: 0, duration: 0.13, ease: 'power2.out' }, B + 0.03);
+    if (n.card) tl.fromTo(n.card, { x: cardOff(n) }, { x: 0, duration: 0.12, ease: 'power2.out' }, B + 0.06);
     tl.set(p.el, { pointerEvents: 'none' }, t0);
     tl.set(n.el, { pointerEvents: 'auto' }, B + 0.09);
     tl.set(p.el, { autoAlpha: 0 }, B + 0.1);
@@ -256,7 +288,24 @@ export default function ProcessStage({ states, label, heading, continuous = fals
       let hinted = -1;
       // Timeline units: one per state, after `intro` units of arrival.
       const span = { total: states.length, intro: 0 };
+      // The continuous stage: scroll is each demo's clock for as long as its
+      // state holds (the first one from the moment the stage arrives).
+      const seen = states.map(() => 0);
+      const run = (self) => {
+        const t = self.progress * span.total - span.intro;
+        els.forEach((el, i) => {
+          const a = i === 0 ? 0.04 - span.intro : i + 0.2;
+          const u = Math.min(1, Math.max(0, (t - a) / (i + 0.84 - a)));
+          if (u === seen[i]) return;
+          seen[i] = u;
+          scrub(el, u);
+        });
+      };
       const hint = (self) => {
+        if (continuous) {
+          run(self);
+          return;
+        }
         const t = Math.max(0, self.progress * span.total - span.intro);
         const i = Math.min(Math.floor(t), states.length - 1);
         const f = t - i;
@@ -284,7 +333,7 @@ export default function ProcessStage({ states, label, heading, continuous = fals
         stage.classList.add('is-continuous');
         Object.assign(span, buildContinuous(stage, els, states, tl));
         return () => {
-          if (hinted >= 0) halt(els[hinted]);
+          els.forEach((el) => scrub(el, 0));
           if (tl.scrollTrigger) tl.scrollTrigger.kill();
           stage.classList.remove('is-continuous');
         };

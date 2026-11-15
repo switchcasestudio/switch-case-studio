@@ -100,7 +100,7 @@ export default function WebWorld() {
   return (
     <div ref={rootRef} className="bw bw--outline bw--web">
       <KindsHero />
-      <ProcessStage states={STATES} label="What every web build has to get right" heading="What we know" />
+      <ProcessStage states={STATES} label="What every web build has to get right" heading="What we know" continuous />
       <Deliverables />
       <Bubbles title="Once it's live, clients say" service="web-development-mobile-apps" offset={2} />
       <WorldClose

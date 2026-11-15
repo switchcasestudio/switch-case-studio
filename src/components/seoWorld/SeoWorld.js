@@ -101,7 +101,7 @@ export default function SeoWorld() {
   return (
     <div ref={rootRef} className="bw bw--outline bw--seo">
       <SearchHero />
-      <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" />
+      <ProcessStage states={STATES} label="What each way to be found takes" heading="What we know" continuous />
       <Deliverables />
       <ReportProof />
       <Bubbles title="Once they find you, clients say" service="seo-ai-search" offset={0} />

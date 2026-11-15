@@ -315,6 +315,139 @@ export function play(frame) {
   rehearse(frame, run, steps);
 }
 
+/* Scroll runs the demos (2026-11-15, the continuous stage). In the owner's
+   reference every demo plays for as long as its state is on screen; here the
+   visitor's own scroll is the clock, so it is not motion that starts by
+   itself (no 5 s cap, no pause control) and scrolling back runs it backward.
+   `scrub(frame, u)` takes a hold's progress, 0 to 1, and seeks the frame's
+   controls one after the other, each out and back to where it started: a
+   slider sweeps, a choice steps through its options, a toggle flips, a field
+   retypes. Only what can be sought and comes back: an action button that
+   starts a timed demo, a drag, a hover and a snapping handle are left to
+   the visitor. A track
+   keeps its own count of what it pressed and writes only on a change. A real
+   press, key or focus in the frame ends it for good (`done`), as it ends a
+   run. */
+const SCRUB_MAX = 4;
+
+function rangeTrack(el) {
+  const start = +el.value;
+  const min = +el.min || 0;
+  const max = el.max === '' ? 100 : +el.max;
+  const step = +el.step || 1;
+  const span = (max - min) * 0.35;
+  const to = start + span <= max ? span : -span;
+  const snap = (v) => min + Math.round((v - min) / step) * step;
+  return (u) => {
+    const v = snap(start + to * Math.sin(u * Math.PI));
+    if (Math.abs(v - +el.value) > step / 2) setValue(el, String(+v.toFixed(6)));
+  };
+}
+
+function textTrack(el) {
+  const start = el.value;
+  const bit = start ? start.slice(-Math.min(8, start.length)) : 'you@';
+  const base = start ? start.slice(0, -bit.length) : '';
+  return (u) => {
+    const k = Math.abs(2 * u - 1);
+    const v = base + bit.slice(0, Math.round(bit.length * (start ? k : 1 - k)));
+    if (v !== el.value) setValue(el, v);
+  };
+}
+
+function toggleTrack(el) {
+  let flipped = false;
+  return (u) => {
+    const want = u > 0.25 && u < 0.75;
+    if (want === flipped) return;
+    flipped = want;
+    press(el);
+  };
+}
+
+function groupTrack(group) {
+  const items = [...group.querySelectorAll('button:not(:disabled)')];
+  const rest = items.filter(isOn);
+  // Several on, or none: the buttons are independent, so flip one.
+  if (rest.length !== 1) return items.length ? toggleTrack(items.find((b) => !isOn(b)) || items[0]) : null;
+  const stops = [rest[0], ...items.filter((b) => b !== rest[0]), rest[0]];
+  let cur = 0;
+  return (u) => {
+    const k = Math.round(u * (stops.length - 1));
+    if (k === cur) return;
+    cur = k;
+    const want = stops[k];
+    // One on at rest does not make it one-at-a-time: independent buttons
+    // keep the last pick on, so take that back before the next.
+    items.forEach((b) => {
+      if (b !== want && b !== rest[0] && isOn(b)) press(b);
+    });
+    if (!isOn(want)) press(want);
+  };
+}
+
+function pixelTrack(el) {
+  let inside = false;
+  return (u) => {
+    if (u <= 0 || u >= 1) {
+      if (inside) el.dispatchEvent(new PointerEvent('pointerleave'));
+      inside = false;
+      return;
+    }
+    if (!inside) el.dispatchEvent(new PointerEvent('pointerenter', { clientX: 0, clientY: 0 }));
+    inside = true;
+    const r = el.getBoundingClientRect();
+    el.dispatchEvent(new PointerEvent('pointermove', { clientX: r.left + r.width * Math.sin(u * Math.PI), clientY: r.top }));
+  };
+}
+
+const TYPED = ['', 'text', 'email', 'search', 'tel', 'url'];
+
+function tracksFor(frame) {
+  const tracks = [];
+  const groups = new Set();
+  frame.querySelectorAll(CONTROLS).forEach((el) => {
+    if (tracks.length >= SCRUB_MAX) return;
+    if (!el.getBoundingClientRect().width || el.className.toString().includes('__pause')) return;
+    let t = null;
+    // A handle snaps to what it is dragged near, so it has no way back: skip.
+    if (el.matches(HANDLES)) t = null;
+    else if (el.matches('input[type="range"]')) t = rangeTrack(el);
+    else if (el.matches('textarea') || (el.matches('input') && TYPED.includes(el.getAttribute('type') || ''))) t = textTrack(el);
+    else if (el.matches('.bw-pixel')) t = pixelTrack(el);
+    else if (el.matches('input') || el.dataset.try === 'run') t = null;
+    else if (el.dataset.try === 'twice' || el.matches('[role="switch"]')) t = toggleTrack(el);
+    else if (el.closest(GROUP)) {
+      const g = el.closest(GROUP);
+      if (!groups.has(g)) {
+        groups.add(g);
+        t = groupTrack(g);
+      }
+    } else if (el.hasAttribute('aria-pressed')) t = toggleTrack(el);
+    if (t) tracks.push(t);
+  });
+  return tracks;
+}
+
+const scrubs = new WeakMap();
+
+export function scrub(frame, u) {
+  if (!frame || done.has(frame) || reduced()) return;
+  let s = scrubs.get(frame);
+  if (!s) {
+    // Built at rest, the first time the frame is asked for anything.
+    s = { tracks: tracksFor(frame), live: false };
+    scrubs.set(frame, s);
+  }
+  const n = s.tracks.length;
+  if (!n) return;
+  const on = u > 0 && u < 1;
+  if (on && !s.live) hush(frame);
+  s.tracks.forEach((seek, k) => seek(Math.min(1, Math.max(0, u * n - k))));
+  if (!on && s.live) unhush(frame);
+  s.live = on;
+}
+
 export function halt(frame, wait) {
   const run = running.get(frame);
   if (!run) return;
@@ -350,6 +483,8 @@ export default function useTryHint(rootRef) {
       if (!frame) return;
       done.add(frame);
       halt(frame, 0);
+      // A scrubbed frame has no run to halt, but its live regions are quiet.
+      unhush(frame, 0);
     };
     const events = ['pointerdown', 'keydown', 'focusin'];
     events.forEach((t) => root.addEventListener(t, stop, true));

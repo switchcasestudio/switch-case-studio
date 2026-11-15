@@ -101,7 +101,7 @@ export default function AiWorld() {
   return (
     <div ref={rootRef} className="bw bw--outline bw--ai">
       <AutomationHero />
-      <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" />
+      <ProcessStage states={STATES} label="What every automation has to get right" heading="What we know" continuous />
       <Deliverables />
       <Bubbles title="Once it runs, clients say" service="ai-automation" offset={3} />
       <WorldClose
