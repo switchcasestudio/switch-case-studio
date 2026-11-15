@@ -11,7 +11,12 @@ import projects from '../../data/projects.json';
    study (UX audit, 2026-11-10: the brand page quoted web and SEO clients,
    and no quote could be tied to a real site). A service with fewer than
    three such reviews falls back to five from `offset`. They float a little
-   while in view. */
+   while in view. Each voice has a face (owner, 2026-11-15: "B&W profile
+   shots of the commenters ... in a circle, around their faces"): a 112px
+   grayscale square cut around the face from the review's own `image`
+   (`public/images/faces/<name>-112.webp`, shown at 56px; `check:media`
+   fails the build if one is missing). The name is beside it, so the
+   portrait's alt is empty. */
 const SPOTS = [
   { l: 4, t: 8 },
   { l: 54, t: 4 },
@@ -30,6 +35,8 @@ const SPOTS_3 = [
 const SOLD_UNDER = Object.fromEntries(projects.map((p) => [p.slug, p.servicePages || []]));
 // "Owner at Renewed Bodyworks" -> "Renewed Bodyworks"
 const business = (t) => (t.title || '').replace(/^.*?\b(?:at|of)\s+/, '');
+// "/images/scott.webp" -> "/images/faces/scott-112.webp"
+export const face = (src) => (src || '').replace(/^\/images\/([^/.]+)\.\w+$/, '/images/faces/$1-112.webp');
 
 export default function Bubbles({ title, offset = 0, service }) {
   const sold = service ? testimonials.filter((t) => (SOLD_UNDER[t.project] || []).includes(service)) : [];
@@ -51,9 +58,12 @@ export default function Bubbles({ title, offset = 0, service }) {
       <h2 id="bw-bubbles-title" className="bw-bubbles__title">
         {title}
       </h2>
-      <ul className="bw-bubbles__field">
+      <ul className={`bw-bubbles__field${lines.length > 3 ? ' bw-bubbles__field--five' : ''}`}>
         {lines.map((t, i) => (
           <li key={t.id} className="bw-bubble" style={{ left: `${spots[i].l}%`, top: `${spots[i].t}%` }}>
+            {t.image && (
+              <img className="bw-bubble__face" src={face(t.image)} alt="" width="56" height="56" loading="lazy" decoding="async" />
+            )}
             <q>{t.highlight}</q>
             <span className="bw-bubble__who">
               {t.name}

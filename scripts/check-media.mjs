@@ -37,6 +37,11 @@ for (const p of readJson('src/data/projects.json')) {
   if (p.imageSrc && !/\.(jpe?g|png|webp)$/i.test(p.imageSrc)) problems.push(`${who}: imageSrc ${p.imageSrc} is the og:image and must be JPEG, PNG or WebP`);
 }
 for (const t of readJson('src/data/team.json')) need(`team/${t.name}`, 'photo', t.photo);
+// A review's portrait, and the 112px face the service pages' bubbles derive from it (worlds/Bubbles.js `face`).
+for (const t of readJson('src/data/testimonials.json')) {
+  need(`testimonials/${t.name}`, 'image', t.image);
+  if (t.image) need(`testimonials/${t.name}`, 'image (112px face)', t.image.replace(/^\/images\/([^/.]+)\.\w+$/, '/images/faces/$1-112.webp'));
+}
 for (const post of readJson('src/data/posts.json')) {
   const who = `blog/${post.slug}`;
   if (!post.coverImage) { problems.push(`${who}: no coverImage (add a 1600x900 cover in public/images/journal/)`); continue; }
