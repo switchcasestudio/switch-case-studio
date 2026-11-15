@@ -102,7 +102,7 @@ export default function BrandWorld() {
   return (
     <div ref={rootRef} className="bw">
       <BrandHero />
-      <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" />
+      <ProcessStage states={STATES} label="What a brand identity is made of" heading="What we know" continuous />
       <Deliverables />
       <ClientMarks />
       <Bubbles title="Once it ships, clients say" service="graphic-design-brand-identity" />

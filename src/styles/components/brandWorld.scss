@@ -1129,6 +1129,28 @@ $t-rule: rgba(20, 20, 20, 0.18);
   }
 }
 
+// The first state is on in the static HTML; the timeline takes it from there.
+.bw-state:first-of-type {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+// The continuous stage (ProcessStage `continuous`, 2026-11-15): the class is
+// set only while the pin runs, so the stacked sheet never sees these. A full
+// state's article is its own plate: it wears its field and is clipped open
+// over the state before it, so the label has to ride above it.
+.bw-stage.is-continuous {
+  .bw-stage__h {
+    z-index: 3;
+  }
+
+  .bw-state--full {
+    background: var(--bw-field);
+    color: var(--bw-ink);
+  }
+}
+
 // Stacked states: phones, tablets, reduced motion.
 @media #{$bw-sheet} {
   .bw-stage {

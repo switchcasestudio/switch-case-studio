@@ -22,7 +22,206 @@ gsap.registerPlugin(ScrollTrigger);
    under it, and stacked it takes the height its content needs. */
 const GATE = '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
 
-export default function ProcessStage({ states, label, heading }) {
+/* The continuous stage (2026-11-15, `continuous` prop; the brand world first).
+   Read against the owner's reference recording frame by frame, the classic
+   timeline below is a slideshow: every part fades to nothing, the field
+   crossfades on an empty screen, the next state fades in, and about 30% of a
+   state's scroll shows a ghosted or empty stage. The reference is one shot:
+   a plate is on screen at full strength on every frame. So here nothing
+   fades. The next plate grows out of the middle of the one before it while
+   both slide to the new side, the field flips under them, a card leaves by
+   its edge before the next comes in by the other, and a sticker drifts up
+   its lane for the whole hold. A `full` state's plate is its whole article:
+   the world grows out of the plate before it and shrinks back into the next.
+   The stage arrives with its first plate large and settles as it pins.
+   Every clip-path tween is a fromTo with both strings written out: the
+   computed value comes back shortened ("inset(0px round 14px)") and GSAP
+   cannot pair its numbers with a four-value target. */
+const INTRO = 0.5; // timeline units before the first hold; a state is 1
+const R = 14; // a plate's corner radius, px
+const inset = (t, r, b, l, round = R) => `inset(${t}px ${r}px ${b}px ${l}px round ${round}px)`;
+
+// A plate's own color: the art's, or the demo's inside it.
+const paint = (el) => {
+  for (const x of [el, el.firstElementChild]) {
+    const c = x && getComputedStyle(x).backgroundColor;
+    if (c && gsap.utils.splitColor(c)[3] !== 0 && c !== 'transparent') return c;
+  }
+  return null;
+};
+const alike = (a, b) => {
+  if (!a || !b) return false;
+  const [x, y] = [gsap.utils.splitColor(a), gsap.utils.splitColor(b)];
+  return Math.max(Math.abs(x[0] - y[0]), Math.abs(x[1] - y[1]), Math.abs(x[2] - y[2])) < 40;
+};
+
+function buildContinuous(stage, els, states, tl) {
+  const W = () => stage.clientWidth;
+  const H = () => stage.clientHeight;
+  const P = els.map((el, i) => ({
+    el,
+    full: !!states[i].full,
+    plate: states[i].full ? el : el.querySelector('.bw-state__art'),
+    card: el.querySelector('.bw-state__card'),
+    sticker: el.querySelector('.bw-state__sticker'),
+    title: el.querySelector('.bw-state__title'),
+    side: states[i].side,
+    corner: states[i].corner,
+  }));
+  // A plate's box at rest, in stage pixels, read from layout: transforms do
+  // not move offsetLeft, and an art is centered on its left/top by a -50%
+  // translate, so its (offsetLeft, offsetTop) is its center.
+  const box = (p) =>
+    p.full
+      ? { cx: W() / 2, cy: H() / 2, w: W(), h: H() }
+      : { cx: p.plate.offsetLeft, cy: p.plate.offsetTop, w: p.plate.offsetWidth, h: p.plate.offsetHeight };
+  const whole = (p) => (p.full ? inset(0, 0, 0, 0, 0) : inset(0, 0, 0, 0));
+  // How far a card or a sticker travels to clear its edge of the stage.
+  const off = (el, toRight) => (toRight ? W() - el.offsetLeft + 24 : -(el.offsetLeft + el.offsetWidth + 24));
+  const cardOff = (p) => () => off(p.card, p.side === 'right');
+  const stickerOff = (p) => () => off(p.sticker, p.corner === 'tr');
+  const drift = () => H() * 0.24;
+
+  // Take the CSS percentage transforms over, or a later x tween is poisoned.
+  P.forEach((p) => {
+    if (!p.full) gsap.set(p.plate, { xPercent: -50, yPercent: -50, x: 0, y: 0, clipPath: whole(p) });
+    if (p.card) gsap.set(p.card, { yPercent: -50, x: 0, y: 0 });
+  });
+  gsap.set(stage, { backgroundColor: states[0].field, color: states[0].ink });
+  gsap.set(P[0].el, { autoAlpha: 1, pointerEvents: 'auto' });
+
+  const last = P.length - 1;
+  const intro = P[0].full ? 0 : INTRO;
+  const at = (i) => intro + i;
+
+  // The first plate arrives large, in the middle, and settles as the stage pins.
+  if (intro) {
+    const p = P[0];
+    const big = () => {
+      const b = box(p);
+      return Math.max(1, Math.min((W() * 0.9) / b.w, (H() - 132) / b.h));
+    };
+    tl.fromTo(
+      p.plate,
+      { scale: big, x: () => W() / 2 - box(p).cx },
+      { scale: 1, x: 0, duration: 0.36, ease: 'power2.inOut' },
+      0.04,
+    );
+    tl.fromTo(p.title, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.1 }, 0.32);
+    if (p.card) tl.fromTo(p.card, { x: cardOff(p) }, { x: 0, duration: 0.2, ease: 'power2.out' }, 0.26);
+  }
+
+  P.forEach((p, i) => {
+    // A sticker rides up its lane for the whole hold, in from its edge and out by it.
+    if (p.sticker) {
+      const from = i === 0 ? 0.3 : at(i) + 0.06;
+      const to = i === last ? at(i) + 1 : at(i) + 0.98;
+      const up = p.corner === 'tr' ? { a: drift, b: 0 } : { a: 0, b: () => -drift() };
+      tl.fromTo(p.sticker, { y: up.a }, { y: up.b, duration: to - from, ease: 'none' }, from);
+      tl.fromTo(p.sticker, { x: stickerOff(p) }, { x: 0, duration: 0.16, ease: 'power2.out' }, from);
+      if (i < last) {
+        tl.fromTo(p.sticker, { x: 0 }, { x: stickerOff(p), duration: 0.12, ease: 'power2.in', immediateRender: false }, to - 0.12);
+      }
+    }
+    if (i === last) return;
+
+    // The hand-off to the next state, around the boundary B.
+    const n = P[i + 1];
+    const B = at(i + 1);
+    const s = states[i + 1];
+    const move = { duration: 0.18, ease: 'power2.inOut' };
+    const t0 = B - 0.09;
+
+    tl.set(n.el, { autoAlpha: 1 }, B - 0.17);
+    if (p.card) tl.fromTo(p.card, { x: 0 }, { x: cardOff(p), duration: 0.11, ease: 'power2.in', immediateRender: false }, B - 0.16);
+    if (!n.full) {
+      tl.fromTo(p.title, { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -24, duration: 0.05, ease: 'power2.in', immediateRender: false }, t0);
+      tl.fromTo(n.title, { autoAlpha: 0, y: 24 }, { autoAlpha: 1, y: 0, duration: 0.07 }, B - 0.02);
+    }
+    // The field flips under the plates. Into a full state it is the state's
+    // own article that grows over the stage, so the stage follows once covered;
+    // out of one, the stage changes first, hidden under it.
+    // A cut, never a blend (a tween here showed a muddy frame between two
+    // fields). Between two plates it lands mid-wipe, once the new plate holds
+    // the middle; unless a plate would sit on a field of its own color: the
+    // old plate on the new field waits until it is covered, the new plate on
+    // the old field gets its own field first.
+    let cut = B - 0.02;
+    if (n.full) cut = B + 0.09;
+    else if (p.full) cut = t0;
+    else if (alike(paint(p.plate), s.field)) cut = B + 0.09;
+    else if (alike(paint(n.plate), states[i].field)) cut = t0;
+    tl.set(stage, { backgroundColor: s.field }, cut);
+    tl.set(stage, { color: s.ink }, B);
+
+    if (!p.full && !n.full) {
+      // Two plates, one center: the old one carries to the new side, the new
+      // one starts that far back, and grows out of the old one's middle.
+      const dx = () => box(n).cx - box(p).cx;
+      const dy = () => box(n).cy - box(p).cy;
+      tl.fromTo(p.plate, { x: 0, y: 0 }, { x: dx, y: dy, ...move, immediateRender: false }, t0);
+      tl.fromTo(n.plate, { x: () => -dx(), y: () => -dy() }, { x: 0, y: 0, ...move }, t0);
+      // A smaller newcomer: the old plate closes in to its size.
+      tl.fromTo(
+        p.plate,
+        { clipPath: whole(p) },
+        {
+          clipPath: () => {
+            const a = box(p);
+            const b = box(n);
+            const ix = Math.max(0, (a.w - b.w) / 2);
+            const iy = Math.max(0, (a.h - b.h) / 2);
+            return inset(iy, ix, iy, ix);
+          },
+          ...move,
+          immediateRender: false,
+        },
+        t0,
+      );
+      tl.fromTo(n.plate, { clipPath: () => inset(box(n).h / 2, box(n).w / 2, box(n).h / 2, box(n).w / 2) }, { clipPath: whole(n), ...move }, t0);
+    } else if (n.full) {
+      // The world grows out of the middle of the plate before it.
+      tl.fromTo(
+        n.el,
+        {
+          clipPath: () => {
+            const a = box(p);
+            return inset(a.cy, W() - a.cx, H() - a.cy, a.cx);
+          },
+        },
+        { clipPath: whole(n), ...move },
+        t0,
+      );
+    } else {
+      // Out of a full state: the world closes in to the next plate's box,
+      // and the plate grows out of its own middle to meet it.
+      tl.fromTo(
+        p.el,
+        { clipPath: whole(p) },
+        {
+          clipPath: () => {
+            const b = box(n);
+            return inset(b.cy - b.h / 2, W() - b.cx - b.w / 2, H() - b.cy - b.h / 2, b.cx - b.w / 2);
+          },
+          ...move,
+          immediateRender: false,
+        },
+        t0,
+      );
+      tl.fromTo(n.plate, { clipPath: () => inset(box(n).h / 2, box(n).w / 2, box(n).h / 2, box(n).w / 2) }, { clipPath: whole(n), ...move }, t0);
+    }
+
+    if (n.card) tl.fromTo(n.card, { x: cardOff(n) }, { x: 0, duration: 0.13, ease: 'power2.out' }, B + 0.03);
+    tl.set(p.el, { pointerEvents: 'none' }, t0);
+    tl.set(n.el, { pointerEvents: 'auto' }, B + 0.09);
+    tl.set(p.el, { autoAlpha: 0 }, B + 0.1);
+  });
+  // The last state holds as long as the others.
+  tl.to({}, { duration: 0.01 }, at(last) + 0.99);
+  return { total: at(last) + 1, intro };
+}
+
+export default function ProcessStage({ states, label, heading, continuous = false }) {
   const stageRef = useRef(null);
   const [near, setNear] = useState(false);
 
@@ -55,8 +254,10 @@ export default function ProcessStage({ states, label, heading }) {
       stage.style.setProperty('--bw-top', `${top}px`);
       // The state on screen, once its entrance has landed, gets the try-me pulse.
       let hinted = -1;
+      // Timeline units: one per state, after `intro` units of arrival.
+      const span = { total: states.length, intro: 0 };
       const hint = (self) => {
-        const t = self.progress * states.length;
+        const t = Math.max(0, self.progress * span.total - span.intro);
         const i = Math.min(Math.floor(t), states.length - 1);
         const f = t - i;
         const on = self.isActive && (i === 0 || f > 0.3) && (f < 0.8 || i === states.length - 1) ? i : -1;
@@ -70,14 +271,24 @@ export default function ProcessStage({ states, label, heading }) {
         scrollTrigger: {
           trigger: stage,
           start: `top top+=${top}`,
-          end: `+=${states.length * 120}%`,
+          end: `+=${(states.length + (continuous && !states[0].full ? INTRO : 0)) * 120}%`,
           pin: true,
           scrub: 0.5,
           anticipatePin: 1,
+          invalidateOnRefresh: true,
           onUpdate: hint,
           onToggle: hint,
         },
       });
+      if (continuous) {
+        stage.classList.add('is-continuous');
+        Object.assign(span, buildContinuous(stage, els, states, tl));
+        return () => {
+          if (hinted >= 0) halt(els[hinted]);
+          if (tl.scrollTrigger) tl.scrollTrigger.kill();
+          stage.classList.remove('is-continuous');
+        };
+      }
       // Hold the last state as long as the others: the timeline runs to
       // states.length seconds, one per state.
       tl.to({}, { duration: 0.01 }, states.length);
@@ -119,7 +330,7 @@ export default function ProcessStage({ states, label, heading }) {
       };
     });
     return () => mm.revert();
-  }, [states]);
+  }, [states, continuous]);
 
   return (
     <section ref={stageRef} className="bw-stage" aria-label={label}>
