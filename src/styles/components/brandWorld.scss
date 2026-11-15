@@ -1636,49 +1636,51 @@ $t-rule: rgba(20, 20, 20, 0.18);
 .bw-bubble {
   position: absolute;
   max-width: min(38%, 440px);
-  padding: 0.9rem 1.1rem;
-  border-radius: 16px 16px 16px 4px;
-  background: #fff;
-  color: $promo-ink;
-  font-size: clamp(0.95rem, 1.15vw, 1.1rem);
-  line-height: 1.45;
-  // The voice's face in a circle, the words beside it.
-  // A fixed track: an `auto` one shrank under the bubble's max-width (an
-  // image with max-width: 100% has no minimum) and squeezed the circle oval.
+  // A message row: the speaker's face in a circle, outside the card and at
+  // its tail (owner, 2026-11-15), then the card. The face is a fixed size:
+  // inside a width-capped row an image with max-width: 100% has no minimum
+  // and was squeezed oval.
   --bw-face: 56px;
-  display: grid;
-  grid-template-columns: var(--bw-face) minmax(0, 1fr);
-  column-gap: 0.85rem;
-  align-items: start;
+  display: flex;
+  align-items: flex-end;
+  gap: 0.6rem;
 
   @media (max-width: 1279px) {
     --bw-face: 44px;
-    column-gap: 0.7rem;
-  }
-
-  q {
-    quotes: none;
-    grid-column: 2;
+    gap: 0.5rem;
   }
 
   // Black and white, cut around the face (the files are grayscale; the
-  // filter keeps a later color upload in line).
+  // filter keeps a later color upload in line). The ring is the card's
+  // color, so the circle has an edge on any field.
   &__face {
-    grid-row: 1 / span 2;
+    flex: none;
     width: var(--bw-face);
     max-width: none;
     height: var(--bw-face);
     border-radius: 50%;
     object-fit: cover;
     filter: grayscale(1);
-    // A light backdrop on a white bubble (or a dark one on an ink bubble)
-    // has no edge: without a ring the circle read as the sitter's outline.
-    box-shadow: 0 0 0 1.5px color-mix(in srgb, currentColor 28%, transparent);
+    box-shadow: 0 0 0 2px var(--bw-bubble, #fff);
+  }
+
+  &__card {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.9rem 1.1rem;
+    border-radius: 16px 16px 16px 4px;
+    background: var(--bw-bubble, #fff);
+    color: var(--bw-bubble-ink, #{$promo-ink});
+    font-size: clamp(0.95rem, 1.15vw, 1.1rem);
+    line-height: 1.45;
+  }
+
+  q {
+    quotes: none;
   }
 
   &__who {
     display: block;
-    grid-column: 2;
     margin-top: 0.4rem;
     font-size: 0.75rem;
     font-weight: 500;

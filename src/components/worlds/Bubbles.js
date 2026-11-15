@@ -16,7 +16,10 @@ import projects from '../../data/projects.json';
    grayscale square cut around the face from the review's own `image`
    (`public/images/faces/<name>-112.webp`, shown at 56px; `check:media`
    fails the build if one is missing). The name is beside it, so the
-   portrait's alt is empty. */
+   portrait's alt is empty. The face stands outside the card, at its tail,
+   the way a messaging app shows who is speaking (owner, same day: "extract
+   the client face from the card and put it in a circle next to the text
+   message looking review card"): the `li` is the row, `__card` the bubble. */
 const SPOTS = [
   { l: 4, t: 8 },
   { l: 54, t: 4 },
@@ -64,22 +67,24 @@ export default function Bubbles({ title, offset = 0, service }) {
             {t.image && (
               <img className="bw-bubble__face" src={face(t.image)} alt="" width="56" height="56" loading="lazy" decoding="async" />
             )}
-            <q>{t.highlight}</q>
-            <span className="bw-bubble__who">
-              {t.name}
-              {business(t) && (
-                <>
-                  ,{' '}
-                  {t.project ? (
-                    <Link to={`/projects/${t.project}`} aria-label={`${business(t)} case study`}>
-                      {business(t)}
-                    </Link>
-                  ) : (
-                    business(t)
-                  )}
-                </>
-              )}
-            </span>
+            <div className="bw-bubble__card">
+              <q>{t.highlight}</q>
+              <span className="bw-bubble__who">
+                {t.name}
+                {business(t) && (
+                  <>
+                    ,{' '}
+                    {t.project ? (
+                      <Link to={`/projects/${t.project}`} aria-label={`${business(t)} case study`}>
+                        {business(t)}
+                      </Link>
+                    ) : (
+                      business(t)
+                    )}
+                  </>
+                )}
+              </span>
+            </div>
           </li>
         ))}
       </ul>

@@ -27,9 +27,10 @@
     color: $ink;
   }
 
+  // The card's two colors; the face's ring takes the first.
   .bw-bubble {
-    background: $ink;
-    color: $cream;
+    --bw-bubble: #{$ink};
+    --bw-bubble-ink: #{$cream};
   }
 
   // The HTML demos lay out by the card's width, not the window's: three

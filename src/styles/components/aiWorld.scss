@@ -28,9 +28,10 @@
     color: $cream;
   }
 
+  // The card's two colors; the face's ring takes the first.
   .bw-bubble {
-    background: $cream;
-    color: $ink;
+    --bw-bubble: #{$cream};
+    --bw-bubble-ink: #{$ink};
   }
 
   // The monitoring demo is a console: ink, cream type.
