@@ -2,7 +2,7 @@
 
 Goal: the four service pages scroll like the owner's reference recording
 (Readymag portfolio page, analysis in `brand-identity-reference.md`).
-Status (2026-11-15): Phases 1 to 5 are built on `feat/stage-continuity`, committed, not pushed. What was built
+Status (2026-11-15): Phases 1 to 5 are LIVE on `main` (`7202ee8`). What was built
 and how it was checked is the top entry of `.audit/rules.md`; the probe is `scripts/probe-stage.mjs`.
 Decided on the way (owner gave full autonomy): the client row is on every page (AI's two do not pan); stickers
 stay fact plates; the brand stage still opens on cream. Left: the owner's read of the new copy, Safari, a real
