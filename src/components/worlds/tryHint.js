@@ -333,13 +333,16 @@ const SCRUB_MAX = 4;
 /* A track reads where its control stands at the moment it leaves rest, never
    at build: the type tester fits its size to its width after mount, and a
    start read early (110px) swept a phone's 44px sample to 178px and "rested"
-   it at 110. */
+   it at 110. Every track in a frame reads it at once, as the frame leaves
+   rest (`prime`): two controls can set the same state (AI Grounding's field
+   and chips), and on a fast scroll back one step carried the chips home and
+   the field into its sweep together, so the field read the chips' pick as
+   its rest and kept it. */
 function rangeTrack(el) {
   let start = null;
-  return (u) => {
+  const seek = (u) => {
     if (u <= 0 || u >= 1) {
       if (start !== null && +el.value !== start) setValue(el, String(start));
-      start = null;
       return;
     }
     if (start === null) start = +el.value;
@@ -351,14 +354,16 @@ function rangeTrack(el) {
     const v = min + Math.round((start + to * Math.sin(u * Math.PI) - min) / step) * step;
     if (Math.abs(v - +el.value) > step / 2) setValue(el, String(+v.toFixed(6)));
   };
+  seek.prime = () => (start = +el.value);
+  seek.release = () => (start = null);
+  return seek;
 }
 
 function textTrack(el) {
   let start = null;
-  return (u) => {
+  const seek = (u) => {
     if (u <= 0 || u >= 1) {
       if (start !== null && el.value !== start) setValue(el, start);
-      start = null;
       return;
     }
     if (start === null) start = el.value;
@@ -368,6 +373,9 @@ function textTrack(el) {
     const v = base + bit.slice(0, Math.round(bit.length * (start ? k : 1 - k)));
     if (v !== el.value) setValue(el, v);
   };
+  seek.prime = () => (start = el.value);
+  seek.release = () => (start = null);
+  return seek;
 }
 
 function toggleTrack(el) {
@@ -418,6 +426,17 @@ function pixelTrack(el) {
 
 const TYPED = ['', 'text', 'email', 'search', 'tel', 'url'];
 
+// A list of pressed buttons with exactly one on is a pick, even without a
+// group role (AI Handoff's questions): pressing a pick again keeps it, so a
+// toggle track had no way back and Safari's pass left the wrong one open.
+function pickList(el) {
+  if (!el.hasAttribute('aria-pressed')) return null;
+  const list = el.closest('ul, ol');
+  if (!list) return null;
+  const items = [...list.querySelectorAll('button[aria-pressed]')];
+  return items.length > 1 && items.filter(isOn).length === 1 ? list : null;
+}
+
 function tracksFor(frame) {
   const tracks = [];
   const groups = new Set();
@@ -432,8 +451,8 @@ function tracksFor(frame) {
     else if (el.matches('.bw-pixel')) t = pixelTrack(el);
     else if (el.matches('input') || el.dataset.try === 'run') t = null;
     else if (el.dataset.try === 'twice' || el.matches('[role="switch"]')) t = toggleTrack(el);
-    else if (el.closest(GROUP)) {
-      const g = el.closest(GROUP);
+    else if (el.closest(GROUP) || pickList(el)) {
+      const g = el.closest(GROUP) || pickList(el);
       if (!groups.has(g)) {
         groups.add(g);
         t = groupTrack(g);
@@ -461,9 +480,15 @@ export function scrub(frame, u) {
   const n = s.tracks.length;
   if (!n) return false;
   const on = u > 0 && u < 1;
-  if (on && !s.live) hush(frame);
+  if (on && !s.live) {
+    hush(frame);
+    s.tracks.forEach((seek) => seek.prime && seek.prime());
+  }
   s.tracks.forEach((seek, k) => seek(Math.min(1, Math.max(0, u * n - k))));
-  if (!on && s.live) unhush(frame);
+  if (!on && s.live) {
+    unhush(frame);
+    s.tracks.forEach((seek) => seek.release && seek.release());
+  }
   s.live = on;
   return true;
 }
