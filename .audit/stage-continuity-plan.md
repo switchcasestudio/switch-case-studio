@@ -127,7 +127,7 @@ Total: about 3 working days. Phase 1 alone shows whether the idea lands.
 1. Order: prototype Phase 1 on the brand page first, judge it in the browser, then continue?
 2. Pinned client row on every service page (real case studies), yes or no?
 3. Brand's stage opens on cream, the page's own color, so the entrance has no punch.
-   Open on a saturated field instead? (Options would come as rendered images.)
+   Open on a saturated field instead? Decided 2026-11-16: cream stays (owner picked A of four rendered options).
 4. Sticker: keep the fact plates, now drifting, or start collecting client clips?
 
 ## 6. Reproduce the evidence
