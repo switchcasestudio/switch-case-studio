@@ -6,7 +6,7 @@ User-facing changes only; process detail lives in `.audit/summary.md`. Newest fi
 
 - **New service page `/services/content-social-media`**: the hero runs the five kinds of content (web page, article, email, social post, profile update); the stage is five lessons with a live demo each (Plain words, First line, Proof, Rhythm, Measure); six deliverables demos; work for Zahav Medspa, Renewed Bodyworks and ProDani Miami.
 - **New pricing page `/pricing/content-social-media`**: four packages on one board. The prices are a draft until the owner confirms them.
-- **Home, `/services`, `/pricing`**: a fifth card with its own poster ("Worth reading."); five cards sit three over two, the second row centered.
+- **Home, `/services`, `/pricing`**: a fifth card with its own poster ("Worth reading."). On `/services` and `/pricing` all five stand in one row from 1200px wide, each with a square poster, and the starting prices share one line; narrower screens show three over two, the second row centered.
 
 ## 2026-10-30 · Unhurried in the WordPress.org directory
 

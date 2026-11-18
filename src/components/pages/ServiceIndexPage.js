@@ -65,13 +65,23 @@ function PricingCard({ service, description, price, priced, index }) {
   // The services index lands on the service page where one exists (same
   // rule as the home cards, navigation.js); the pricing index on the packages.
   const to = priced ? `/pricing/${service.slug}` : servicePath(service.slug);
-  const cta = priced || !SERVICE_PAGES.includes(service.slug) ? 'See pricing' : 'Explore the service';
+  const explore = !priced && SERVICE_PAGES.includes(service.slug);
   return (
     <li ref={itemRef} className="svi-card" style={{ '--i': index }}>
       <Link to={to} className="svi-card__link">
         <span className="svi-card__meta">
           <span className="svi-card__kicker">{service.kicker}</span>
-          <span className="svi-card__cta">{cta}</span>
+          {/* One row of cards (1200px up) has room for the verb only; the
+              rest of the label stays in the link's name. */}
+          <span className="svi-card__cta">
+            {explore ? (
+              <>
+                Explore<span className="svi-card__cta-rest"> the service</span>
+              </>
+            ) : (
+              'See pricing'
+            )}
+          </span>
           <span className="svi-card__rule" aria-hidden="true" />
         </span>
         <span className="svi-card__body">
