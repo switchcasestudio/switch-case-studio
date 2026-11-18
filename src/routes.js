@@ -207,6 +207,10 @@ export const routes = [
         lazy: page(() => import('./components/pages/SeoAiSearchPage')),
       },
       {
+        path: 'services/content-social-media',
+        lazy: page(() => import('./components/pages/ContentSocialMediaPage')),
+      },
+      {
         path: 'services/:serviceSlug',
         lazy: page(() => import('./components/pages/ServiceRedirect')),
       },

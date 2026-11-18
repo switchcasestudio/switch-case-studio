@@ -179,7 +179,7 @@ function ServiceItem({ service, index, delay = 0 }) {
   );
 }
 
-/* The end card's art is the whole set, not a fifth service: the four
+/* The end card's art is the whole set, not one more service: the five
    posters as a contact sheet of thumbnails. Pure CSS hover (the prints
    square up), decorative, SSR-complete. */
 const DECK = [
@@ -214,6 +214,17 @@ const DECK = [
       <rect x="20" y="42" width="44" height="9" rx="2" className="sp-f-ink" />
       <rect x="20" y="56" width="56" height="9" rx="2" className="sp-f-ink" />
       <rect x="20" y="70" width="38" height="9" rx="2" className="sp-f-ink" />
+    </>
+  ) },
+  { n: 5, bg: "pink", art: (
+    <>
+      <rect x="18" y="24" width="50" height="56" rx="3" className="sp-f-cream" />
+      <rect x="25" y="33" width="34" height="5" rx="2.5" className="sp-f-ink" />
+      <rect x="25" y="44" width="28" height="5" rx="2.5" className="sp-f-terra" />
+      <rect x="25" y="55" width="36" height="5" rx="2.5" className="sp-f-ink" />
+      <rect x="25" y="66" width="20" height="5" rx="2.5" className="sp-f-ink" />
+      <circle cx="74" cy="40" r="13" className="sp-f-ink" />
+      <path d="M74 47C69 43 67 40 67 38A3.5 3.5 0 0 1 74 37A3.5 3.5 0 0 1 81 38C81 40 79 43 74 47Z" className="sp-f-cream" />
     </>
   ) },
 ];
@@ -296,7 +307,7 @@ const Services = () => {
               key={service.slug}
               service={service}
               index={index}
-              // One row of four: left to right, a beat apart.
+              // One row: left to right, a beat apart.
               delay={index * 0.08}
             />
           ))}

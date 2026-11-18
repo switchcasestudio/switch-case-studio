@@ -19,13 +19,13 @@ const COPY = {
   services: {
     seoTitle: 'Services | Switch Case Studio',
     seoDescription:
-      'Graphic design and brand identity, web development and mobile apps, AI and automation, SEO and AI search. Four services from a Portland studio, shown not told.',
+      'Brand identity, web and mobile apps, AI and automation, SEO and AI search, content and social media. Five services from a Portland studio, shown not told.',
     path: '/services',
     ariaLabel: 'Services',
     kicker: 'Services',
     titleTop: 'What we do,',
     titleBottom: 'shown not told.',
-    lede: 'Four services, one studio. Pick one to see the work; the packages and prices are a page away.',
+    lede: 'Five services, one studio. Pick one to see the work; the packages and prices are a page away.',
     ledeLink: { to: '/pricing', label: 'Compare packages and prices' },
     bottomHeading: 'Not sure which service you need?',
     bottomBody: `Book a ${BOOK_CALL_KIND}; we'll figure it out together.`,
@@ -33,7 +33,7 @@ const COPY = {
   pricing: {
     seoTitle: 'Pricing | Switch Case Studio',
     seoDescription:
-      'Packages and prices for all four Switch Case Studio services: brand identity, web and mobile apps, AI and automation, SEO. Starting prices, no hourly billing.',
+      'Packages and prices for all five Switch Case Studio services: brand, web and apps, AI and automation, SEO, content. Starting prices, no hourly billing.',
     path: '/pricing',
     ariaLabel: 'Pricing',
     kicker: 'Pricing',

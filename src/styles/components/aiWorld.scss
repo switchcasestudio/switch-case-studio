@@ -33,28 +33,12 @@
     --bw-bubble: #{$cream};
     --bw-bubble-ink: #{$ink};
   }
-
-  // The monitoring demo is a console: ink, cream type.
-  .bw-grid__demo.aw-tone--ink {
-    background: $ink;
-    color: $cream;
-  }
 }
 
 @import './aiHero';
 @import './aiLessons';
 
 /* ---- Demos ---- */
-
-// The assistant names the note it answered from.
-.aw-chat__src {
-  margin: 0;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
 
 // Monitoring: thirty days of runs, one bar a day.
 .aw-watch {

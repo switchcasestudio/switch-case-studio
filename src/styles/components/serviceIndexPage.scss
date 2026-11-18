@@ -113,7 +113,11 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
   // $edge-pad gutter (not $max-width): the home teaser's cards are ~324px
   // wide at 1440 for that reason — a narrower, $max-width-capped column
   // wrapped card text onto extra lines and starved the poster of height.
-  // One column on phones, two from 768px, four from 1024px (home's breaks).
+  // One column on phones, two across from 768px, three from 1024px
+  // (home's breaks). Five services since 2026-11-18: every card spans two
+  // tracks, so a row that is one card short sits in the middle (two over
+  // two over one, then three over two) and no card is left alone at the
+  // left edge.
   &__grid {
     padding: 2.5rem $edge-pad 8rem;
     list-style: none;
@@ -122,12 +126,26 @@ $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
 
     @media (min-width: 768px) {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 1.5rem;
+
+      > li {
+        grid-column: span 2;
+      }
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      > li:last-child:nth-child(odd) {
+        grid-column: 2 / span 2;
+      }
     }
 
     @media (min-width: 1024px) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+
+      > li:nth-child(4):nth-last-child(2) {
+        grid-column: 2 / span 2;
+      }
     }
   }
 

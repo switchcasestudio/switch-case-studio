@@ -1,0 +1,469 @@
+// The Content & Social Media world's lessons (contentWorld/lessons.js,
+// 2026-11-18): five demos on the shared lesson plate (`.bw-lesson`,
+// brandWorld.scss) with the shared controls (`.bw-ui`,
+// `.bw-lesson__chip`), as in the AI world (_aiLessons.scss). Each plate is
+// a size container, so a demo lays out by its tile, not the window. Light
+// plates (Plain words, Proof, Measure) and dark ones (First line, Rhythm)
+// alternate; mint marks what a reader can check, red what to cut, orange
+// the figure the lesson is about.
+
+$cl-ink: $promo-ink;
+$cl-cream: $white-color;
+$cl-orange: $orange-color;
+$cl-mint: $promo-mint;
+
+.cw-read,
+.cw-fold,
+.cw-proof,
+.cw-rhythm,
+.cw-tag {
+  container-type: inline-size;
+
+  --cl-bad: #b3261e;
+  --cl-good: #1f7a5c;
+  --cl-soft: rgba(20, 20, 20, 0.12);
+}
+
+.bw-lesson--dark:is(.cw-fold, .cw-rhythm) {
+  --cl-bad: #ff7a6b;
+  --cl-good: #{$cl-mint};
+  --cl-soft: rgba(254, 247, 237, 0.14);
+}
+
+// A text field on either plate; 16px on touch so iOS does not zoom.
+.cw-field {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 0.55rem 0.75rem;
+  border: 1.5px solid currentColor;
+  border-radius: 10px;
+  background: var(--cl-soft);
+  color: inherit;
+  font: inherit;
+  font-size: 0.95rem;
+  line-height: 1.45;
+  resize: none;
+
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  @media (pointer: coarse) {
+    font-size: 1rem;
+  }
+}
+
+// Sample chips: pushed to the end of a lesson's bar.
+.cw-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-left: auto;
+}
+
+// The figures a lesson adds up: a large number over its unit.
+.cw-sum {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+  margin: 0;
+
+  &--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  &--stack {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+  }
+
+  p {
+    display: grid;
+    gap: 0.2rem;
+    margin: 0;
+  }
+
+  b {
+    color: $cl-orange;
+    font-size: clamp(1.4rem, 6.5cqw, 2.6rem);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  span {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
+  .is-off b {
+    color: var(--cl-bad);
+  }
+
+  .is-good b {
+    color: var(--cl-good);
+  }
+}
+
+// On a light plate orange type is too thin a contrast for a figure this
+// size to carry alone, so the figures there are ink unless marked.
+.bw-lesson--light .cw-sum b {
+  color: $cl-ink;
+}
+
+.bw-lesson--light .cw-sum .is-off b {
+  color: var(--cl-bad);
+}
+
+.bw-lesson--light .cw-sum .is-good b {
+  color: var(--cl-good);
+}
+
+// Two panes side by side: what was written, and what is read from it.
+.cw-panes {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  min-height: 0;
+
+  @container (max-width: 560px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+// Both panes take the tile's spare height, so the two texts stay level.
+.cw-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-height: 0;
+
+  textarea {
+    flex: 1 1 8.5rem;
+    min-height: 8.5rem;
+  }
+
+  p.bw-ui__lab {
+    margin: 0;
+  }
+}
+
+/* ---- 01 Plain words ---- */
+.cw-read {
+  // The paragraph takes the height the tile has to spare.
+  &__text {
+    flex: 1 1 6.6rem;
+    min-height: 6.6rem;
+  }
+
+  // One bar a sentence, as long as its words; past twenty it is marked.
+  &__bars {
+    flex: none;
+    display: grid;
+    align-content: center;
+    gap: 0.3rem;
+    min-height: 1.2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 2rem;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+    }
+
+    i {
+      height: 10px;
+      border-radius: 5px;
+      background: var(--cl-soft);
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--w);
+        border-radius: 5px;
+        background: var(--cl-good);
+        transition: width 0.3s ease;
+      }
+    }
+
+    b {
+      font-weight: 600;
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+
+    .is-long i::before {
+      background: var(--cl-bad);
+    }
+
+    .is-long b {
+      color: var(--cl-bad);
+    }
+  }
+}
+
+/* ---- 02 First line ---- */
+.cw-fold {
+  &__ask {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  &__view {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.4rem;
+    min-height: 0;
+    padding: 0.9rem 1rem;
+    border: 1.5px solid currentColor;
+    border-radius: 14px;
+  }
+
+  &__src {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  &__line {
+    margin: 0;
+    font-size: clamp(1rem, 3.4cqw, 1.35rem);
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+
+    b {
+      font-weight: 700;
+    }
+  }
+
+  &__more {
+    margin: 0 0.3em;
+    color: $cl-orange;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  // What the cut hides: still there, struck through, for whoever taps.
+  &__rest {
+    opacity: 0.4;
+    text-decoration: line-through;
+  }
+}
+
+/* ---- 03 Proof ---- */
+.cw-proof {
+  &__lab {
+    margin: 0;
+  }
+
+  &__out {
+    flex: 1 1 8.5rem;
+    margin: 0;
+    min-height: 8.5rem;
+    padding: 0.55rem 0.75rem;
+    border: 1.5px solid currentColor;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    line-height: 1.45;
+    overflow-wrap: anywhere;
+
+    mark {
+      padding: 0 0.2em;
+      border-radius: 3px;
+      color: inherit;
+    }
+
+    .is-claim {
+      background: rgba(179, 38, 30, 0.16);
+      text-decoration: underline wavy var(--cl-bad);
+      text-underline-offset: 3px;
+    }
+
+    .is-fact {
+      background: $cl-mint;
+      font-weight: 700;
+    }
+  }
+}
+
+/* ---- 04 Rhythm ---- */
+.cw-rhythm {
+  &__ctls {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.6rem 1.25rem;
+
+    @container (max-width: 560px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__body {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1rem 1.5rem;
+    min-height: 0;
+
+    @container (max-width: 480px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  &__days,
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  &__days {
+    margin-bottom: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-align: center;
+    opacity: 0.7;
+  }
+
+  // Four weeks, a cell a day; a day's pieces sit in it as marks.
+  &__grid li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    height: clamp(1.5rem, 5.6cqw, 2.4rem);
+    border-radius: 6px;
+    background: var(--cl-soft);
+  }
+
+  i {
+    flex: none;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .is-post {
+    background: $cl-cream;
+  }
+
+  .is-article {
+    border-radius: 2px;
+    background: $cl-orange;
+  }
+
+  .is-email {
+    background: $cl-mint;
+  }
+
+  &__key {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.35rem;
+    margin: 0.5rem 0 0;
+    font-size: 0.75rem;
+    opacity: 0.85;
+
+    i:not(:first-child) {
+      margin-left: 0.6rem;
+    }
+  }
+}
+
+/* ---- 05 Measure ---- */
+.cw-tag {
+  &__name {
+    flex: 1 1 12rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  &__link {
+    display: grid;
+    gap: 0.35rem;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  // The link, with what the tag carries marked in it.
+  &__url {
+    padding: 0.7rem 0.85rem;
+    border: 1.5px solid currentColor;
+    border-radius: 10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: clamp(0.78rem, 2.4cqw, 0.92rem);
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+
+    // A value moves to the next line whole; only one wider than the box
+    // breaks inside.
+    mark {
+      display: inline-block;
+      max-width: 100%;
+      padding: 0 0.2em;
+      border-radius: 3px;
+      background: $cl-orange;
+      color: $cl-ink;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+  }
+
+  // What the report reads from it.
+  &__reads {
+    flex: 1 1 auto;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: center;
+    gap: 0.75rem;
+    margin: 0;
+
+    @container (max-width: 480px) {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    div {
+      display: grid;
+      gap: 0.15rem;
+      padding-left: 0.7rem;
+      border-left: 4px solid $cl-orange;
+    }
+
+    dt {
+      font-size: 0.78rem;
+      opacity: 0.8;
+    }
+
+    dd {
+      margin: 0;
+      font-size: clamp(1rem, 3.6cqw, 1.4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      overflow-wrap: anywhere;
+    }
+  }
+}

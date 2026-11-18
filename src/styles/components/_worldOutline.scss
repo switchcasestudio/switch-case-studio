@@ -162,6 +162,13 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
       background: $g5;
     }
 
+    // A console: ink, cream type (the AI world's monitoring, the Content
+    // world's report).
+    &.aw-tone--ink {
+      background: $ink;
+      color: $cream;
+    }
+
     // On a phone the HTML demos take their own height: at 4:3 the chat
     // clipped its answer under its buttons.
     @media (max-width: 599px) {
@@ -273,6 +280,16 @@ $bw-pin: '(min-width: 1024px) and (prefers-reduced-motion: no-preference)';
     min-height: 3.4em;
     border: 1.5px solid currentColor;
     border-radius: 16px 16px 16px 4px;
+  }
+
+  // What the answer was written from: a note's name, a voice's.
+  &__src {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.75;
   }
 
   &__pills {

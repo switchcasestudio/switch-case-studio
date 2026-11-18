@@ -2,6 +2,12 @@
 
 User-facing changes only; process detail lives in `.audit/summary.md`. Newest first.
 
+## 2026-11-18 · Content & Social Media, the fifth service (branch, not live)
+
+- **New service page `/services/content-social-media`**: the hero runs the five kinds of content (web page, article, email, social post, profile update); the stage is five lessons with a live demo each (Plain words, First line, Proof, Rhythm, Measure); six deliverables demos; work for Zahav Medspa, Renewed Bodyworks and ProDani Miami.
+- **New pricing page `/pricing/content-social-media`**: four packages on one board. The prices are a draft until the owner confirms them.
+- **Home, `/services`, `/pricing`**: a fifth card with its own poster ("Worth reading."); five cards sit three over two, the second row centered.
+
 ## 2026-10-30 · Unhurried in the WordPress.org directory
 
 - **Shop, Pro page, thank-you page**: the free theme's button goes to wordpress.org/themes/unhurried (approved 2026-10-09, 50+ active installations by 10-29). The GitHub zip stays as the fallback in the theme README.

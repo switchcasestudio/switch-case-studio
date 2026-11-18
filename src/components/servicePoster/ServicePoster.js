@@ -5,6 +5,7 @@ import * as InRegister from "./posters/InRegister";
 import * as BuiltToConvert from "./posters/BuiltToConvert";
 import * as Workflow from "./posters/Workflow";
 import * as BeTheAnswer from "./posters/BeTheAnswer";
+import * as WorthReading from "./posters/WorthReading";
 import "../../styles/components/servicePoster.scss";
 
 // Keyed by service slug (services.json). A slug with no poster renders nothing.
@@ -13,6 +14,7 @@ const POSTERS = {
   "web-development-mobile-apps": { n: 2, headline: "Built to convert.", tone: "ink", bg: "mint", ...BuiltToConvert },
   "ai-automation": { n: 3, headline: "Always on.", tone: "cream", bg: "ink", ...Workflow },
   "seo-ai-search": { n: 4, headline: "Be the answer.", tone: "ink", bg: "terra", ...BeTheAnswer },
+  "content-social-media": { n: 5, headline: "Worth reading.", tone: "ink", bg: "pink", ...WorthReading },
 };
 
 // The hero frame: this markup IS the static poster (SSR, no JS, reduced

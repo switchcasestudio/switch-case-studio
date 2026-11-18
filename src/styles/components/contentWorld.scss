@@ -1,0 +1,245 @@
+@import '../_variables.scss';
+
+// The Content & Social Media world (2026-11-18): the brand world's sheet
+// (brandWorld.scss) plus the outline worlds' shared sheet
+// (_worldOutline.scss), which holds everything the AI, SEO, Web and
+// Content worlds share. This file keeps only what is this world's own: its
+// first stage field (lavender), its bubbles field (orange, ink bubbles),
+// the kinds hero (_contentHero.scss), the lessons (_contentLessons.scss)
+// and the three demos the other worlds lack (`.cw-crop`, `.cw-mail`,
+// `.cw-report`).
+@import './worldOutline';
+@import './worldHero';
+
+.bw--content {
+  /* Process stage: the first field (lavender) is the static one, so the
+     SSR paint matches the pinned start. */
+  .bw-stage {
+    background: $g5;
+    color: $ink;
+  }
+
+  /* Bubbles: orange field, ink bubbles. */
+  .bw-bubbles {
+    background: $orange-color;
+    color: $ink;
+  }
+
+  .bw-bubbles__title {
+    color: $ink;
+  }
+
+  // The card's two colors; the face's ring takes the first.
+  .bw-bubble {
+    --bw-bubble: #{$ink};
+    --bw-bubble-ink: #{$cream};
+  }
+
+  // The HTML demos size their type to the card, not the window: three
+  // columns at 1024 are narrower than two at 1000.
+  .bw-grid__demo--tool {
+    container-type: inline-size;
+  }
+}
+
+@import './contentHero';
+@import './contentLessons';
+
+/* ---- Demos ---- */
+
+// Social posts: one frame, three shapes. The stage keeps its height, so
+// the pills under it never move when the shape changes.
+.cw-crop {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__stage {
+    flex: 1 1 auto;
+    display: grid;
+    place-items: center;
+    height: clamp(7.5rem, 46cqw, 11rem);
+    min-height: 0;
+  }
+
+  &__frame {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.4rem;
+    box-sizing: border-box;
+    height: 100%;
+    max-width: 100%;
+    padding: 0.6rem 0.7rem;
+    border-radius: 10px;
+    background: $cream;
+    color: $ink;
+    overflow: hidden;
+    transition: aspect-ratio 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  &__brand {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  &__line {
+    font-size: clamp(0.8rem, 5cqw, 1.05rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  &__where {
+    margin: 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  &__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  // The tile is blue: the pills read in cream, the pressed one is cream.
+  .aw-pill.is-on {
+    border-color: $cream;
+    background: $cream;
+    color: $ink;
+  }
+}
+
+// Email: the sender's name, typed, and the inbox row it becomes.
+.cw-mail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__lab {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  &__input {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.5rem 0.75rem;
+    border: 1.5px solid currentColor;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.5);
+    color: inherit;
+    font: inherit;
+    font-size: 1rem;
+
+    &:focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 2px;
+    }
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.1rem 0.75rem;
+    margin-top: 0.3rem;
+    padding: 0.6rem 0.75rem;
+    border-radius: 10px;
+    background: $cream;
+    font-size: 0.85rem;
+
+    b {
+      overflow: hidden;
+      font-weight: 700;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    span {
+      grid-column: 1;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    em {
+      grid-column: 2;
+      grid-row: 1;
+      font-size: 0.75rem;
+      font-style: normal;
+      opacity: 0.7;
+    }
+  }
+
+  &__body {
+    margin: 0;
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+}
+
+// The report: three links to one page; each tap is counted for its piece.
+.cw-report {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  padding: 1rem;
+
+  &__rows {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    li {
+      display: grid;
+      grid-template-columns: auto minmax(1.5rem, 1fr) 1.6rem;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    i {
+      position: relative;
+      height: 10px;
+      border-radius: 5px;
+      background: rgba(254, 247, 237, 0.16);
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: var(--w);
+        border-radius: 5px;
+        background: $orange-color;
+        transition: width 0.3s ease;
+      }
+    }
+
+    b {
+      font-variant-numeric: tabular-nums;
+      text-align: right;
+    }
+  }
+
+  &__msg {
+    margin: auto 0 0;
+    min-height: 2.9em;
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+}

@@ -323,6 +323,82 @@
           ]
         }
       ]
+    },
+    {
+      "id": "content-social-media",
+      "title": "Content & Social Media",
+      "subtitle": "Words, posts and emails that sound like you and get read.",
+      "tiers": [
+        {
+          "name": "Website Copy",
+          "price": 600,
+          "billing": "one-time",
+          "description": "The words for a small site, written in your voice and placed on the page.",
+          "benefits": [
+            { "text": "Written by a person, in your voice", "icon": "pen" },
+            { "text": "Every claim checked against a fact you can show", "icon": "check" },
+            { "text": "Work directly with the people writing it", "icon": "users" }
+          ],
+          "includes": [
+            "Discovery call to learn your business, your customers and how you talk",
+            "Up to 5 pages written: headline, body and call to action",
+            "A page title and meta description for each page",
+            "Placed on your site"
+          ]
+        },
+        {
+          "name": "Content Strategy Sprint",
+          "price": 900,
+          "billing": "one-time",
+          "description": "A plan you can run yourself or hand to us: how you sound, what to say and when.",
+          "benefits": [
+            { "text": "Written by a person, in your voice", "icon": "pen" },
+            { "text": "Every claim checked against a fact you can show", "icon": "check" },
+            { "text": "Work directly with the people writing it", "icon": "users" }
+          ],
+          "includes": [
+            "Discovery call to learn your business, your customers and how you talk",
+            "Voice guide: how you sound, with examples",
+            "Topic list drawn from the questions your customers ask",
+            "90-day content calendar"
+          ]
+        },
+        {
+          "name": "Social Starter",
+          "price": 750,
+          "billing": "monthly",
+          "description": "One platform, kept alive every week by the studio.",
+          "benefits": [
+            { "text": "Written by a person, in your voice", "icon": "pen" },
+            { "text": "Every claim checked against a fact you can show", "icon": "check" },
+            { "text": "Work directly with the people writing it", "icon": "users" }
+          ],
+          "includes": [
+            "12 posts a month on 1 platform",
+            "Captions written and images designed",
+            "Scheduled and posted on your account"
+          ]
+        },
+        {
+          "name": "Content & Social Partner",
+          "price": 1500,
+          "billing": "monthly",
+          "description": "Articles, email and social on one calendar, with a report on what each piece brought back.",
+          "benefits": [
+            { "text": "Written by a person, in your voice", "icon": "pen" },
+            { "text": "Every claim checked against a fact you can show", "icon": "check" },
+            { "text": "Work directly with the people writing it", "icon": "users" }
+          ],
+          "includes": [
+            "2 articles a month",
+            "1 email newsletter a month",
+            "20 social posts a month, written, designed, scheduled and posted",
+            "Tagged links on every piece",
+            "Monthly report"
+          ],
+          "badge": "Best value"
+        }
+      ]
     }
   ]
 }

@@ -62,5 +62,22 @@
       "Google & Meta ad management",
       "Conversion-rate optimization"
     ]
+  },
+  {
+    "icon": "faPenNib",
+    "title": "Content & Social Media",
+    "slug": "content-social-media",
+    "kicker": "Content",
+    "subTitle": "Words, posts and emails that sound like you and get read.",
+    "cta": "Explore the service →",
+    "description": "Website copy, articles, email newsletters and social media, planned on one calendar and written in your voice, then designed and posted by the studio. Every link is tagged, so a monthly report shows which piece sent the visit.",
+    "items": [
+      "Website copy, written and placed",
+      "Voice guide and a 90-day content calendar",
+      "Social posts written, designed, scheduled and posted",
+      "Articles with every fact linked to its source",
+      "Email newsletters",
+      "Tagged links and a monthly report"
+    ]
   }
 ]

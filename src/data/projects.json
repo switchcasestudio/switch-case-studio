@@ -31,7 +31,7 @@
       { "value": "−61%", "label": "product page DOM elements, 2,009 to 788" }
     ],
     "description": "Prodani Miami sells high-protein cakes on Shopify. We rebuilt the store as a bespoke theme on Dawn 16 in August, then relaunched it as v2 on 8 October: a calm champagne palette, a seven-cake menu, a box builder and subscriptions. The original theme and v2 went through the same instrument on the same day (five interleaved runs per page, cache disabled, headless Chrome at 1150 × 1000), so every figure here is measured, not estimated. Alongside the store we shaped the brand direction, packaging and trade show presence.",
-    "servicePages": ["web-development-mobile-apps", "graphic-design-brand-identity"],
+    "servicePages": ["web-development-mobile-apps", "graphic-design-brand-identity", "content-social-media"],
     "services": [
       { "label": "#Brand Direction" },
       { "label": "#Shopify Theme Development" },
@@ -226,7 +226,7 @@
       { "value": "0 → 9", "label": "pages Google is allowed to index, and pages in a sitemap" }
     ],
     "description": "A licensed massage therapist's Wix Studio site that Google was never allowed to read, rebuilt as a static Next.js site: 79% less homepage weight on mobile, 62% faster paint, SEO 61 to 100. Every page served meta robots noindex, the sitemap returned 404, and a site: search returned nothing. No page carried an h1, a meta description, a price or a set of opening hours. The served HTML of every page still advertised a fitness template's leftover copy at zero by zero pixels, invisible on screen and fully readable by crawlers. The rebuild publishes the eight services with their prices, both studios' hours, a page for each city, and redirects every old Wix slug to the page that replaced it. Live on renewedbodyworks.com since September 2026.",
-    "servicePages": ["web-development-mobile-apps", "seo-ai-search"],
+    "servicePages": ["web-development-mobile-apps", "seo-ai-search", "content-social-media"],
     "services": [
       { "label": "#Technical SEO Audit" },
       { "label": "#Design Direction" },
@@ -426,7 +426,7 @@
       { "value": "1 in 9", "label": "visits end in a book-appointment click (GA4, October 2026)" }
     ],
     "description": "Zahav Medspa competes in North Scottsdale aesthetics, where every rival buys the same keywords and runs the same ads. We rebuilt the brand, the site and the search foundation underneath it, then measured the result with Google's own tools. Lighthouse scores the site 100/100 on SEO and best practices and 99/100 on desktop performance. On mobile the homepage's main image went from 13.5 seconds to 4.1, and the page from 4.2 MB to 1.2. Twenty-five pages carried no H1 and thirty-five images had no alt text; both are now zero. Then Google responded. Across two 28-day Search Console windows, before and after the work, impressions rose 15% and the homepage moved from position 13.2 to 7.0, page two to page one. The practice ranks in the top two for \"medical spa troon north scottsdale\" and \"best medical spa near me\", and calls from its Google Business Profile rose from 57 in June to 78 in August, nearly triple August 2025's 27. One figure comes from the site's own analytics and is labeled as such: across July and August 2026, one visit in thirteen ended in a book-appointment click. We would rather publish numbers you can check than numbers you have to take on faith.",
-    "servicePages": ["graphic-design-brand-identity", "web-development-mobile-apps", "seo-ai-search"],
+    "servicePages": ["graphic-design-brand-identity", "web-development-mobile-apps", "seo-ai-search", "content-social-media"],
     "services": [
       { "label": "#Brand Design" },
       { "label": "#Brand Strategy" },

@@ -8,7 +8,7 @@ import { DiscoveryArt } from "./aiAutomation";
    repeats that tier's own `includes` line, shortened. */
 const stroke = { fill: "none", className: "sp-s-ink", strokeWidth: 7, strokeLinecap: "round", strokeLinejoin: "round" };
 
-const CallsArt = () => (
+export const CallsArt = () => (
   <>
     <rect x="50" y="70" width="200" height="150" rx="20" className="tsp-f-lilac" />
     <path d="M90 220L80 260L130 220" className="tsp-f-lilac" />
@@ -85,14 +85,14 @@ const AdsArt = () => (
     <path d="M300 200V236" {...stroke} strokeWidth="8" />
   </>
 );
-const ContentArt = () => (
+export const ContentArt = () => (
   <>
     <Sheet x={80} y={40} w={180} h={220} lines={[120, 140, 100, 130, 90, 110]} rotate={-3} />
     <Sheet x={150} y={60} w={180} h={220} lines={[120, 140, 100, 130, 90, 110]} rotate={4} />
     <Chip x={230} y={230} w={110} label="2 a month" fill="sp-f-terra" />
   </>
 );
-const EmailArt = () => (
+export const EmailArt = () => (
   <>
     <rect x="60" y="80" width="280" height="170" rx="14" className="sp-f-cream" stroke="#141414" strokeWidth="5" />
     <path d="M60 94L200 190L340 94" {...stroke} strokeWidth="7" />

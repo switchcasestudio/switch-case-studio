@@ -4,6 +4,7 @@ import * as brandIdentity from "./spreads/brandIdentity";
 import * as webDevelopment from "./spreads/webDevelopment";
 import * as aiAutomation from "./spreads/aiAutomation";
 import * as seoSearch from "./spreads/seoSearch";
+import * as contentSocial from "./spreads/contentSocial";
 import { packageSlug } from "../../data/fromPrice";
 import "../../styles/components/servicePoster.scss";
 import "../../styles/components/packageBoard.scss";
@@ -35,6 +36,7 @@ const BOARDS = {
   "web-development-mobile-apps": webDevelopment,
   "ai-automation": aiAutomation,
   "seo-ai-search": seoSearch,
+  "content-social-media": contentSocial,
 };
 
 export const hasPackageBoard = (serviceId) => Boolean(BOARDS[serviceId]);

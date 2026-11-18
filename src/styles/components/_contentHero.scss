@@ -1,0 +1,56 @@
+// The Content & Social Media world's hero: the five kinds of content on an
+// editor's desk (ContentHero.js, 2026-11-18). The frame, copy, captions,
+// log and motion are the worlds' shared hero (_worldHero.scss,
+// `world-hero`); the one-screen fit, the draw-in, the pills and the phone
+// layout are the kinds heroes' layer (_kindsHero.scss, `kinds-hero`), the
+// same as the Web, AI and SEO worlds'. Its own look (owner, 2026-10-27:
+// the heroes must not look alike): a sheet of notebook paper with a folded
+// corner and a margin, and the work's way drawn as an L, across to the
+// calendar and down to where it is published. Cream lines on black, orange
+// the one accent (owner, 2026-10-24).
+
+$cw-field: #000;
+$cw-orange: $orange-color;
+$cw-kinds: page, article, email, post, profile;
+
+.cw-hero {
+  @include world-hero($cw-orange, $cw-field);
+  @include kinds-hero(cw, $cw-orange, $cw-field, $cw-kinds);
+
+  // The sheet's margin and its three punch holes: faint, behind nothing.
+  &__margin {
+    fill: none;
+    stroke: rgba(254, 247, 237, 0.3);
+    stroke-width: var(--kh-line);
+  }
+
+  // The work's way: dashes that run toward the calendar, then down to the
+  // published card, while the hero is live (on screen, not paused, motion
+  // allowed), so Pause stops them too.
+  &__wire {
+    fill: none;
+    stroke: $cw-orange;
+    stroke-width: var(--kh-line);
+    stroke-linecap: round;
+    stroke-dasharray: 2 13;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    &.is-live &__wire {
+      animation: cw-wire 0.9s linear infinite;
+    }
+  }
+
+  // The pills sit under the sheet's caption.
+  @media #{$wh-wide} {
+    .cw-hero__picks {
+      top: 81%;
+    }
+  }
+}
+
+@keyframes cw-wire {
+  to {
+    stroke-dashoffset: -15;
+  }
+}
