@@ -60,26 +60,38 @@ const COPY = {
    motion/react variants it replaced server-rendered `opacity: 0`, and under
    Reduce Motion nothing ever animated the cards back in, so both indexes
    were blank. The static HTML now ships every card visible. */
-function PricingCard({ service, description, price, priced, index }) {
+/* The brick (owner, 2026-11-18, picked from four rendered layouts: "two wide
+   over three"). A count that does not fill rows of three puts its short row
+   FIRST and makes those cards wide, so every row runs edge to edge: five is
+   two wide over three, six is two rows of three. At tablet width (two
+   across) an odd count gives the first card the full row. The CSS reads
+   these classes (serviceIndexPage.scss, &__grid). A count of four or seven
+   leaves one card over and wants its own shape before it ships. */
+const shape = (index, count) =>
+  `${count % 3 === 2 && index < 2 ? ' svi-card--wide' : ''}${count % 2 === 1 && index === 0 ? ' svi-card--lead' : ''}`;
+
+function PricingCard({ service, description, price, priced, index, count }) {
   const itemRef = useRef(null);
   // The services index lands on the service page where one exists (same
   // rule as the home cards, navigation.js); the pricing index on the packages.
   const to = priced ? `/pricing/${service.slug}` : servicePath(service.slug);
   const explore = !priced && SERVICE_PAGES.includes(service.slug);
   return (
-    <li ref={itemRef} className="svi-card" style={{ '--i': index }}>
+    <li ref={itemRef} className={`svi-card${shape(index, count)}`} style={{ '--i': index }}>
       <Link to={to} className="svi-card__link">
         <span className="svi-card__meta">
           <span className="svi-card__kicker">{service.kicker}</span>
-          {/* One row of cards (1200px up) has room for the verb only; the
-              rest of the label stays in the link's name. */}
+          {/* A narrow text column has room for the verb only (the CSS hides
+              the rest there); the full label stays in the link's name. */}
           <span className="svi-card__cta">
             {explore ? (
               <>
                 Explore<span className="svi-card__cta-rest"> the service</span>
               </>
             ) : (
-              'See pricing'
+              <>
+                <span className="svi-card__cta-rest">See </span>pricing
+              </>
             )}
           </span>
           <span className="svi-card__rule" aria-hidden="true" />
@@ -182,6 +194,7 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
               price={variant === 'pricing' ? fromPrices(service.slug) : undefined}
               priced={variant === 'pricing'}
               index={index}
+              count={servicesData.length}
             />
           ))}
         </ul>

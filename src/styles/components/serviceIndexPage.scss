@@ -6,10 +6,10 @@
 // its lines (see .svi-card__title-mask).
 $svi-title-size: clamp(1.6rem, 1.9vw, 2.2rem);
 
-// From here up the cards stand in one row (the shelf, see &__grid), and a
-// card is a narrow column: smaller title, tighter padding, a square poster.
-$svi-shelf: 1200px;
-$svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
+// The brick (see &__grid): from $svi-brick the first cards of a short row
+// are wide, from $svi-flat every card lies flat (text left, poster right).
+$svi-brick: 1024px;
+$svi-flat: 1360px;
 
 // Shared by /services and /pricing (ServiceIndexPage). Copy differs per
 // route; layout is identical.
@@ -118,13 +118,21 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
   // $edge-pad gutter (not $max-width): the home teaser's cards are ~324px
   // wide at 1440 for that reason — a narrower, $max-width-capped column
   // wrapped card text onto extra lines and starved the poster of height.
-  // One column on phones, two across from 768px, three from 1024px, and
-  // from 1200px every service in ONE row (owner, 2026-11-18: three wide
-  // cards over two had "lost its charm"; the page is a single shelf of
-  // posters you take in at a glance, as it was with four). Under 1200 every
-  // card spans two tracks, so a row that is one card short sits in the
-  // middle (two over two over one, then three over two) and no card is left
-  // alone at the left edge.
+  //
+  // Five services since 2026-11-18, and five does not fill a grid. Owner,
+  // the same day: three wide cards over two had "lost its charm", five in
+  // one row were "too narrow, feel like a mistake not premeditated design";
+  // from four rendered layouts he picked the brick: TWO WIDE OVER THREE.
+  // The short row comes first and its cards are wider, so both rows run
+  // edge to edge and the uneven count reads as the pattern. Which cards are
+  // wide is decided in ServiceIndexPage.js (`svi-card--wide`, `--lead`), by
+  // count, so a sixth service simply makes two rows of three.
+  //   phones        one column
+  //   768 to 1023   two across; with an odd count the first card (`--lead`)
+  //                 takes the full row, lying flat
+  //   1024 up       six tracks: a card spans two, a wide card three
+  //   1360 up       every card lies flat (the forms are at the end of
+  //                 .svi-card)
   &__grid {
     padding: 2.5rem $edge-pad 8rem;
     list-style: none;
@@ -133,37 +141,25 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
 
     @media (min-width: 768px) {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) and (max-width: #{$svi-brick - 1px}) {
+      > .svi-card--lead {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (min-width: $svi-brick) {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
 
       > li {
         grid-column: span 2;
       }
-    }
 
-    @media (min-width: 768px) and (max-width: 1023px) {
-      > li:last-child:nth-child(odd) {
-        grid-column: 2 / span 2;
-      }
-    }
-
-    @media (min-width: 1024px) and (max-width: #{$svi-shelf - 1px}) {
-      grid-template-columns: repeat(6, minmax(0, 1fr));
-
-      > li:nth-child(4):nth-last-child(2) {
-        grid-column: 2 / span 2;
-      }
-    }
-
-    // The shelf: one row, a column per service, however many there are.
-    @media (min-width: $svi-shelf) {
-      grid-template-columns: none;
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-      gap: clamp(0.9rem, 1.2vw, 1.5rem);
-
-      > li {
-        grid-column: auto;
+      > .svi-card--wide {
+        grid-column: span 3;
       }
     }
   }
@@ -202,14 +198,6 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
       aspect-ratio: 3 / 4;
     }
 
-    // On the shelf the card takes the height its text and a square poster
-    // need: a 3:4 card this narrow left the poster a strip (the four-card
-    // row did that under 1200px). The row stretches every card to the
-    // tallest, and the poster sits at the foot, so tops and posters align.
-    @media (min-width: $svi-shelf) {
-      aspect-ratio: auto;
-    }
-
     &__link {
       flex: 1;
       border-radius: inherit;
@@ -224,10 +212,6 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
       @media (min-width: 768px) {
         height: 100%;
         box-sizing: border-box;
-      }
-
-      @media (min-width: $svi-shelf) {
-        padding: clamp(1.1rem, 1.5vw, 1.75rem);
       }
     }
 
@@ -270,19 +254,6 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
       color: $g6;
     }
 
-    // "Explore the service" is wider than a shelf column beside its kicker,
-    // so the shelf shows the verb and keeps the rest for screen readers.
-    &__cta-rest {
-      @media (min-width: $svi-shelf) {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        overflow: hidden;
-        clip-path: inset(50%);
-        white-space: nowrap;
-      }
-    }
-
     &__body {
       display: flex;
       flex-direction: column;
@@ -291,19 +262,11 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
       @media (min-width: 768px) {
         margin-top: auto;
       }
-
-      // The body fills the card between the rule and the poster, so titles
-      // start on one line and a price (below) can sit at its foot.
-      @media (min-width: $svi-shelf) {
-        flex: 1 1 auto;
-        margin-top: 0;
-      }
     }
 
-    // The mask reserves the title's lines wherever cards sit in a row
-    // (owner, 2026-10-22: "titles in the same row, like a notebook"): two
-    // at two columns, three at four, where "Web Development & Mobile Apps"
-    // needs them. Subtitles and prices then start on the same line.
+    // The mask reserves two title lines wherever upright cards sit in a row
+    // (owner, 2026-10-22: "titles in the same row, like a notebook"), so
+    // subtitles and prices start on the same line. A flat card needs none.
     &__title-mask {
       display: block;
       overflow: hidden;
@@ -314,15 +277,6 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
         min-height: calc(2.2 * #{$svi-title-size});
       }
 
-      // Four narrow columns from 1024 need three lines; from 1200 the
-      // longest name fits two again.
-      @media (min-width: 1024px) {
-        min-height: calc(3.25 * #{$svi-title-size});
-      }
-
-      @media (min-width: $svi-shelf) {
-        min-height: calc(2.2 * #{$svi-shelf-title});
-      }
     }
 
     &__title {
@@ -333,10 +287,6 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
       line-height: 1.05;
       letter-spacing: -0.03em;
       text-wrap: balance;
-
-      @media (min-width: $svi-shelf) {
-        font-size: $svi-shelf-title;
-      }
     }
 
     &__subtitle {
@@ -353,13 +303,6 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
       font-weight: 600;
       color: #fff;
       font-variant-numeric: tabular-nums;
-
-      // /pricing on the shelf: every "from" starts on the same line, with
-      // room under it for the monthly alternative some services carry.
-      @media (min-width: $svi-shelf) {
-        margin-top: auto;
-        min-height: 2.5rem;
-      }
     }
 
     // The monthly alternative, on its own line under the one-time price.
@@ -372,6 +315,8 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
     }
 
     &__price-from {
+      // "one-time" moves down whole if a column is ever too narrow.
+      white-space: nowrap;
       font-size: 0.8rem;
       font-weight: 400;
       color: rgba(255, 255, 255, 0.55);
@@ -381,10 +326,145 @@ $svi-shelf-title: clamp(1.25rem, 1.5vw, 1.75rem);
 
     .service-poster {
       margin-top: 0.3rem;
+    }
 
-      @media (min-width: $svi-shelf) {
-        flex: 0 0 auto;
-        aspect-ratio: 1;
+    // ── The card's three forms ──
+    // Upright 3:4 (above) is the tablet card. The two below replace it.
+
+    // Flat: text on the left, a square poster on the right, the title at
+    // the top of its column and the line (and price) at the foot. The poster
+    // stretches with the card when the text needs more height; its own
+    // background fills the extra (servicePoster.scss).
+    @mixin flat($poster, $title) {
+      aspect-ratio: auto;
+
+      .svi-card__link {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto minmax(0, 1fr);
+        column-gap: clamp(1.25rem, 2vw, 2rem);
+        row-gap: 1.1rem;
+        padding: clamp(1.4rem, 1.9vw, 1.9rem);
+      }
+
+      .svi-card__meta {
+        grid-column: 1;
+        grid-row: 1;
+        margin-bottom: 0;
+      }
+
+      .svi-card__body {
+        grid-column: 1;
+        grid-row: 2;
+        margin-top: 0;
+      }
+
+      .svi-card__title-mask {
+        min-height: 0;
+        margin-bottom: auto;
+      }
+
+      .svi-card__title {
+        font-size: $title;
+      }
+
+      .service-poster {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: stretch;
+        flex: none;
+        width: $poster;
+        min-height: $poster;
+        aspect-ratio: auto;
+        margin-top: 0;
+      }
+    }
+
+    // "Explore the service" or "See pricing" beside a kicker is wider than
+    // a narrow text column: show one word ("Explore", "Pricing"), keep the
+    // rest in the link's name.
+    @mixin short-cta {
+      .svi-card__cta-rest {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+    }
+
+    // Tablet: the lead card, alone on the first row.
+    @media (min-width: 768px) and (max-width: #{$svi-brick - 1px}) {
+      &--lead {
+        @include flat(clamp(190px, 27vw, 260px), 2rem);
+      }
+    }
+
+    // The brick's wide cards.
+    @media (min-width: $svi-brick) {
+      &--wide {
+        @include flat(clamp(170px, calc(22vw - 55px), 360px), clamp(1.5rem, 2.35vw, 2.6rem));
+
+        .svi-card__subtitle {
+          max-width: 30ch;
+          font-size: clamp(0.95rem, 1.15vw, 1.15rem);
+        }
+      }
+    }
+
+    // Up to 1100 a wide card's text column is 237 to 255px, a hair more
+    // than "Design" beside "Explore the service"; every card there shows
+    // the one word, so a row never mixes the two labels by accident.
+    @media (min-width: $svi-brick) and (max-width: 1099px) {
+      @include short-cta;
+    }
+
+    // The brick's other cards, under $svi-flat: upright, but as tall as
+    // their text and a 4:3 poster need (a 3:4 card this narrow left the
+    // poster a strip; a square one made the row twice the height of the
+    // wide row above it). The body fills the card, so titles start on one
+    // line and a price sits at its foot, level across the row.
+    @media (min-width: $svi-brick) and (max-width: #{$svi-flat - 1px}) {
+      &:not(.svi-card--wide) {
+        aspect-ratio: auto;
+
+        .svi-card__link {
+          padding: 1.5rem;
+        }
+
+        .svi-card__body {
+          flex: 1 1 auto;
+          margin-top: 0;
+        }
+
+        .svi-card__title {
+          font-size: clamp(1.35rem, 1.9vw, 1.7rem);
+        }
+
+        .svi-card__title-mask {
+          min-height: calc(2.2 * clamp(1.35rem, 1.9vw, 1.7rem));
+        }
+
+        .svi-card__price {
+          margin-top: auto;
+          min-height: 2.5rem;
+        }
+
+        .service-poster {
+          flex: 0 0 auto;
+          aspect-ratio: 4 / 3;
+        }
+      }
+    }
+
+    // From $svi-flat the other cards lie flat too.
+    @media (min-width: $svi-flat) {
+      &:not(.svi-card--wide) {
+        // The poster grows faster than the card, so the text column never
+        // drops under 191px: "from $3,500 one-time" is 184px on one line.
+        @include flat(clamp(146px, calc(20vw - 126px), 250px), clamp(1.3rem, 1.5vw, 1.75rem));
+        @include short-cta;
       }
     }
   }
