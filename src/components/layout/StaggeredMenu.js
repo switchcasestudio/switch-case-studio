@@ -8,7 +8,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import {
   SERVICE_LINKS,
-  PROJECT_LINKS,
+  MENU_PROJECT_LINKS,
   LEGAL_LINKS,
 } from '../../data/navigation';
 import useScrollLock from '../../hooks/useScrollLock';
@@ -56,11 +56,12 @@ const MenuAccordion = ({ id, label, labelTo, items, isOpen, onToggle, onNavClick
         <li key={item.to} className="sm-accordion-subitem">
           <Link
             to={item.to}
-            className="sm-accordion-link"
+            className={`sm-accordion-link${item.all ? ' sm-accordion-link--all' : ''}`}
             aria-current={current(item.to, true)}
             onClick={onNavClick}
           >
             {item.label}
+            {item.all && <span aria-hidden="true"> →</span>}
           </Link>
         </li>
       ))}
@@ -436,7 +437,7 @@ const StaggeredMenu = ({
               id="projects"
               label="Case Studies"
               labelTo="/projects"
-              items={PROJECT_LINKS}
+              items={MENU_PROJECT_LINKS}
               isOpen={openAccordion === 'projects'}
               onToggle={() => toggleAccordion('projects')}
               onNavClick={onClose}

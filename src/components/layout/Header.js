@@ -7,7 +7,7 @@ gsap.registerPlugin(ScrollTrigger);
 import HeaderCTA from "./HeaderCTA";
 import HeaderLogo from "../ui/HeaderLogo";
 import StaggeredMenu from "./StaggeredMenu";
-import { PROJECT_LINKS, SERVICE_LINKS } from "../../data/navigation";
+import { MENU_PROJECT_LINKS, SERVICE_LINKS } from "../../data/navigation";
 import useReducedMotion from "../../hooks/useReducedMotion";
 import "../../styles/components/header.scss";
 
@@ -233,11 +233,12 @@ const Header = () => {
         <li className="submenu__item" key={link.to} role="none">
           <Link
             to={link.to}
-            className="submenu__link"
+            className={`submenu__link${link.all ? " submenu__link--all" : ""}`}
             role="menuitem"
             onClick={() => setActiveSubmenu(null)}
           >
             {link.label}
+            {link.all && <span aria-hidden="true"> →</span>}
           </Link>
         </li>
       ))}
@@ -360,7 +361,7 @@ const Header = () => {
                   Case Studies
                   <span className="nav_caret" aria-hidden="true" />
                 </Link>
-                {renderSubmenu("projects", PROJECT_LINKS)}
+                {renderSubmenu("projects", MENU_PROJECT_LINKS)}
               </li>
 
               <li className="nav_item">

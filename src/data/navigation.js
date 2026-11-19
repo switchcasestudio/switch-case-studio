@@ -33,6 +33,29 @@ export const PROJECT_LINKS = projects.map((project) => ({
   to: `/projects/${project.slug}`,
 }));
 
+// The Case Studies menu (header dropdown and the phone menu's accordion):
+// five picked case studies in the owner's order, then the way to all of
+// them (owner, 2026-11-18: "re-arrange the list and shorten it"; the menu
+// had every project, 14 rows). Labels come from projects.json; a slug that
+// is not there stops the build here, where a filter would drop it quietly.
+// The count in the last row follows the data.
+const MENU_PROJECT_SLUGS = [
+  'sha-design-studio',
+  'prodani-miami',
+  'zahav-medspa',
+  'unhurried',
+  'florida-green-improvements',
+];
+
+export const MENU_PROJECT_LINKS = [
+  ...MENU_PROJECT_SLUGS.map((slug) => {
+    const project = projects.find((p) => p.slug === slug);
+    if (!project) throw new Error(`navigation.js: no project "${slug}" in projects.json`);
+    return { label: project.title, to: `/projects/${slug}` };
+  }),
+  { label: `See all ${projects.length} case studies`, to: '/projects', all: true },
+];
+
 // The footer's "Explore" column. Lived in Footer.js as a component-local array
 // until 2026-08-05 — the same shape that let the service names drift there once
 // already. Any new top-level route gets added HERE, not in a component.

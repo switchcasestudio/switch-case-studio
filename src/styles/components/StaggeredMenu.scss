@@ -248,6 +248,13 @@
     color: $g4;
     outline: none;
   }
+
+  // The last row under Case Studies: the way to all of them.
+  &--all {
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 0.25em;
+  }
 }
 
 /* ── Secondary section (CTA + legal) ──────────── */
