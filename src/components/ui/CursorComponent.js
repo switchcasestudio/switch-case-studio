@@ -26,6 +26,43 @@ const BASE = 25; // resting circle (owner, 2026-09-10: circle everywhere)
 const ROUND = '50%'; // the resting / no-morph shape
 const PRESSED = 17; // VE-12 press tighten
 const MORPH_PAD = 10; // breathing room around a wrapped element
+// The ring is a border, and a border must not crowd text (owner, 2026-11-18:
+// "the border is too close to the text"). A button or a card has padding
+// and MORPH_PAD is plenty; a row or a text link has none beside its text,
+// and the ring's inner edge stood 3px from the letters. `padsFor` measures
+// how far the element's text sits from its own box and widens the ring on
+// that axis until the text is this far inside it. Vertical is smaller: a
+// line box already carries the room over and under its letters.
+const TEXT_GAP_X = 10;
+const TEXT_GAP_Y = 5;
+const RING = 2; // the ring's border width (cursorComponent.scss)
+const PAD_MAX = 48;
+
+const padsFor = (box) => {
+  const r = box.getBoundingClientRect();
+  const walker = document.createTreeWalker(box, NodeFilter.SHOW_TEXT);
+  const range = document.createRange();
+  let node;
+  let seen = 0;
+  let x = Infinity;
+  let y = Infinity;
+  while ((node = walker.nextNode()) && seen < 60) {
+    if (!node.nodeValue.trim()) continue;
+    const parent = node.parentElement;
+    // Skip visually hidden labels (a 1px clipped box) and text in drawings.
+    if (!parent || parent.offsetWidth <= 2 || parent.closest('svg')) continue;
+    range.selectNodeContents(node);
+    for (const t of range.getClientRects()) {
+      if (t.width < 1 || t.height < 1) continue;
+      seen += 1;
+      x = Math.min(x, t.left - r.left, r.right - t.right);
+      y = Math.min(y, t.top - r.top, r.bottom - t.bottom);
+    }
+  }
+  if (!seen) return [MORPH_PAD, MORPH_PAD];
+  const need = (inset, gap) => Math.min(PAD_MAX, Math.max(MORPH_PAD, 2 * (gap + RING - inset)));
+  return [need(x, TEXT_GAP_X), need(y, TEXT_GAP_Y)];
+};
 
 // Elements whose hover wraps a LARGER box than the hovered control: the FAQ
 // button wraps its whole card, so the ring keeps the card's 1rem corners and
@@ -58,6 +95,8 @@ const CursorComponent = () => {
     const dot = dotRef.current;
     let parked = true; // VE-12: hidden until the first real mousemove
     let morphTarget = null; // element the cursor is currently wrapped around
+    let padX = MORPH_PAD; // the ring's extra width and height around it
+    let padY = MORPH_PAD;
     let hoverTarget = null; // element behind a no-morph (hollow circle) hover
     let pressed = false;
     let lastX = 0;
@@ -99,7 +138,7 @@ const CursorComponent = () => {
     const morphTick = () => {
       if (!morphTarget) return;
       const r = morphTarget.getBoundingClientRect();
-      const pad = MORPH_PAD;
+      const pad = Math.max(padX, padY);
       if (
         !morphTarget.isConnected ||
         r.width === 0 ||
@@ -114,8 +153,8 @@ const CursorComponent = () => {
       }
       xTo(r.left + r.width / 2);
       yTo(r.top + r.height / 2);
-      wTo(r.width + MORPH_PAD);
-      hTo(r.height + MORPH_PAD);
+      wTo(r.width + padX);
+      hTo(r.height + padY);
     };
 
     const onMove = (e) => {
@@ -219,13 +258,14 @@ const CursorComponent = () => {
       const box = target.closest(WRAP_BOX) || target;
       if (morphTarget !== box) {
         morphTarget = box;
-        // Concentric corners: the ring sits MORPH_PAD/2 outside the element,
+        [padX, padY] = padsFor(box);
+        // Concentric corners: the ring sits half its pad outside the element,
         // so its radius is the element's radius PLUS that offset. Copying the
         // raw radius left a visibly tighter corner on rounded cards (owner,
         // 2026-09-10: the services-card border didn't follow the panel).
         const radius = parseFloat(getComputedStyle(box).borderTopLeftRadius) || 0;
         gsap.to(dot, {
-          borderRadius: `${radius > 0 ? radius + MORPH_PAD / 2 : 3}px`,
+          borderRadius: `${radius > 0 ? radius + Math.min(padX, padY) / 2 : 3}px`,
           duration: 0.25,
           ease: 'power2.out',
           overwrite: 'auto',

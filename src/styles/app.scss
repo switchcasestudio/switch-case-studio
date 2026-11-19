@@ -380,3 +380,32 @@ main:focus {
   white-space: nowrap;
   border: 0;
 }
+
+// ── Focus rings and text (owner, 2026-11-18: "the border is too close to
+// the text ... fix it across the app") ──
+// The browser's own ring hugs the box, and a text link's box IS its text.
+// `:where` keeps these at zero specificity, so any component rule wins.
+:where(a, button, summary, [role='button'], [tabindex]):focus-visible {
+  outline-offset: $ring-gap-inline;
+}
+
+// Standalone text links and rows that have no focus rule of their own and
+// no padding beside their text. One that gets its own rule leaves this list.
+:where(
+    summary,
+    .footer-cta__email,
+    .footer-nav__viewall,
+    .hero-note__link,
+    .contact-left__email,
+    .contact-left__cta,
+    .pg-head__work,
+    .pg-outro__guide-link,
+    .shop__project-link,
+    .ap-journal__all,
+    .journal__next,
+    .journal__browse,
+    .partners-gate__link,
+    .pb__example
+  ):focus-visible {
+  outline-offset: $ring-gap;
+}

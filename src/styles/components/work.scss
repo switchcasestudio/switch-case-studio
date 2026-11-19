@@ -10,7 +10,9 @@
   // ─── Inline highlighted keywords ───
   .highlight-block {
     display: inline-block;
-    padding: 0 0.2rem;
+    // In em, so the gap grows with the statement's type: 0.2rem was 3px
+    // between the orange box and its letters.
+    padding: 0 0.4em;
     font-weight: 300;
     border: 1px solid $orange-color;
     color: $white-color;
@@ -157,7 +159,7 @@
 
       .highlight-block {
         display: inline;
-        padding: 0.05em 0.2em;
+        padding: 0.05em 0.4em;
       }
     }
 
@@ -272,7 +274,7 @@
 
       a:focus-visible {
         outline: 2px solid $g6;
-        outline-offset: 4px;
+        outline-offset: $ring-gap;
       }
     }
 

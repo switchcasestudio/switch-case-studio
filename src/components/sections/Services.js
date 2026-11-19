@@ -242,6 +242,11 @@ const EndDeck = () => (
   </span>
 );
 
+// How far a card's name block drifts while the card crosses the screen. The
+// card's padding is 32px: at 36 the name stood 4px outside its own card at
+// each end of the pass (border audit, 2026-11-18); 20 leaves it 12px inside.
+const DRIFT = 20;
+
 const Services = () => {
   const listRef = useRef(null);
 
@@ -277,9 +282,9 @@ const Services = () => {
       gsap.utils.toArray(".services__item-body", list).forEach((body) => {
         gsap.fromTo(
           body,
-          { x: 36 },
+          { x: DRIFT },
           {
-            x: -36,
+            x: -DRIFT,
             ease: "none",
             scrollTrigger: {
               containerAnimation: pan,

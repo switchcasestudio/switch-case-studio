@@ -197,6 +197,13 @@ $svi-flat: 1360px;
     }
 
     &__link {
+      // The card clips and the link fills it: the ring goes inside, where
+      // it can be seen (see services.scss, the home cards).
+      &:focus-visible {
+        outline: 2px solid $g6;
+        outline-offset: -5px;
+      }
+
       flex: 1;
       border-radius: inherit;
       display: flex;

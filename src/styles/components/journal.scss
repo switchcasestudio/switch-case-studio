@@ -47,6 +47,12 @@
     // column scrolls, so it clips anything outside its padding box.
     padding-left: 1.25rem;
     margin-left: -1.25rem;
+    // The same room on the other three sides, for the rows' focus rings
+    // (6px off, 2px wide): the right side of every ring was cut off.
+    padding-block: 10px;
+    padding-right: 10px;
+    margin-block: -10px;
+    margin-right: -10px;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
@@ -102,7 +108,7 @@
 
     &:focus-visible {
       outline: 2px solid $g6;
-      outline-offset: 4px;
+      outline-offset: $ring-gap;
     }
 
     // One-line rows were 30px tall on an iPad (2026-11-10).

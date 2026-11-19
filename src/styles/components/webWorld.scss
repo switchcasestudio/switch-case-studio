@@ -210,9 +210,10 @@
       font-weight: 600;
     }
 
+    // Inside the tab, 2px in: at 4px the ring sat 1px from "Account".
     button:focus-visible {
       outline: 2px solid $ink;
-      outline-offset: -4px;
+      outline-offset: -2px;
     }
   }
 }

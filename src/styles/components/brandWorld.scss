@@ -1494,7 +1494,7 @@ $t-rule: rgba(20, 20, 20, 0.18);
 
     &:focus-visible {
       outline: 2px solid $promo-ink;
-      outline-offset: 4px;
+      outline-offset: $ring-gap;
       border-radius: 14px;
     }
 
@@ -1583,8 +1583,14 @@ $t-rule: rgba(20, 20, 20, 0.18);
 
   @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
     // Until the script pins it (or with no script), the line scrolls sideways.
+    // A scroller clips on both axes, so the cards' focus rings (6px off,
+    // 2px wide) were cut off over and under: the view pads by 10px and
+    // takes it back in margin.
     &__view {
       overflow-x: auto;
+      padding-block: 10px;
+      margin-top: calc(clamp(1.5rem, 3vw, 2.5rem) - 10px);
+      margin-bottom: -10px;
     }
 
     &.is-panning &__view {

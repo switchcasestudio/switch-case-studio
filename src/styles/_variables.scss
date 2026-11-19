@@ -34,6 +34,17 @@ $promo-ink: #141414; // ink (CTA, body text on light)
 
 // Size variables
 $max-width: 1200px;
+
+// How far a focus ring stands from text that has no padding of its own
+// beside it (owner, 2026-11-18: "the border is too close to the text ...
+// fix it across the app"). A row, a standalone text link and an underline
+// field use $ring-gap; a link inside a sentence uses the smaller one, since
+// a wider ring would sit on the next word. A control with its own padding
+// (a button, a pill, a card) keeps its 2 to 4px: its padding is the gap.
+// The custom cursor's hover ring keeps the same promise in
+// CursorComponent.js (TEXT_GAP).
+$ring-gap: 6px;
+$ring-gap-inline: 3px;
 // Edge-to-edge sections (owner, 2026-09-09): the services intro + menu run the
 // full page width with only this gutter at the edges, and split into two
 // columns separated by $col-gap. Both files use both tokens so the heading,

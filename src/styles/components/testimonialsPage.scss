@@ -149,7 +149,7 @@
 
     &:focus-visible {
       outline: 2px solid $g6;
-      outline-offset: -2px;
+      outline-offset: $ring-gap;
     }
   }
 
@@ -267,7 +267,7 @@
 
       &:focus-visible {
         outline: 2px solid $g6;
-        outline-offset: 4px;
+        outline-offset: $ring-gap;
       }
     }
 

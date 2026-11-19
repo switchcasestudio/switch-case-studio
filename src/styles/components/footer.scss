@@ -105,6 +105,10 @@
     white-space: nowrap;
     font-size: clamp(1rem, 5.4vw, 4.75rem);
     line-height: 1;
+    // At line-height 1 the letters' own box is taller than the link's, so
+    // the focus ring ran through the tops and tails; a little block padding
+    // makes the box the letters' size.
+    padding-block: 0.12em;
     letter-spacing: -0.01em;
     color: #fef7ed;
     text-decoration: none;

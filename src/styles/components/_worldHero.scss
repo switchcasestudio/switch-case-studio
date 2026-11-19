@@ -120,6 +120,11 @@ $wh-line: 2px;
     &:focus-visible {
       color: $g5;
     }
+
+    // A text link with no padding beside it: the ring stands off.
+    &:focus-visible {
+      outline-offset: $ring-gap;
+    }
   }
 
   /* ---- The drawing ---- */

@@ -131,7 +131,7 @@ $hero-pad-y: 1.5rem;
 
     &__link:focus-visible {
       outline: 2px solid $g6;
-      outline-offset: 4px;
+      outline-offset: $ring-gap;
     }
 
     // The booking link as the site's primary button (header.scss
