@@ -10,16 +10,27 @@
   display: flex;
   flex-direction: row;
   gap: 1rem;
-  // Its own row, top-left, ~40% wide (owner reference, 2026-09-12): the
-  // wordmark heads the index instead of spanning the page.
-  width: clamp(320px, 40vw, 640px);
+  // Its own row, top-left (owner reference, 2026-09-12): the wordmark
+  // heads the index. Bigger since 2026-11-18 (owner: "very mild and small
+  // ... I would still want to see it bigger"): it runs from the gutter to
+  // just short of the seal on the preview's corner, at every width where
+  // the preview shares its row (71vw - 200px keeps 24px clear from 1025 to
+  // 1920; caseStudyIndex.scss `--slot-w` is the other half of that sum).
+  $w: clamp(320px, calc(71vw - 200px), 1100px);
+  width: $w;
   margin: 5rem 0 0 $edge-pad;
   align-self: flex-start; // .projects centers its children
   // Reserve height so the IO-gated wordmark can't shift the index below when
-  // it lazy-mounts: the warp's font-size tracks container width (~0.247 of
-  // it), so 40vw wide reserves ~9.9vw. Column (mobile) reserved below.
-  min-height: clamp(80px, 9.9vw, 160px);
+  // it lazy-mounts. TextPressure sets a word's font-size to its box width
+  // over half its letter count, and the two words share the row equally, so
+  // "Case" (the taller) is a quarter of the row less the gap. Column
+  // (mobile) reserved below.
+  min-height: calc((#{$w} - 1rem) / 4);
 
+  // Equal boxes on purpose: "Studies" (7 letters) sets at 57% of "Case"
+  // (4), and that step in size is what parts the two words at rest, when
+  // every letter stands a wide gap from the next. Set at one size they read
+  // "C A S ES T U D I E S" (tried and dropped, 2026-11-18).
   &__word {
     flex: 1;
     min-width: 0;

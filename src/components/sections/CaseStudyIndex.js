@@ -122,8 +122,6 @@ const CaseStudyIndex = () => {
   return (
     <div className="csi" ref={rootRef}>
       <div className="csi__intro">
-        <p className="csi__intro-title">Selected work</p>
-        <p className="csi__intro-meta">{featured.length} projects</p>
         <Link to="/projects" className="csi__viewall">
           All case studies
         </Link>

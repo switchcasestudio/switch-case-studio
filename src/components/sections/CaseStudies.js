@@ -77,7 +77,7 @@ const CaseStudies = () => {
       </div>
 
       <h2 id="projects-heading" className="sr-only">
-        Selected work
+        Case studies
       </h2>
 
       {/* Typed index (owner's CV-style reference) replaced the tile grid on

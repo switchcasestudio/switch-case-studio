@@ -113,8 +113,10 @@
 // phones so it never crowds the screen.
 .home-invader {
   --pi-size: clamp(180px, 26vw, 360px);
-  // Top room clears the Services cards as their pinned pan lets go.
-  padding: clamp(3rem, 8vw, 8rem) $edge-pad 0;
+  // Top room clears the Services cards as their pinned pan lets go. Trimmed
+  // 2026-11-18 (owner: "an issue with the spacing here"): at 8vw the walker
+  // had 169px of black over it and 80px under it; now the two are level.
+  padding: clamp(2rem, 2.5vw, 2.5rem) $edge-pad 0;
 }
 
 @keyframes pi-reward-in {

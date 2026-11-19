@@ -17,7 +17,9 @@
   // title row on the right (owner, 2026-09-12).
   --slot-w: clamp(260px, 19vw, 380px);
   // No bottom padding: the logos strip follows closely (owner, 2026-09-12).
-  padding: clamp(3rem, 6vw, 6rem) max($edge-pad, 10vw) 0;
+  // Top halved 2026-11-18 with the bigger wordmark above: the preview is
+  // centered on the wordmark's row and the columns start sooner.
+  padding: clamp(1.5rem, 3vw, 3rem) max($edge-pad, 10vw) 0;
   box-sizing: border-box;
   position: relative;
   display: grid;
@@ -29,32 +31,17 @@
   text-align: left;
 
   // Desktop grid: row 1 = the preview (rises into the title row), row 2 =
-  // intro line, row 3 = the three headed columns.
-  // Intro is one line across the top of the grid: title, count, link.
+  // the link to the full page, row 3 = the three headed columns.
+  // The intro is that link alone, under the preview's right edge (owner,
+  // 2026-11-18: "I don't think we need to repeat ourselves with saying
+  // selected work 14 projects"; the wordmark above already says it).
   &__intro {
     grid-column: 1 / -1;
     grid-row: 2;
     min-width: 0;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: flex-end;
     align-items: baseline;
-    gap: 0.5rem 1.5rem;
-  }
-
-  &__intro-title {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: #fff;
-  }
-
-  &__intro-meta {
-    margin: 0;
-    margin-right: auto;
-    font-size: 0.95rem;
-    font-weight: 300;
-    color: rgba(255, 255, 255, 0.55);
   }
 
   // A text link in the services-CTA register, not a pill: the pill read as a
@@ -234,17 +221,11 @@
     grid-template-rows: none;
     row-gap: 2rem;
 
+    // The intro is only the "All case studies" link, and phones get
+    // `&__more` under the short list for that.
     &__intro,
-    &__group {
-      grid-column: 1;
-      grid-row: auto;
-    }
-    &__intro {
-      display: block;
-    }
     &__slot,
-    &__group,
-    &__viewall {
+    &__group {
       display: none;
     }
 

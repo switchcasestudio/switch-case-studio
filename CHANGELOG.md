@@ -7,6 +7,7 @@ User-facing changes only; process detail lives in `.audit/summary.md`. Newest fi
 - **New service page `/services/content-social-media`**: the hero runs the five kinds of content (web page, article, email, social post, profile update); the stage is five lessons with a live demo each (Plain words, First line, Proof, Rhythm, Measure); six deliverables demos; work for Zahav Medspa, Renewed Bodyworks and ProDani Miami.
 - **New pricing page `/pricing/content-social-media`**: four packages on one board. The prices are a draft until the owner confirms them.
 - **Home, `/services`, `/pricing`**: a fifth card with its own poster ("Worth reading."). `/services` and `/pricing` lay the five out as two wide cards over three, each card with its text on the left and its poster on the right; laptops keep the three lower cards upright, tablets show one wide card over two rows of two.
+- **Home, case studies**: the "Case Studies" title is one and a half times bigger; the "Selected work, 14 projects" line under it is gone; less empty space around the walking invader.
 
 ## 2026-10-30 · Unhurried in the WordPress.org directory
 
