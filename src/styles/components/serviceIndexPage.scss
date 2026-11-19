@@ -28,23 +28,21 @@ $svi-flat: 1360px;
     @media (max-width: 768px)  { padding: 5rem 1.5rem 4rem; }
   }
 
-  // Page-head pattern (_page-head.scss, 2026-09-26): lavender kicker, Inter
-  // title, quiet lede. The lavender second line and SCS Display left with it.
+  // Page-head pattern (_page-head.scss): lavender kicker, all-caps Inter
+  // title, nothing under it. The lavender second line and SCS Display left
+  // on 2026-09-26, the lede on 2026-11-18.
   &__kicker {
     @include page-kicker;
   }
 
   &__title {
     @include page-title;
-    margin-bottom: 1.75rem;
   }
 
-  &__lede {
-    @include page-lede;
-  }
-
-  &__lede-link {
-    margin: 1rem 0 0;
+  // The way to the prices, under the closing call (it was in the head until
+  // the head became eyebrow + h1 only, 2026-11-18).
+  &__bottom-link {
+    margin: 0.75rem 0 0;
 
     a {
       display: inline-flex;

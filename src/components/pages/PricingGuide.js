@@ -158,12 +158,6 @@ export const PricingGuide = ({ serviceId, serviceSlug }) => {
         <h1 id="pg-title" className="pg-h1 pg-animate">
           {service.title}
         </h1>
-        <p className="pg-sub pg-animate">{service.subtitle}</p>
-        {workPath && (
-          <Link to={workPath} className="pg-head__work pg-animate">
-            See the work, not just the price
-          </Link>
-        )}
       </header>
 
       {/* A service with a package board (PackageBoard.js) compares its tiers
@@ -216,6 +210,16 @@ export const PricingGuide = ({ serviceId, serviceSlug }) => {
         {/* Each service links its cost guide (SEO audit fix 10, 2026-10-09):
             price searches rank long guides, and the guide is where these
             packages are compared with the market. */}
+        {/* A service page and its pricing page link each other (owner,
+            2026-10-22). This link sat in the head until the head became
+            eyebrow + h1 only (2026-11-18). */}
+        {workPath && (
+          <p className="pg-outro__work">
+            <Link to={workPath} className="pg-head__work">
+              See the work, not just the price
+            </Link>
+          </p>
+        )}
         {service.costGuide && (
           <p className="pg-outro__guide">
             <span className="pg-outro__guide-kicker">Cost guide</span>

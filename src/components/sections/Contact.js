@@ -335,6 +335,12 @@ const Contact = ({ headingTag: HeadingTag = 'h2' }) => {
         <div className="contact-grid">
           {/* ---------- Form (first) ---------- */}
           <div className="contact-right">
+            {/* On /contact this block is the page head: eyebrow + h1, like
+                every other page (owner, 2026-11-18). On the home page it is
+                a section and keeps its h2 alone. */}
+            {HeadingTag === 'h1' && (
+              <p className="contact-right__kicker contact-animate">Start a project</p>
+            )}
             <HeadingTag className="contact-right__heading contact-animate">
               Contact us
             </HeadingTag>

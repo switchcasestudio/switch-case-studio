@@ -72,14 +72,19 @@ $wh-line: 2px;
     @include page-kicker;
   }
 
+  // All caps like every page h1 since 2026-11-18 (_page-head.scss); the
+  // line and buttons under it stay (owner). Caps are about a fifth wider
+  // than the sentence case they replace, so the size steps down to keep
+  // each title on the same number of lines in its 32% column, and the
+  // column, not a ch cap, wraps it.
   &__title {
     font-family: $font-text;
-    font-size: clamp(2.4rem, 3.9vw, 4rem);
+    font-size: clamp(2.1rem, 3.35vw, 3.5rem);
     font-weight: 800;
     line-height: 1;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
     color: $white-color;
-    max-width: 12ch;
     margin: 0;
     text-wrap: balance;
   }

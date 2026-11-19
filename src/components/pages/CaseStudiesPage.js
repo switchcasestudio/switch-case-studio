@@ -81,10 +81,6 @@ const CaseStudiesPage = () => {
         <header className="projects-page__header">
           <p className="projects-page__kicker page-head-animate">Portfolio</p>
           <h1 className="projects-page__title page-head-animate">Selected work</h1>
-          <p className="projects-page__lede page-head-animate">
-            {projectsData.length} projects, every one built from scratch, most with a
-            number you can check.
-          </p>
         </header>
 
         <div className="pt">

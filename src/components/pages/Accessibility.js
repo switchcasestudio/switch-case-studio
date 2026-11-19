@@ -9,6 +9,7 @@ const Accessibility = () => {
         description="Switch Case Studio's commitment to digital accessibility and the standards we follow."
         path="/accessibility"
       />
+      <p className="legal-page__kicker">Legal</p>
       <h1>Accessibility Statement</h1>
       <span className="last-updated">Last Updated: January 8, 2026</span>
 

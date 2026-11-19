@@ -28,11 +28,6 @@
 
   &__title {
     @include page-title;
-    margin-bottom: 1.5rem;
-  }
-
-  &__lede {
-    @include page-lede;
   }
 
   // ── Bottom CTA ──

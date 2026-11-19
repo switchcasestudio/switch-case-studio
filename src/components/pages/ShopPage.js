@@ -56,10 +56,6 @@ const ShopPage = () => (
     <header className="shop__head">
       <p className="shop__kicker">Shop</p>
       <h1>Things we made, and time we share.</h1>
-      <p className="shop__lede">
-        Themes and tools you can install today, and an hour with the studio when you want
-        to learn how it is done.
-      </p>
     </header>
 
     {GROUPS.map((group) => (

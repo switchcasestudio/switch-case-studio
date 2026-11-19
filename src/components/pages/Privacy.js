@@ -10,6 +10,7 @@ const Privacy = () => {
         description="How Switch Case Studio collects, uses, and protects your personal information."
         path="/privacy"
       />
+      <p className="legal-page__kicker">Legal</p>
       <h1>Privacy Policy</h1>
       <span className="last-updated">Last Updated: {PRIVACY_UPDATED}</span>
 

@@ -10,6 +10,7 @@ const Terms = () => {
         description="The terms governing your use of the Switch Case Studio website and services."
         path="/terms"
       />
+      <p className="legal-page__kicker">Legal</p>
       <h1>Terms of Use</h1>
       <span className="last-updated">Last Updated: {TERMS_UPDATED}</span>
 

@@ -25,8 +25,10 @@ const COPY = {
     kicker: 'Services',
     titleTop: 'What we do,',
     titleBottom: 'shown not told.',
-    lede: 'Five services, one studio. Pick one to see the work; the packages and prices are a page away.',
-    ledeLink: { to: '/pricing', label: 'Compare packages and prices' },
+    // /services shows no prices; this is its one-tap route to them (UX
+    // audit, 2026-11-10). It sat in the head until 2026-11-18, when the
+    // head became eyebrow + h1 only; it closes the page now.
+    bottomLink: { to: '/pricing', label: 'Compare packages and prices' },
     bottomHeading: 'Not sure which service you need?',
     bottomBody: `Book a ${BOOK_CALL_KIND}; we'll figure it out together.`,
   },
@@ -39,7 +41,6 @@ const COPY = {
     kicker: 'Pricing',
     titleTop: 'What it costs,',
     titleBottom: 'package by package.',
-    lede: 'Pick a service to see what each package includes and where its price starts. Every starting price is on the page.',
     bottomHeading: 'Not sure which package you need?',
     bottomBody: `Book a ${BOOK_CALL_KIND}; we'll figure it out together.`,
   },
@@ -144,18 +145,6 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
             <br />
             {c.titleBottom}
           </h1>
-          <p className="service-index__lede page-head-animate">
-            {c.lede}
-          </p>
-          {/* /services shows no prices; this is its one-tap route to them
-              (UX audit, 2026-11-10). */}
-          {c.ledeLink && (
-            <p className="service-index__lede-link page-head-animate">
-              <Link to={c.ledeLink.to}>
-                {c.ledeLink.label} <span aria-hidden="true">→</span>
-              </Link>
-            </p>
-          )}
         </header>
 
         {/* Phones, /pricing only: the four "from" prices in one screen. The
@@ -204,6 +193,13 @@ const ServiceIndexPage = ({ variant = 'pricing' }) => {
           <h2 className="service-index__bottom-heading">{c.bottomHeading}</h2>
           <p className="service-index__bottom-body">{c.bottomBody}</p>
           <BookCallCta className="service-index__bottom-btn" />
+          {c.bottomLink && (
+            <p className="service-index__bottom-link">
+              <Link to={c.bottomLink.to}>
+                {c.bottomLink.label} <span aria-hidden="true">→</span>
+              </Link>
+            </p>
+          )}
         </div>
       </article>
     </>

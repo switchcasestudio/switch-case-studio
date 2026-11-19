@@ -24,19 +24,18 @@
 
 .pg-h1 {
   @include page-title;
-  margin-bottom: 1.25rem;
-}
-
-.pg-sub {
-  @include page-lede;
 }
 
 // The way to the service's own page, where it has one (PricingGuide.js).
+// In the outro since 2026-11-18 (the head is eyebrow + h1 only).
+.pg-outro__work {
+  margin: 1rem 0 0;
+}
+
 .pg-head__work {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  margin-top: 0.75rem;
   color: inherit;
   font-size: 1rem;
   font-weight: 500;

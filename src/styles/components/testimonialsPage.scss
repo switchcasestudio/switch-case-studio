@@ -24,11 +24,6 @@
 
   &__title {
     @include page-title;
-    margin-bottom: 2rem;
-  }
-
-  &__lede {
-    @include page-lede;
   }
 
   // ── Bottom CTA ──

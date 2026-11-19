@@ -12,25 +12,18 @@
   color: #fff;
   font-family: $font-text;
 
+  // Eyebrow + h1 only (2026-11-18). No 760px cap any more: "AND TIME WE
+  // SHARE." in caps is wider than that, and the page column wraps it.
   &__head {
-    max-width: 760px;
     margin-bottom: clamp(56px, 8vw, 96px);
 
     h1 {
       @include page-title;
-      margin-bottom: 0.35em;
     }
   }
 
   &__kicker {
     @include page-kicker;
-  }
-
-  &__lede {
-    font-size: clamp(17px, 1.6vw, 20px);
-    opacity: 0.75;
-    max-width: 52ch;
-    margin: 0;
   }
 
   &__group {

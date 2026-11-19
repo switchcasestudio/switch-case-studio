@@ -17,12 +17,8 @@ const NotFoundPage = () => (
       path="/404"
       noindex
     />
-    <p className="not-found__code">404</p>
+    <p className="not-found__kicker">Error 404</p>
     <h1>This page doesn't exist.</h1>
-    <p className="not-found__text">
-      The link may be old, or the page moved. Everything we ship is one click
-      away.
-    </p>
     <Link to="/" className="not-found__cta">
       Back to home
     </Link>

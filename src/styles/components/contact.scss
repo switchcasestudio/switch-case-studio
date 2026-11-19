@@ -1,5 +1,8 @@
 @use '../variables' as *;
 @use '../mixins' as *;
+// Namespaced: the partial imports the variables itself, and a second
+// global copy of them is an error under @use.
+@use '../page-head' as ph;
 
 /* ==================================================================
  * Contact Section (contact-2 port)
@@ -313,6 +316,21 @@
     letter-spacing: 0.02em;
     color: $white-color;
     line-height: 1;
+    margin: 0 0 3rem;
+
+    @media (min-width: 1024px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  // /contact: the block is the page head, so it wears the site's eyebrow
+  // and page title (2026-11-18). The home section's h2 keeps the rule above.
+  &__kicker {
+    @include ph.page-kicker;
+  }
+
+  h1#{&}__heading {
+    @include ph.page-title;
     margin: 0 0 3rem;
 
     @media (min-width: 1024px) {

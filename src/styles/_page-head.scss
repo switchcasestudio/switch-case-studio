@@ -2,7 +2,8 @@
 
 // Page hero header, ONE definition (owner, 2026-09-26: "I love this header,
 // let's normalize the rest"). The pattern is the About page's own head
-// (.ap-head): a lavender uppercase kicker, an Inter title, a quiet lede.
+// (.ap-head): a lavender kicker and an Inter title. `page-lede` stays for
+// the pricing board's sub-lines and any text that is not a page head.
 // Every page hero @includes these; SCS Display no longer sets any page h1
 // (it stays on the brand marks only: footer wordmark, About marquee and
 // scrub heading). Per-page files may follow an include with their own
@@ -21,9 +22,32 @@
 
 // 2026-10-23 (owner: "not bold enough, the hierarchy is not there"): the
 // title went from Inter 500 at 56px to Inter 800 at 68px (1440), tracked
-// tighter; the lede stays quiet and a step smaller so the three levels read
-// as three. Kicker unchanged. Contact keeps its own, already 800, head.
+// tighter.
+// 2026-11-18 (owner: "I want an eyebrow + CAPITALIZE, big, bold font. only
+// eyebrow + H1. no need for other text", picked ALL CAPS over title case
+// from a rendered pair): a page head is the eyebrow and an all-caps h1,
+// nothing under it. Every page h1 includes this, About's and /contact's
+// too; the blog keeps its reader, the home page its hero. A service hero
+// and a case study keep the line under their h1 (owner, the same day) and
+// take the caps. Caps are wider and taller than the sentence case they
+// replace, so: no `max-width` in ch (the page's own column wraps the
+// title; 16ch broke "PACKAGE BY PACKAGE." in two), line-height 1 and not
+// under it (a comma on line one hit the T below at 0.95).
 @mixin page-title {
+  font-family: $font-text;
+  font-size: clamp(2.25rem, 4.9vw, 4.9rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+}
+
+// A section's title inside a page (About's h2 heads): the sentence-case
+// title the page h1 had until 2026-11-18. Not for an h1.
+@mixin section-title {
   font-family: $font-text;
   font-size: clamp(2.25rem, 5.2vw, 4.25rem);
   font-weight: 800;

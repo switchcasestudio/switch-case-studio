@@ -8,10 +8,6 @@ import BookCallCta from '../ui/BookCallCta';
 import { BOOK_CALL_KIND } from '../../data/cta';
 import '../../styles/components/testimonialsPage.scss';
 
-// The lede's count follows the data, so a new review can't leave it stale.
-const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
-const CLIENT_COUNT = COUNT_WORDS[testimonialsData.length] ?? String(testimonialsData.length);
-
 /* /reviews (/testimonials until 2026-11-13; 2026-09-27, owner: "update the presentation"): one voice at
  * a time. The pull-quote set large, the person, the full review at reading
  * size, and, where the review has a case study on this site, the client's
@@ -95,10 +91,6 @@ const ReviewsPage = () => {
             <br />
             Real results.
           </h1>
-          <p className="testimonials-page__lede page-head-animate">
-            {CLIENT_COUNT} clients in their own words. Where the work is on this site, the measured
-            figure from their case study sits next to the words.
-          </p>
         </header>
 
         <div
