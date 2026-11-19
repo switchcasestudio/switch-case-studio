@@ -1,5 +1,148 @@
 [
   {
+    "slug": "what-small-business-homepage-should-include",
+    "title": "What Should a Small Business Homepage Include?",
+    "excerpt": "A practical homepage checklist for small businesses: explain the offer, earn trust, show the next step, and remove what gets in the way.",
+    "kicker": "Web Design",
+    "category": "Web Design",
+    "author": "Moses Atia Poston",
+    "authorRole": "Founder",
+    "date": "2026-11-19",
+    "readingTime": "5 min read",
+    "coverImage": "/images/journal/what-small-business-homepage-should-include.webp",
+    "imageAlt": "A brass compass resting on an open paper map beside a camera.",
+    "tags": [
+      "Homepage Design",
+      "UX",
+      "Small Business"
+    ],
+    "featured": false,
+    "body": [
+      {
+        "type": "paragraph",
+        "text": "A small business homepage is not a company scrapbook. It is the front desk. A visitor arrives with a question, a little skepticism, and usually several other tabs open. The page has to explain what the business does, show why it is credible, and make the next step obvious. Anything that delays those jobs is decoration until proven otherwise."
+      },
+      {
+        "type": "paragraph",
+        "text": "That does not mean every homepage should use the same template. A bakery, a contractor, and a software consultant need different evidence and different actions. The useful structure is shared, but the content should reflect how the customer actually chooses."
+      },
+      {
+        "type": "heading",
+        "text": "Start with a clear promise"
+      },
+      {
+        "type": "paragraph",
+        "text": "The first screen should answer three questions: What do you offer? Who is it for? What should I do next? A headline such as \"Welcome to our website\" answers none of them. A better headline names the outcome or service in language a customer would use. The supporting line can add the audience, location, specialty, or one useful constraint."
+      },
+      {
+        "type": "paragraph",
+        "text": "Clarity is not the enemy of personality. The personality belongs in the words, type, color, photography, and pacing. The offer still needs to be legible before the visitor has to interpret the art direction."
+      },
+      {
+        "type": "heading",
+        "text": "Give the page one primary action"
+      },
+      {
+        "type": "paragraph",
+        "text": "Choose the action that moves a serious visitor forward: book a consultation, request an estimate, view the menu, check availability, or shop the collection. Put that action in the first screen and repeat it where the page naturally resolves a question. Use a specific label. \"Request an estimate\" carries more information than \"Learn more.\""
+      },
+      {
+        "type": "paragraph",
+        "text": "A secondary action can serve people who are not ready, such as viewing work or reading about the process. It should look secondary. When five buttons compete with equal weight, the page has avoided making a decision and handed the problem to the visitor."
+      },
+      {
+        "type": "heading",
+        "text": "Put proof close to the promise"
+      },
+      {
+        "type": "paragraph",
+        "text": "Do not make visitors scroll through a manifesto before they see evidence. Put the most relevant proof near the claim it supports. That might be a short testimonial, recognizable client names, a license, years in business, review context, project photography, or a measured result. Use only proof you can verify, and give enough context for it to mean something."
+      },
+      {
+        "type": "paragraph",
+        "text": "A row of logos can establish familiarity. A concise case-study line can do more by showing the problem and the change. In our [Renewed Bodyworks rebuild](/projects/renewed-bodyworks), for example, the homepage went from 187 network requests to 28 while the rebuilt site also made services, prices, hours, and locations visible. The useful lesson is not the number alone. It is that credibility comes from what the site reveals and how reliably it works."
+      },
+      {
+        "type": "heading",
+        "text": "Show the main services as choices"
+      },
+      {
+        "type": "paragraph",
+        "text": "The homepage should introduce the main ways to work with the business, then send each visitor to the right detail page. Use customer-facing names and one plain sentence for each service. An internal department name is not useful navigation. Neither is a dense list of every possible deliverable."
+      },
+      {
+        "type": "paragraph",
+        "text": "For a service business, three to six clear choices are usually easier to scan than a wall of capabilities. Each choice should lead somewhere specific. The homepage creates orientation; the service page handles depth, objections, scope, and conversion. Our [Web Development & Mobile Apps service](/services/web-development-mobile-apps) follows that division: the homepage introduces the capability, while the service page explains the work."
+      },
+      {
+        "type": "heading",
+        "text": "Explain what happens next"
+      },
+      {
+        "type": "paragraph",
+        "text": "Uncertainty stops good leads. A short process section can remove it. Tell people what happens after they contact you, what information you need, and when they should expect a response. If the business has important boundaries, say them plainly. Service area, minimum engagement, appointment model, lead time, and who the work is for can qualify a visitor without sounding defensive."
+      },
+      {
+        "type": "heading",
+        "text": "Include the practical business details"
+      },
+      {
+        "type": "paragraph",
+        "text": "A local business homepage should make its location or service area easy to find. Depending on the business, visitors may also need hours, phone, email, accessibility details, parking information, or an emergency contact path. Put complete contact details in the footer and repeat the most important ones where they help a decision."
+      },
+      {
+        "type": "paragraph",
+        "text": "The technical identity matters too. [Google recommends consistent site naming and WebSite structured data on the homepage](https://developers.google.com/search/docs/appearance/site-names) to help its systems understand the preferred site name. That markup does not rescue vague positioning, but it keeps the business identity coherent for search engines as well as people."
+      },
+      {
+        "type": "heading",
+        "text": "Use structure people can scan"
+      },
+      {
+        "type": "paragraph",
+        "text": "A homepage needs a meaningful page title, one clear main heading, descriptive section headings, readable contrast, useful alternative text, and controls that work with a keyboard. This is not a compliance garnish. It is the basic structure that helps more people understand and use the page. [W3C explains that headings communicate page organization and support in-page navigation](https://www.w3.org/WAI/tutorials/page-structure/headings/)."
+      },
+      {
+        "type": "paragraph",
+        "text": "The same discipline improves ordinary scanning. A visitor should be able to read only the headings and still understand the offer, proof, choices, and next step. On a phone, the primary action should remain obvious without a desktop-sized menu, a full-screen pop-up, or a hero image that pushes the useful content below the fold."
+      },
+      {
+        "type": "heading",
+        "text": "Remove what has not earned its space"
+      },
+      {
+        "type": "paragraph",
+        "text": "Common homepage clutter includes autoplay video with no purpose, sliders that hide the main message, vague superlatives, stock counters, old awards, social feeds, and pop-ups that arrive before the visitor has read a sentence. Some of these elements can work. None deserves a place by default."
+      },
+      {
+        "type": "quote",
+        "text": "A homepage is finished when every section helps someone understand, trust, or act.",
+        "cite": "Switch Case Studio"
+      },
+      {
+        "type": "heading",
+        "text": "A practical homepage checklist"
+      },
+      {
+        "type": "list",
+        "items": [
+          "A clear statement of what the business offers and who it serves",
+          "One primary action with a specific label",
+          "Relevant proof placed near the claims it supports",
+          "Clear paths to the main services or products",
+          "A short explanation of what happens next",
+          "Location, service area, hours, and contact details where relevant",
+          "Descriptive headings, accessible controls, and useful image text",
+          "A fast mobile experience without avoidable interruptions"
+        ]
+      },
+      {
+        "type": "paragraph",
+        "text": "The best homepage is not the one with the most sections. It is the one that helps the right visitor reach a confident next step with the least unnecessary effort. Start with the decision the customer needs to make, then build the page backward from that."
+      }
+    ]
+  },
+  {
     "slug": "logo-file-formats-small-business",
     "title": "Which Logo File Formats Does Your Business Need?",
     "seoTitle": "Logo File Formats for Small Businesses",
